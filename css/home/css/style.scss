@@ -1,0 +1,152 @@
+header{
+    nav{
+        .smallFont{
+            font-size: 12px;
+            .badge{
+                margin-left: 5px;
+                background-color: #ed1c24;
+            }
+        }
+        a{
+            cursor:pointer;
+        }
+    }
+}
+.star {
+    font-size: x-large;
+    display: inline;
+    color: gray;
+}
+.star:last-child {
+    margin-right: 0;
+}
+.star:before {
+    content:'\2605';
+}
+.star.on {
+    color: gold;
+}
+.star.half:after {
+    content:'\2605';
+    color: gold;
+    position: absolute;
+    margin-left: -20px;
+    width: 10px;
+    overflow: hidden;
+}
+
+.userImg > .userAvatar{
+    display: inline-block;
+}
+.userImg > .userAvatar >img{
+        width: 25px;
+    border-radius:10px;
+    margin-right: 10px;
+}
+.searchAndSortingSection{
+    
+    .SearchBox{
+                margin: 0 20%;
+                border: 1px solid green;
+                display: flex;
+                padding: 5px 0;
+                border-radius: 5px;
+                padding-left: 5px;
+        
+            .tagItems{
+                flex: 0;
+                white-space: nowrap;
+				margin-right:2px;
+                display: flex;
+                align-items: center;
+                
+                .removeTagIcon{
+                        margin-left: 8px;
+                        cursor: pointer;
+                    
+                    &:after{
+                            content: "x";
+                            padding: 0px 2px;
+                    }
+                }
+            }   
+        
+            .searchWrapper{
+                input {
+                    background-color: inherit;
+                    
+                }
+                flex: 1;
+                display: inline-block;
+                position: relative;
+                
+                .searchBoxInput{
+                    border: 0;
+                    outline: none;
+                }
+                
+                .closeAutoComplete{
+                    right: 0;
+                    display: inline-block;
+                }
+                
+                .autoCompleteContainer{
+                        position: absolute;
+                        border: 1px solid black;
+                        border-top: 0;
+                        top: 28px;
+                        right: 0;
+                        left: -5px;
+                        background-color: white;
+                    
+                        .autoCompeleteItem{
+                            padding: 5px 15px;
+                            font-size: 14px;
+                            font-family: 'Source Sans Pro', sans-serif;
+                            font-weight: 100;
+                            cursor: pointer;
+                            &:hover{
+                                background-color: #F1F1F1;
+                                
+                            }    
+                        }
+					
+                }
+            }
+    }
+    .searchByCategories{
+        cursor: pointer;
+    }
+    .searchEmployessTxtBox{
+            height: 46px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px
+    }
+    font-weight: bold;
+   
+    .arrowDown,.arrowUp{
+        font-size: 10px;
+        vertical-align: baseline;
+    }
+}
+
+#peopleTable{
+    margin-top:40px; 
+    
+    table > thead > tr{
+        background-color: #F7F7F7;
+        border-top:2px solid #ddd;
+        cursor: pointer;
+        
+        th {
+        white-space: nowrap;
+        }  
+    }
+    table > tbody >tr {
+        td{
+            border: 1px solid #ddd;
+        }
+    }
+}

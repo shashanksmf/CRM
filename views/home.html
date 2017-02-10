@@ -1,0 +1,135 @@
+
+<div class="container-fluid" >
+    <!-- modal PopUp -->
+    <userdetail ng-show="config.showUserPopUp"></userdetail>
+    <comapnydetail ng-show="config.showCompanyDetailPopUp"></comapnydetail>
+    <!-- modul PopUp end -->
+	<div class="row">
+        <header>
+           <nav class="navbar navbar-default">
+                <a class="navbar-brand">
+                    UpSail CRM
+                </a>
+               <a class="navbar-brand smallFont">
+                    People<span class="badge">84</span>
+                </a>
+               <a class="navbar-brand smallFont">
+                    Companies<span class="badge">84</span>
+                </a>
+               <a class="navbar-brand smallFont">
+                    Statistics
+                </a>
+               <a class="navbar-brand smallFont">
+                    Settings
+                </a>
+           </nav>
+        </header>
+        <div class="container searchAndSortingSection">
+        
+            <div class="SearchBox">
+              <!-- custom search -->
+
+            <span ng-repeat="tag in tagSearchedItems track by $index" class="tagItems label label-info">
+                {{tag.searchItem}}
+                
+                <span data-role="remove" class="removeTagIcon" ng-click=deleteSearchedTag(tag,$index)></span>
+            </span>
+                
+            <div class="searchWrapper">    
+                <input ng-change="seachText(searchInput)" ng-model="searchInput" my-enter="autoCompleteListItem(searchInput,false,'')" class="searchBoxInput" />
+                <div class="closeAutoComplete"></div>
+                <div ng-show="showAutoComplete" class="autoCompleteContainer">
+                <!--    //ng-repeat="(key,value) in list" ng-if="key==list.foundIn"-->
+                    <div ng-repeat="list in listdata track by $index" class="autoCompeleteItem">
+<!--                        <div ng-click="autoCompleteListItem(list[list.foundIn],list.id)" ng-style="list.foundIn == 'name' && {'font-weight':'bold'}">{{list[list.foundIn]}}</div>-->
+                        <!-- list[list.foundIn.split(',')[0]] -->
+                        <div ng-click="autoCompleteListItem(searchInput,list.id,list)">
+                            <span ng-style="list.foundIn.split(',')[0] =='name' && {'font-weight':'bold'}">{{list.name}}</span> 
+                            <span ng-style="list.foundIn.split(',')[0] =='title' && {'font-weight':'bold'}">{{list.title}}</span>
+                            <span ng-style="list.foundIn.split(',')[0] =='industry' && {'font-weight':'bold'}">{{list.industry}}</span>
+                            <span ng-style="list.foundIn.split(',')[0] =='location' && {'font-weight':'bold'}">{{list.location}}</span>
+                            <span ng-style="list.foundIn.split(',')[0] =='company' && {'font-weight':'bold'}">{{list.Company.name}}</span>
+
+                        </div>
+                    </div>
+                </div>
+
+                     <!-- custom search End -->
+                </div>
+           </div>
+	 
+	</div>
+        
+        
+  <section id="peopleTable" ng-click="showAutoComplete=false">
+           <div class="container">
+               <div class="row">
+           
+             <table class="table">
+    <thead>
+      <tr>
+        <th ng-click="sortBy('name')">Name
+          <span class="arrowDown" ng-show="propertyName == 'name'  && reverse == false">&#9660;</span>
+          <span class="arrowUp" ng-show="(propertyName == 'name'   && reverse == true) || propertyName !== 'name' ">&#9650;</span>
+          </th>
+        <th  ng-click="sortBy('title')">Title
+            <span class="arrowDown" ng-show="propertyName == 'title'  && reverse == false">&#9660;</span>
+            <span class="arrowUp" ng-show="(propertyName == 'title'   && reverse == true) || propertyName !== 'title' ">&#9650;</span>
+          </th>
+        <th ng-click="sortBy('industry')">Industry
+            <span class="arrowDown" ng-show="propertyName=='industry' && reverse == false">&#9660;</span>
+            <span class="arrowUp" ng-show="(propertyName=='industry'   && reverse == true) || propertyName !== 'industry' ">&#9650;</span>
+          </th>
+        <th ng-click="sortBy('location')">Location
+            <span class="arrowDown" ng-show="propertyName == 'location' && reverse == false" >&#9660;</span>
+            <span class="arrowUp" ng-show="(propertyName == 'location'  && reverse == true) || propertyName !== 'location' ">&#9650;</span>      
+          </th>
+          <th ng-click="sortBy('company')">Company
+            <span class="arrowDown" ng-show="propertyName == 'company' && reverse == false">&#9660;</span>
+            <span class="arrowUp" ng-show="(propertyName=='company'    && reverse == true) || propertyName !== 'company' ">&#9650;</span>
+          </th>  
+        <th>ratings</th>  
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="empl in employees |  orderBy:propertyName:reverse " ng-if="emplId.length>0 ? emplId.indexOf(empl.id): true" 
+          ng-show="tagSearchedItems.length==0">
+         
+        <td class="userImg">
+            <div class="userAvatar"><img src="img/default-avatar.png"></div>
+            <span ng-click="showUserDetail(empl.id)" > {{empl.name}}</span></td>
+        <td>{{empl.title}}</td>
+        <td><span class="label " ng-class="{'label-success':empl.industry=='Finance'||empl.industry=='IT','label-warning':empl.industry=='Development'||empl.industry=='Health tech','label-info':empl.industry=='Real-Estate'}">{{empl.industry}}</span></td>
+          <td >{{empl.location}}</td>
+          <td ng-click="showCompanyDetail(empl.CompanyId)">{{empl.Company.name}}</td>
+          <td>
+            <span class="stars" >
+                      <span class="star " ng-repeat="stars in empl.emplRatings track by $index" ng-class="{'on':stars == 'full','half':stars=='half'}" ></span>
+                  
+            </span>
+          </td>
+      </tr>
+        <tr ng-show="tagSearchedItems.length>0" ng-repeat="empl in tagSearchedDetails  | unique:'id'|  orderBy:propertyName:reverse" ng-if="emplId.length>0 ? emplId.indexOf(empl.id): true">
+         
+        <td class="userImg">
+                <div class="userAvatar"><img src="img/default-avatar.png"></div>
+            <span ng-click="showUserDetail(empl.id)" > {{empl.name}}</span></td>
+        <td>{{empl.title}}</td>
+        <td><span class="label " ng-class="{'label-success':empl.industry=='Finance'||empl.industry=='IT','label-warning':empl.industry=='Development'||empl.industry=='Health tech','label-info':empl.industry=='Real-Estate'}">{{empl.industry}}</span></td>
+          <td >{{empl.location}}</td>
+          <td ng-click="showCompanyDetail(empl.CompanyId)">{{empl.Company.name}}</td>
+          <td>
+            <span class="stars" >
+                      <span class="star " ng-repeat="stars in empl.emplRatings track by $index" ng-class="{'on':stars == 'full','half':stars=='half'}" ></span>
+                  
+            </span>
+          </td>
+      </tr>
+      
+    </tbody>
+  </table>
+                       </div>
+           </div>
+        </section>
+</div>
+    </div>
