@@ -46,13 +46,13 @@ header{
 .searchAndSortingSection{
     
     .SearchBox{
-                margin: 0 20%;
-                border: 1px solid green;
+                margin: 10px;
                 display: flex;
                 padding: 5px 0;
                 border-radius: 5px;
                 padding-left: 5px;
         
+
             .tagItems{
                 flex: 0;
                 white-space: nowrap;
@@ -72,10 +72,22 @@ header{
             }   
         
             .searchWrapper{
-                input {
+               .searchBoxInput {
+                    width: 100%;
+                    border: medium none;
+                    font-size: 14px;
+                    margin: 0;
+                    border: 1px solid #e5e6e7;
+                    border-radius: 1px;
+                    color: inherit;
+                    display: block;
+                    padding: 6px 12px;
+                    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+                    width: 100%;
+                    font-size: 14px;
                     background-color: inherit;
-                    
                 }
+                
                 flex: 1;
                 display: inline-block;
                 position: relative;

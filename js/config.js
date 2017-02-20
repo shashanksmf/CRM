@@ -28,10 +28,10 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         }
               )
         .state('dashboards.home',{
-        url:"/home",
-        templateUrl:"views/home.html",
-        controller:"homeCtrl"
-        
+            url:"/home",
+            templateUrl:"views/home.html",
+            controller:"homeCtrl"
+            
         })
         .state('dashboards.dashboard_1', {
             url: "/dashboard_1",
@@ -1387,6 +1387,28 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
 angular
     .module('inspinia')
     .config(config)
-    .run(function($rootScope, $state) {
+    .run(function($rootScope, $state,API) {
         $rootScope.$state = $state;
+         console.log("run rootscope API",API,$state);
+        $rootScope.$on('$stateChangeStart', function (event,toState,toParams,fromState) {
+      
+        if(toState.name == "login" && fromState.name !="login") {
+            return;
+        }
+
+        else if(toState.name == "register"){
+            return;
+        }
+
+        if (!API.isUserAuth) {
+            console.log("API.isUserAuth")
+             $state.transitionTo("login");
+             event.preventDefault();
+        }
+
+        // $state.go('login');
+        
+    });
+
+
     });

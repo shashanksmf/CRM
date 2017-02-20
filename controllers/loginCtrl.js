@@ -7,7 +7,12 @@ inspinia.controller('loginCtrl', ['$scope','$http','$q','API','$state','$timeout
 		API.loginUser(user).then(function(response){
 			console.log("registerUser",response);
 			if(response.data.responce){
-				$state.go("home");
+				localStorage.setItem("userEmail",response.data.email);
+				//localStorage.setItem("userUUID",response.data.responce);
+				API.setAuth(response.data);
+				$state.go("dashboards.home");
+
+		
 			}
 			else{
 				$scope.error = response.data;

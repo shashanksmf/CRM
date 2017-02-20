@@ -5,35 +5,8 @@
     <comapnydetail ng-show="config.showCompanyDetailPopUp"></comapnydetail>
     <!-- modul PopUp end -->
 	<div class="row">
-        <header>
-           <nav class="navbar navbar-default">
-                <a class="navbar-brand">
-                    UpSail CRM
-                </a>
-               <a class="navbar-brand smallFont">
-                    People<span class="badge">84</span>
-                </a>
-               <a class="navbar-brand smallFont">
-                    Companies<span class="badge">84</span>
-                </a>
-               <a class="navbar-brand smallFont">
-                    Statistics
-                </a>
-               <a class="navbar-brand smallFont">
-                    Settings
-                </a>
-           </nav>
-        </header>
-        <div class="container searchAndSortingSection">
-        
-            <div class="SearchBox">
-              <!-- custom search -->
-
-            <span ng-repeat="tag in tagSearchedItems track by $index" class="tagItems label label-info">
-                {{tag.searchItem}}
-                
-                <span data-role="remove" class="removeTagIcon" ng-click=deleteSearchedTag(tag,$index)></span>
-            </span>
+     
+      
                 
         <!--    <div class="searchWrapper">    
                 <input ng-change="seachText(searchInput)" ng-model="searchInput" my-enter="autoCompleteListItem(searchInput,false,'')" class="searchBoxInput" />
@@ -54,9 +27,7 @@
 
                       custom search End 
                 </div>-->
-           </div>
-	 
-	</div>
+
         
         
   <section id="peopleTable" ng-click="showAutoComplete=false">
