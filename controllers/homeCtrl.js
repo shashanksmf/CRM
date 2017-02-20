@@ -1,18 +1,18 @@
 var inspinia = angular.module('inspinia');
-inspinia.controller('homeCtrl', ['$scope','$http','$q', function ($scope,$http,$q) {
+inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q', function ($scope,$rootScope,$http,$q) {
   
     $scope.config={showUserPopUp:false,showCompanyDetailPopUp:false};
     $scope.tags =[];
-    $scope.tagSearchedItems = [];
+    $rootScope.tagSearchedItems = [];
     $scope.propertyName = '';
     $scope.reverse = true;
-    $scope.showAutoComplete = false;
+    $rootScope.showAutoComplete = false;
     var autoComplete=[];
-    $scope.searchInput = '';
+    $rootScope.searchInput = '';
     $scope.emplId = [];
     $scope.tagSearchedDetails = [];
-    var baseHttpUrl = '/angularphp/template/Angular_Full_Version/Service';
-        
+    //var baseHttpUrl = '/angularphp/template/Angular_Full_Version/Service';
+    var baseHttpUrl = 'http://jaiswaldevelopers.com/CRMV1/Service';    
     
     
     // code to load employee tabel
@@ -111,15 +111,15 @@ inspinia.controller('homeCtrl', ['$scope','$http','$q', function ($scope,$http,$
     
     
     //code for searching employee details in database
-    $scope.seachText = function(Text){
+    $rootScope.seachText = function(Text){
 
         var tags='';
-         $scope.tagSearchedItems.forEach(function(Item){
+         $rootScope.tagSearchedItems.forEach(function(Item){
                tags += ' '+ Item.searchItem;
         })
 
          Text += tags;
-        $scope.showAutoComplete = true;
+        $rootScope.showAutoComplete = true;
         
         $http({
                 method: 'GET',
@@ -129,9 +129,9 @@ inspinia.controller('homeCtrl', ['$scope','$http','$q', function ($scope,$http,$
         
             .then(function successCallback(response) {
                 console.log("search response",response);
-                $scope.listdata = [];
+                $rootScope.listdata = [];
               
-                $scope.listdata = response.data.Employees;
+                $rootScope.listdata = response.data.Employees;
                 
             
             }, function errorCallback(response) {
@@ -144,21 +144,21 @@ inspinia.controller('homeCtrl', ['$scope','$http','$q', function ($scope,$http,$
     }
     
     //autoCompleteList
-    $scope.autoCompleteListItem = function(emplSearchItem,emplId,emplObj){
+    $rootScope.autoCompleteListItem = function(emplSearchItem,emplId,emplObj){
         
         if(emplId && emplId.length>0){
-            $scope.tagSearchedItems.push({"searchItem":emplSearchItem,"emplID":emplId});
+            $rootScope.tagSearchedItems.push({"searchItem":emplSearchItem,"emplID":emplId});
             $scope.tagSearchedDetails = [];
             $scope.tagSearchedDetails.push(emplObj)
-            $scope.searchInput = '';
-            $scope.showAutoComplete = false;
+            $rootScope.searchInput = '';
+            $rootScope.showAutoComplete = false;
             return;
         }
              
         var isitemFound = false;
        
-        if($scope.tagSearchedItems.length >=1){
-            $scope.tagSearchedItems.forEach(function(Item){
+        if($rootScope.tagSearchedItems.length >=1){
+            $rootScope.tagSearchedItems.forEach(function(Item){
                 if(Item.searchItem == emplSearchItem){
                     isitemFound = true;
                 }  
@@ -173,13 +173,13 @@ inspinia.controller('homeCtrl', ['$scope','$http','$q', function ($scope,$http,$
        function pushItemToList(){
             
                var tagSearchHistory = ''
-               $scope.tagSearchedItems.forEach(function(Item){
+               $rootScope.tagSearchedItems.forEach(function(Item){
                   tagSearchHistory += Item.searchItem +' ' ;   
                 })
                 var originalSearchItem =  emplSearchItem;
                 emplSearchItem = tagSearchHistory + emplSearchItem;
-                $scope.tagSearchedItems.push({"searchItem":originalSearchItem,"emplID":emplId});
-                $scope.tagSearchedItems[$scope.tagSearchedItems.length-1].searchId=[];
+                $rootScope.tagSearchedItems.push({"searchItem":originalSearchItem,"emplID":emplId});
+                $rootScope.tagSearchedItems[$rootScope.tagSearchedItems.length-1].searchId=[];
                 var searchedData = getEmplSearch(emplSearchItem);
                
                 //call to http if search is not found
@@ -187,14 +187,14 @@ inspinia.controller('homeCtrl', ['$scope','$http','$q', function ($scope,$http,$
                 searchedData.then(function(greeting) {
                 greeting.forEach(function(greet){
                 $scope.tagSearchedDetails.push(greet)
-                $scope.tagSearchedItems[$scope.tagSearchedItems.length-1].searchId.push(greet.id);
-                console.log("$scope.tagSearchedItems",$scope.tagSearchedItems)
+                $rootScope.tagSearchedItems[$rootScope.tagSearchedItems.length-1].searchId.push(greet.id);
+                console.log("$scope.tagSearchedItems",$rootScope.tagSearchedItems)
                 })
             })  
         }
         
-        $scope.searchInput = '';
-        $scope.showAutoComplete = false;
+        $rootScope.searchInput = '';
+        $rootScope.showAutoComplete = false;
         
     }
     
@@ -243,12 +243,12 @@ inspinia.controller('homeCtrl', ['$scope','$http','$q', function ($scope,$http,$
     
     
     //delete Searched tag
-    $scope.deleteSearchedTag = function(tag,tagIndex){
+    $rootScope.deleteSearchedTag = function(tag,tagIndex){
        
         var tagsInSearchedItems ='';
       
-        $scope.tagSearchedItems.splice(tagIndex,1);
-        $scope.tagSearchedItems.forEach(function(items,tagSearchDetailsIndex){
+        $rootScope.tagSearchedItems.splice(tagIndex,1);
+        $rootScope.tagSearchedItems.forEach(function(items,tagSearchDetailsIndex){
             tagsInSearchedItems += items.searchItem + ' ';
         })
          var searchedData = getEmplSearch(tagsInSearchedItems);
@@ -260,7 +260,7 @@ inspinia.controller('homeCtrl', ['$scope','$http','$q', function ($scope,$http,$
                 })
             })
                 
-         if($scope.tagSearchedItems.length==0){
+         if($rootScope.tagSearchedItems.length==0){
              $scope.tagSearchedDetails = [];
          }
     }

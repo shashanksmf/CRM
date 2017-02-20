@@ -35,14 +35,12 @@
                 <span data-role="remove" class="removeTagIcon" ng-click=deleteSearchedTag(tag,$index)></span>
             </span>
                 
-            <div class="searchWrapper">    
+        <!--    <div class="searchWrapper">    
                 <input ng-change="seachText(searchInput)" ng-model="searchInput" my-enter="autoCompleteListItem(searchInput,false,'')" class="searchBoxInput" />
                 <div class="closeAutoComplete"></div>
                 <div ng-show="showAutoComplete" class="autoCompleteContainer">
-                <!--    //ng-repeat="(key,value) in list" ng-if="key==list.foundIn"-->
                     <div ng-repeat="list in listdata track by $index" class="autoCompeleteItem">
-<!--                        <div ng-click="autoCompleteListItem(list[list.foundIn],list.id)" ng-style="list.foundIn == 'name' && {'font-weight':'bold'}">{{list[list.foundIn]}}</div>-->
-                        <!-- list[list.foundIn.split(',')[0]] -->
+
                         <div ng-click="autoCompleteListItem(searchInput,list.id,list)">
                             <span ng-style="list.foundIn.split(',')[0] =='name' && {'font-weight':'bold'}">{{list.name}}</span> 
                             <span ng-style="list.foundIn.split(',')[0] =='title' && {'font-weight':'bold'}">{{list.title}}</span>
@@ -54,8 +52,8 @@
                     </div>
                 </div>
 
-                     <!-- custom search End -->
-                </div>
+                      custom search End 
+                </div>-->
            </div>
 	 
 	</div>

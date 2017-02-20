@@ -1,8 +1,10 @@
 var inspinia = angular.module('inspinia');
 inspinia.factory('API', ['$http',function($http){
 	
-	var callAPI = {}, baseHttpUrl = "/angularphp/template/Angular_Full_Version/Service";
-	
+	var callAPI = {}; 
+  //  var baseHttpUrl = "/angularphp/template/Angular_Full_Version/Service";
+	var baseHttpUrl = 'http://jaiswaldevelopers.com/CRMV1/Service';
+    
 	callAPI.registerUser = function(user) {
 		
 		return $http({

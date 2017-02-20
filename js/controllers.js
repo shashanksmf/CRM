@@ -53,8 +53,8 @@
  * Contains several global data used in different view
  *
  */
-function MainCtrl() {
-
+function MainCtrl($scope) {
+  
     /**
      * daterange - Used as initial model for data range picker in Advanced form view
      */
