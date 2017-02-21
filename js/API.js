@@ -28,6 +28,11 @@ inspinia.factory('API', ['$http',function($http){
 
 	    })
 
+	}
+
+	callAPI.setAuth = function(user){
+		this.userEmail = user.email;
+		this.isUserAuth = true;
 	} 
 	
 	return callAPI;

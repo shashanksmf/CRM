@@ -712,6 +712,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             url: "/groups",
             templateUrl: "views/groups.html",
             data: { pageTitle: 'groups' },
+            controller: "groupCtrl"
         })
     
         .state('login', {

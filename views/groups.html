@@ -1,339 +1,106 @@
-<div class="wrapper wrapper-content animated fadeInRight">
+<div class="group wrapper wrapper-content animated fadeInRight">
     <div class="row">
-        <div class="col-md-3">
-            <div class="ibox">
-                <div class="ibox-content product-box">
 
-                    <div class="product-imitation">
-                        [ INFO ]
-                    </div>
-                    <div class="product-desc">
-                                <span class="product-price">
-                                    $10
-                                </span>
-                        <small class="text-muted">Category</small>
-                        <a href="#" class="product-name"> Product</a>
+        <div class="col-sm-4 createGroupForm"><h3 class="m-t-none m-b">Create Group</h3>
 
-
-
-                        <div class="small m-t-xs">
-                            Many desktop publishing packages and web page editors now.
-                        </div>
-                        <div class="m-t text-righ">
-
-                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                        </div>
-                    </div>
+            <form role="form" class="ng-pristine ng-valid">
+                <div class="form-group">
+                    <input type="text" ng-model="groupName" placeholder="Group Name" class="form-control">
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="ibox">
-                <div class="ibox-content product-box">
-
-                    <div class="product-imitation">
-                        [ INFO ]
-                    </div>
-                    <div class="product-desc">
-                                <span class="product-price">
-                                    $10
-                                </span>
-                        <small class="text-muted">Category</small>
-                        <a href="#" class="product-name"> Product</a>
-
-
-
-                        <div class="small m-t-xs">
-                            Many desktop publishing packages and web page editors now.
-                        </div>
-                        <div class="m-t text-righ">
-
-                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                        </div>
-                    </div>
+                
+                <div class="form-group">
+                    <input type="text" placeholder="group Detail" ng-model="groupDetail" class="form-control">
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="ibox">
-                <div class="ibox-content product-box active">
+                
+                 <button class="btn btn-primary createGroupBtn" ng-click="createGroup(groupName,groupDetail)" type="button"><i class="fa fa-check"></i>&nbsp;Create Group</button>
+             
+            </form>
+        </div>    
 
-                    <div class="product-imitation">
-                        [ INFO ]
-                    </div>
-                    <div class="product-desc">
-                                <span class="product-price">
-                                    $10
-                                </span>
-                        <small class="text-muted">Category</small>
-                        <a href="#" class="product-name"> Product</a>
-
-
-
-                        <div class="small m-t-xs">
-                            Many desktop publishing packages and web page editors now.
-                        </div>
-                        <div class="m-t text-righ">
-
-                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="ibox">
-                <div class="ibox-content product-box">
-
-                    <div class="product-imitation">
-                        [ INFO ]
-                    </div>
-                    <div class="product-desc">
-                                <span class="product-price">
-                                    $10
-                                </span>
-                        <small class="text-muted">Category</small>
-                        <a href="#" class="product-name"> Product</a>
-
-
-
-                        <div class="small m-t-xs">
-                            Many desktop publishing packages and web page editors now.
-                        </div>
-                        <div class="m-t text-righ">
-
-                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-
+<!-- 
+        <div class="col-md-5 form-group createGroupForm">    
+            <input type="text" class="form-control" ng-model="groupName" placeholder="group Name">
+           
+        </div> -->
     </div>
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3" ng-repeat="group in groups.Groups">
             <div class="ibox">
-                <div class="ibox-content product-box">
-
-                    <div class="product-imitation">
-                        [ INFO ]
+                <div class="ibox-content product-box" data-toggle="modal" data-target="#myModal" ng-click="editGroup($index)">
+                <span class="glyphicon glyphicon-pencil"></span>
+                    <div class="product-imitation" style="background-image:url('./img/groupIcon.png');    background-position: center center;
+                        background-size: cover;">
+                        
                     </div>
                     <div class="product-desc">
-                                <span class="product-price">
-                                    $10
-                                </span>
-                        <small class="text-muted">Category</small>
-                        <a href="#" class="product-name"> Product</a>
+                                
+                        <a href="#" class="product-name"> {{group.name}}</a>        
+                        <small class="text-muted">created by {{group.admin}}</small>
+                        
 
 
 
                         <div class="small m-t-xs">
-                            Many desktop publishing packages and web page editors now.
+                           {{group.details}}
                         </div>
                         <div class="m-t text-righ">
 
-                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+                            <a href="#" class="btn btn-xs btn-outline btn-primary"> <i class="glyphicon glyphicon-user"></i> {{group.membersCount}} contacts</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="ibox">
-                <div class="ibox-content product-box">
-
-                    <div class="product-imitation">
-                        [ INFO ]
-                    </div>
-                    <div class="product-desc">
-                                <span class="product-price">
-                                    $10
-                                </span>
-                        <small class="text-muted">Category</small>
-                        <a href="#" class="product-name"> Product</a>
-
-
-
-                        <div class="small m-t-xs">
-                            Many desktop publishing packages and web page editors now.
-                        </div>
-                        <div class="m-t text-righ">
-
-                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="ibox">
-                <div class="ibox-content product-box">
-
-                    <div class="product-imitation">
-                        [ INFO ]
-                    </div>
-                    <div class="product-desc">
-                                <span class="product-price">
-                                    $10
-                                </span>
-                        <small class="text-muted">Category</small>
-                        <a href="#" class="product-name"> Product</a>
-
-
-
-                        <div class="small m-t-xs">
-                            Many desktop publishing packages and web page editors now.
-                        </div>
-                        <div class="m-t text-righ">
-
-                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="ibox">
-                <div class="ibox-content product-box">
-
-                    <div class="product-imitation">
-                        [ INFO ]
-                    </div>
-                    <div class="product-desc">
-                                <span class="product-price">
-                                    $10
-                                </span>
-                        <small class="text-muted">Category</small>
-                        <a href="#" class="product-name"> Product</a>
-
-
-
-                        <div class="small m-t-xs">
-                            Many desktop publishing packages and web page editors now.
-                        </div>
-                        <div class="m-t text-righ">
-
-                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        
+ 
     </div>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="ibox">
-                <div class="ibox-content product-box">
+</div>
 
-                    <div class="product-imitation">
-                        [ INFO ]
-                    </div>
-                    <div class="product-desc">
-                                <span class="product-price">
-                                    $10
-                                </span>
-                        <small class="text-muted">Category</small>
-                        <a href="#" class="product-name"> Product</a>
-
-
-
-                        <div class="small m-t-xs">
-                            Many desktop publishing packages and web page editors now.
-                        </div>
-                        <div class="m-t text-righ">
-
-                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                        </div>
-                    </div>
+asd{{users}}
+<!-- Modal -->
+<div id="myModal" class="modal fade groupAddUsers" role="dialog">
+  <div class="modal-dialog">
+In Modal{{users}}
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Group</h4>
+      </div>
+      <div class="modal-body">
+      <div class="ibox float-e-margins">
+      <div class="ibox-content">
+      <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>
+                                <input class="form-control" type="text" placeholder="start typing name..." ng-model="emplName">
+                            </th>
+                            
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="user in emplNames | filter : emplName">
+                            
+                            <td ng-click="addEmpl(user)">{{user}}
+                                <i class="fa fa-check checkIcon" ng-show="user.checked"></i>
+                                {{user.checked}}
+                            </td>
+         
+                        </tr>
+                         
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="ibox">
-                <div class="ibox-content product-box">
-
-                    <div class="product-imitation">
-                        [ INFO ]
-                    </div>
-                    <div class="product-desc">
-                                <span class="product-price">
-                                    $10
-                                </span>
-                        <small class="text-muted">Category</small>
-                        <a href="#" class="product-name"> Product</a>
-
-
-
-                        <div class="small m-t-xs">
-                            Many desktop publishing packages and web page editors now.
-                        </div>
-                        <div class="m-t text-righ">
-
-                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                        </div>
-                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="ibox">
-                <div class="ibox-content product-box">
-
-                    <div class="product-imitation">
-                        [ INFO ]
-                    </div>
-                    <div class="product-desc">
-                                <span class="product-price">
-                                    $10
-                                </span>
-                        <small class="text-muted">Category</small>
-                        <a href="#" class="product-name"> Product</a>
-
-
-
-                        <div class="small m-t-xs">
-                            Many desktop publishing packages and web page editors now.
-                        </div>
-                        <div class="m-t text-righ">
-
-                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                        </div>
-                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="ibox">
-                <div class="ibox-content product-box">
 
-                    <div class="product-imitation">
-                        [ INFO ]
-                    </div>
-                    <div class="product-desc">
-                                <span class="product-price">
-                                    $10
-                                </span>
-                        <small class="text-muted">Category</small>
-                        <a href="#" class="product-name"> Product</a>
-
-
-
-                        <div class="small m-t-xs">
-                            Many desktop publishing packages and web page editors now.
-                        </div>
-                        <div class="m-t text-righ">
-
-                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
+
+  </div>
 </div>

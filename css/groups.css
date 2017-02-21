@@ -1,0 +1,21 @@
+.ibox-content.product-box {
+  position: relative;
+}
+.ibox-content.product-box .glyphicon.glyphicon-pencil {
+  position: absolute;
+  right: 10px;
+  text-align: right;
+  top: 10px;
+}
+
+.group.wrapper .createGroupBtn {
+  float: right;
+}
+
+.group.wrapper .createGroupForm {
+  margin-bottom: 10px;
+}
+
+.groupAddUsers .checkIcon{
+    float:right;
+}

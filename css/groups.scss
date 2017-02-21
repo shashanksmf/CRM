@@ -1,0 +1,22 @@
+.ibox-content.product-box{
+	position:relative;
+
+	.glyphicon.glyphicon-pencil{
+		position: absolute;
+	    right: 10px;
+	    text-align: right;
+	    top: 10px;
+        
+	}
+}
+
+.group.wrapper {
+    .createGroupForm{
+        display: flex;
+        align-items: center;
+        
+        .createGroupBtn{
+            margin-left: 10px;
+        }
+    }    
+}
