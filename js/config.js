@@ -185,6 +185,9 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             templateUrl: "views/layouts.html",
             data: { pageTitle: 'Layouts' },
         })
+    
+       
+    
         .state('charts', {
             abstract: true,
             url: "/charts",
@@ -704,6 +707,13 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             templateUrl: "views/empty_page.html",
             data: { pageTitle: 'Empty page' }
         })
+    
+        .state('pages.groups', {
+            url: "/groups",
+            templateUrl: "views/groups.html",
+            data: { pageTitle: 'groups' },
+        })
+    
         .state('login', {
             url: "/login",
             templateUrl: "views/login.html",
@@ -1392,19 +1402,19 @@ angular
          console.log("run rootscope API",API,$state);
         $rootScope.$on('$stateChangeStart', function (event,toState,toParams,fromState) {
       
-        if(toState.name == "login" && fromState.name !="login") {
-            return;
-        }
-
-        else if(toState.name == "register"){
-            return;
-        }
-
-        if (!API.isUserAuth) {
-            console.log("API.isUserAuth")
-             $state.transitionTo("login");
-             event.preventDefault();
-        }
+//        if(toState.name == "login" && fromState.name !="login") {
+//            return;
+//        }
+//
+//        else if(toState.name == "register"){
+//            return;
+//        }
+//
+//        if (!API.isUserAuth) {
+//            console.log("API.isUserAuth")
+//             $state.transitionTo("login");
+//             event.preventDefault();
+//        }
 
         // $state.go('login');
         
