@@ -56,7 +56,7 @@
     </div>
 </div>
 
-asd{{users}}
+
 <!-- Modal -->
 <div id="myModal" class="modal fade groupAddUsers" role="dialog">
   <div class="modal-dialog">
@@ -68,9 +68,17 @@ In Modal{{users}}
         <h4 class="modal-title">Edit Group</h4>
       </div>
       <div class="modal-body">
+
+
       <div class="ibox float-e-margins">
+          <div>
+          Adding Contacts to groups
+          <i class="fa fa-sort-down" style="float: right"/>
+        </div>
       <div class="ibox-content">
+
       <div class="table-responsive">
+        
                     <table class="table table-striped">
                         <thead>
                         <tr>
@@ -84,10 +92,12 @@ In Modal{{users}}
                         <tr ng-repeat="user in emplNames | filter : emplName">
                             
                             <td ng-click="addEmpl(user)">{{user}}
-                                <i class="fa fa-check checkIcon" ng-show="user.checked"></i>
-                                {{user.checked}}
+                                <span ng-repeat="member in groups.Groups[groupIndex].Members">
+                                    <span ng-if="member.name == user">
+                                        <i class="fa fa-check checkIcon"></i>
+                                    </span>
+                                </span>
                             </td>
-         
                         </tr>
                          
                         </tbody>

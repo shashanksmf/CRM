@@ -1403,19 +1403,23 @@ angular
          console.log("run rootscope API",API,$state);
         $rootScope.$on('$stateChangeStart', function (event,toState,toParams,fromState) {
       
-//        if(toState.name == "login" && fromState.name !="login") {
-//            return;
-//        }
-//
-//        else if(toState.name == "register"){
-//            return;
-//        }
-//
-//        if (!API.isUserAuth) {
-//            console.log("API.isUserAuth")
-//             $state.transitionTo("login");
-//             event.preventDefault();
-//        }
+       // if(toState.name == "login" && fromState.name !="login") {
+       //     return;
+       // }
+
+       // else if(toState.name == "register"){
+       //     return;
+       // }
+       // else if(localStorage.getItem("userName")){
+
+       //  return;
+       // }
+
+       // if (!API.isUserAuth) {
+       //     console.log("API.isUserAuth")
+       //      $state.transitionTo("login");
+       //      event.preventDefault();
+       // }
 
         // $state.go('login');
         

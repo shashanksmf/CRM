@@ -11,12 +11,7 @@
 }
 
 .group.wrapper {
-    .createGroupForm{
-        display: flex;
-        align-items: center;
-        
         .createGroupBtn{
-            margin-left: 10px;
-        }
+            float: right;
     }    
 }

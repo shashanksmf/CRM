@@ -74,7 +74,7 @@ inspinia.controller('groupCtrl', ['$scope','$rootScope','$http','$q','API','$sta
           "phone": "a"
         }
       ],
-      "membersCount": "2",
+      "membersCount": "3",
       "createdOn": "14-02-2017"
     }
   ]
@@ -97,11 +97,12 @@ inspinia.controller('groupCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 
 	$scope.createGroup = function(groupName,groupDetail) {
 
-		if(groupName.length > 0){
+		if(groupName && groupName.length > 0){
 			$scope.groups.Groups.push({
 				"name": groupName,
      			"details": groupDetail,
-      			"admin": $rootScope.userName,
+      			"admin": $rootScope.userName || localStorage.getItem("userName"),
+      			"Members":[],
   				"membersCount": "0"
 			})
 		}
@@ -118,25 +119,25 @@ inspinia.controller('groupCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 
 	$scope.addEmpl = function(emplName) {
 
-			if(!$scope.groups.Groups[$scope.groupIndex].checked) {
-				$scope.groups.Groups[$scope.groupIndex].checked = true;
+			var isNameFound = false, isNameFoundIndex=null;
+		
+				for(var i =0;i<$scope.groups.Groups[$scope.groupIndex].Members.length;i++) {
+					if($scope.groups.Groups[$scope.groupIndex].Members[i].name == emplName) {
+						isNameFound = true;
+						isNameFoundIndex = i;
+						break;
+					}
+				}
+			
+
+			if(!isNameFound) {
 				$scope.groups.Groups[$scope.groupIndex].Members.push({"name":emplName});
-				$scope.groups.Groups[$scope.groupIndex].membersCount = $scope.groups.Groups[$scope.groupIndex].Members.length; 	
+				$scope.groups.Groups[$scope.groupIndex].membersCount = $scope.groups.Groups[$scope.groupIndex].Members.length;
 			}
 
 			else {
-				$scope.groups.Groups[$scope.groupIndex].checked = false;
-				var isEmplFound = false;
-				var emplFoundIndex;	
-				$scope.groups.Groups[$scope.groupIndex].Members.forEach(function(empl,index){
-					if(empl.name == emplName){
-						isEmplFound = true;
-						emplFoundIndex = index;
-					}
-				})
-				$scope.groups.Groups[$scope.groupIndex].Members.splice(emplFoundIndex, 1);
+				$scope.groups.Groups[$scope.groupIndex].Members.splice(isNameFoundIndex, 1);
 				$scope.groups.Groups[$scope.groupIndex].membersCount = $scope.groups.Groups[$scope.groupIndex].Members.length;	
-				
 			}
 			
 
