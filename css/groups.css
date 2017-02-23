@@ -11,11 +11,25 @@
 .group.wrapper .createGroupBtn {
   float: right;
 }
-
 .group.wrapper .createGroupForm {
   margin-bottom: 10px;
 }
+.group.wrapper .checkIcon {
+  float: right;
+}
 
-.groupAddUsers .checkIcon{
-    float:right;
+.groupAddUsers .addContactsTxtContainer {
+  padding: 10px;
+}
+.groupAddUsers .addContactsTxtContainer .fa.fa-sort-down {
+  float: right;
+}
+.groupAddUsers .list-group {
+  margin-top: 10px;
+}
+.groupAddUsers .list-group li {
+  cursor: pointer;
+}
+.groupAddUsers .list-group li .checkIcon {
+  float: right;
 }

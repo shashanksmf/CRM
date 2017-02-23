@@ -5,7 +5,7 @@
         <ul side-navigation class="nav metismenu" id="side-menu">
             <li class="nav-header">
 
-                <div class="profile-element" uib-dropdown>
+               <!--  <div class="profile-element" uib-dropdown>
                     <img alt="image" class="img-circle" src="img/profile_small.jpg"/>
                     <a uib-dropdown-toggle href>
                             <span class="clear">
@@ -22,30 +22,35 @@
                         <li class="divider"></li>
                         <li><a ui-sref="login">Logout</a></li>
                     </ul>
-                </div>
+                </div> -->
                 <div class="logo-element">
                     IN+
                 </div>
             </li>
+
+              <li ui-sref-active="active">
+                <a ui-sref="dashboards.home"><i class="fa fa-home"></i> <span class="nav-label">{{ 'Home' | translate }}</span> </a>
+            </li>
+
             <li ng-class="{active: $state.includes('dashboards')}">
                 <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">{{ 'DASHBOARD' | translate }}</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('dashboards')}">
                     <li ui-sref-active="active"><a ui-sref="dashboards.dashboard_1">{{ 'People' | translate }} </a></li>
                     <li ui-sref-active="active"><a ui-sref="dashboards.dashboard_2">{{ 'Companies' | translate }} </a></li>
-                    <li ui-sref-active="active"><a ui-sref="dashboards.dashboard_3">{{ 'DASHBOARD' | translate }} v.3</a></li>
+                  <!--   <li ui-sref-active="active"><a ui-sref="dashboards.dashboard_3">{{ 'DASHBOARD' | translate }} v.3</a></li>
                     <li ui-sref-active="active"><a ui-sref="dashboards.dashboard_4_1">{{ 'DASHBOARD' | translate }} v.4</a></li>
-                    <li ui-sref-active="active"><a ui-sref="dashboards.dashboard_5">{{ 'DASHBOARD' | translate }} v.5 <span class="label label-primary pull-right">NEW</span></a></li>
+                    <li ui-sref-active="active"><a ui-sref="dashboards.dashboard_5">{{ 'DASHBOARD' | translate }} v.5 <span class="label label-primary pull-right">NEW</span></a></li> -->
                 </ul>
             </li>
-            <li ui-sref-active="active">
+            <!-- <li ui-sref-active="active">
                 <a ui-sref="layouts"><i class="fa fa-diamond"></i> <span class="nav-label">{{ 'LAYOUTS' | translate }}</span> </a>
             </li>
-
+ -->
              <li ui-sref-active="active">
                 <a ui-sref="pages.groups"><i class="fa fa-group"></i> <span class="nav-label">{{ 'Group' | translate }}</span> </a>
             </li>
 
-            <li ng-class="{active: $state.includes('charts')}">
+           <!--  <li ng-class="{active: $state.includes('charts')}">
                 <a href=""><i class="fa fa-bar-chart-o"></i> <span class="nav-label">{{ 'GRAPHS' | translate }}</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('charts')}">
                     <li ui-sref-active="active"><a ui-sref="charts.flot_chart">Flot Charts</a></li>
@@ -226,7 +231,7 @@
             </li>
             <li class="landing_link">
                 <a ui-sref="landing"><i class="fa fa-star"></i> <span class="nav-label">{{ 'LANDING' | translate }}</span> <span class="label label-warning pull-right">NEW</span></a>
-            </li>
+            </li> -->
         </ul>
 
     </div>

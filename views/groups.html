@@ -65,19 +65,32 @@ In Modal{{users}}
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Edit Group</h4>
+        <h4 class="modal-title">Add Users</h4>
       </div>
       <div class="modal-body">
 
 
       <div class="ibox float-e-margins">
-          <div>
+          <div class="btn-primary addContactsTxtContainer">
           Adding Contacts to groups
-          <i class="fa fa-sort-down" style="float: right"/>
+          <i class="fa fa-sort-down" />
         </div>
-      <div class="ibox-content">
+    
+         <input class="form-control" type="text" placeholder="start typing name..." ng-model="emplName">
+        <ul class="list-group" >
+          <li class="list-group-item" ng-repeat="user in emplNames | filter : emplName">
+              <div ng-click="addEmpl(user)">{{user}}
+                    <span ng-repeat="member in groups.Groups[groupIndex].Members">
+                        <span ng-if="member.name == user">
+                            <i class="fa fa-check checkIcon" ></i>
+                        </span>
+                    </span>
+              </div>
+          </li>
+          
+        </ul>
 
-      <div class="table-responsive">
+     <!--  <div class="table-responsive">
         
                     <table class="table table-striped">
                         <thead>
@@ -102,8 +115,8 @@ In Modal{{users}}
                          
                         </tbody>
                     </table>
-                </div>
-                </div>
+                </div> -->
+                
                 </div>
 
       </div>

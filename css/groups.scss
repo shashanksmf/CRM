@@ -11,7 +11,43 @@
 }
 
 .group.wrapper {
-        .createGroupBtn{
+    
+    .createGroupBtn{
             float: right;
-    }    
+    } 
+
+     .createGroupForm {
+	  margin-bottom: 10px;
+	}
+
+	.checkIcon{
+	    float:right;
+	}
+
+	
+
+}
+
+.groupAddUsers{
+	.addContactsTxtContainer{
+		padding:10px;
+
+		.fa.fa-sort-down{
+			float:right;
+		}
+	}
+
+	.list-group{
+
+		margin-top:10px;
+
+		li{
+			cursor:pointer;
+
+			.checkIcon{
+				float:right
+			}
+			
+		}
+	}
 }
