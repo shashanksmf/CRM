@@ -8,6 +8,9 @@
   top: 10px;
 }
 
+.group.wrapper .groupContainer {
+  margin: 10px 0;
+}
 .group.wrapper .createGroupBtn {
   float: right;
 }

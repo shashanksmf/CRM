@@ -1,84 +1,11 @@
 var inspinia = angular.module('inspinia');
 inspinia.controller('groupCtrl', ['$scope','$rootScope','$http','$q','API','$state','$timeout', function ($scope,$rootScope,$http,$q,API,$state,$timeout) {
-	$scope.groups = {
-  "Groups": [
-    {
-      "id": "1",
-      "name": "Kinhasa Office Contacts",
-      "details": "contacts from Kinhasa Office",
-      "admin": "Andreas",
-      "Members": [
-        {
-          "name": "Sherlocks J",
-          "department": "Comp",
-          "hireDate": "12-10-2014",
-          "dob": "10-12-1988",
-          "gender": "Male",
-          "homeAddress": "New homes.404, Drive Throu",
-          "email": "sherlocks@gmail.com",
-          "profilePic": "cdn/images/user_1.jpg",
-          "phone": "899889895"
-        },
-        {
-          "name": "diana@gmail.com",
-          "department": "U2@1234",
-          "hireDate": "a",
-          "dob": "a",
-          "gender": "a",
-          "homeAddress": "a",
-          "email": "a",
-          "profilePic": "a",
-          "phone": "a"
-        }
-      ],
-      "membersCount": "2",
-      "createdOn": "14-02-2017"
-    },
-    {
-      "id": "2",
-      "name": "Back Office",
-      "details": "Just USD",
-      "admin": "Andreas",
-      "Members": [
-        {
-          "name": "Sherlocks J",
-          "department": "Comp",
-          "hireDate": "12-10-2014",
-          "dob": "10-12-1988",
-          "gender": "Male",
-          "homeAddress": "New homes.404, Drive Throu",
-          "email": "sherlocks@gmail.com",
-          "profilePic": "cdn/images/user_1.jpg",
-          "phone": "899889895"
-        },
-        {
-          "name": "Diana P",
-          "department": "Engineering",
-          "hireDate": "12-05-2015",
-          "dob": "10-12-1978",
-          "gender": "Female",
-          "homeAddress": "Drives D-420, New York",
-          "email": "diana@gmail.com",
-          "profilePic": "cdn/images/user_2.jpg",
-          "phone": "8985858696"
-        },
-        {
-          "name": "diana@gmail.com",
-          "department": "U2@1234",
-          "hireDate": "a",
-          "dob": "a",
-          "gender": "a",
-          "homeAddress": "a",
-          "email": "a",
-          "profilePic": "a",
-          "phone": "a"
-        }
-      ],
-      "membersCount": "3",
-      "createdOn": "14-02-2017"
-    }
-  ]
-}
+	
+  API.getAllGroups().then(function(groupData){
+    $scope.groups = groupData.data;    
+  })
+
+
 
 	$scope.emplNames = [
 		'yves Tankwe',
@@ -98,13 +25,17 @@ inspinia.controller('groupCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 	$scope.createGroup = function(groupName,groupDetail) {
 
 		if(groupName && groupName.length > 0){
-			$scope.groups.Groups.push({
-				"name": groupName,
-     			"details": groupDetail,
-      			"admin": $rootScope.userName || localStorage.getItem("userName"),
-      			"Members":[],
-  				"membersCount": "0"
-			})
+
+      var createGroupObj = {
+        "name": groupName,
+        "details": groupDetail,
+        "admin": $rootScope.userName || localStorage.getItem("userName"),
+        "Members":[],
+        "membersCount": "0"
+      }
+      
+      API.addGroup()
+			$scope.groups.Groups.push(createGroupObj)
 		}
 		else{
 			alert("please enter group Name");

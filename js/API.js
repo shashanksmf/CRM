@@ -33,6 +33,31 @@ inspinia.factory('API', ['$http',function($http){
 	callAPI.setAuth = function(user){
 		this.userEmail = user.email;
 		this.isUserAuth = true;
+	}
+
+	callAPI.getAllGroups = function() {
+		
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl+'/GetGroups.php' 
+
+	    })
+	
+	}
+
+
+	callAPI.getGroupById = function(id) {
+		
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl+'GetGroups.php?id'+id
+
+	    })
+	
 	} 
 	
 	return callAPI;
