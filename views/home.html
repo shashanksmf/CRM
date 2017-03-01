@@ -31,10 +31,10 @@
         
         
   <section id="peopleTable" ng-click="showAutoComplete=false">
-           <div class="container">
-               <div class="row">
            
-             <table class="table">
+           
+    <table class="table dataTables-example  table-striped table-bordered table-hover">
+    
     <thead>
       <tr>
         <th ng-click="sortBy('name')">Name
@@ -57,7 +57,7 @@
             <span class="arrowDown" ng-show="propertyName == 'company' && reverse == false">&#9660;</span>
             <span class="arrowUp" ng-show="(propertyName=='company'    && reverse == true) || propertyName !== 'company' ">&#9650;</span>
           </th>  
-        <th>ratings</th>  
+        <!-- <th>ratings</th>   -->
       </tr>
     </thead>
     <tbody>
@@ -71,12 +71,7 @@
         <td><span class="label " ng-class="{'label-success':empl.industry=='Finance'||empl.industry=='IT','label-warning':empl.industry=='Development'||empl.industry=='Health tech','label-info':empl.industry=='Real-Estate'}">{{empl.industry}}</span></td>
           <td >{{empl.location}}</td>
           <td ng-click="showCompanyDetail(empl.CompanyId)">{{empl.Company.name}}</td>
-          <td>
-            <span class="stars" >
-                      <span class="star " ng-repeat="stars in empl.emplRatings track by $index" ng-class="{'on':stars == 'full','half':stars=='half'}" ></span>
-                  
-            </span>
-          </td>
+          
       </tr>
         <tr ng-show="tagSearchedItems.length>0" ng-repeat="empl in tagSearchedDetails  | unique:'id'|  orderBy:propertyName:reverse" ng-if="emplId.length>0 ? emplId.indexOf(empl.id): true">
          
@@ -87,18 +82,13 @@
         <td><span class="label " ng-class="{'label-success':empl.industry=='Finance'||empl.industry=='IT','label-warning':empl.industry=='Development'||empl.industry=='Health tech','label-info':empl.industry=='Real-Estate'}">{{empl.industry}}</span></td>
           <td >{{empl.location}}</td>
           <td ng-click="showCompanyDetail(empl.CompanyId)">{{empl.Company.name}}</td>
-          <td>
-            <span class="stars" >
-                      <span class="star " ng-repeat="stars in empl.emplRatings track by $index" ng-class="{'on':stars == 'full','half':stars=='half'}" ></span>
-                  
-            </span>
-          </td>
+          
       </tr>
       
     </tbody>
   </table>
-                       </div>
-           </div>
-        </section>
+                      
+  </section>
+
 </div>
-    </div>
+</div>

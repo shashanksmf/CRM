@@ -60,6 +60,19 @@ inspinia.factory('API', ['$http',function($http){
 	
 	}
 
+	callAPI.getEmployesNames = function(){
+
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl+'/GetEmplNameData.php'
+
+	    })
+
+	}
+
+
 	callAPI.createGroup = function(group) {
 		
 		return $http({
@@ -70,6 +83,17 @@ inspinia.factory('API', ['$http',function($http){
 
 	    })
 	
+	}
+
+	callAPI.addMembersInGroup = function(group){
+		//?id=1&members=2,3
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/UpdateGroup.php?id='+group.id+'&members='+group.members
+
+	    })
 	} 
 	
 	return callAPI;

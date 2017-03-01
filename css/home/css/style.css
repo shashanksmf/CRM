@@ -1,148 +1,161 @@
+/* line 3, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
 header nav .smallFont {
-  font-size: 12px;
-}
-header nav .smallFont .badge {
-  margin-left: 5px;
-  background-color: #ed1c24;
-}
-header nav a {
-  cursor: pointer;
-}
+  font-size: 12px; }
+  /* line 5, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+  header nav .smallFont .badge {
+    margin-left: 5px;
+    background-color: #ed1c24; }
 
+/* line 10, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+header nav a {
+  cursor: pointer; }
+
+/* line 15, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
 .star {
   font-size: x-large;
   display: inline;
-  color: gray;
-}
+  color: gray; }
 
+/* line 20, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
 .star:last-child {
-  margin-right: 0;
-}
+  margin-right: 0; }
 
+/* line 23, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
 .star:before {
-  content: '\2605';
-}
+  content: '\2605'; }
 
+/* line 26, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
 .star.on {
-  color: gold;
-}
+  color: gold; }
 
+/* line 29, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
 .star.half:after {
   content: '\2605';
   color: gold;
   position: absolute;
   margin-left: -20px;
   width: 10px;
-  overflow: hidden;
-}
+  overflow: hidden; }
 
+/* line 38, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
 .userImg > .userAvatar {
-  display: inline-block;
-}
+  display: inline-block; }
 
+/* line 41, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
 .userImg > .userAvatar > img {
   width: 25px;
   border-radius: 10px;
-  margin-right: 10px;
-}
+  margin-right: 10px; }
 
+/* line 46, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
 .searchAndSortingSection {
-  font-weight: bold;
-}
-.searchAndSortingSection .SearchBox {
-  margin: 10px;
-  display: flex;
-  padding: 5px 0;
-  border-radius: 5px;
-  padding-left: 5px;
-}
-.searchAndSortingSection .SearchBox .tagItems {
-  flex: 0;
-  white-space: nowrap;
-  margin-right: 2px;
-  display: flex;
-  align-items: center;
-}
-.searchAndSortingSection .SearchBox .tagItems .removeTagIcon {
-  margin-left: 8px;
-  cursor: pointer;
-}
-.searchAndSortingSection .SearchBox .tagItems .removeTagIcon:after {
-  content: "x";
-  padding: 0px 2px;
-}
-.searchAndSortingSection .SearchBox .searchWrapper {
-  flex: 1;
-  display: inline-block;
-  position: relative;
-}
-.searchAndSortingSection .SearchBox .searchWrapper .searchBoxInput {
-  border: medium none;
-  font-size: 14px;
-  margin: 0;
-  border: 1px solid #e5e6e7;
-  border-radius: 1px;
-  color: inherit;
-  display: block;
-  padding: 6px 12px;
-  transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-  width: 100%;
-  font-size: 14px;
-  background-color: inherit;
-}
-.searchAndSortingSection .SearchBox .searchWrapper .searchBoxInput {
-  border: 0;
-  outline: none;
-}
-.searchAndSortingSection .SearchBox .searchWrapper .closeAutoComplete {
-  right: 0;
-  display: inline-block;
-}
-.searchAndSortingSection .SearchBox .searchWrapper .autoCompleteContainer {
-  position: absolute;
-  border: 1px solid black;
-  border-top: 0;
-  top: 28px;
-  right: 0;
-  left: -5px;
-  background-color: white;
-}
-.searchAndSortingSection .SearchBox .searchWrapper .autoCompleteContainer .autoCompeleteItem {
-  padding: 5px 15px;
-  font-size: 14px;
-  font-family: 'Source Sans Pro', sans-serif;
-  font-weight: 100;
-  cursor: pointer;
-}
-.searchAndSortingSection .SearchBox .searchWrapper .autoCompleteContainer .autoCompeleteItem:hover {
-  background-color: #F1F1F1;
-}
-.searchAndSortingSection .searchByCategories {
-  cursor: pointer;
-}
-.searchAndSortingSection .searchEmployessTxtBox {
-  height: 46px;
-  padding: 10px 16px;
-  font-size: 18px;
-  line-height: 1.3333333;
-  border-radius: 6px;
-}
-.searchAndSortingSection .arrowDown, .searchAndSortingSection .arrowUp {
-  font-size: 10px;
-  vertical-align: baseline;
-}
+  font-weight: bold; }
+  /* line 48, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+  .searchAndSortingSection .SearchBox {
+    margin: 10px;
+    display: flex;
+    padding: 5px 0;
+    border-radius: 5px;
+    padding-left: 5px; }
+    /* line 56, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+    .searchAndSortingSection .SearchBox .tagItems {
+      flex: 0;
+      white-space: nowrap;
+      margin-right: 2px;
+      display: flex;
+      align-items: center; }
+      /* line 63, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+      .searchAndSortingSection .SearchBox .tagItems .removeTagIcon {
+        margin-left: 8px;
+        cursor: pointer; }
+        /* line 67, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+        .searchAndSortingSection .SearchBox .tagItems .removeTagIcon:after {
+          content: "x";
+          padding: 0px 2px; }
+    /* line 74, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+    .searchAndSortingSection .SearchBox .searchWrapper {
+      flex: 1;
+      display: inline-block;
+      position: relative; }
+      /* line 75, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+      .searchAndSortingSection .SearchBox .searchWrapper .searchBoxInput {
+        border: medium none;
+        font-size: 14px;
+        margin: 0;
+        border: 1px solid #e5e6e7;
+        border-radius: 1px;
+        color: inherit;
+        display: block;
+        padding: 6px 12px;
+        transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+        width: 100%;
+        font-size: 14px;
+        background-color: inherit; }
+      /* line 95, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+      .searchAndSortingSection .SearchBox .searchWrapper .searchBoxInput {
+        border: 0;
+        outline: none; }
+      /* line 100, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+      .searchAndSortingSection .SearchBox .searchWrapper .closeAutoComplete {
+        right: 0;
+        display: inline-block; }
+      /* line 105, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+      .searchAndSortingSection .SearchBox .searchWrapper .autoCompleteContainer {
+        position: absolute;
+        border: 1px solid black;
+        border-top: 0;
+        top: 28px;
+        right: 0;
+        left: -5px;
+        background-color: white; }
+        /* line 114, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+        .searchAndSortingSection .SearchBox .searchWrapper .autoCompleteContainer .autoCompeleteItem {
+          padding: 5px 15px;
+          font-size: 14px;
+          font-family: 'Source Sans Pro', sans-serif;
+          font-weight: 100;
+          cursor: pointer; }
+          /* line 120, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+          .searchAndSortingSection .SearchBox .searchWrapper .autoCompleteContainer .autoCompeleteItem:hover {
+            background-color: #F1F1F1; }
+  /* line 129, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+  .searchAndSortingSection .searchByCategories {
+    cursor: pointer; }
+  /* line 132, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+  .searchAndSortingSection .searchEmployessTxtBox {
+    height: 46px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px; }
+  /* line 141, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+  .searchAndSortingSection .arrowDown, .searchAndSortingSection .arrowUp {
+    font-size: 10px;
+    vertical-align: baseline; }
 
+/* line 147, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
 #peopleTable {
-  margin-top: 40px;
-}
-#peopleTable table > thead > tr {
-  background-color: #F7F7F7;
-  border-top: 2px solid #ddd;
-  cursor: pointer;
-}
-#peopleTable table > thead > tr th {
-  white-space: nowrap;
-}
-#peopleTable table > tbody > tr td {
-  border: 1px solid #ddd;
-}
+  padding: 20px 30px;
+  background-color: white; }
+  /* line 150, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+  #peopleTable table {
+    table-layout: fixed; }
+  /* line 154, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+  #peopleTable table > thead > tr {
+    cursor: pointer;
+    background-color: #1ab394;
+    border-color: #1ab394;
+    color: #FFFFFF; }
+    /* line 160, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+    #peopleTable table > thead > tr th {
+      white-space: nowrap;
+      background-color: #1ab394; }
+      /* line 164, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+      #peopleTable table > thead > tr th span {
+        float: right; }
+  /* line 170, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+  #peopleTable table > tbody > tr td {
+    border: 1px solid #e7e7e7;
+    border-bottom: 1px solid #DDDDDD; }
+
+/*# sourceMappingURL=style.css.map */

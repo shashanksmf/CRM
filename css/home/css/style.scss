@@ -145,20 +145,31 @@ header{
 }
 
 #peopleTable{
-    margin-top:40px; 
+    padding: 20px 30px;
+    background-color: white;
+    table{
+       table-layout: fixed;
+    }
     
     table > thead > tr{
-        background-color: #F7F7F7;
-        border-top:2px solid #ddd;
         cursor: pointer;
+        background-color: #1ab394;
+        border-color: #1ab394;
+        color: #FFFFFF;    
         
         th {
-        white-space: nowrap;
+            white-space: nowrap;
+            background-color: #1ab394;
+        
+            span{
+                float:right;
+            }
         }  
     }
     table > tbody >tr {
         td{
-            border: 1px solid #ddd;
+            border: 1px solid #e7e7e7;
+            border-bottom: 1px solid #DDDDDD;
         }
     }
 }

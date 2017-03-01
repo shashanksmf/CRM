@@ -101,10 +101,10 @@ In Modal{{users}}
     
          <input class="form-control" type="text" placeholder="start typing name..." ng-model="emplName">
         <ul class="list-group" >
-          <li class="list-group-item" ng-repeat="user in emplNames | filter : emplName">
-              <div ng-click="addEmpl(user)">{{user}}
+          <li class="list-group-item" ng-repeat="empl in emplNames | filter : emplName">
+              <div ng-click="addEmpl(empl.name,empl.isFound,$index)">{{empl.name}}
                     <span ng-repeat="member in groups.Groups[groupIndex].Members">
-                        <span ng-if="member.name == user">
+                        <span ng-if="member.name == empl.name" ng-init="empl.isFound=true">
                             <i class="fa fa-check checkIcon" ></i>
                         </span>
                     </span>
