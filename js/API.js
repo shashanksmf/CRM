@@ -54,7 +54,19 @@ inspinia.factory('API', ['$http',function($http){
 
 	        method: 'GET',
 	        dataType: "jsonp",
-	        url: baseHttpUrl+'GetGroups.php?id'+id
+	        url: baseHttpUrl+'/GetGroups.php?id'+id
+
+	    })
+	
+	}
+
+	callAPI.createGroup = function(group) {
+		
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/AddGroups.php?name='+group.newGroup+'&details='+group.details+'&admin='+group.groupadmin+'&members='+group.members+'&membersCount='+group.membersCount+'&createdOn='+group.createdOn
 
 	    })
 	

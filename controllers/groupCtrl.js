@@ -26,19 +26,31 @@ inspinia.controller('groupCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 
 		if(groupName && groupName.length > 0){
 
-      var createGroupObj = {
-        "name": groupName,
-        "details": groupDetail,
-        "admin": $rootScope.userName || localStorage.getItem("userName"),
-        "Members":[],
-        "membersCount": "0"
-      }
-      
-      API.addGroup()
-			$scope.groups.Groups.push(createGroupObj)
+		    var createGroupObj = {
+		        "name": groupName,
+		        "details": groupDetail,
+		        "admin": $rootScope.userName || localStorage.getItem("userName"),
+		        "Members":0,
+		        "membersCount": "0"
+		    }
+
+		    API.createGroup(createGroupObj).then(function(response){
+		    	if(response.data.responce){
+		    		$scope.groups.Groups.push(createGroupObj)
+		    	}
+		    	else if(!response.data.responce)
+		    	{
+		    		alert(response.data.message)
+		    	}
+		    })
+
+			
 		}
+
 		else{
+
 			alert("please enter group Name");
+		
 		}	
 
 	}
