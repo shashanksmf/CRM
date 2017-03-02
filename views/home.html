@@ -32,7 +32,14 @@
         
   <section id="peopleTable" ng-click="showAutoComplete=false">
            
-           
+    <div class="row-fluid homeBreadCumb">
+      <span class="breadcrumbTitle"> Layouts</span>
+      <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li class="active"><a href="#">Layouts</a></li>
+      </ol>
+    </div>       
+
     <table class="table dataTables-example  table-striped table-bordered table-hover">
     
     <thead>
@@ -66,22 +73,35 @@
          
         <td class="userImg">
             <div class="userAvatar"><img src="img/default-avatar.png"></div>
-            <span ng-click="showUserDetail(empl.id)" > {{empl.name}}</span></td>
+            <span ng-click="showUserDetail(empl.id)" > {{empl.name}}</span>
+        </td>
+
         <td>{{empl.title}}</td>
-        <td><span class="label " ng-class="{'label-success':empl.industry=='Finance'||empl.industry=='IT','label-warning':empl.industry=='Development'||empl.industry=='Health tech','label-info':empl.industry=='Real-Estate'}">{{empl.industry}}</span></td>
-          <td >{{empl.location}}</td>
-          <td ng-click="showCompanyDetail(empl.CompanyId)">{{empl.Company.name}}</td>
+        
+        <td><span class="label " ng-class="{'label-success':empl.industry=='Finance'||empl.industry=='IT','label-warning':empl.industry=='Development'||empl.industry=='Health tech','label-info':empl.industry=='Real-Estate'}">{{empl.industry}}</span>
+        </td>
+        
+        <td >{{empl.location}}</td>
+        
+        <td ng-click="showCompanyDetail(empl.CompanyId)">{{empl.Company.name}}</td>
           
       </tr>
-        <tr ng-show="tagSearchedItems.length>0" ng-repeat="empl in tagSearchedDetails  | unique:'id'|  orderBy:propertyName:reverse" ng-if="emplId.length>0 ? emplId.indexOf(empl.id): true">
+
+      <tr ng-show="tagSearchedItems.length>0" ng-repeat="empl in tagSearchedDetails  | unique:'id'|  orderBy:propertyName:reverse" ng-if="emplId.length>0 ? emplId.indexOf(empl.id): true">
          
         <td class="userImg">
-                <div class="userAvatar"><img src="img/default-avatar.png"></div>
-            <span ng-click="showUserDetail(empl.id)" > {{empl.name}}</span></td>
+            <div class="userAvatar"><img src="img/default-avatar.png"></div>
+            <span ng-click="showUserDetail(empl.id)" > {{empl.name}}</span>
+        </td>
+      
         <td>{{empl.title}}</td>
-        <td><span class="label " ng-class="{'label-success':empl.industry=='Finance'||empl.industry=='IT','label-warning':empl.industry=='Development'||empl.industry=='Health tech','label-info':empl.industry=='Real-Estate'}">{{empl.industry}}</span></td>
-          <td >{{empl.location}}</td>
-          <td ng-click="showCompanyDetail(empl.CompanyId)">{{empl.Company.name}}</td>
+        
+        <td><span class="label " ng-class="{'label-success':empl.industry=='Finance'||empl.industry=='IT','label-warning':empl.industry=='Development'||empl.industry=='Health tech','label-info':empl.industry=='Real-Estate'}">{{empl.industry}}</span>
+        </td>
+        
+        <td >{{empl.location}}</td>
+        
+        <td ng-click="showCompanyDetail(empl.CompanyId)">{{empl.Company.name}}</td>
           
       </tr>
       

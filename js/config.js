@@ -30,8 +30,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         .state('dashboards.home',{
             url:"/home",
             templateUrl:"views/home.html",
-            controller:"homeCtrl"
-            
+            controller:"homeCtrl"            
         })
         .state('dashboards.dashboard_1', {
             url: "/dashboard_1",

@@ -17,10 +17,11 @@ inspinia.controller('groupCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 		if(groupName && groupName.length > 0){
 
 		    var createGroupObj = {
+		    	"id": parseInt($scope.groups.Groups[$scope.groups.Groups.length-1].id)+1,
 		        "name": groupName,
 		        "details": groupDetail,
 		        "admin": $rootScope.userName || localStorage.getItem("userName"),
-		        "Members":0,
+		        "Members":[],
 		        "membersCount": "0"
 		    }
 
@@ -51,12 +52,19 @@ inspinia.controller('groupCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 			$scope.groupIndex = groupIndex;
 	}
 
-	$scope.addEmpl = function(emplName,memberIndex,emplId) {
+	$scope.addEmpl = function(emplName,emplId,arrayIndex) {
+			
+			var isMemberFound = false , memberIndex = null;
 
-			//memberIndex is the index of member array in which the emplyee is found
+			for(var i=0; i < $scope.groups.Groups[$scope.groupIndex].Members.length ; i++) {
+				if($scope.groups.Groups[$scope.groupIndex].Members[i].id == emplId) {
+					memberIndex = i;
+					isMemberFound = true;
+					break;
+				}
+			}
 
-
-			if($scope.groups.Groups[$scope.groupIndex].Members[memberIndex].id == emplId) {
+			if(isMemberFound) {
 			
 				$scope.groups.Groups[$scope.groupIndex].Members.splice(memberIndex, 1);
 				$scope.groups.Groups[$scope.groupIndex].membersCount = $scope.groups.Groups[$scope.groupIndex].Members.length;
@@ -65,29 +73,44 @@ inspinia.controller('groupCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 
 			else{
 			
+				if(!$scope.groups.Groups[$scope.groupIndex].hasOwnProperty("Members")) {
+					$scope.groups.Groups[$scope.groupIndex].Members = [];
+				}
+
 			 	$scope.groups.Groups[$scope.groupIndex].Members.push({"name":emplName,"id":emplId});
 			 	$scope.groups.Groups[$scope.groupIndex].membersCount = $scope.groups.Groups[$scope.groupIndex].Members.length;
 			
 			}
-			// for(var i =0;i<$scope.groups.Groups[$scope.groupIndex].Members.length;i++) {
-			// 	if($scope.groups.Groups[$scope.groupIndex].Members[i].name == emplName) {
-			// 		isNameFound = true;
-			// 		isNameFoundIndex = i;
-			// 		break;
-			// 	}
-			// }
-			
 
-			// if(!isNameFound) {
-			// 	$scope.groups.Groups[$scope.groupIndex].Members.push({"name":emplName});
-			// 	$scope.groups.Groups[$scope.groupIndex].membersCount = $scope.groups.Groups[$scope.groupIndex].Members.length;
-			// }
+	}
 
-			// else {
-			// 	$scope.groups.Groups[$scope.groupIndex].Members.splice(isNameFoundIndex, 1);
-			// 	$scope.groups.Groups[$scope.groupIndex].membersCount = $scope.groups.Groups[$scope.groupIndex].Members.length;	
-			// }
-			
+
+	$scope.saveGroupEmpl = function () {
+
+		var groupId = $scope.groups.Groups[$scope.groupIndex].id;
+		var memberIds = ''; 
+
+		$scope.groups.Groups[$scope.groupIndex].Members.forEach(function(items) { 
+			memberIds += items.id + ','
+		})
+
+		if(memberIds.substr(memberIds.length -1,1) == ",") {
+			memberIds =  memberIds.substr(0,memberIds.length-1);
+		}
+
+		if(memberIds.length > 0) {
+
+		API.updateMembersInGroup({ id:groupId , members:memberIds}).then(function(response){
+			if(response.data.responce){
+				alert("Group Successfully Saved");
+			}
+			else {
+				alert("Something Went Wrong !");	
+			}
+		})
+
+		}
+		
 
 	}	
 

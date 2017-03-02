@@ -15,12 +15,12 @@
                         <span data-role="remove" class="removeTagIcon" ng-click=deleteSearchedTag(tag,$index)></span>
                     </span>    
                         <div class="searchWrapper">    
-                        <input style="background-color: inherit;width: 100%;" ng-change="seachText(searchInput)"  ng-model="searchInput" my-enter="autoCompleteListItem(searchInput,false,'')" class="searchBoxInput" />
+                        <input style="background-color: inherit;width: 100%;" ng-change="seachText(searchInput)"  ng-model="searchInput" placeholder="Search" my-enter="autoCompleteListItem(searchInput,false,'');searchInput=''" class="searchBoxInput" />
                             <div class="closeAutoComplete"></div>
                             <div ng-show="showAutoComplete" class="autoCompleteContainer">
                                 <div ng-repeat="list in listdata track by $index" class="autoCompeleteItem">
 
-                                    <div ng-click="autoCompleteListItem(searchInput,list.id,list)">
+                                    <div ng-click="autoCompleteListItem(searchInput,list.id,list);searchInput=''">
                                         <span ng-style="list.foundIn.split(',')[0] =='name' && {'font-weight':'bold'}">{{list.name}}</span> 
                                         <span ng-style="list.foundIn.split(',')[0] =='title' && {'font-weight':'bold'}">{{list.title}}</span>
                                         <span ng-style="list.foundIn.split(',')[0] =='industry' && {'font-weight':'bold'}">{{list.industry}}</span>
@@ -51,7 +51,7 @@
                     <li><a ng-click="changeLanguage('en')">English</a></li>
                     <li><a ng-click="changeLanguage('es')">Spanish</a></li>
                 </ul>
-            </li>
+            </li>-->
             <li uib-dropdown>
                 <a class="count-info" href uib-dropdown-toggle>
                     <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
@@ -154,14 +154,18 @@
                 <a ui-sref="login">
                     <i class="fa fa-sign-out"></i> Log out
                 </a>
-            </li> -->
-            <li>
+            </li> 
+           <!--  <li>
                 <a ng-click="$root.rightSidebar = !$root.rightSidebar">
-                   <!--  <i class="fa fa-tasks"></i> -->
+                    <i class="fa fa-tasks"></i>
                    Settings
                 </a>
-            </li>
+            </li> -->
         </ul>
 
+        <div class="btn btn-primary settings">
+            <i class="fa fa-gears"></i>
+        </div>
+        
     </nav>
 </div>

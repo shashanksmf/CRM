@@ -1,6 +1,10 @@
 var inspinia = angular.module('inspinia');
-inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q', function ($scope,$rootScope,$http,$q) {
+inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout', function ($scope,$rootScope,$http,$q,$timeout) {
   
+
+
+
+
     $scope.config={showUserPopUp:false,showCompanyDetailPopUp:false};
     $scope.tags =[];
     $rootScope.tagSearchedItems = [];
@@ -146,6 +150,7 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q', function ($
     //autoCompleteList
     $rootScope.autoCompleteListItem = function(emplSearchItem,emplId,emplObj){
         
+        
         if(emplId && emplId.length>0){
             $rootScope.tagSearchedItems.push({"searchItem":emplSearchItem,"emplID":emplId});
             $scope.tagSearchedDetails = [];
@@ -170,6 +175,8 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q', function ($
             pushItemToList();
         }
         
+        $rootScope.showAutoComplete = false;
+       
        function pushItemToList(){
             
                var tagSearchHistory = ''
@@ -191,10 +198,11 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q', function ($
                 console.log("$scope.tagSearchedItems",$rootScope.tagSearchedItems)
                 })
             })  
+                
         }
         
-        $rootScope.searchInput = '';
-        $rootScope.showAutoComplete = false;
+       
+       
         
     }
     
