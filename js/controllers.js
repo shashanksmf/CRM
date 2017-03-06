@@ -53,11 +53,77 @@
  * Contains several global data used in different view
  *
  */
-function MainCtrl($scope) {
+function MainCtrl($scope,API,$rootScope) {
   
     /**
      * daterange - Used as initial model for data range picker in Advanced form view
      */
+
+    // if login
+    
+    $scope.newMessages = [
+    {
+        "id":"1",
+        "from_userName":"Komal",
+        "from_id":"1",
+        "time":"5 days ago",
+        "imgUrl":""
+    },{
+        "id":"2",
+        "from_id":"3",
+        "from_userName":"Katrina",
+        "time":"7 days ago",
+        "imgUrl":""
+    }]
+
+    $rootScope.chats = [];
+    
+    $scope.showMessage = function(fromUserId,messageId) {
+        console.log("called")
+        //call API to get message between the two users]
+        var toUserId = $rootScope.userId || localStorage.getItem("userId");
+        var fromTo = fromUserId + '_' + toUserId;
+        var toFrom = toUserId + '_' + fromUserId;
+        var chatObj = { fids : fromTo , tids:toFrom };
+        var isChatFound = false , chatfoundIndex = null;
+        if($rootScope.chats.length > 0 ) {
+            // find to and from
+            for(var i=0;i<$rootScope.chats.length;i++){
+                if($rootScope.chats[i].chatDetail[$rootScope.chats[i].chatDetail.length-1].fromTo == fromUserId && $rootScope.chats[i].chatDetail[$rootScope.chats[i].chatDetail.length-1].id == messageId) {
+                    chatfoundIndex = i;
+                    isChatFound = true;
+                    $rootScope.chats[i].active = true;
+                    break;
+                }      
+            }
+        }
+
+      
+
+        if(!isChatFound) {
+            API.getChatDetails(chatObj).then(function(response){
+                $rootScope.chats.push({"chatid":$rootScope.chats.length+1,active:true,chatDetail:response.data.Messages});  
+            })
+        }
+
+    }
+
+
+
+
+    $rootScope.formatAMPM = function (date) {
+      date = new Date(parseInt(date));
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      minutes = minutes < 10 ? '0'+minutes : minutes;
+      var strTime = hours + ':' + minutes + ' ' + ampm;
+      return strTime;
+    }
+    // if login 
+
     this.daterange = {startDate: null, endDate: null};
 
     /**

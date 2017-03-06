@@ -94,7 +94,19 @@ inspinia.factory('API', ['$http',function($http){
 	        url: baseHttpUrl + '/UpdateGroup.php?id='+group.id+'&members='+group.members
 
 	    })
-	} 
+	}
+
+
+	callAPI.getChatDetails = function(chat){
+		//?id=1&members=2,3
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/GetChatMessages.php?fIds='+chat.fids+'&tIds='+chat.tids
+
+	    })
+	}
 	
 	return callAPI;
 

@@ -32,6 +32,7 @@
   <link rel="stylesheet" href="css/home/css/userdetail.css"/>
   <link rel="stylesheet" href="css/home/css/ngtagsinput.css" />
   <link rel="stylesheet" type="text/css" href="css/groups.css">
+  <link rel="stylesheet" type="text/css" href="css/chatbox.css">
 
 
 </head>
@@ -40,8 +41,18 @@
 <!-- Main controller with serveral data used in Inspinia theme on diferent view -->
 <body ng-controller="MainCtrl as main" class="{{$state.current.data.specialClass}}" landing-scrollspy id="page-top">
 
+
+
 <!-- Main view  -->
 <div ui-view></div>
+
+<!--chatbox directive-->
+<div class="chatboxContainer">
+<div ng-repeat="chat in chats" ng-if="chat.active">
+  <chatbox chat="chat"></chatbox>   
+</div>
+<div>
+<!--chatbox directive-->
 
 <!-- jQuery and Bootstrap -->
 <script src="js/jquery/jquery-2.1.1.min.js"></script>
@@ -88,7 +99,6 @@
 <script src="js/controllers.js"></script>
 
 <script src="js/angularFilter/angularjsfilter.js"></script> 
-<script src="controllers/homeCtrl.js"></script>
 <script src="controllers/loginCtrl.js"></script>
 
 <script src="controllers/signUpCtrl.js"></script>
@@ -97,7 +107,8 @@
 <script src="Directives/userPopUp.js"></script>
 <script src="Directives/companyDetailPopUp.js"></script>
 <script src="Directives/topNavigation.js"></script>    
-
+<script src="controllers/homeCtrl.js"></script>
+<script src="Directives/chatbox.js"></script>
 
     
 

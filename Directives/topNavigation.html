@@ -57,21 +57,22 @@
                     <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
                 </a>
                 <ul class="dropdown-messages" uib-dropdown-menu>
-                    <li>
+                    <li ng-repeat="newMsg in newMessages track by $index" ng-click="showMessage(newMsg.from_id,newMsg.id)">
                         <div class="dropdown-messages-box">
                             <a ui-sref="profile" class="pull-left">
                                 <img alt="image" class="img-circle" src="img/a7.jpg">
                             </a>
 
                             <div>
-                                <small class="pull-right">46h ago</small>
-                                <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                                <small class="pull-right">{{newMsg.time}}</small>
+                                <strong>{{newMsg.from_userName}}</strong> has send you a message <strong></strong>. <br>
                                 <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
                             </div>
                         </div>
+                         <div class="divider"></div>
                     </li>
-                    <li class="divider"></li>
-                    <li>
+                  
+                 <!--     <li>
                         <div class="dropdown-messages-box">
                             <a ui-sref="profile" class="pull-left">
                                 <img alt="image" class="img-circle" src="img/a4.jpg">
@@ -83,8 +84,8 @@
                                 <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
                             </div>
                         </div>
-                    </li>
-                    <li class="divider"></li>
+                    </li> -->
+                   <!--  <li class="divider"></li>
                     <li>
                         <div class="dropdown-messages-box">
                             <a ui-sref="profile" class="pull-left">
@@ -105,7 +106,7 @@
                                 <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
                             </a>
                         </div>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
             <li uib-dropdown>
