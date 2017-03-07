@@ -1,0 +1,46 @@
+/* line 1, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/profile/profile.scss */
+.userProfileContainer {
+  min-height: 500px; }
+  /* line 3, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/profile/profile.scss */
+  .userProfileContainer .leftContainer {
+    background-color: white;
+    min-height: inherit; }
+    /* line 6, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/profile/profile.scss */
+    .userProfileContainer .leftContainer .userPicContainer {
+      text-align: center; }
+      /* line 8, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/profile/profile.scss */
+      .userProfileContainer .leftContainer .userPicContainer img {
+        width: 150px; }
+    /* line 14, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/profile/profile.scss */
+    .userProfileContainer .leftContainer .userBasicInfoContainer {
+      margin-top: 20px; }
+      /* line 17, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/profile/profile.scss */
+      .userProfileContainer .leftContainer .userBasicInfoContainer .col-md-6 {
+        padding: 5px 0; }
+  /* line 23, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/profile/profile.scss */
+  .userProfileContainer .rightContainer {
+    margin-left: 15px;
+    min-height: inherit; }
+    /* line 28, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/profile/profile.scss */
+    .userProfileContainer .rightContainer .nav-tabs li:first-child {
+      margin-left: 20px; }
+    /* line 33, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/profile/profile.scss */
+    .userProfileContainer .rightContainer .summaryContainer {
+      background-color: white;
+      padding: 10px; }
+      /* line 36, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/profile/profile.scss */
+      .userProfileContainer .rightContainer .summaryContainer .contactsContainer, .userProfileContainer .rightContainer .summaryContainer .notesContainer {
+        padding: 10px; }
+      /* line 44, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/profile/profile.scss */
+      .userProfileContainer .rightContainer .summaryContainer .notesDivider {
+        background-color: #f3f3f4;
+        padding: 10px;
+        border: 0;
+        font-weight: bold;
+        font-size: 13px; }
+
+/* line 56, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/profile/profile.scss */
+.mtb-10px {
+  margin: 10px 0; }
+
+/*# sourceMappingURL=profile.css.map */

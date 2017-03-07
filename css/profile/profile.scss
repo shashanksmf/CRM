@@ -1,0 +1,58 @@
+.userProfileContainer {
+    min-height: 500px;
+    .leftContainer{
+         background-color: white;
+         min-height: inherit;
+        .userPicContainer {
+            text-align:center;
+            img {
+                width: 150px; 
+            }
+            
+        }
+        
+        .userBasicInfoContainer{
+            margin-top: 20px;
+            
+            .col-md-6{
+                padding: 5px 0;
+            }
+        }
+    }
+    
+    .rightContainer{
+       margin-left: 15px;
+       min-height: inherit;
+        
+        .nav-tabs{
+            li:first-child{
+                margin-left: 20px;
+                }
+        }
+        
+        .summaryContainer{
+            background-color: white;
+            padding: 10px;
+            .contactsContainer,.notesContainer{
+                padding: 10px;
+               
+            }
+            .contactsContainer{
+                
+            }
+            
+            .notesDivider{
+                background-color: #f3f3f4;
+                padding: 10px;
+                border: 0;
+                font-weight: bold;
+                font-size: 13px;
+            }
+            
+        }
+    }
+}    
+
+.mtb-10px{
+   margin: 10px 0;
+}

@@ -1,0 +1,91 @@
+<div class="container">
+	<div class="row userProfileContainer">
+		<div class="col-md-2 leftContainer">
+			Basic Info
+			<div class="userPicContainer">
+				<img src="img/default-avatar.png" ng-src="{{imgsrc}}">
+				<form name="upload">
+					 <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+				</form>
+			</div>
+
+			<div class="userBasicInfoContainer col-md-12">
+			<div class="row">
+				<div class="col-md-6" ng-show="!profileEdit">
+					Full Name
+				</div>	
+				<div class="col-md-6" ng-show="!profileEdit">	
+						<span >Shashank</span>
+								
+				</div>
+				<div class="mtb-10px" ng-show="profileEdit">
+					<input class="form-control" placeholder="full Name" ng-show="profileEdit" type="text" ng-model="userProfileInfo.fullName" >
+				</div>
+			</div>
+			<div class="row">	
+				<div class="col-md-6" ng-show="!profileEdit">
+					Age
+				</div>	
+				<div class="col-md-6" ng-show="!profileEdit"><span >16</span>	
+					
+				</div>
+
+				<div  class="mtb-10px" ng-show="profileEdit">
+					<input class="form-control" placeholder="Age" type="text" ng-model="userProfileInfo.Age" >
+				</div>
+			</div>	
+			</div>
+
+		</div>
+		<div class="col-md-9 rightContainer"> 
+				<div class="row-fluid">
+					<ul class="nav nav-tabs">
+					  <li ng-class="{'active':activeTab == tabs.summary}" ng-click="activeTab=tabs.summary"> <a>Summary</a></li>
+					  <li ng-class="{'active':activeTab == tabs.attachment}" ng-click="activeTab=tabs.attachment"><a>Attachment</a></li>
+					</ul>
+				</div>
+
+				<div class="summaryContainer" ng-show="activeTab == tabs.summary">
+					<div class="row-fluid">
+						<button class="btn btn-primary" ng-show="!profileEdit" ng-click="changeProfileEdit()"> Edit</button>
+						<button class="btn btn-primary" ng-show="profileEdit" ng-click="changeProfileEdit()">Save</button>
+					</div>
+					<div class="contactsContainer">
+						<div class="mtb-10px">
+							Contacts
+						</div>
+						
+						<div class="mtb-10px">
+							<span class="col-md-2">Phone Number</span>  <span ng-show="!profileEdit" > +91-9898989898 </span>
+							<input type="text" ng-model="userProfileInfo.phNo" ng-show="profileEdit">
+						</div>
+
+						<div class="mtb-10px">
+							<span class="col-md-2">Email Address</span>  <span ng-show="!profileEdit">Yahoo@gmail.com</span> 
+							<input type="text" ng-model="userProfileInfo.email" ng-show="profileEdit">
+						</div>
+	
+						<div class="mtb-10px">
+							<span class="col-md-2">Skype</span>  <span ng-show="!profileEdit">Yahoo@gmail.com</span>
+							<input type="text" ng-model="userProfileInfo.skype" ng-show="profileEdit">
+						</div>
+
+						<div class="mtb-10px">
+							<span class="col-md-2">office number</span> <span ng-show="!profileEdit">020-67676767</span> 
+							<input type="text" ng-model="userProfileInfo.officeno" ng-show="profileEdit">
+						</div>
+
+					</div>
+					<div class="notesDivider row">
+						Notes
+					</div>
+					<div class="notesContainer">
+					- Initainl Contact Made (OTC)
+					</div>	
+				</div>
+				<div class="attachmentContainer" ng-show="activeTab == tabs.attachment">
+				attachment Container
+				</div>
+		</div>
+	</div>
+</div>
