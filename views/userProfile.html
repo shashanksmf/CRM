@@ -1,12 +1,20 @@
 <div class="container">
+
 	<div class="row userProfileContainer">
 		<div class="col-md-2 leftContainer">
-			Basic Info 
+		<div class="basicInfoTxt">Basic Info </div>
+		<div class="leftinnerContainer">
+
+			
+			
 			<div class="userPicContainer">
+
 				<img src="img/default-avatar.png" ng-src="{{imgsrc}}">
-				<form name="upload">
-					 <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
-				</form>
+
+					     <input type="file" class="fileUploadInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)"  />
+				
+					
+				<!--onchange="angular.element(this).scope().uploadFile(this.files)"-->
 			</div>
 
 			<div class="userBasicInfoContainer col-md-12">
@@ -19,7 +27,7 @@
 								
 				</div>
 				<div class="mtb-10px" ng-show="profileEdit">
-					<input class="form-control" placeholder="full Name" ng-show="profileEdit" type="text" ng-model="userProfileInfo.name" >
+						<input class="form-control" placeholder="full Name" name="fullname" ng-show="profileEdit" type="text" ng-model="userProfileInfo.name" >
 				</div>
 			</div>
 			<div class="row">	
@@ -44,7 +52,7 @@
 				</div>
 
 				<div  class="mtb-10px" ng-show="profileEdit">
-					<input class="form-control" placeholder="Age" type="text" ng-model="userProfileInfo.Company.name" >
+					<input class="form-control" placeholder="Company Name" type="text" ng-model="userProfileInfo.Company.name" >
 				</div>
 			</div>
                 
@@ -57,7 +65,7 @@
 				</div>
 
 				<div  class="mtb-10px" ng-show="profileEdit">
-					<input class="form-control" placeholder="Age" type="text" ng-model="userProfileInfo.location" >
+					<input class="form-control" placeholder="Location" type="text" ng-model="userProfileInfo.location" >
 				</div>
 			</div>
                 
@@ -70,7 +78,7 @@
 				</div>
 
 				<div  class="mtb-10px" ng-show="profileEdit">
-					<input class="form-control" placeholder="Age" type="text" ng-model="userProfileInfo.jobRole" >
+					<input class="form-control" placeholder="job Role" type="text" ng-model="userProfileInfo.jobRole" >
 				</div>
 			</div>    
             
@@ -83,12 +91,13 @@
 				</div>
 
 				<div  class="mtb-10px" ng-show="profileEdit">
-					<input class="form-control" placeholder="Age" type="text" ng-model="userProfileInfo.gender" >
+					<input class="form-control" placeholder="Gender" type="text" ng-model="userProfileInfo.gender" >
 				</div>
 			</div>     
                 
 			</div>
 
+		</div>
 		</div>
 		<div class="col-md-9 rightContainer"> 
 				<div class="row-fluid">
@@ -99,49 +108,108 @@
 				</div>
 
 				<div class="summaryContainer" ng-show="activeTab == tabs.summary">
-					<div class="row-fluid">
+
+					<div class="row-fluid editSaveBtn">
 						<button class="btn btn-primary" ng-show="!profileEdit" ng-click="changeProfileEdit()"> Edit</button>
-						<button class="btn btn-primary" ng-show="profileEdit" ng-click="changeProfileEdit()">Save</button>
+						<button   type="button" ng-click="submit()" class="btn btn-primary" ng-show="profileEdit">Save</button>
 					</div>
-					<div class="contactsContainer">
-						<div class="mtb-10px">
+					<div class="row">
+					<div class="contactsContainer col-md-6">
+						<div class="mtb-10px row contactsTxt">
 							Contacts
 						</div>
 						
-						<div class="mtb-10px">
-							<span class="col-md-2">Phone Number</span>  <span ng-show="!profileEdit" >{{ userProfileInfo.phone }} </span>
+						<div class="mtb-10px row">
+							
+							<span class="col-md-4">Phone Number</span>  <span ng-show="!profileEdit" >{{ userProfileInfo.phone }} </span>
 							<input type="text" ng-model="userProfileInfo.phone" ng-show="profileEdit">
 						</div>
 
-						<div class="mtb-10px">
-							<span class="col-md-2">Email Address</span>  <span ng-show="!profileEdit">{{ userProfileInfo.email }}</span> 
+						<div class="mtb-10px row">
+							<span class="col-md-4">Email Address</span>  <span ng-show="!profileEdit">{{ userProfileInfo.email }}</span> 
 							<input type="text" ng-model="userProfileInfo.email" ng-show="profileEdit">
 						</div>
 	
-						<div class="mtb-10px">
-							<span class="col-md-2">Skype</span>  <span ng-show="!profileEdit">{{ userProfileInfo.skype }}</span>
+						<div class="mtb-10px row">
+							<span class="col-md-4">Skype</span>  <span ng-show="!profileEdit">{{ userProfileInfo.skype }}</span>
 							<input type="text" ng-model="userProfileInfo.skype" ng-show="profileEdit">
 						</div>
 
-						<div class="mtb-10px">
-							<span class="col-md-2">office number</span> <span ng-show="!profileEdit">{{ userProfileInfo.officePhone }}</span> 
+						<div class="mtb-10px row">
+							<span class="col-md-4">office number</span> <span ng-show="!profileEdit">{{ userProfileInfo.officePhone }}</span> 
 							<input type="text" ng-model="userProfileInfo.officePhone" ng-show="profileEdit">
 						</div>
 
 					</div>
-					<div class="notesDivider row">
-						Notes
+					<div class="contactsContainer col-md-6">
+						<div class="mtb-10px row" >
+							
+						</div>
+						
+						<div class="mtb-10px row">
+							
+							<span class="col-md-4">LinkedIn</span>  <span ng-show="!profileEdit" >{{ userProfileInfo.linkedin }} </span>
+							<input type="text" ng-model="userProfileInfo.linkedin" ng-show="profileEdit">
+						</div>
+
+						<div class="mtb-10px row">
+							<span class="col-md-4">twitter</span>  <span ng-show="!profileEdit">{{ userProfileInfo.twitter }}</span> 
+							<input type="text" ng-model="userProfileInfo.email" ng-show="profileEdit">
+						</div>
+	
+						<div class="mtb-10px row">
+							<span class="col-md-4">Facebook</span>  <span ng-show="!profileEdit">{{ userProfileInfo.facebook }}</span>
+							<input type="text" ng-model="userProfileInfo.facebook" ng-show="profileEdit">
+						</div>
+
+						
+
 					</div>
-					<div class="notesContainer">
-					
-                   <textarea rows="4" cols="50" ng-model="userProfileInfo.notes">
-                        {{ userProfileInfo.notes }}
-                    </textarea>   
+					</div>
+					<div class="row-fluid">
+						<div class="notesDivider row">
+							Notes
+						</div>
+						<div class="notesContainer">
+						
+	                   <textarea rows="4" cols="50" ng-model="userProfileInfo.notes">
+	                        {{ userProfileInfo.notes }}
+	                    </textarea>   
+						</div>
 					</div>	
 				</div>
 				<div class="attachmentContainer" ng-show="activeTab == tabs.attachment">
-				attachment Container
+
+				<div class="container">
+				  	<input type="file" class="fileAttachmentInput" name="image" onchange="angular.element(this).scope().fileAttach(this.files)"  />
+					<button class="btn btn-default" ng-click="browseFileAttach()">Upload File</button>
 				</div>
+
+					<table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+
+                                        <th></th>
+                                        <th>Upload Date </th>
+                                        <th>Summary </th>
+                                        <th>File</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="file in files">
+                                        <td>
+                                        <div class=" icheckbox_square-green " ng-class="{' checked': file.checked == true}" style="position: relative;" ng-click="file.checked=!file.checked"><input type="checkbox" checked="" class="i-checks" name="input[]" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></td>
+                                        <td>{{file.date}}</td>
+                                        <td>{{file.name}}</td>
+                                        <td><i class="fa fa-file"></i></td>
+                            
+                                    </tr>
+                                    
+                                    </tbody>
+                                </table>
+				</div>
+			
 		</div>
 	</div>
+
 </div>

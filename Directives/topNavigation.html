@@ -57,7 +57,7 @@
                     <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
                 </a>
                 <ul class="dropdown-messages" uib-dropdown-menu>
-                    <li ng-repeat="newMsg in newMessages track by $index" ng-click="showMessage(newMsg.from_id,newMsg.id)">
+                    <li ng-repeat="newMsg in newMessages track by $index" ng-click="showMessage(newMsg.from,newMsg.id)">
                         <div class="dropdown-messages-box">
                             <a ui-sref="profile" class="pull-left">
                                 <img alt="image" class="img-circle" src="img/a7.jpg">

@@ -174,7 +174,7 @@ header nav a {
   display: inline-block;
   width: 70%;
   margin: 8px 0;
-  border: 2px solid;
+  border-bottom: 1px solid;
   height: 40px; }
   /* line 212, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
   .navbar-header form .form-group {
@@ -189,5 +189,21 @@ header nav a {
   z-index: 9999999999999999;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px; }
+
+/* line 230, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+.icheckbox_square-green, .iradio_square-green {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  background: url("../../plugins/icheck/green.png") no-repeat;
+  border: none;
+  cursor: pointer; }
+
+/* line 242, C:/wamp/www/angularphp/template/CRMRepo/CRM.git/trunk/css/home/css/style.scss */
+.icheckbox_square-green.checked {
+  background-position: -48px 0; }
 
 /*# sourceMappingURL=style.css.map */

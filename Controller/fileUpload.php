@@ -1,5 +1,5 @@
 <?php
-echo $_POST["name"];
+echo $_POST["fullname"];
 if (isset($_FILES["file"]["name"])) {
 
     $name = $_FILES["file"]["name"];

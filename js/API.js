@@ -103,7 +103,7 @@ inspinia.factory('API', ['$http',function($http){
 
 	        method: 'GET',
 	        dataType: "jsonp",
-	        url: baseHttpUrl + '/GetChatMessages.php?fIds='+chat.fids+'&tIds='+chat.tids
+	        url: baseHttpUrl + '/GetChatMessages.php?from='+chat.from+'&to='+chat.to
 
 	    })
 	}
@@ -119,6 +119,29 @@ inspinia.factory('API', ['$http',function($http){
 	    })
         
     }
+
+    callAPI.updateUserProfile = function(user){ 
+    
+        return $http({
+
+	        method: 'GET',
+	        url: baseHttpUrl + '/UpdateEmployees.php?name='+user.name+'&title='+user.title+'&industry='+user.industry+'&location='+user.location+'&ratings='+user.ratings+'&skype='+user.skype+'&age='+user.age+'&gender='+user.gender+'&officePhone='+user.officePhone+'&jobRole='+user.jobRole+'&phone='+user.phone+'&email='+user.email+'&linkedin='+user.linkedin+'&twitter='+user.twitter+'&facebook='+user.facebook+'&notes='+user.notes+'&id='+user.id
+
+	    })
+        
+    }
+
+
+	callAPI.sendMessage = function(chat){
+		//?id=1&members=2,3
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/AddMessage.php?from='+chat.from+'&to='+chat.to+'&msg'+chat.msg
+
+	    })
+	}
 	
 	return callAPI;
 

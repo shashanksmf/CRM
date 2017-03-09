@@ -1,12 +1,30 @@
 .userProfileContainer {
     min-height: 500px;
     .leftContainer{
-         background-color: white;
-         min-height: inherit;
+        padding: 0;
+        min-height: inherit;
+        
+        .basicInfoTxt{
+            font-weight: bold;
+            margin: 11px 0;
+        }
+        
+        .leftinnerContainer{
+            background-color: white;
+            min-height: inherit;
+            padding: 0 5px;
+
+        }
+         
         .userPicContainer {
+            padding-top: 10px;
             text-align:center;
             img {
                 width: 150px; 
+            }
+            .fileUploadInput{
+                margin-top: 10px;
+                max-width: 100%;
             }
             
         }
@@ -33,12 +51,19 @@
         .summaryContainer{
             background-color: white;
             padding: 10px;
+            
+            .editSaveBtn{
+                padding-left: 10px;
+            }
             .contactsContainer,.notesContainer{
                 padding: 10px;
                
             }
             .contactsContainer{
-                
+                .contactsTxt{
+                    padding-left: 15px;
+                    font-weight: bold;
+                }
             }
             
             .notesDivider{
@@ -49,6 +74,24 @@
                 font-size: 13px;
             }
             
+        }
+        
+        .attachmentContainer{
+            
+            background-color: #f9f9f9;
+            min-height: 500px;
+            
+            .container{
+                padding: 10px;
+                
+                .fileAttachmentInput{
+                    display:none;
+                }
+                button{
+                    background-color: #d8d8d8;
+                }
+            }
+           
         }
     }
 }    

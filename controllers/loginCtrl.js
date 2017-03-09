@@ -9,10 +9,10 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 			if(response.data.responce){
 				$rootScope.userEmail = response.data.email;
 				$rootScope.userName = response.data.name;
-				$rootScope.userId = 2;
+				$rootScope.userId = 1;
 				localStorage.setItem("userEmail",response.data.email);
 				localStorage.setItem("userName",response.data.name);
-				localStorage.setItem("userId",2);
+				localStorage.setItem("userId",1);
 				//localStorage.setItem("userUUID",response.data.responce);
 				API.setAuth(response.data);
 				$state.go("dashboards.home");
