@@ -40,7 +40,7 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
     
     var userObj = { userId : $rootScope.userId || localStorage.getItem("userId")  };
     API.getUserProfile(userObj).then(function(response){
-        $scope.userProfileInfo = response.data.Employees;
+        $scope.userProfileInfo = response.data.Employees[0];
     })
 
 }]);	

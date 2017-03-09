@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row userProfileContainer">
 		<div class="col-md-2 leftContainer">
-			Basic Info
+			Basic Info 
 			<div class="userPicContainer">
 				<img src="img/default-avatar.png" ng-src="{{imgsrc}}">
 				<form name="upload">
@@ -19,7 +19,7 @@
 								
 				</div>
 				<div class="mtb-10px" ng-show="profileEdit">
-					<input class="form-control" placeholder="full Name" ng-show="profileEdit" type="text" ng-model="userProfileInfo.fullName" >
+					<input class="form-control" placeholder="full Name" ng-show="profileEdit" type="text" ng-model="userProfileInfo.name" >
 				</div>
 			</div>
 			<div class="row">	
@@ -31,7 +31,7 @@
 				</div>
 
 				<div  class="mtb-10px" ng-show="profileEdit">
-					<input class="form-control" placeholder="Age" type="text" ng-model="userProfileInfo.Age" >
+					<input class="form-control" placeholder="Age" type="text" ng-model="userProfileInfo.age" >
 				</div>
 			</div>	
                 
@@ -39,12 +39,12 @@
 				<div class="col-md-6" ng-show="!profileEdit">
 					Company
 				</div>	
-				<div class="col-md-6" ng-show="!profileEdit"><span >{{userProfileInfo.company.name}}</span>	
+				<div class="col-md-6" ng-show="!profileEdit"><span >{{userProfileInfo.Company.name}}</span>	
 					
 				</div>
 
 				<div  class="mtb-10px" ng-show="profileEdit">
-					<input class="form-control" placeholder="Age" type="text" ng-model="userProfileInfo.company.name" >
+					<input class="form-control" placeholder="Age" type="text" ng-model="userProfileInfo.Company.name" >
 				</div>
 			</div>
                 
@@ -133,7 +133,7 @@
 						Notes
 					</div>
 					<div class="notesContainer">
-					{{ userProfileInfo.notes }}
+					
                    <textarea rows="4" cols="50" ng-model="userProfileInfo.notes">
                         {{ userProfileInfo.notes }}
                     </textarea>   
