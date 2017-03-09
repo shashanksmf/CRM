@@ -107,6 +107,18 @@ inspinia.factory('API', ['$http',function($http){
 
 	    })
 	}
+    
+    callAPI.getUserProfile = function(user){ 
+    
+        return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/GetProfiles.php?id='+user.userId
+
+	    })
+        
+    }
 	
 	return callAPI;
 

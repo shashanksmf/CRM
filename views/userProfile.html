@@ -15,7 +15,7 @@
 					Full Name
 				</div>	
 				<div class="col-md-6" ng-show="!profileEdit">	
-						<span >Shashank</span>
+						<span >{{userProfileInfo.name}}</span>
 								
 				</div>
 				<div class="mtb-10px" ng-show="profileEdit">
@@ -26,7 +26,7 @@
 				<div class="col-md-6" ng-show="!profileEdit">
 					Age
 				</div>	
-				<div class="col-md-6" ng-show="!profileEdit"><span >16</span>	
+				<div class="col-md-6" ng-show="!profileEdit"><span >{{userProfileInfo.age}}</span>	
 					
 				</div>
 
@@ -34,6 +34,59 @@
 					<input class="form-control" placeholder="Age" type="text" ng-model="userProfileInfo.Age" >
 				</div>
 			</div>	
+                
+            <div class="row">	
+				<div class="col-md-6" ng-show="!profileEdit">
+					Company
+				</div>	
+				<div class="col-md-6" ng-show="!profileEdit"><span >{{userProfileInfo.company.name}}</span>	
+					
+				</div>
+
+				<div  class="mtb-10px" ng-show="profileEdit">
+					<input class="form-control" placeholder="Age" type="text" ng-model="userProfileInfo.company.name" >
+				</div>
+			</div>
+                
+            <div class="row">	
+				<div class="col-md-6" ng-show="!profileEdit">
+					Location
+				</div>	
+				<div class="col-md-6" ng-show="!profileEdit"><span >{{userProfileInfo.location}}</span>	
+					
+				</div>
+
+				<div  class="mtb-10px" ng-show="profileEdit">
+					<input class="form-control" placeholder="Age" type="text" ng-model="userProfileInfo.location" >
+				</div>
+			</div>
+                
+            <div class="row">	
+				<div class="col-md-6" ng-show="!profileEdit">
+					Job Role
+				</div>	
+				<div class="col-md-6" ng-show="!profileEdit"><span >{{userProfileInfo.jobRole}}</span>	
+					
+				</div>
+
+				<div  class="mtb-10px" ng-show="profileEdit">
+					<input class="form-control" placeholder="Age" type="text" ng-model="userProfileInfo.jobRole" >
+				</div>
+			</div>    
+            
+             <div class="row">	
+				<div class="col-md-6" ng-show="!profileEdit">
+					Gender
+				</div>	
+				<div class="col-md-6" ng-show="!profileEdit"><span >{{userProfileInfo.gender}}</span>	
+					
+				</div>
+
+				<div  class="mtb-10px" ng-show="profileEdit">
+					<input class="form-control" placeholder="Age" type="text" ng-model="userProfileInfo.gender" >
+				</div>
+			</div>     
+                
 			</div>
 
 		</div>
@@ -56,23 +109,23 @@
 						</div>
 						
 						<div class="mtb-10px">
-							<span class="col-md-2">Phone Number</span>  <span ng-show="!profileEdit" > +91-9898989898 </span>
-							<input type="text" ng-model="userProfileInfo.phNo" ng-show="profileEdit">
+							<span class="col-md-2">Phone Number</span>  <span ng-show="!profileEdit" >{{ userProfileInfo.phone }} </span>
+							<input type="text" ng-model="userProfileInfo.phone" ng-show="profileEdit">
 						</div>
 
 						<div class="mtb-10px">
-							<span class="col-md-2">Email Address</span>  <span ng-show="!profileEdit">Yahoo@gmail.com</span> 
+							<span class="col-md-2">Email Address</span>  <span ng-show="!profileEdit">{{ userProfileInfo.email }}</span> 
 							<input type="text" ng-model="userProfileInfo.email" ng-show="profileEdit">
 						</div>
 	
 						<div class="mtb-10px">
-							<span class="col-md-2">Skype</span>  <span ng-show="!profileEdit">Yahoo@gmail.com</span>
+							<span class="col-md-2">Skype</span>  <span ng-show="!profileEdit">{{ userProfileInfo.skype }}</span>
 							<input type="text" ng-model="userProfileInfo.skype" ng-show="profileEdit">
 						</div>
 
 						<div class="mtb-10px">
-							<span class="col-md-2">office number</span> <span ng-show="!profileEdit">020-67676767</span> 
-							<input type="text" ng-model="userProfileInfo.officeno" ng-show="profileEdit">
+							<span class="col-md-2">office number</span> <span ng-show="!profileEdit">{{ userProfileInfo.officePhone }}</span> 
+							<input type="text" ng-model="userProfileInfo.officePhone" ng-show="profileEdit">
 						</div>
 
 					</div>
@@ -80,7 +133,10 @@
 						Notes
 					</div>
 					<div class="notesContainer">
-					- Initainl Contact Made (OTC)
+					{{ userProfileInfo.notes }}
+                   <textarea rows="4" cols="50" ng-model="userProfileInfo.notes">
+                        {{ userProfileInfo.notes }}
+                    </textarea>   
 					</div>	
 				</div>
 				<div class="attachmentContainer" ng-show="activeTab == tabs.attachment">

@@ -36,6 +36,11 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
         $scope.imgsrc= e.target.result;
         console.log("$scope.imgsrc",$scope.imgsrc)
         });
-}
+    }
+    
+    var userObj = { userId : $rootScope.userId || localStorage.getItem("userId")  };
+    API.getUserProfile(userObj).then(function(response){
+        $scope.userProfileInfo = response.data.Employees;
+    })
 
 }]);	
