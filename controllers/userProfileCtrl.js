@@ -46,22 +46,28 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 		var file = new FormData();
 		file.append("image", files[0]);
 		file.append("fileName",files[0].name);
-		file.append("userId",$rootScope.userId || localStorage.getItem("userId"));
+		file.append("id",$rootScope.userId || localStorage.getItem("userId"));
 		
 		var reader = new FileReader();
 		reader.onload = $scope.imageIsLoaded; 
 		reader.readAsDataURL(files[0]);
 
 	    var url = "http://jaiswaldevelopers.com/CRMV1/files/index.php";
-	    $http.post(url, file,  
-	    {   
+	    API.uploadUserProfilePic(file).then(function(response) {
+
+	    	alert("Picture successFully Uploaded")
+
+	    })
+
+	    // $http.post(url, file,  
+	    // {   
 	    	
-	    	 withCredentials: false,
-	        transformRequest: angular.identity,  
-	        headers: {'Content-Type': undefined}  
-	    }).success(function(response){  
-        alert("Image Uploaded successFully"); 
-       }); 
+	    // 	 withCredentials: false,
+	    //     transformRequest: angular.identity,  
+	    //     headers: {'Content-Type': undefined}  
+	    // }).success(function(response){  
+     //    alert("Image Uploaded successFully"); 
+     //  }); 
   };
 
 	$scope.browseFileAttach = function(){
@@ -70,9 +76,35 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 
 
 	$scope.fileAttach = function(files){
-		$timeout(function() {
-			$scope.files.push({"id":$scope.files.length+1,"name":files[0].name,"date":new Date()})
-		}, 1000);
+
+		var fileAttach = new FormData();
+		fileAttach.append("image", files[0]);
+		fileAttach.append("fileName",files[0].name);
+		fileAttach.append("id",$rootScope.userId || localStorage.getItem("userId"));
+		
+		// var reader = new FileReader();
+		// reader.onload = $scope.imageIsLoaded; 
+		// reader.readAsDataURL(files[0]);
+
+	   // var url = "http://jaiswaldevelopers.com/CRMV1/files/index.php";
+	    API.uploadFileAttach(fileAttach).then(function(response) {
+	    	
+	    	alert("file successFully Uploaded")
+	    	// if(response.data.responce) {
+	    		
+	    	// }
+	    	// else{
+	    	// 	alert("file successFully Uploaded")
+	    	// }
+	    //	alert(response.responce);
+	    	$timeout(function() {
+				$scope.files.push({"id":$scope.files.length+1,"name":files[0].name,"date":new Date()})
+			}, 1000);	
+
+	    })
+
+
+	
 		
 	}
 

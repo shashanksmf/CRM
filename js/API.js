@@ -131,6 +131,43 @@ inspinia.factory('API', ['$http',function($http){
         
     }
 
+    callAPI.uploadUserProfilePic = function(file){
+
+    	return $http.post(baseHttpUrl + '/ImageUpload.php', file,  
+	    {   
+	    	
+	    	withCredentials: false,
+	        transformRequest: angular.identity,  
+	        headers: {'Content-Type': undefined}  
+	    
+	    });
+
+	 // return $http({
+				
+		// 		withCredentials: false,
+		//         transformRequest: angular.identity,  
+		//         headers: {'Content-Type': undefined} ,
+		//         method: 'POST',
+		//         url: baseHttpUrl + '/ImageUpload.php'
+
+		//     })
+
+    }
+
+
+      callAPI.uploadFileAttach = function(file){
+
+    	return $http.post(baseHttpUrl + '/ImageUploads.php', file,  
+	    {   
+	    	
+	    	withCredentials: false,
+	        transformRequest: angular.identity,  
+	        headers: {'Content-Type': undefined}  
+	    
+	    });
+
+    }
+
 
 	callAPI.sendMessage = function(chat){
 		//?id=1&members=2,3
