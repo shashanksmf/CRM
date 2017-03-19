@@ -117,7 +117,30 @@ function MainCtrl($scope,API,$rootScope) {
     }
 
 
+    $scope.fileSelected = function (files) {
 
+        var file = new FormData();
+        file.append("image", files[0]);
+        file.append("fileName",files[0].name);
+        file.append("id", $scope.userId);
+        
+        var reader = new FileReader();
+        reader.onload = $scope.imageIsLoaded; 
+        reader.readAsDataURL(files[0]);
+
+        var url = "http://jaiswaldevelopers.com/CRMV1/files/index.php";
+        API.uploadUserProfilePic(file).then(function(response) {
+
+            alert("Picture successFully Uploaded")
+
+        })
+  };
+
+    $scope.imageIsLoaded = function(e){
+            $scope.$apply(function() {
+                $scope.imgsrc= e.target.result;
+            });
+     }
 
     $rootScope.formatAMPM = function (date) {
       date = new Date(parseInt(date));

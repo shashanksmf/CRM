@@ -5,24 +5,31 @@
         <ul side-navigation class="nav metismenu" id="side-menu">
             <li class="nav-header">
 
-               <!--  <div class="profile-element" uib-dropdown>
-                    <img alt="image" class="img-circle" src="img/profile_small.jpg"/>
-                    <a uib-dropdown-toggle href>
+               <div class="profile-element" uib-dropdown>
+                   <!--  <img alt="image" class="img-circle" src="img/profile_small.jpg"/> -->
+
+                   <div class="userPicContainer">
+
+                        <img src="img/default-avatar.png" class="img-circle" ng-src="{{imgsrc}}" style="max-width: 80px">
+                                 <input type="file" class="fileUploadInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)"  />
+                    </div>
+
+                  <!--   <a uib-dropdown-toggle href>
                             <span class="clear">
                                 <span class="block m-t-xs">
-                                    <strong class="font-bold">David Williams      sadadas   {{test}}</strong>
+                                    <strong class="font-bold">David Williams</strong>
                              </span>
                                 <span class="text-muted text-xs block">Art Director <b class="caret"></b></span>
                             </span>
-                    </a>
-                    <ul uib-dropdown-menu class="animated fadeInRight m-t-xs">
+                    </a> -->
+                   <!--  <ul uib-dropdown-menu class="animated fadeInRight m-t-xs">
                         <li><a ui-sref="app.profile">Profile</a></li>
                         <li><a ui-sref="app.contacts">Contacts</a></li>
                         <li><a ui-sref="mailbox.inbox">Mailbox</a></li>
                         <li class="divider"></li>
                         <li><a ui-sref="login">Logout</a></li>
-                    </ul>
-                </div> -->
+                    </ul>-->
+                </div> 
                 <div class="logo-element">
                     IN+
                 </div>
@@ -237,9 +244,9 @@
                 <a ><i class="fa fa-envelope"></i> <span class="nav-label">{{ 'Contacts' | translate }}</span></a>
             </li>
             
-             <li ui-sref-active="active">
+           <!--   <li ui-sref-active="active">
                 <a ui-sref="dashboards.profile"><i class="fa fa-area-chart"></i> <span class="nav-label">{{ 'Profile' | translate }}</span></a>
-            </li>
+            </li> -->
 
             <li ui-sref-active="active">
                 <a ><i class="fa fa-wechat"></i> <span class="nav-label">{{ 'Communication' | translate }}</span></a>

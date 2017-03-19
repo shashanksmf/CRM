@@ -1,11 +1,14 @@
 var inspinia = angular.module('inspinia');
-inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API','$state','$timeout', function ($scope,$rootScope,$http,$q,API,$state,$timeout) {
+inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API','$state','$timeout','$stateParams', function ($scope,$rootScope,$http,$q,API,$state,$timeout,$stateParams) {
+
 	$scope.tabs = { summary:"summary" , attachment : "attachment" };
 	$scope.activeTab = $scope.tabs.summary;
 	$scope.profileEdit = false;
 	$scope.userProfileInfo = {};
 	$scope.formData = {};
 
+	//console.log("$stateParams",$stateParams)
+	$scope.userId = $stateParams.id;
 	$scope.changeProfileEdit = function (){
 		
 		console.log("$scope.userProfileInfo",$scope.userProfileInfo)
@@ -29,106 +32,99 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 	};
 
 
-	$scope.imageIsLoaded = function(e){
-        $scope.$apply(function() {
-	        $scope.imgsrc= e.target.result;
-	    });
-    }
+	
     
-    var userObj = { userId : $rootScope.userId || localStorage.getItem("userId")  };
+    var userObj = { userId : $scope.userId };
     API.getUserProfile(userObj).then(function(response){
         $scope.userProfileInfo = response.data.Employees[0];
     })
 
-    $scope.fileSelected = function (files) {
-  //  var myFileSelected = element.files[0];
 
-		var file = new FormData();
-		file.append("image", files[0]);
-		file.append("fileName",files[0].name);
-		file.append("id",$rootScope.userId || localStorage.getItem("userId"));
-		
-		var reader = new FileReader();
-		reader.onload = $scope.imageIsLoaded; 
-		reader.readAsDataURL(files[0]);
+	$scope.browseFileAttach = function() {
 
-	    var url = "http://jaiswaldevelopers.com/CRMV1/files/index.php";
-	    API.uploadUserProfilePic(file).then(function(response) {
-
-	    	alert("Picture successFully Uploaded")
-
-	    })
-
-	    // $http.post(url, file,  
-	    // {   
-	    	
-	    // 	 withCredentials: false,
-	    //     transformRequest: angular.identity,  
-	    //     headers: {'Content-Type': undefined}  
-	    // }).success(function(response){  
-     //    alert("Image Uploaded successFully"); 
-     //  }); 
-  };
-
-	$scope.browseFileAttach = function(){
 		document.getElementsByClassName("fileAttachmentInput")[0].click();
 	}
 
 
 	$scope.fileAttach = function(files){
 
-		var fileAttach = new FormData();
-		fileAttach.append("image", files[0]);
-		fileAttach.append("fileName",files[0].name);
-		fileAttach.append("id",$rootScope.userId || localStorage.getItem("userId"));
+		$scope.fileAttach = new FormData();
+		$scope.fileAttach.append("image", files[0]);
+		$scope.fileAttach.append("id", $scope.userId);
 		
-		// var reader = new FileReader();
-		// reader.onload = $scope.imageIsLoaded; 
-		// reader.readAsDataURL(files[0]);
+		$("#fileNameModal").modal("show");
 
-	   // var url = "http://jaiswaldevelopers.com/CRMV1/files/index.php";
-	    API.uploadFileAttach(fileAttach).then(function(response) {
+
+	}
+
+
+	$scope.uploadNewFileAttach = function (fileName) {
+
+		if(!fileName || fileName.length < 0 ){
+			alert("Please Enter FileName");
+			return false;
+		}
+
+		$scope.fileAttach.append("fileName",fileName);
+		
+	    API.uploadFileAttach($scope.fileAttach).then(function(response) {
 	    	
-	    	alert("file successFully Uploaded")
-	    	// if(response.data.responce) {
-	    		
-	    	// }
-	    	// else{
-	    	// 	alert("file successFully Uploaded")
-	    	// }
-	    //	alert(response.responce);
+	    	//alert("file successFully Uploaded")
+	    	 if(response.data.responce) {
+	    		alert("file successFully Uploaded")
+	    	 }
+	    	 else {
+	    	 	alert("something Went Wrong");
+	    	 }
+
 	    	$timeout(function() {
-				$scope.files.push({"id":$scope.files.length+1,"name":files[0].name,"date":new Date()})
-			}, 1000);	
+				$scope.files.push({checked:false,"name":fileName,"date":new Date().toISOString().slice(0,10)})
+			}, 500);	
 
 	    })
 
 
-	
-		
-	}
+	} 
 
 
-	$scope.files = [
-		{
-			"id":"1",
-			"name":"x-man pdf",
-			"date":"02/05/2012",
-			"checked":false
-		},
-		{
-			"id":"2",
-			"name":"The Economic Policy pdf",
-			"date":"02/05/2012",
-			"checked":false
-		},
-		{
-			"id":"3",
-			"name":"tail Head Png",
-			"date":"02/05/2012",
-			"checked":false
+	$scope.files = [];
+	API.getAttachedFiles({userId: $scope.userId}).then(function(response){
+
+		if(response.data.responce){ 
+			if(response.data.links.length > 0) {
+				response.data.links.forEach(function(file){
+					$scope.files.push({ date: file.uploadedOn, checked :false ,name: file.url })	
+				})
+			}
+		} 
+		else {
+
 		}
-	]
+
+	});
+	
+
+
+	// $scope.files = [
+	// 	{
+	// 		"id":"1",
+	// 		"name":"x-man pdf",
+	// 		"date":"02/05/2012",
+	// 		"checked":false
+	// 	},
+	// 	{
+	// 		"id":"2",
+	// 		"name":"The Economic Policy pdf",
+	// 		"date":"02/05/2012",
+	// 		"checked":false
+	// 	},
+	// 	{
+	// 		"id":"3",
+	// 		"name":"tail Head Png",
+	// 		"date":"02/05/2012",
+	// 		"checked":false
+	// 	}
+	// ]
 
 
 }]);	

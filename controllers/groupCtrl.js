@@ -107,6 +107,8 @@ inspinia.controller('groupCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 			else {
 				alert("Something Went Wrong !");	
 			}
+			
+				$("#addEmplmModal").modal("hide");
 		})
 
 		}

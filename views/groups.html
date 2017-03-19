@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-3" ng-repeat="group in groups.Groups track by $index">
             <div class="ibox">
-                <div class="ibox-content product-box" data-toggle="modal" data-target="#myModal" ng-click="editGroup($index)">
+                <div class="ibox-content product-box" data-toggle="modal" data-target="#addEmplmModal" ng-click="editGroup($index)">
                 <span class="glyphicon glyphicon-pencil"></span>
                     <div class="product-imitation" style="background-image:url('./img/groupIcon.png');    background-position: center center;
                         background-size: cover;">
@@ -81,7 +81,7 @@
 
 
 <!--Add User Modal -->
-<div id="myModal" class="modal fade groupAddUsers" role="dialog">
+<div id="addEmplmModal" class="modal fade groupAddUsers" role="dialog">
   <div class="modal-dialog">
 In Modal{{users}}
     <!-- Modal content-->

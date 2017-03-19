@@ -113,7 +113,7 @@ inspinia.factory('API', ['$http',function($http){
         return $http({
 
 	        method: 'GET',
-	        dataType: "jsonp",
+	        dataType: "text",
 	        url: baseHttpUrl + '/GetProfiles.php?id='+user.userId
 
 	    })
@@ -178,6 +178,20 @@ inspinia.factory('API', ['$http',function($http){
 	        url: baseHttpUrl + '/AddMessage.php?from='+chat.from+'&to='+chat.to+'&msg'+chat.msg
 
 	    })
+	}
+
+
+	callAPI.getAttachedFiles = function(user){
+
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/GetAtt.php?id='+user.userId
+
+	    })
+		
+
 	}
 	
 	return callAPI;

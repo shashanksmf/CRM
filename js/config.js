@@ -33,7 +33,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             controller:"homeCtrl"            
         })
         .state('dashboards.profile',{
-            url:"/userProfile",
+            url:"/userProfile/:id",
             templateUrl:"views/userProfile.html",
             controller:"userProfileCtrl"            
         })

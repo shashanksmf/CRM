@@ -1,9 +1,9 @@
 var inspinia = angular.module('inspinia');
-inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout', function ($scope,$rootScope,$http,$q,$timeout) {
+inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','$state','$stateParams', function ($scope,$rootScope,$http,$q,$timeout,$state,$stateParams) {
   
 
 
-
+    //console.log("state",$state);
 
     $scope.config={showUserPopUp:false,showCompanyDetailPopUp:false};
     $scope.tags =[];
@@ -72,22 +72,24 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout', 
     
     //code when user clicks on any User then modal comes up and show userDetail
     $scope.showUserDetail = function(emplId){
+    
+        $state.go('dashboards.profile', {id: emplId});
+
+        // var emplId = emplId || 1;
+        // $http({
+        //         method: 'GET',
+        //         dataType: "jsonp",
+        //         url: baseHttpUrl +'/GetUserData.php?id='+emplId
+        //         })
         
-        var emplId = emplId || 1;
-        $http({
-                method: 'GET',
-                dataType: "jsonp",
-                url: baseHttpUrl +'/GetUserData.php?id='+emplId
-                })
-        
-            .then(function successCallback(response) {
-                $scope.userDetails = response.data.Users[0];
-            }, function errorCallback(response) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-          });
+        //     .then(function successCallback(response) {
+        //         $scope.userDetails = response.data.Users[0];
+        //     }, function errorCallback(response) {
+        //     // called asynchronously if an error occurs
+        //     // or server returns response with an error status.
+        //   });
             
-            $scope.config.showUserPopUp = true;
+        //     $scope.config.showUserPopUp = true;
      
     }
     

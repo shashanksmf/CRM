@@ -7,16 +7,13 @@
 
 			
 			
-			<div class="userPicContainer">
+			<!-- <div class="userPicContainer">
 
 				<img src="img/default-avatar.png" ng-src="{{imgsrc}}">
-
 					     <input type="file" class="fileUploadInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)"  />
-				
-					
+			</div> -->
+	
 				<!--onchange="angular.element(this).scope().uploadFile(this.files)"-->
-			</div>
-
 			<div class="userBasicInfoContainer col-md-12">
 			<div class="row">
 				<div class="col-md-6" ng-show="!profileEdit">
@@ -213,3 +210,29 @@
 	</div>
 
 </div>
+
+
+
+<!-- Enter FileName Modal -->
+<div id="fileNameModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Enter FileName</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" ng-model="newFileName">
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-primary" ng-click="uploadNewFileAttach(newFileName)">Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Enter FileName Modal -->
