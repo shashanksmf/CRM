@@ -1,0 +1,124 @@
+<div class="mailContainer">
+	
+	<div class="addCampaignBtnBlock">
+		<button class="btn btn-default"  data-toggle="modal" data-target="#addCampaignModal">Add Campaign</button>
+		<button class="btn btn-default"  data-toggle="modal" data-target="#sendSMSModal">Send SMS</button>
+		
+		
+	</div>
+
+	<div class="viewCampaignTable">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Campaign Name</th>
+					<th>Date</th>
+					<th>Contact Group</th>
+					<th>Delivery Status</th>
+					<th>Opened Status</th>
+					<th>Campaign response</th>
+					<th>Campaign Created By</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr>
+					<td>RAW Bank Winter V2</td>
+					<td>14/02/2017</td>
+					<td>Kinshana Office 10 </td>
+					<td>72/100</td>
+					<td>40/100</td>
+					<td>10/100</td>
+					<td>Alana Divas</td>
+				</tr>
+				<tr>
+					<td>RAW Bank Winter V2</td>
+					<td>14/02/2017</td>
+					<td>Kinshana Office 10 </td>
+					<td>72/100</td>
+					<td>40/100</td>
+					<td>10/100</td>
+					<td>Alana Divas</td>
+				</tr>
+			</tbody>
+			
+		</table>
+	</div>
+
+
+
+
+<!-- Modal to add a campaign -->
+  <div class="modal fade" id="addCampaignModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Start Campaign</h4>
+        </div>
+        <div class="modal-body addCampaignModalBody">
+         	
+         	<input type="text" class="form-control" placeholder="Campaign Name">
+
+         	<select id="groupDropDown">
+         		<option ng-repeat="group in groups.Groups">{{group.name}}</option>
+         	</select>
+
+         	<input type="text" class="form-control" placeholder="subject">
+
+         	<textarea class="form-control" placeholder="Message or body">
+         		
+         	</textarea>
+
+         	<button class="btn btn-primary" ng-click="sendMail()">Start Campaign</button>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+</div>
+
+
+
+<!-- Modal to add a campaign -->
+  <div class="modal fade" id="sendSMSModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Start Campaign</h4>
+        </div>
+        <div class="modal-body addCampaignModalBody">
+         	
+         	<input type="text" class="form-control" placeholder="Sender Name" >
+
+         	<select id="groupDropDown">
+         		<option ng-repeat="group in groups.Groups">{{group.name}}</option>
+         	</select>
+
+         	<textarea class="form-control" placeholder="Message or body">
+         		
+         	</textarea>
+
+         	<button class="btn btn-primary" ng-click="sendSMS()">Send SMS</button>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+</div>
+

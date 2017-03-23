@@ -193,6 +193,41 @@ inspinia.factory('API', ['$http',function($http){
 		
 
 	}
+
+	callAPI.sendSMS = function (group) {
+
+	return $http({
+
+        method: 'POST',
+        data: JSON.stringify({  
+		   "from":"InfoSMS",
+		   "to":"+918983485655",
+		   "text":"My first Infobip SMS"
+		}),
+        url: "https://api.infobip.com/sms/1/text/single",
+        headers: {
+        "content-type": "application/json",
+        "Authorization": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==",
+        "Accept": "application/json"
+        },
+    	
+        
+    })
+
+	}
+
+
+	callAPI.sendMail = function(users){
+
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/TestMail.php?to='+users.to+'&toName='+users.toName+'&subject='+users.subject
+
+	    })
+
+	}
 	
 	return callAPI;
 
