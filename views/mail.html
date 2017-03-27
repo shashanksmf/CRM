@@ -22,24 +22,16 @@
 			</thead>
 
 			<tbody>
-				<tr>
-					<td>RAW Bank Winter V2</td>
-					<td>14/02/2017</td>
+			<tr ng-repeat="campaign in campaigns">
+					<td>{{campaign.name}}</td>
+					<td>{{campaign.createdOn}}</td>
 					<td>Kinshana Office 10 </td>
-					<td>72/100</td>
-					<td>40/100</td>
-					<td>10/100</td>
-					<td>Alana Divas</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>{{campaign.createdBy}}</td>
 				</tr>
-				<tr>
-					<td>RAW Bank Winter V2</td>
-					<td>14/02/2017</td>
-					<td>Kinshana Office 10 </td>
-					<td>72/100</td>
-					<td>40/100</td>
-					<td>10/100</td>
-					<td>Alana Divas</td>
-				</tr>
+				
 			</tbody>
 			
 		</table>
@@ -49,7 +41,7 @@
 
 
 <!-- Modal to add a campaign -->
-  <div class="modal fade" id="addCampaignModal" role="dialog">
+  <div class="modal " id="addCampaignModal" role="dialog" >
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -60,19 +52,19 @@
         </div>
         <div class="modal-body addCampaignModalBody">
          	
-         	<input type="text" class="form-control" placeholder="Campaign Name">
+         	<input type="text" class="form-control" placeholder="Campaign Name" ng-model="campaignName">
 
          	<select id="groupDropDown">
          		<option ng-repeat="group in groups.Groups">{{group.name}}</option>
          	</select>
 
-         	<input type="text" class="form-control" placeholder="subject">
+         	<input type="text" class="form-control" placeholder="subject" ng-model="campaignEmailSubject">
 
-         	<textarea class="form-control" placeholder="Message or body">
-         		
-         	</textarea>
+         	<textarea class="form-control" placeholder="Message or body" ng-model="campaignMessage">{{campaignMessage}}</textarea>
 
-         	<button class="btn btn-primary" ng-click="sendMail()">Start Campaign</button>
+         	<button class="btn btn-default" data-toggle="modal" data-target="#templateModal" ng-click="previewTemplate()">preview Template</button>
+    
+         	<button class="btn btn-primary" ng-click="addCampaignSubmit()">Start Campaign</button>
 
         </div>
         <div class="modal-footer">
@@ -82,8 +74,6 @@
       
     </div>
   </div>
-
-</div>
 
 
 
@@ -105,9 +95,8 @@
          		<option ng-repeat="group in groups.Groups">{{group.name}}</option>
          	</select>
 
-         	<textarea class="form-control" placeholder="Message or body">
-         		
-         	</textarea>
+         	<textarea class="form-control" placeholder="Message or body"></textarea>
+
 
          	<button class="btn btn-primary" ng-click="sendSMS()">Send SMS</button>
 
@@ -119,6 +108,37 @@
       
     </div>
   </div>
+
+
+
+
+</div>
+
+
+  <!-- Modal to Preview Template -->
+  <div class="modal fade" id="templateModal" role="dialog" data-backdrop="static" data-keyboard="false" >
+    <div class="modal-dialog" style="width:800px" >
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" ng-click="hideTemplatePreview()">&times;</button>
+          <h4 class="modal-title">Preview Template</h4>
+        </div>
+        <div class="modal-body ">
+         	
+         	<div ng-bind-html="htmlTemplate" ng-if="isShowTemplate">
+  			</div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="hideTemplatePreview()">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
 
 </div>
 

@@ -60,21 +60,19 @@ function MainCtrl($scope,API,$rootScope) {
      */
 
     // if login
+
+    var APIuser = {userId : $rootScope.userId || localStorage.getItem("userId")};
+    if($rootScope.userId || localStorage.getItem("userId")) {
+        API.getAllNewChatDetails(APIuser).then(function(response){
+            if(response.data.result) {
+                if(response.data.chatDetails.length > 0) {
+                    $scope.newMessages = response.data.chatDetails;
+                }
+            }
+        })    
+    }
     
-    $scope.newMessages = [
-    {
-        "id":"1",
-        "from_userName":"Komal",
-        "from":"2",
-        "time":"5 days ago",
-        "imgUrl":""
-    },{
-        "id":"2",
-        "from":"2",
-        "from_userName":"Katrina",
-        "time":"7 days ago",
-        "imgUrl":""
-    }]
+    
 
     $rootScope.chats = [];
     
@@ -85,12 +83,13 @@ function MainCtrl($scope,API,$rootScope) {
         //call API to get message between the two users]
         var toUserId = $rootScope.userId || localStorage.getItem("userId");
         var from = fromUserId;
-        var chatObj = { from : from , to: toUserId ,id:0};
+        var chatObj = { from : fromUserId , to: toUserId ,id:0};
         var isChatFound = false , chatfoundIndex = null;
         if($rootScope.chats.length > 0 ) {
             // find to and from
             for(var i=0;i<$rootScope.chats.length;i++){
-                if($rootScope.chats[i].chatDetail[$rootScope.chats[i].chatDetail.length-1].from == from && $00rootScope.chats[i].chatDetail[$rootScope.chats[i].chatDetail.length-1].id == messageId) {
+                if($rootScope.chats[i].chatDetail[$rootScope.chats[i].chatDetail.length-1].from == from && $rootScope.chats[i].chatDetail[$rootScope.chats[i].chatDetail.length-1].id == messageId) {
+                    $rootScope.chats[i].fromUserId = fromUserId;
                     chatfoundIndex = i;
                     isChatFound = true;
                     $rootScope.chats[i].active = true;
@@ -103,16 +102,22 @@ function MainCtrl($scope,API,$rootScope) {
 
         if(!isChatFound) {
             API.getChatDetails(chatObj).then(function(response){
-                $rootScope.chats.push({"chatsArrIndex":$rootScope.chats.length+1,active:true,chatDetail:response.data.Messages});  
+                $rootScope.chats.push({"fromUserId":fromUserId,"chatsArrIndex":$rootScope.chats.length,active:true,chatDetail:response.data.Messages});  
             })
         }
 
     }
 
-    $scope.sendMessage = function(chatArrIndex,msg) {
+    $scope.sendMessage = function(chatArrIndex,msg,toUserId) {
+        console.log("chatArrIndex,msg,toUserId",chatArrIndex,msg,toUserId);
 
-        var userId = 
-        API.sendMessage()
+        var sendMsgObj = {from:$rootScope.userId || localStorage.getItem("userId"),to:toUserId,"msg":msg};
+        API.sendMessage(sendMsgObj).then(function(response){
+            console.log("response msg",response);
+            if(response.data.responce){
+              $rootScope.chats[chatArrIndex].chatDetail.push({message:msg,from:sendMsgObj.from,to:toUserId,isMessageReaded:false});  
+            }
+        })
 
     }
 

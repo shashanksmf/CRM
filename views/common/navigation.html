@@ -239,9 +239,13 @@
             <li class="landing_link">
                 <a ui-sref="landing"><i class="fa fa-star"></i> <span class="nav-label">{{ 'LANDING' | translate }}</span> <span class="label label-warning pull-right">NEW</span></a>
             </li> -->
+            <li ui-sref-active="active">
+                <a ><i class="fa fa-envelope"></i> <span class="nav-label">{{ 'Contacts' | translate }}</span></a>
+            </li>
+
 
             <li ui-sref-active="active">
-                <a ui-sref="dashboards.mail"><i class="fa fa-envelope"></i> <span class="nav-label">{{ 'Mails' | translate }}</span></a>
+                <a ui-sref="dashboards.mail"><i class="fa fa-envelope"></i> <span class="nav-label">{{ 'Campaigns' | translate }}</span></a>
             </li>
             
            <!--   <li ui-sref-active="active">
@@ -249,12 +253,12 @@
             </li> -->
 
             <li ui-sref-active="active">
-                <a ><i class="fa fa-wechat"></i> <span class="nav-label">{{ 'Communication' | translate }}</span></a>
+                <a ><i class="fa fa-wechat"></i> <span class="nav-label">{{ 'Calender' | translate }}</span></a>
             </li>
-            
+          <!--   
             <li ui-sref-active="active">
                 <a ><i class="fa fa-calendar-o"></i> <span class="nav-label">{{ 'Events' | translate }}</span></a>
-            </li>
+            </li> -->
 
             <li ui-sref-active="active">
                 <a ><i class="fa fa-file-photo-o"></i> <span class="nav-label">{{ 'Files' | translate }}</span></a>

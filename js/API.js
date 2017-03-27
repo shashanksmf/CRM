@@ -97,6 +97,19 @@ inspinia.factory('API', ['$http',function($http){
 	}
 
 
+	callAPI.getAllNewChatDetails = function(user){
+		
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/chat/newChatDetails.php?userId='+user.userId
+
+	    })
+
+	}
+
+
 	callAPI.getChatDetails = function(chat){
 		//?id=1&members=2,3
 		return $http({
@@ -175,7 +188,7 @@ inspinia.factory('API', ['$http',function($http){
 
 	        method: 'GET',
 	        dataType: "jsonp",
-	        url: baseHttpUrl + '/AddMessage.php?from='+chat.from+'&to='+chat.to+'&msg'+chat.msg
+	        url: baseHttpUrl + '/AddMessage.php?from='+chat.from+'&to='+chat.to+'&msg='+chat.msg
 
 	    })
 	}
@@ -207,8 +220,8 @@ inspinia.factory('API', ['$http',function($http){
         url: "https://api.infobip.com/sms/1/text/single",
         headers: {
         "content-type": "application/json",
-        "Authorization": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==",
-        "Accept": "application/json"
+        "authorization": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==",
+        "accept": "application/json"
         },
     	
         
@@ -228,7 +241,64 @@ inspinia.factory('API', ['$http',function($http){
 	    })
 
 	}
+
+
+	callAPI.getTemplate = function(){
+
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/GetTemplates.php'
+
+	    })
+
+	}
+
+
+	callAPI.addCampaign = function(formData){
+
+			return $http.post(baseHttpUrl + '/AddCampaign.php', formData,  
+	    {   
+	    	
+	    	withCredentials: false,
+	        transformRequest: angular.identity,  
+	        headers: {'Content-Type': undefined}  
+	    
+	    });
+
+	}
 	
+
+	callAPI.runCampaign = function(campaignId){
+
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/RunCampaign.php?id='+campaignId
+
+	    })
+
+	}
+
+	callAPI.getAllCampaigns = function(formData){
+
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/GetCampiagn.php'
+
+	    })
+
+	}
+
+
+
+	
+
+	//http://jaiswaldevelopers.com/CRMV1/Service/GetCampiagn.php
 	return callAPI;
 
 }]);
