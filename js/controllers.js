@@ -74,6 +74,8 @@ function MainCtrl($scope,API,$rootScope) {
     
     
 
+
+
     $rootScope.chats = [];
     
     $scope.showMessage = function(fromUserId,messageId) {
@@ -88,7 +90,11 @@ function MainCtrl($scope,API,$rootScope) {
         if($rootScope.chats.length > 0 ) {
             // find to and from
             for(var i=0;i<$rootScope.chats.length;i++){
-                if($rootScope.chats[i].chatDetail[$rootScope.chats[i].chatDetail.length-1].from == from && $rootScope.chats[i].chatDetail[$rootScope.chats[i].chatDetail.length-1].id == messageId) {
+                //check chat id and fromId
+                    if($rootScope.chats[i].chatDetail[$rootScope.chats[i].chatDetail.length-1].from == from &&
+                     $rootScope.chats[i].chatDetail[$rootScope.chats[i].chatDetail.length-1].id == messageId) {
+                   // if($rootScope.chats[i].fromId == from && ){
+
                     $rootScope.chats[i].fromUserId = fromUserId;
                     chatfoundIndex = i;
                     isChatFound = true;
@@ -102,10 +108,15 @@ function MainCtrl($scope,API,$rootScope) {
 
         if(!isChatFound) {
             API.getChatDetails(chatObj).then(function(response){
-                $rootScope.chats.push({"fromUserId":fromUserId,"chatsArrIndex":$rootScope.chats.length,active:true,chatDetail:response.data.Messages});  
+                $rootScope.chats.push(
+                    {
+                        "fromId":fromUserId,
+                        "chatsArrIndex":$rootScope.chats.length,
+                        active:true,
+                        chatDetail:response.data.Messages
+                    });  
             })
         }
-
     }
 
     $scope.sendMessage = function(chatArrIndex,msg,toUserId) {
@@ -120,6 +131,12 @@ function MainCtrl($scope,API,$rootScope) {
         })
 
     }
+
+
+    
+
+
+    //setInterval to check from server if new message has recieved
 
 
     $scope.fileSelected = function (files) {

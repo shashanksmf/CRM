@@ -294,6 +294,19 @@ inspinia.factory('API', ['$http',function($http){
 
 	}
 
+	callAPI.getUsersList = function(id) {
+	//	http://jaiswaldevelopers.com/CRMV1/Service/getUsersList.php?id=1
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/getUsersList.php?id='+id
+
+	    })
+
+
+	}
+
 
 
 	
