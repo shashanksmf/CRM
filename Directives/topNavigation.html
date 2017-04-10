@@ -54,10 +54,11 @@
             </li>-->
             <li uib-dropdown>
                 <a class="count-info" href uib-dropdown-toggle>
-                    <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
+                    <i class="fa fa-envelope"></i> <span class="label label-warning">{{newMessages.length}}</span>
                 </a>
                 <ul class="dropdown-messages" uib-dropdown-menu>
-                    <li ng-repeat="newMsg in newMessages track by $index" ng-click="showMessage(newMsg.fromId,newMsg.id)">
+
+                    <li ng-repeat="newMsg in newMessages | unique: 'fromId'" ng-click="showMessage(newMsg.fromId,newMsg.id)">
                         <div class="dropdown-messages-box">
                             <a ui-sref="profile" class="pull-left">
                                 <img alt="image" class="img-circle" src="img/a7.jpg">

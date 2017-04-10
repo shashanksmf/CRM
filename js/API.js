@@ -193,6 +193,18 @@ inspinia.factory('API', ['$http',function($http){
 	    })
 	}
 
+	callAPI.readMsg = function(chatId,fromId) {
+
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/chat/messageRead.php?chatId='+chatId+'&fromId='+fromId
+
+	    })
+
+	}
+
 
 	callAPI.getAttachedFiles = function(user){
 

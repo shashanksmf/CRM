@@ -79,21 +79,29 @@ function MainCtrl($scope,API,$rootScope) {
     $rootScope.chats = [];
     
     $scope.showMessage = function(fromUserId,messageId) {
-        console.log("called",$rootScope.userId)
+        //console.log("messageId",messageId)
+        //mark messgeId as read
+
+        //here msg ot chat id should be highest to mark eventhing as read
+        API.readMsg(messageId,fromUserId).then(function(response) {
+            console.log("response : ",response);
+        });
+
+  //      console.log("called",$rootScope.userId)
         $rootScope.userId = $rootScope.userId || localStorage.getItem("userId");
  
         //call API to get message between the two users]
         var toUserId = $rootScope.userId || localStorage.getItem("userId");
         var from = fromUserId;
-        var chatObj = { from : fromUserId , to: toUserId ,id:0};
+        var chatObj = { from : fromUserId , to: toUserId ,id:messageId};
         var isChatFound = false , chatfoundIndex = null;
-        if($rootScope.chats.length > 0 ) {
+           if($rootScope.chats.length > 0 ) {
             // find to and from
             for(var i=0;i<$rootScope.chats.length;i++){
                 //check chat id and fromId
-                    if($rootScope.chats[i].chatDetail[$rootScope.chats[i].chatDetail.length-1].from == from &&
-                     $rootScope.chats[i].chatDetail[$rootScope.chats[i].chatDetail.length-1].id == messageId) {
-                   // if($rootScope.chats[i].fromId == from && ){
+                    //if($rootScope.chats[i].chatDetail[$rootScope.chats[i].chatDetail.length-1].from == from &&
+                     //$rootScope.chats[i].chatDetail[$rootScope.chats[i].chatDetail.length-1].id == messageId) {
+                   if($rootScope.chats[i].fromId == from){
 
                     $rootScope.chats[i].fromUserId = fromUserId;
                     chatfoundIndex = i;
@@ -104,23 +112,25 @@ function MainCtrl($scope,API,$rootScope) {
             }
         }
 
-      
 
         if(!isChatFound) {
+            //here chatid should be lowest so that we can get max caht upto highest
             API.getChatDetails(chatObj).then(function(response){
                 $rootScope.chats.push(
                     {
+
                         "fromId":fromUserId,
                         "chatsArrIndex":$rootScope.chats.length,
-                        active:true,
-                        chatDetail:response.data.Messages
+                        "active":true,
+                        "chatDetail":response.data.Messages
+
                     });  
             })
         }
     }
 
     $scope.sendMessage = function(chatArrIndex,msg,toUserId) {
-        console.log("chatArrIndex,msg,toUserId",chatArrIndex,msg,toUserId);
+     //   console.log("chatArrIndex,msg,toUserId",chatArrIndex,msg,toUserId);
 
         var sendMsgObj = {from:$rootScope.userId || localStorage.getItem("userId"),to:toUserId,"msg":msg};
         API.sendMessage(sendMsgObj).then(function(response){
@@ -133,10 +143,57 @@ function MainCtrl($scope,API,$rootScope) {
     }
 
 
-    
-
-
     //setInterval to check from server if new message has recieved
+    setInterval(function(){
+
+         API.getAllNewChatDetails(APIuser).then(function(response){
+                if(response.data.result) {
+                    if(response.data.chatDetails.length > 0) {
+                       searchNewMessage(response.data.chatDetails)
+                    }
+                 }
+            })   
+
+    },5000);
+
+
+
+    function searchNewMessage(msgDataRes){
+//        console.log("rootscope",$rootScope.chats)
+        //check fromId in chats if available else show it in the notification
+        msgDataRes.forEach(function(msg){
+            var isFromIdFound = false;
+            $rootScope.chats.forEach(function(chat,chatIndex){
+                console.log(chat,msg)
+                if(chat.fromId == msg.fromId){
+                    isFromIdFound = true;
+                    $rootScope.chats[chatIndex].chatDetail.push(msg);
+
+                    API.readMsg(msg.id,chat.fromId).then(function(response) {
+                        console.log("response : ",response);
+                    });
+             
+                }
+            })
+
+            if(!isFromIdFound) {
+                if(!$scope.newMessages){
+                    $scope.newMessages = [];
+                    $scope.newMessages.push(msg);
+                }
+                else{
+                  $scope.newMessages.push(msg);    
+                }
+            }
+
+        })
+        
+    }
+
+
+        $scope.closechatwindow = function(chatIndex){
+            $rootScope.chats[chatIndex].active = false;
+        }
 
 
     $scope.fileSelected = function (files) {

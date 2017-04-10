@@ -50,8 +50,9 @@
 
 <!--chatbox directive-->
 <div class="chatboxContainer">
-<div ng-repeat="chat in chats" ng-if="chat.active">
-  <chatbox chat="chat"></chatbox>   
+
+<div ng-repeat="chat in chats" ng-if="chat.active" class="chatboxWrapper" >
+  <chatbox chat="chat" parentindex="{{$index}}" closechatwindow="closechatwindow($index)"></chatbox>   
 </div>
 <div>
 <!--chatbox directive-->
