@@ -155,16 +155,6 @@ inspinia.factory('API', ['$http',function($http){
 	    
 	    });
 
-	 // return $http({
-				
-		// 		withCredentials: false,
-		//         transformRequest: angular.identity,  
-		//         headers: {'Content-Type': undefined} ,
-		//         method: 'POST',
-		//         url: baseHttpUrl + '/ImageUpload.php'
-
-		//     })
-
     }
 
 
@@ -315,9 +305,33 @@ inspinia.factory('API', ['$http',function($http){
 	        url: baseHttpUrl + '/getUsersList.php?id='+id
 
 	    })
-
-
+        
 	}
+    
+
+    callAPI.updateCompanyDetails = function(company){
+        console.log("company",company);
+        
+        return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/UpdateCompany.php?id='+company.id+'&name='+company.name+'&areaOfWork='+company.areaOfWork+'&establised='+company.establised+'&employees='+company.employees+'&revenue='+company.revenue+'&ofcAddress='+company.ofcAddress+'&email='+company.enail+'&google='+company.google
+
+	    })
+        
+    }
+    
+    callAPI.getCompanyDetails = function(comapnyId){
+        
+          
+       return $http({
+                method: 'GET',
+                dataType: "jsonp",
+                url: baseHttpUrl +'/GetCompanyData.php?id='+comapnyId
+        })
+
+    }
 
 
 

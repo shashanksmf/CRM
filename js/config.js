@@ -37,6 +37,12 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             templateUrl:"views/userProfile.html",
             controller:"userProfileCtrl"            
         })
+    
+         .state('dashboards.companyProfile',{
+                url:"/companyProfile/:id",
+                templateUrl:"views/companyProfile.html",
+                controller:"companyProfileCtrl"            
+            })
 
         .state('dashboards.mail',{
             url:"/mail",

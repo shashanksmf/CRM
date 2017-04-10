@@ -74,27 +74,14 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','
     $scope.showUserDetail = function(emplId){
     
         $state.go('dashboards.profile', {id: emplId});
-
-        // var emplId = emplId || 1;
-        // $http({
-        //         method: 'GET',
-        //         dataType: "jsonp",
-        //         url: baseHttpUrl +'/GetUserData.php?id='+emplId
-        //         })
-        
-        //     .then(function successCallback(response) {
-        //         $scope.userDetails = response.data.Users[0];
-        //     }, function errorCallback(response) {
-        //     // called asynchronously if an error occurs
-        //     // or server returns response with an error status.
-        //   });
-            
-        //     $scope.config.showUserPopUp = true;
      
     }
     
     //code when user clicks on any Company then modal comes up and show CompanyDetail
     $scope.showCompanyDetail = function(companyId){
+        
+        $state.go('dashboards.companyProfile', {id: companyId});
+        return;
         
         $scope.config.showUserPopUp = false;
         var companyId = companyId || 1;
