@@ -14,6 +14,10 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 				localStorage.setItem("userName",response.data.name);
 				localStorage.setItem("userId",1);
 				//localStorage.setItem("userUUID",response.data.responce);
+
+				 $scope.$emit('initialiseChat', { initChat : true });
+ 					
+
 				API.setAuth(response.data);
 				$state.go("dashboards.home");
 

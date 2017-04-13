@@ -52,14 +52,15 @@
                     <li><a ng-click="changeLanguage('es')">Spanish</a></li>
                 </ul>
             </li>-->
-            <li uib-dropdown>
-                <a class="count-info" href uib-dropdown-toggle>
-                    <i class="fa fa-envelope"></i> <span class="label label-warning">{{newMessages.length}}</span>
+            <li uib-dropdown >
+                <a class="count-info" ng-click="latestMsgCount = 0" href uib-dropdown-toggle>
+                    <i class="fa fa-comments"></i> <span class="label label-warning">{{latestMsgCount}}</span>
                 </a>
                 <ul class="dropdown-messages" uib-dropdown-menu>
 
                     <li ng-repeat="newMsg in newMessages | unique: 'fromId'" ng-click="showMessage(newMsg.fromId,newMsg.id)">
-                        <div class="dropdown-messages-box">
+                        
+                        <div class="dropdown-messages-box" >
                             <a ui-sref="profile" class="pull-left">
                                 <img alt="image" class="img-circle" src="img/a7.jpg">
                             </a>
@@ -110,11 +111,11 @@
                     </li> -->
                 </ul>
             </li>
-            <li uib-dropdown>
+            <li ui-sref="dashboards.message" uib-dropdown>
                 <a class="count-info" href uib-dropdown-toggle>
-                    <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
+                    <i class="fa fa-comment"></i> <span class="label label-primary">8</span>
                 </a>
-                <ul class="dropdown-alerts" uib-dropdown-menu>
+                <!-- <ul class="dropdown-alerts" uib-dropdown-menu>
                     <li>
                         <a ui-sref="inbox">
                             <div>
@@ -150,10 +151,10 @@
                             </a>
                         </div>
                     </li>
-                </ul>
+                </ul> -->
             </li>
             <li>
-                <a ui-sref="login">
+                <a ui-sref="login" ng-click="logout()">
                     <i class="fa fa-sign-out"></i> Log out
                 </a>
             </li> 

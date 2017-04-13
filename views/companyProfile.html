@@ -7,6 +7,17 @@
 
 		
 			<div class="userBasicInfoContainer col-md-12">
+
+				<div style="margin-bottom: 20px;">
+
+                    <img src="img/default-avatar.png" class="img-circle" ng-src="{{companyData.RootUrl+companyData.logo}}" style="max-width: 80px" ng-if="!newUploadPic">
+
+                    <img src="img/default-avatar.png" class="img-circle" ng-src="{{imgsrc}}" style="max-width: 80px" ng-if="newUploadPic">
+
+                	<input type="file" class="fileUploadInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)"  />
+
+				</div>	
+
 			<div class="row">
 				<div class="col-md-6" ng-show="!profileEdit">
 					Name
@@ -49,12 +60,12 @@
 				<div class="col-md-6" ng-show="!profileEdit">
 					Location
 				</div>	
-				<div class="col-md-6" ng-show="!profileEdit"><span >{{companyData.location}}</span>	
+				<div class="col-md-6" ng-show="!profileEdit"><span >{{companyData.ofcAddress}}</span>	
 					
 				</div>
-
+					
 				<div  class="mtb-10px" ng-show="profileEdit">
-					<input class="form-control" placeholder="Location" type="text" ng-model="companyData.location" >
+					<input class="form-control" placeholder="Location" type="text" ng-model="companyData.ofcAddress" >
 				</div>
 			</div>
                 
@@ -99,13 +110,15 @@
 						
 						<div class="mtb-10px row">
 							
-							<span class="col-md-4">Phone Number</span>  <span ng-show="!profileEdit" >{{ companyData.phone }} </span>
-							<input type="text" ng-model="userProfileInfo.phone" ng-show="profileEdit">
+							<span class="col-md-4">Phone Number</span>  <span ng-show="!profileEdit" >
+							{{companyData.phone}} </span>
+							<input type="text" ng-model="companyData.phone" ng-show="profileEdit">
 						</div>
 
 						<div class="mtb-10px row">
-							<span class="col-md-4">Email Address</span>  <span ng-show="!profileEdit">{{ companyData.email }}</span> 
-							<input type="text" ng-model="userProfileInfo.email" ng-show="profileEdit">
+							<span class="col-md-4">Email Address</span>  <span ng-show="!profileEdit">
+							{{companyData.email}}</span> 
+							<input type="text" ng-model="companyData.email" ng-show="profileEdit">
 						</div>
 	
 <!--
@@ -114,7 +127,8 @@
 							<input type="text" ng-model="userProfileInfo.skype" ng-show="profileEdit">
 						</div>
 
-						<div class="mtb-10px row">
+						<div class="mtb-10p
+						x row">
 							<span class="col-md-4">office number</span> <span ng-show="!profileEdit">{{ userProfileInfo.officePhone }}</span> 
 							<input type="text" ng-model="userProfileInfo.officePhone" ng-show="profileEdit">
 						</div>
@@ -126,19 +140,24 @@
 							
 						</div>
 						
-<!--
 						<div class="mtb-10px row">
 							
-							<span class="col-md-4">LinkedIn</span>  <span ng-show="!profileEdit" >{{ userProfileInfo.linkedin }} </span>
-							<input type="text" ng-model="userProfileInfo.linkedin" ng-show="profileEdit">
+							<span class="col-md-4">Facebook</span>  <span ng-show="!profileEdit" >{{ companyData.fb }} </span>
+							<input type="text" ng-model="companyData.fb" ng-show="profileEdit">
 						</div>
 
 						<div class="mtb-10px row">
-							<span class="col-md-4">twitter</span>  <span ng-show="!profileEdit">{{ userProfileInfo.twitter }}</span> 
-							<input type="text" ng-model="userProfileInfo.email" ng-show="profileEdit">
+							
+							<span class="col-md-4">LinkedIn</span>  <span ng-show="!profileEdit" >{{ companyData.linkedin }} </span>
+							<input type="text" ng-model="companyData.linkedin" ng-show="profileEdit">
+						</div>
+
+						<div class="mtb-10px row">
+							<span class="col-md-4">twitter</span>  <span ng-show="!profileEdit">{{ companyData.twitter }}</span> 
+							<input type="text" ng-model="companyData.email" ng-show="profileEdit">
 						</div>
 	
-						<div class="mtb-10px row">
+<!--						<div class="mtb-10px row">
 							<span class="col-md-4">Facebook</span>  <span ng-show="!profileEdit">{{ userProfileInfo.facebook }}</span>
 							<input type="text" ng-model="userProfileInfo.facebook" ng-show="profileEdit">
 						</div>
@@ -162,33 +181,7 @@
 				</div>
 				<div class="attachmentContainer" ng-show="activeTab == tabs.attachment">
 
-				<div class="container">
-				  	<input type="file" class="fileAttachmentInput" name="image" onchange="angular.element(this).scope().fileAttach(this.files)"  />
-					<button class="btn btn-default" ng-click="browseFileAttach()">Upload File</button>
-				</div>
-
-					<table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-
-                                        <th></th>
-                                        <th>Upload Date </th>
-                                        <th>Summary </th>
-                                        <th>File</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="file in files">
-                                        <td>
-                                        <div class=" icheckbox_square-green " ng-class="{' checked': file.checked == true}" style="position: relative;" ng-click="file.checked=!file.checked"><input type="checkbox" checked="" class="i-checks" name="input[]" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></td>
-                                        <td>{{file.date}}</td>
-                                        <td>{{file.name}}</td>
-                                        <td><i class="fa fa-file"></i></td>
-                            
-                                    </tr>
-                                    
-                                    </tbody>
-                                </table>
+				
 				</div>
 			
 		</div>

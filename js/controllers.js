@@ -60,34 +60,35 @@ function MainCtrl($scope,API,$rootScope) {
      */
 
     // if login
-
-    var APIuser = {userId : $rootScope.userId || localStorage.getItem("userId")};
-    if($rootScope.userId || localStorage.getItem("userId")) {
-        API.getAllNewChatDetails(APIuser).then(function(response){
-            if(response.data.result) {
-                if(response.data.chatDetails.length > 0) {
-                    $scope.newMessages = response.data.chatDetails;
-                }
-            }
-        })    
-    }
-    
-    
-
-
-
+    var chatInterval = null;
     $rootScope.chats = [];
-    
-    $scope.showMessage = function(fromUserId,messageId) {
-        //console.log("messageId",messageId)
-        //mark messgeId as read
 
-        //here msg ot chat id should be highest to mark eventhing as read
+    $scope.sendMessage = function(chatArrIndex,msg,toUserId) {
+     //   console.log("chatArrIndex,msg,toUserId",chatArrIndex,msg,toUserId);
+        $rootScope.chats[chatArrIndex].sending = true;
+        var sendMsgObj = {from:$rootScope.userId || localStorage.getItem("userId"),to:toUserId,"msg":msg};
+        API.sendMessage(sendMsgObj).then(function(response){
+            //console.log("response msg",response);
+            if(response.data.responce){
+              $rootScope.chats[chatArrIndex].chatDetail.push({message:msg,from:sendMsgObj.from,to:toUserId,isMessageReaded:false});  
+              $rootScope.chats[chatArrIndex].sending = false;  
+            }
+            else{
+                $rootScope.chats[chatArrIndex].chatDetail.push({message:msg,from:sendMsgObj.from,to:toUserId,isMessageReaded:false,isError:true,errorMsg:'MessageCould not be send..'});   
+            }
+        })
+
+    
+    }
+
+
+
+    $scope.showMessage = function(fromUserId,messageId) {
+        
         API.readMsg(messageId,fromUserId).then(function(response) {
-            console.log("response : ",response);
+            //console.log("response : ",response);
         });
 
-  //      console.log("called",$rootScope.userId)
         $rootScope.userId = $rootScope.userId || localStorage.getItem("userId");
  
         //call API to get message between the two users]
@@ -95,12 +96,10 @@ function MainCtrl($scope,API,$rootScope) {
         var from = fromUserId;
         var chatObj = { from : fromUserId , to: toUserId ,id:messageId};
         var isChatFound = false , chatfoundIndex = null;
-           if($rootScope.chats.length > 0 ) {
+        if($rootScope.chats.length > 0 ) {
             // find to and from
             for(var i=0;i<$rootScope.chats.length;i++){
                 //check chat id and fromId
-                    //if($rootScope.chats[i].chatDetail[$rootScope.chats[i].chatDetail.length-1].from == from &&
-                     //$rootScope.chats[i].chatDetail[$rootScope.chats[i].chatDetail.length-1].id == messageId) {
                    if($rootScope.chats[i].fromId == from){
 
                     $rootScope.chats[i].fromUserId = fromUserId;
@@ -112,6 +111,7 @@ function MainCtrl($scope,API,$rootScope) {
             }
         }
 
+       
 
         if(!isChatFound) {
             //here chatid should be lowest so that we can get max caht upto highest
@@ -129,35 +129,14 @@ function MainCtrl($scope,API,$rootScope) {
         }
     }
 
-    $scope.sendMessage = function(chatArrIndex,msg,toUserId) {
-     //   console.log("chatArrIndex,msg,toUserId",chatArrIndex,msg,toUserId);
+    $scope.showMessage(2,34);
 
-        var sendMsgObj = {from:$rootScope.userId || localStorage.getItem("userId"),to:toUserId,"msg":msg};
-        API.sendMessage(sendMsgObj).then(function(response){
-            console.log("response msg",response);
-            if(response.data.responce){
-              $rootScope.chats[chatArrIndex].chatDetail.push({message:msg,from:sendMsgObj.from,to:toUserId,isMessageReaded:false});  
-            }
-        })
-
+    $scope.closechatwindow = function(chatIndex){
+        $rootScope.chats[chatIndex].active = false;
     }
-
-
+    
     //setInterval to check from server if new message has recieved
-    setInterval(function(){
-
-         API.getAllNewChatDetails(APIuser).then(function(response){
-                if(response.data.result) {
-                    if(response.data.chatDetails.length > 0) {
-                       searchNewMessage(response.data.chatDetails)
-                    }
-                 }
-            })   
-
-    },5000);
-
-
-
+ 
     function searchNewMessage(msgDataRes){
 //        console.log("rootscope",$rootScope.chats)
         //check fromId in chats if available else show it in the notification
@@ -187,14 +166,57 @@ function MainCtrl($scope,API,$rootScope) {
             }
 
         })
-        
     }
 
 
-        $scope.closechatwindow = function(chatIndex){
-            $rootScope.chats[chatIndex].active = false;
+
+    function initChat() {
+      
+        var userId = {userId : $rootScope.userId || localStorage.getItem("userId")};
+        if($rootScope.userId || localStorage.getItem("userId")) {
+            API.getAllLatestMsg(userId).then(function(response){
+                if(response.data.result) {
+                    if(response.data.chatDetails.length > 0) {
+                        $scope.newMessages = response.data.chatDetails;
+                        $scope.latestMsgCount = countUnreadMsg(response.data.chatDetails);
+                    }
+                }
+            })    
         }
 
+
+        chatInterval = setInterval(function(){
+           
+            if(userId.userId) {
+                API.getAllNewChatDetails(userId).then(function(response){
+                        if(response.data.result) {
+                            if(response.data.chatDetails.length > 0) {
+                               searchNewMessage(response.data.chatDetails)
+                        }
+                     }
+                })   
+            }
+        },10000);   
+
+    }
+
+    //console.log("before chat init")
+    initChat();
+
+    $scope.$on('initialiseChat', function (event, args) {
+         $scope.message = args.initChat;
+         if(args.initChat) {
+            initChat();
+         }
+        // console.log($scope.message);
+     });
+
+    $scope.logout = function(){
+        $rootScope.userId = undefined;
+        localStorage.removeItem("userId");
+        clearInterval(chatInterval);
+    }
+    
 
     $scope.fileSelected = function (files) {
 
@@ -220,6 +242,18 @@ function MainCtrl($scope,API,$rootScope) {
                 $scope.imgsrc= e.target.result;
             });
      }
+
+    function countUnreadMsg(messages) {
+        
+        var count = 0;
+        messages.forEach(function(msg){
+            
+            count = count + (msg.readed == 0 ? 1 : 0);
+        });
+
+        return count;
+
+    }
 
     $rootScope.formatAMPM = function (date) {
       date = new Date(parseInt(date));

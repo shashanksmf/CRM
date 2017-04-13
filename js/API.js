@@ -120,6 +120,18 @@ inspinia.factory('API', ['$http',function($http){
 
 	    })
 	}
+
+	callAPI.getAllLatestMsg = function(user) {
+
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/chat/allLatestMsg.php?userId='+user.userId
+
+	    })
+
+	}
     
     callAPI.getUserProfile = function(user){ 
     
@@ -316,7 +328,7 @@ inspinia.factory('API', ['$http',function($http){
 
 	        method: 'GET',
 	        dataType: "jsonp",
-	        url: baseHttpUrl + '/UpdateCompany.php?id='+company.id+'&name='+company.name+'&areaOfWork='+company.areaOfWork+'&establised='+company.establised+'&employees='+company.employees+'&revenue='+company.revenue+'&ofcAddress='+company.ofcAddress+'&email='+company.enail+'&google='+company.google
+	        url: baseHttpUrl + '/UpdateCompany.php?id='+company.id+'&name='+company.name+'&areaOfWork='+company.areaOfWork+'&establised='+company.establised+'&employees='+company.employees+'&revenue='+company.revenue+'&ofcAddress='+company.ofcAddress+'&email='+company.email+'&google='+company.google+'&phone='+company.phone
 
 	    })
         
@@ -330,6 +342,19 @@ inspinia.factory('API', ['$http',function($http){
                 dataType: "jsonp",
                 url: baseHttpUrl +'/GetCompanyData.php?id='+comapnyId
         })
+
+    }
+
+
+    callAPI.companyProfilePic = function(file){
+
+	 	return $http.post(baseHttpUrl + '/CompanyProfilePic.php', file,  {   
+	    	
+	    	withCredentials: false,
+	        transformRequest: angular.identity,  
+	        headers: {'Content-Type': undefined}  
+	    
+	    });
 
     }
 
