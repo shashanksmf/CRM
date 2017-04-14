@@ -143,8 +143,8 @@ function MainCtrl($scope,API,$rootScope) {
         msgDataRes.forEach(function(msg){
             var isFromIdFound = false;
             $rootScope.chats.forEach(function(chat,chatIndex){
-                console.log(chat,msg)
-                if(chat.fromId == msg.fromId){
+             //   console.log(chat,msg)
+                if(chat.id == msg.id){
                     isFromIdFound = true;
                     $rootScope.chats[chatIndex].chatDetail.push(msg);
 
@@ -153,22 +153,32 @@ function MainCtrl($scope,API,$rootScope) {
                     });
              
                 }
+
             })
 
             if(!isFromIdFound) {
                 if(!$scope.newMessages){
                     $scope.newMessages = [];
-                    $scope.newMessages.push(msg);
                 }
-                else{
-                  $scope.newMessages.push(msg);    
+
+                var isChatIdPresent = CheckChatId($scope.newMessages,msg);
+                if(!isChatIdPresent) {
+                    $scope.newMessages.push(msg);
+                    $scope.latestMsgCount++;     
                 }
             }
 
         })
     }
 
-
+    function CheckChatId(messages,msg) {
+       
+       for(var i=0; i < messages.length; i++ ) {
+         return messages[i].id == msg.id;
+       } 
+       return false;
+    
+    }
 
     function initChat() {
       

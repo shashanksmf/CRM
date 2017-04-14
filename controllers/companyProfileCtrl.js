@@ -1,6 +1,6 @@
 var inspinia = angular.module('inspinia');
 inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','API','$state','$timeout','$stateParams', function ($scope,$rootScope,$http,$q,API,$state,$timeout,$stateParams) {
-	
+
     $scope.tabs = { summary:"summary" , attachment : "attachment" };
 	$scope.activeTab = $scope.tabs.summary;
 	$scope.profileEdit = false;
@@ -68,5 +68,8 @@ inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','A
         }
         
     }
+
+
+ 
     
 }]);

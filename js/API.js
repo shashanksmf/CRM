@@ -1,5 +1,5 @@
 var inspinia = angular.module('inspinia');
-inspinia.factory('API', ['$http',function($http){
+inspinia.factory('API', ['$http','$q',function($http,$q){
 	
 	var callAPI = {}; 
   //  var baseHttpUrl = "/angularphp/template/Angular_Full_Version/Service";
@@ -172,14 +172,25 @@ inspinia.factory('API', ['$http',function($http){
 
       callAPI.uploadFileAttach = function(file){
 
-    	return $http.post(baseHttpUrl + '/ImageUploads.php', file,  
-	    {   
+      
+
+    	// return $http.post(baseHttpUrl + '/ImageUploads.php', file,  
+	    // {   
 	    	
-	    	withCredentials: false,
-	        transformRequest: angular.identity,  
-	        headers: {'Content-Type': undefined}  
+	    // 	withCredentials: false,
+	    //     transformRequest: angular.identity,  
+	    //     headers: {'Content-Type': undefined} ,
+	    //      uploadEventHandlers: {
+		   //      progress: function (e) {
+		   //                if (e.lengthComputable) {
+		   //                   $scope.progressBar = (e.loaded / e.total) * 100;
+		   //                   console.log($scope.progressBar);
+		   //                   $scope.progressCounter = $scope.progressBar;
+		   //                }
+		   //      }
+		   //  } 
 	    
-	    });
+	    // });
 
     }
 
@@ -214,7 +225,8 @@ inspinia.factory('API', ['$http',function($http){
 
 	        method: 'GET',
 	        dataType: "jsonp",
-	        url: baseHttpUrl + '/GetAtt.php?id='+user.userId
+	        url: baseHttpUrl + '/GetAtt.php?id='+user.userId,
+
 
 	    })
 		

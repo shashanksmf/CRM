@@ -177,29 +177,36 @@
 				</div>
 				<div class="attachmentContainer" ng-show="activeTab == tabs.attachment">
 
-				<div class="container">
+				<div class="container ">
 				  	<input type="file" class="fileAttachmentInput" name="image" onchange="angular.element(this).scope().fileAttach(this.files)"  />
 					<button class="btn btn-default" ng-click="browseFileAttach()">Upload File</button>
 				</div>
 
-					<table class="table table-bordered">
+					<table class="table table-bordered userFileAttachTable">
                                     <thead>
                                     <tr>
 
-                                        <th></th>
+                                        <th>Sr.No</th>
+                                        <th>FileName </th>
                                         <th>Upload Date </th>
-                                        <th>Summary </th>
+                                        <th>File Size</th>
                                         <th>File</th>
+                                        <th>Delete</th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="file in files">
+                                        
                                         <td>
-                                        <div class=" icheckbox_square-green " ng-class="{' checked': file.checked == true}" style="position: relative;" ng-click="file.checked=!file.checked"><input type="checkbox" checked="" class="i-checks" name="input[]" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></td>
-                                        <td>{{file.date}}</td>
+                                        	{{$index+1}}
+                                        </td>
                                         <td>{{file.name}}</td>
+                                        <td>{{file.date}}</td>
+                                        <td>200 KB</td>
+                                        
                                         <td><i class="fa fa-file"></i></td>
-                            
+                            			<td><button class="btn btn-danger" type="button"><i class="fa fa-trash-o"></i></button></td>
                                     </tr>
                                     
                                     </tbody>
@@ -224,8 +231,13 @@
         <h4 class="modal-title">Enter FileName</h4>
       </div>
       <div class="modal-body">
-        <input type="text" class="form-control" ng-model="newFileName">
+        <input type="text" class="form-control" ng-model="newFileName" style="margin-bottom: 10px">
+     	<div style="position: relative;text-align: center;">
+	      	<progress style="height: 30px; width: 80%" id="progress" min="0" max="100" value="{{progressbar}}"></progress>
+	      	<span style="position: absolute;left: 0;right: 0;top: 20%;font-weight: 600;font-family: cursive;">{{progressbar}} {{progressbar ? "%" : ''}}</span>
+      	</div>
       </div>
+     
       <div class="modal-footer">
       	<button type="button" class="btn btn-primary" ng-click="uploadNewFileAttach(newFileName)">Save</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -236,3 +248,10 @@
 </div>
 
 <!-- Enter FileName Modal -->
+
+
+<!-- code for checkbox -->
+
+<!-- <div class=" icheckbox_square-green " ng-class="{' checked': file.checked == true}" style="position: relative;" ng-click="file.checked=!file.checked"><input type="checkbox" checked="" class="i-checks" name="input[]" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+ -->
+<!-- code for checkbox -->

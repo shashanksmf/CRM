@@ -1,6 +1,7 @@
 var inspinia = angular.module('inspinia');
 inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API','$state','$timeout','$stateParams', function ($scope,$rootScope,$http,$q,API,$state,$timeout,$stateParams) {
 
+	var baseHttpUrl = 'http://jaiswaldevelopers.com/CRMV1/Service';
 	$scope.tabs = { summary:"summary" , attachment : "attachment" };
 	$scope.activeTab = $scope.tabs.summary;
 	$scope.profileEdit = false;
@@ -57,6 +58,9 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 
 	}
 
+	function progressFun(event){
+		console.log("event : ",event);
+	}
 
 	$scope.uploadNewFileAttach = function (fileName) {
 
@@ -67,14 +71,18 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 
 		$scope.fileAttach.append("fileName",fileName);
 		
-	    API.uploadFileAttach($scope.fileAttach).then(function(response) {
+	    	uploadEmplFile($scope.fileAttach).then(function(response) {
 	    	
 	    	//alert("file successFully Uploaded")
-	    	 if(response.data.responce) {
-	    		alert("file successFully Uploaded")
+	    	 response = JSON.parse(response);
+
+	    	 if(response.responce) {
+	    		alert("file successFully Uploaded");
+	    		$("#fileNameModal").modal("hide");
+	    		$scope.fileAttach = '';
 	    	 }
 	    	 else {
-	    	 	alert("something Went Wrong");
+	    	 //	alert("something Went Wrong");
 	    	 }
 
 	    	$timeout(function() {
@@ -104,6 +112,48 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 	});
 	
 
+    function uploadEmplFile (file){
+
+        var xhttp = new XMLHttpRequest();
+        var promise = $q.defer();
+
+        xhttp.upload.addEventListener("progress",function (e) {
+        //    console.log("progress ",e); 
+            var progress = Math.ceil(((e.loaded) / e.total) * 100);
+            $timeout(function(){
+            	$scope.progressbar = progress;
+            },10);
+            
+         //   console.log(progress);
+            //promise.notify(e);
+        });
+        // xhttp.upload.addEventListener("load",function (e) {
+        //     promise.resolve(e);
+        // });
+
+        xhttp.onreadystatechange=function() {
+         //   alert(xhttp.readyState + " " + xhttp.status);
+            if (xhttp.readyState==4 && xhttp.status==200) {
+                console.log(xhttp.responseText);
+             // document.getElementById("captcha_error").innerHTML=xmlhttp.responseText;
+              promise.resolve(xhttp.responseText);
+              //return false;
+            }
+        }
+
+        xhttp.upload.addEventListener("error",function (e) {
+            promise.reject(e);
+        });
+
+        xhttp.open("POST",baseHttpUrl + '/ImageUploads.php',true);
+        //xhttp.setRequestHeader("Content-Type", undefined);
+    
+        xhttp.send(file);
+
+        return promise.promise;
+    }
+
+
 
 	// $scope.files = [
 	// 	{
@@ -131,21 +181,3 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 
 
 
-// inspinia.directive('myDirective', function (httpPostFactory) {
-//     return {
-//         restrict: 'A',
-//         scope: true,
-//         link: function (scope, element, attr) {
-
-//             element.bind('change', function () {
-//                 var formData = new FormData();
-//                 formData.append('file', element[0].files[0]);
-//                 httpPostFactory('upload_image.php', formData, function (callback) {
-//                    // recieve image name to use in a ng-src 
-//                     console.log(callback);
-//                 });
-//             });
-
-//         }
-//     };
-// });
