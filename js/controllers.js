@@ -144,15 +144,16 @@ function MainCtrl($scope,API,$rootScope,crmconfig) {
         msgDataRes.forEach(function(msg){
             var isFromIdFound = false;
             $rootScope.chats.forEach(function(chat,chatIndex){
-             //   console.log(chat,msg)
-                if(chat.id == msg.id){
+                console.log(chat,msg)
+                if(chat.fromId == msg.fromId){
                     isFromIdFound = true;
-                    $rootScope.chats[chatIndex].chatDetail.push(msg);
-
-                    API.readMsg(msg.id,chat.fromId).then(function(response) {
-                        console.log("response : ",response);
-                    });
-             
+                    if(msg.id > $rootScope.chats[chatIndex].chatDetail[$rootScope.chats[chatIndex].chatDetail.length-1].id)
+                    {
+                        $rootScope.chats[chatIndex].chatDetail.push(msg);   
+                        API.readMsg(msg.id,chat.fromId).then(function(response) {
+                            console.log("response : ",response);
+                        });
+                    }             
                 }
 
             })
@@ -173,12 +174,16 @@ function MainCtrl($scope,API,$rootScope,crmconfig) {
     }
 
     function CheckChatId(messages,msg) {
-       
+       var isMsgIdFound = false;
        for(var i=0; i < messages.length; i++ ) {
-         return messages[i].id == msg.id;
+            if(messages[i].id == msg.id){
+                isMsgIdFound = true;
+                return true;
+            }
+       }
+       if(!isMsgIdFound){
+        return false; 
        } 
-       return false;
-    
     }
 
     function initChat() {
@@ -214,7 +219,6 @@ function MainCtrl($scope,API,$rootScope,crmconfig) {
     //console.log("before chat init")
     initChat();
 
-    console.log(crmconfig.serverDomainName);
     var userId = $rootScope.userId || localStorage.getItem("userId");
 
     API.getUserInfo(userId).then(function(response) {
