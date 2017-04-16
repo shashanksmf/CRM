@@ -5,7 +5,7 @@ inspinia.controller('registerCtrl', ['$scope','$http','$q','API','$state','$time
 		var user = { userName: $scope.userName , userEmail : $scope.userEmail , userPassword : $scope.userPassword };
 		
 		API.registerUser(user).then(function(response){
-			console.log("registerUser",response);
+		//	console.log("registerUser",response);
 			if(response.data.responce){
 				$state.go("login");
 			}

@@ -10,7 +10,7 @@
 
                    <div class="userPicContainer">
 
-                        <img src="img/default-avatar.png" class="img-circle" ng-src="{{imgsrc}}" style="max-width: 80px">
+                        <img onerror="this.src='img/default-avatar.png';"  class="img-circle" ng-src="{{userProfilePic}}" style="max-width: 80px">
                                  <input type="file" class="fileUploadInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)"  />
                     </div>
 

@@ -169,7 +169,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 
     callAPI.uploadUserProfilePic = function(file){
 
-    	return $http.post(baseHttpUrl + '/ImageUpload.php', file,  
+    	return $http.post(baseHttpUrl + '/uploadUserProfilePic.php', file,  
 	    {   
 	    	
 	    	withCredentials: false,
@@ -178,6 +178,17 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	    
 	    });
 
+    }
+
+    callAPI.getUserInfo = function(userId) {
+
+     return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/getUserInfo.php?id='+userId
+
+	    })
     }
 
 

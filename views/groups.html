@@ -5,9 +5,9 @@
 
 
     <div class="row">
-        <div class="col-md-3" ng-repeat="group in groups.Groups track by $index">
+        <div class="col-md-3" ng-repeat="group in groups.Groups track by $index" ng-click="editGroup($index)">
             <div class="ibox">
-                <div class="ibox-content product-box" data-toggle="modal" data-target="#addEmplmModal" ng-click="editGroup($index)">
+                <div class="ibox-content product-box" data-toggle="modal" data-target="#addEmplmModal" >
                 <span class="glyphicon glyphicon-pencil"></span>
                     <div class="product-imitation" style="background-image:url('./img/groupIcon.png');    background-position: center center;
                         background-size: cover;">
@@ -15,7 +15,7 @@
                     </div>
                     <div class="product-desc">
                                 
-                        <a href="#" class="product-name"> {{group.name}}</a>        
+                        <a  class="product-name"> {{group.name}}</a>        
                         <small class="text-muted">created by {{group.admin}}</small>
                         
 
@@ -26,7 +26,7 @@
                         </div>
                         <div class="m-t text-righ">
 
-                            <a href="#" class="btn btn-xs btn-outline btn-primary"> <i class="glyphicon glyphicon-user"></i> {{group.Members.length}} contacts</a>
+                            <a  class="btn btn-xs btn-outline btn-primary"> <i class="glyphicon glyphicon-user"></i> {{group.Members.length}} contacts</a>
                         </div>
                     </div>
                 </div>

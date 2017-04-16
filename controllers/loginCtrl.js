@@ -1,6 +1,7 @@
 var inspinia = angular.module('inspinia');
-inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$state','$timeout', function ($scope,$rootScope,$http,$q,API,$state,$timeout) {
-	
+inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$state','$timeout','crmconfig', function ($scope,$rootScope,$http,$q,API,$state,$timeout,crmconfig) {
+
+	console.log("crmConfig ",crmconfig);	
 	$scope.loginUser = function(){
 		var user = { userName: $scope.userEmail ,  userPassword : $scope.userPassword };
 		
@@ -9,12 +10,12 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 			if(response.data.responce){
 				$rootScope.userEmail = response.data.email;
 				$rootScope.userName = response.data.name;
-				$rootScope.userId = 1;
+				$rootScope.userId = response.data.id;
 				localStorage.setItem("userEmail",response.data.email);
 				localStorage.setItem("userName",response.data.name);
-				localStorage.setItem("userId",1);
+				localStorage.setItem("userId",response.data.id);
 				//localStorage.setItem("userUUID",response.data.responce);
-
+				$rootScope.userProfilePic = crmconfig.serverDomainName + response.data.profilePic;
 				 $scope.$emit('initialiseChat', { initChat : true });
  					
 

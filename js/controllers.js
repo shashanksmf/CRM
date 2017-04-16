@@ -53,13 +53,14 @@
  * Contains several global data used in different view
  *
  */
-function MainCtrl($scope,API,$rootScope) {
+function MainCtrl($scope,API,$rootScope,crmconfig) {
   
     /**
      * daterange - Used as initial model for data range picker in Advanced form view
      */
 
     // if login
+
     var chatInterval = null;
     $rootScope.chats = [];
 
@@ -213,6 +214,17 @@ function MainCtrl($scope,API,$rootScope) {
     //console.log("before chat init")
     initChat();
 
+    console.log(crmconfig.serverDomainName);
+    var userId = $rootScope.userId || localStorage.getItem("userId");
+
+    API.getUserInfo(userId).then(function(response) {
+    //    console.log();
+        $rootScope.userName = response.data.details.name;
+        $rootScope.userEmail = response.data.details.email;
+        $rootScope.userProfilePic = crmconfig.serverDomainName + response.data.details.profilePic;
+    });
+
+
     $scope.$on('initialiseChat', function (event, args) {
          $scope.message = args.initChat;
          if(args.initChat) {
@@ -241,7 +253,7 @@ function MainCtrl($scope,API,$rootScope) {
 
         var url = "http://jaiswaldevelopers.com/CRMV1/files/index.php";
         API.uploadUserProfilePic(file).then(function(response) {
-
+            console.log("user profile pic response",response);
             alert("Picture successFully Uploaded")
 
         })
@@ -249,7 +261,7 @@ function MainCtrl($scope,API,$rootScope) {
 
     $scope.imageIsLoaded = function(e){
             $scope.$apply(function() {
-                $scope.imgsrc= e.target.result;
+                $rootScope.userProfilePic = e.target.result;
             });
      }
 
