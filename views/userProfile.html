@@ -7,13 +7,14 @@
 
 			
 			
-			<!-- <div class="userPicContainer">
+			 <div class="userPicContainer">
 
-				<img src="img/default-avatar.png" ng-src="{{imgsrc}}">
-					     <input type="file" class="fileUploadInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)"  />
-			</div> -->
+				<img onerror="this.src='img/default-avatar.png';" ng-src="{{imgsrc}}" style="max-width: 180px;
+    max-height: 120px; margin-bottom: 20px;">
+					     <input type="file" class="fileUploadInput emplpropicfileinput" name="image" onchange="angular.element(this).scope().emplProPicSeleted(this.files)"  />
+			</div>
 	
-				<!--onchange="angular.element(this).scope().uploadFile(this.files)"-->
+			<!--	onchange="angular.element(this).scope().uploadFile(this.files)"-->
 			<div class="userBasicInfoContainer col-md-12">
 			<div class="row">
 				<div class="col-md-6" ng-show="!profileEdit">
@@ -196,17 +197,17 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="file in files">
+                                    <tr ng-repeat="file in files" ng-if="file.isactive=='1'">
                                         
                                         <td>
                                         	{{$index+1}}
                                         </td>
                                         <td>{{file.name}}</td>
                                         <td>{{file.date}}</td>
-                                        <td>200 KB</td>
+                                        <td>{{file.filesize}}</td>
                                         
                                         <td><i class="fa fa-file"></i></td>
-                            			<td><button class="btn btn-danger" type="button"><i class="fa fa-trash-o"></i></button></td>
+                            			<td><button class="btn btn-danger" type="button" ng-click="deleteEmplFile(file.id,$index)"><i class="fa fa-trash-o"></i></button></td>
                                     </tr>
                                     
                                     </tbody>

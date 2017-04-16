@@ -72,6 +72,17 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 
 	}
 
+	callAPI.searchEmployesNames = function(term){
+
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl+'/GetENSearch.php?term='+term
+
+	    })
+
+	}
 
 	callAPI.createGroup = function(group) {
 		
@@ -230,6 +241,32 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 
 	    })
 		
+
+	}
+
+	callAPI.deleteEmplFile = function(empl) {
+
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/deleteEmplFile.php?emplId='+empl.emplId+'&fileId='+empl.fileId
+
+	    })
+
+	}
+
+
+	callAPI.uploadEmplProfilePic = function(file) {
+
+
+    	return $http.post(baseHttpUrl + '/uploadEmplProfilePic.php', file,  {   
+	    	
+	    	withCredentials: false,
+	        transformRequest: angular.identity,  
+	        headers: {'Content-Type': undefined}  
+	    
+	    });
 
 	}
 

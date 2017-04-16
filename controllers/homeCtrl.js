@@ -104,7 +104,7 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','
     
     
     //code for searching employee details in database
-    $rootScope.seachText = function(Text){
+    $rootScope.seachText = function(Text) {
 
         var tags='';
          $rootScope.tagSearchedItems.forEach(function(Item){

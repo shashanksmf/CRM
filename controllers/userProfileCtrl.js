@@ -1,7 +1,7 @@
 var inspinia = angular.module('inspinia');
 inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API','$state','$timeout','$stateParams', function ($scope,$rootScope,$http,$q,API,$state,$timeout,$stateParams) {
 
-	var baseHttpUrl = 'http://jaiswaldevelopers.com/CRMV1/Service';
+	var baseHttpUrl = 'http://jaiswaldevelopers.com/CRMV1/Service', domainName = 'http://jaiswaldevelopers.com/CRMV1/';
 	$scope.tabs = { summary:"summary" , attachment : "attachment" };
 	$scope.activeTab = $scope.tabs.summary;
 	$scope.profileEdit = false;
@@ -9,7 +9,10 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 	$scope.formData = {};
 
 	//console.log("$stateParams",$stateParams)
-	$scope.userId = $stateParams.id;
+	$scope.emplId = $stateParams.id;
+	
+	//emplProPicSeleted
+
 	$scope.changeProfileEdit = function (){
 		
 		console.log("$scope.userProfileInfo",$scope.userProfileInfo)
@@ -18,16 +21,16 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 	
 	$scope.submit = function() {
 
-    API.updateUserProfile($scope.userProfileInfo).then(function(response){
-    	if(response.data.responce){
-    		alert("profileUpdated");
-    		$scope.profileEdit = !$scope.profileEdit;
-    	}
-    	else{
-    		alert("Network Problem");	
-    	}
-    	
-    })
+	    API.updateUserProfile($scope.userProfileInfo).then(function(response){
+	    	if(response.data.responce){
+	    		alert("profileUpdated");
+	    		$scope.profileEdit = !$scope.profileEdit;
+	    	}
+	    	else{
+	    		alert("Network Problem");	
+	    	}
+	    	
+	    })
 
    
 	};
@@ -35,14 +38,15 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 
 	
     
-    var userObj = { userId : $scope.userId };
+    var userObj = { userId : $scope.emplId };
     API.getUserProfile(userObj).then(function(response){
         $scope.userProfileInfo = response.data.Employees[0];
+        $scope.imgsrc = domainName + response.data.Employees[0].imgUrl;
     })
 
 
 	$scope.browseFileAttach = function() {
-
+		document.getElementsByClassName("fileAttachmentInput")[0].value = '';
 		document.getElementsByClassName("fileAttachmentInput")[0].click();
 	}
 
@@ -51,7 +55,8 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 
 		$scope.fileAttach = new FormData();
 		$scope.fileAttach.append("image", files[0]);
-		$scope.fileAttach.append("id", $scope.userId);
+		$scope.fileAttach.append("id", $scope.emplId);
+		$scope.fileAttach.append("fileName", $scope.newFileName);
 		
 		$("#fileNameModal").modal("show");
 
@@ -65,8 +70,8 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 	$scope.uploadNewFileAttach = function (fileName) {
 
 		if(!fileName || fileName.length < 0 ){
-			alert("Please Enter FileName");
-			return false;
+		//	alert("Please Enter FileName");
+		//	return false;
 		}
 
 		$scope.fileAttach.append("fileName",fileName);
@@ -75,8 +80,8 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 	    	
 	    	//alert("file successFully Uploaded")
 	    	 response = JSON.parse(response);
-
-	    	 if(response.responce) {
+	    	 console.log(response);
+	    	 if(response.result) {
 	    		alert("file successFully Uploaded");
 	    		$("#fileNameModal").modal("hide");
 	    		$scope.fileAttach = '';
@@ -85,8 +90,10 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 	    	 //	alert("something Went Wrong");
 	    	 }
 
+	    	
 	    	$timeout(function() {
-				$scope.files.push({checked:false,"name":fileName,"date":new Date().toISOString().slice(0,10)})
+				$scope.files.push({checked:false,"name":response.details.fileName,"date":response.details.date,id:response.details.id,filesize:response.details.filesize,isactive:'1'})
+				//console.log($scope.files);
 			}, 500);	
 
 	    })
@@ -96,13 +103,12 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 
 
 	$scope.files = [];
-	API.getAttachedFiles({userId: $scope.userId}).then(function(response){
+	API.getAttachedFiles({userId: $scope.emplId}).then(function(response){
 
-		if(response.data.responce){ 
-			if(response.data.links.length > 0) {
-				response.data.links.forEach(function(file){
-					$scope.files.push({ date: file.uploadedOn, checked :false ,name: file.url })	
-				})
+		if(response.data.result){ 
+			if(response.data.details.length > 0) {
+				$scope.files = response.data.details;	
+				console.log($scope.files)
 			}
 		} 
 		else {
@@ -145,13 +151,61 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
             promise.reject(e);
         });
 
-        xhttp.open("POST",baseHttpUrl + '/ImageUploads.php',true);
+        xhttp.open("POST",baseHttpUrl + '/uploadEmplFiles.php',true);
         //xhttp.setRequestHeader("Content-Type", undefined);
     
         xhttp.send(file);
 
         return promise.promise;
     }
+
+    $scope.deleteEmplFile = function(fileId,index) {
+    	var fileObj = { emplId : $scope.emplId , fileId : fileId };
+    	API.deleteEmplFile(fileObj).then(function(response){
+	    	 if(response.data.result){
+	    	 	$scope.files[index].isactive = 0;	
+	    	 }
+    	})
+    }
+
+
+
+   // below code for uppdate profile Pic
+
+   // when user click on choose file for emplyee profile pic
+   $scope.emplProPicSeleted = function(files) {
+
+   	  	var file = new FormData();
+        file.append("image", files[0]);
+        file.append("fileName",files[0].name);
+        file.append("id", $scope.emplId);
+        
+        var reader = new FileReader();
+        reader.onload = $scope.imageIsLoaded; 
+        reader.readAsDataURL(files[0]);
+        try{
+        	document.getElementsByClassName("emplpropicfileinput")[0].value = '';
+        }
+        catch(ex){
+        	console.log(ex);
+        }
+        //var url = "http://jaiswaldevelopers.com/CRMV1/files/index.php";
+        API.uploadEmplProfilePic(file).then(function(response) {
+        	if(response.data.result){
+	        //	console.log("upload emplyee pro pic response",response);
+	            alert("Picture successFully Uploaded")
+			}
+        })	
+
+   }
+
+    $scope.imageIsLoaded = function(e){
+        $scope.$apply(function() {
+            $scope.imgsrc = e.target.result;
+        });
+    }
+
+
 
 
 

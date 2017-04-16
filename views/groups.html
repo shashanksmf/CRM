@@ -1,4 +1,4 @@
-<div class="group wrapper wrapper-content animated fadeInRight">
+<div class="group wrapper wrapper-content animated fadeInRight" style="position: relative;">
     <div class="container groupContainer">
       <button class="btn btn-primary"  data-toggle="modal" data-target="#groupModal">Add Group</button>    
     </div>
@@ -77,11 +77,9 @@
     </div>
     <!--create group Modal -->
 
-</div>
-
 
 <!--Add User Modal -->
-<div id="addEmplmModal" class="modal fade groupAddUsers" role="dialog">
+<div id="addEmplmModal" class="modal fade groupAddUsers" role="dialog" >
   <div class="modal-dialog">
 In Modal{{users}}
     <!-- Modal content-->
@@ -98,17 +96,16 @@ In Modal{{users}}
           Adding Contacts to groups
           <i class="fa fa-sort-down" />
         </div>
-    
-         <input class="form-control" type="text" placeholder="start typing name..." ng-model="emplName">
-        <ul class="list-group" >
-          <li class="list-group-item" ng-repeat="empl in emplNames | filter : emplName">
+        <searchbar searchlist="emplNames" searchtext="emplName" searchapi="searchEmpl" showautocomplete="showautocomplete"  listclick="addEmpl(emplName,emplId)"></searchbar>
+     <!--    <input class="form-control" type="text" placeholder="start typing name..." ng-model="emplName">
+      -->  <ul class="list-group" >
 
-              <div ng-click="addEmpl(empl.name,empl.id,$index)">{{empl.name}}{{empl.isFound}}
-                    <span ng-repeat="member in groups.Groups[groupIndex].Members">
-                        <span ng-if="member.name == empl.name">
-                            <i class="fa fa-check checkIcon" ></i>
-                        </span>
-                    </span>
+          <li class="list-group-item" ng-repeat="empl in groups.Groups[groupIndex].Members">
+
+              <div style="display: flex;align-items: center;">
+              <div style="flex:1">{{empl.name}}{{empl.isFound}}</div>
+
+              <button style="float: right" type="button" class="btn btn-danger fa fa-trash-o" ng-click="removeEmplFromGroup(empl.id)"></button>      
               </div>
 
           </li>
@@ -125,5 +122,9 @@ In Modal{{users}}
 
   </div>
 </div>
+
+
+</div>
+
 
 

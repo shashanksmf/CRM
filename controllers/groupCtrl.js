@@ -5,11 +5,16 @@ inspinia.controller('groupCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 		$scope.groups = groupData.data;    
 	})
 
-	API.getEmployesNames().then(function(response){
-		$scope.emplNames =  response.data.Employees;	
-	})
+	$scope.searchEmpl = function(term){
+		$scope.showautocomplete = true;
+		API.searchEmployesNames(term).then(function(response){
+			$scope.emplNames =  response.data.Employees;	
+		})
 
+	}
+	
 
+	$scope.showautocomplete = false;
 
 
 	$scope.createGroup = function(groupName,groupDetail) {
@@ -52,8 +57,8 @@ inspinia.controller('groupCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 			$scope.groupIndex = groupIndex;
 	}
 
-	$scope.addEmpl = function(emplName,emplId,arrayIndex) {
-			
+	$scope.addEmpl = function(emplName,emplId) {
+			$scope.showautocomplete = false;
 			var isMemberFound = false , memberIndex = null;
 
 			for(var i=0; i < $scope.groups.Groups[$scope.groupIndex].Members.length ; i++) {
@@ -79,6 +84,27 @@ inspinia.controller('groupCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 
 			 	$scope.groups.Groups[$scope.groupIndex].Members.push({"name":emplName,"id":emplId});
 			 	$scope.groups.Groups[$scope.groupIndex].membersCount = $scope.groups.Groups[$scope.groupIndex].Members.length;
+			
+			}
+
+	}
+
+	$scope.removeEmplFromGroup = function(emplId) {
+
+		var isMemberFound = false , memberIndex = null;
+
+			for(var i=0; i < $scope.groups.Groups[$scope.groupIndex].Members.length ; i++) {
+				if($scope.groups.Groups[$scope.groupIndex].Members[i].id == emplId) {
+					memberIndex = i;
+					isMemberFound = true;
+					break;
+				}
+			}
+
+			if(isMemberFound) {
+			
+				$scope.groups.Groups[$scope.groupIndex].Members.splice(memberIndex, 1);
+				$scope.groups.Groups[$scope.groupIndex].membersCount = $scope.groups.Groups[$scope.groupIndex].Members.length;
 			
 			}
 
@@ -117,3 +143,37 @@ inspinia.controller('groupCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 	}	
 
 }])
+
+
+
+// $scope.addEmpl = function(emplName,emplId,arrayIndex) {
+			
+// 			var isMemberFound = false , memberIndex = null;
+
+// 			for(var i=0; i < $scope.groups.Groups[$scope.groupIndex].Members.length ; i++) {
+// 				if($scope.groups.Groups[$scope.groupIndex].Members[i].id == emplId) {
+// 					memberIndex = i;
+// 					isMemberFound = true;
+// 					break;
+// 				}
+// 			}
+
+// 			if(isMemberFound) {
+			
+// 				$scope.groups.Groups[$scope.groupIndex].Members.splice(memberIndex, 1);
+// 				$scope.groups.Groups[$scope.groupIndex].membersCount = $scope.groups.Groups[$scope.groupIndex].Members.length;
+			
+// 			}
+
+// 			else{
+			
+// 				if(!$scope.groups.Groups[$scope.groupIndex].hasOwnProperty("Members")) {
+// 					$scope.groups.Groups[$scope.groupIndex].Members = [];
+// 				}
+
+// 			 	$scope.groups.Groups[$scope.groupIndex].Members.push({"name":emplName,"id":emplId});
+// 			 	$scope.groups.Groups[$scope.groupIndex].membersCount = $scope.groups.Groups[$scope.groupIndex].Members.length;
+			
+// 			}
+
+// 	}
