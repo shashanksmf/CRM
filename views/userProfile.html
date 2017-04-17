@@ -179,7 +179,9 @@
 				<div class="attachmentContainer" ng-show="activeTab == tabs.attachment">
 
 				<div class="container ">
-				  	<input type="file" class="fileAttachmentInput" name="image" onchange="angular.element(this).scope().fileAttach(this.files)"  />
+				  	<input type="file" class="fileAttachmentInput emplFileAttachInput" name="image" custom-on-change="fileAttach"   />
+				  	<!--onchange="angular.element(this).scope().fileAttach(this.files)"
+				-->
 					<button class="btn btn-default" ng-click="browseFileAttach()">Upload File</button>
 				</div>
 

@@ -46,13 +46,20 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 
 
 	$scope.browseFileAttach = function() {
+		$scope.progressbar = 0;
+		try{
 		document.getElementsByClassName("fileAttachmentInput")[0].value = '';
 		document.getElementsByClassName("fileAttachmentInput")[0].click();
+		}
+		catch(ex){
+			console.log(ex);
+		}
 	}
 
 
-	$scope.fileAttach = function(files){
+	$scope.fileAttach = function(event){
 
+		var files = event.target.files;
 		$scope.fileAttach = new FormData();
 		$scope.fileAttach.append("image", files[0]);
 		$scope.fileAttach.append("id", $scope.emplId);
@@ -235,3 +242,12 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 
 
 
+inspinia.directive('customOnChange', function() {
+  return {
+    restrict: 'A',
+    link: function (scope, element, attrs) {
+      var onChangeHandler = scope.$eval(attrs.customOnChange);
+      element.bind('change', onChangeHandler);
+    }
+  };
+});
