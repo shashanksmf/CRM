@@ -130,7 +130,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig) {
         }
     }
 
-    $scope.showMessage(2,34);
+    //$scope.showMessage(2,34);
 
     $scope.closechatwindow = function(chatIndex){
         $rootScope.chats[chatIndex].active = false;
