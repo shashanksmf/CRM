@@ -11,7 +11,10 @@
 
 				<img onerror="this.src='img/default-avatar.png';" ng-src="{{imgsrc}}" style="max-width: 180px;
     max-height: 120px; margin-bottom: 20px;">
-					     <input type="file" class="fileUploadInput emplpropicfileinput" name="image" onchange="angular.element(this).scope().emplProPicSeleted(this.files)"  />
+					     <input type="file" class="fileUploadInput emplpropicfileinput" name="image" onchange="angular.element(this).scope().emplProPicSeleted(this.files)" ng-show="false" />
+                 
+                 <div class="changeUserPhotoBtn" ng-click="clickUserChangePicture()"><i class="fa fa-camera"></i> Change Photo</div>
+
 			</div>
 	
 			<!--	onchange="angular.element(this).scope().uploadFile(this.files)"-->
@@ -24,8 +27,8 @@
 						<span >{{userProfileInfo.name}}</span>
 								
 				</div>
-				<div class="mtb-10px" ng-show="profileEdit">
-						<input class="form-control" placeholder="full Name" name="fullname" ng-show="profileEdit" type="text" ng-model="userProfileInfo.name" >
+				<div class="mtb-10px text-center" ng-show="profileEdit">
+						<input  placeholder="full Name" name="fullname" ng-show="profileEdit" type="text" ng-model="userProfileInfo.name" >
 				</div>
 			</div>
 			<div class="row">	
@@ -36,8 +39,8 @@
 					
 				</div>
 
-				<div  class="mtb-10px" ng-show="profileEdit">
-					<input class="form-control" placeholder="Age" type="text" ng-model="userProfileInfo.age" >
+				<div  class="mtb-10px text-center" ng-show="profileEdit">
+					<input  placeholder="Age" type="text" ng-model="userProfileInfo.age" >
 				</div>
 			</div>	
                 
@@ -49,8 +52,8 @@
 					
 				</div>
 
-				<div  class="mtb-10px" ng-show="profileEdit">
-					<input class="form-control" placeholder="Company Name" type="text" ng-model="userProfileInfo.Company.name" >
+				<div  class="mtb-10px text-center" ng-show="profileEdit">
+					<input placeholder="Company Name" type="text" ng-model="userProfileInfo.Company.name" >
 				</div>
 			</div>
                 
@@ -62,21 +65,21 @@
 					
 				</div>
 
-				<div  class="mtb-10px" ng-show="profileEdit">
-					<input class="form-control" placeholder="Location" type="text" ng-model="userProfileInfo.location" >
+				<div  class="mtb-10px text-center" ng-show="profileEdit">
+					<input placeholder="Location" type="text" ng-model="userProfileInfo.location" >
 				</div>
 			</div>
                 
             <div class="row">	
-				<div class="col-md-6" ng-show="!profileEdit">
+				<div class="col-md-6 " ng-show="!profileEdit">
 					Job Role
 				</div>	
-				<div class="col-md-6" ng-show="!profileEdit"><span >{{userProfileInfo.jobRole}}</span>	
+				<div class="col-md-6 " ng-show="!profileEdit"><span >{{userProfileInfo.jobRole}}</span>	
 					
 				</div>
 
-				<div  class="mtb-10px" ng-show="profileEdit">
-					<input class="form-control" placeholder="job Role" type="text" ng-model="userProfileInfo.jobRole" >
+				<div  class="mtb-10px text-center" ng-show="profileEdit">
+					<input  placeholder="job Role" type="text" ng-model="userProfileInfo.jobRole" >
 				</div>
 			</div>    
             
@@ -88,8 +91,8 @@
 					
 				</div>
 
-				<div  class="mtb-10px" ng-show="profileEdit">
-					<input class="form-control" placeholder="Gender" type="text" ng-model="userProfileInfo.gender" >
+				<div  class="mtb-10px text-center" ng-show="profileEdit">
+					<input  placeholder="Gender" type="text" ng-model="userProfileInfo.gender" >
 				</div>
 			</div>     
                 
@@ -107,9 +110,9 @@
 
 				<div class="summaryContainer" ng-show="activeTab == tabs.summary">
 
-					<div class="row-fluid editSaveBtn">
-						<button class="btn btn-primary" ng-show="!profileEdit" ng-click="changeProfileEdit()"> Edit</button>
-						<button   type="button" ng-click="submit()" class="btn btn-primary" ng-show="profileEdit">Save</button>
+					<div class="row-fluid editSaveBtn" style="text-align:right">
+						<span ng-show="!profileEdit" ng-click="changeProfileEdit()"> Edit</span>
+						<span ng-show="profileEdit" ng-click="submit()"  >Save</span>
 					</div>
 					<div class="row">
 					<div class="contactsContainer col-md-6">
@@ -169,10 +172,8 @@
 							Notes
 						</div>
 						<div class="notesContainer">
-						
-	                   <textarea rows="4" cols="50" ng-model="userProfileInfo.notes">
-	                        {{ userProfileInfo.notes }}
-	                    </textarea>   
+						<div ng-show="!profileEdit">{{ userProfileInfo.notes }}</div>
+	                   <textarea ng-show="profileEdit" rows="4" ng-model="userProfileInfo.notes">{{ userProfileInfo.notes }}</textarea>   
 						</div>
 					</div>	
 				</div>

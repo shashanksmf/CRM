@@ -8,10 +8,13 @@
                <div class="profile-element" uib-dropdown>
                    <!--  <img alt="image" class="img-circle" src="img/profile_small.jpg"/> -->
 
-                   <div class="userPicContainer">
-
-                        <img onerror="this.src='img/default-avatar.png';"  class="img-circle" ng-src="{{userProfilePic}}" style="max-width: 80px">
-                                 <input type="file" class="fileUploadInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)"  />
+                   <div class="userPicContainer" ng-style="{'background-image':'url(' + userProfilePic + ')'}">
+                       
+                       
+                      <!--  <img onerror="this.src='img/default-avatar.png';"  class="img-circle" ng-src="{{userProfilePic}}" style="max-width: 80px">
+                                 <input type="file" class="fileUploadInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)"  />-->
+                       
+                       <div class="changeUserPhotoBtn"><i class="fa fa-camera"></i> Change Photo</div>
                     </div>
 
                   <!--   <a uib-dropdown-toggle href>

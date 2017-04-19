@@ -20,7 +20,7 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 	}
 	
 	$scope.submit = function() {
-
+        $scope.userProfileInfo.imgUrl = $scope.imgsrc;
 	    API.updateUserProfile($scope.userProfileInfo).then(function(response){
 	    	if(response.data.responce){
 	    		alert("profileUpdated");
@@ -210,6 +210,10 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
         $scope.$apply(function() {
             $scope.imgsrc = e.target.result;
         });
+    }
+    
+     $scope.clickUserChangePicture = function(){
+        document.getElementsByClassName("fileUploadInput")[0].click();
     }
 
 

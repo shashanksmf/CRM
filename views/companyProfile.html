@@ -6,19 +6,20 @@
 		<div class="leftinnerContainer">
 
 		
-			<div class="userBasicInfoContainer col-md-12">
+			<div class="userBasicInfoContainer">
 
-				<div style="margin-bottom: 20px;">
+				<div style="margin-bottom: 20px;" class="userPicContainer">
 
-                    <img src="img/default-avatar.png" class="img-circle" ng-src="{{companyData.RootUrl+companyData.logo}}" style="max-width: 80px" ng-if="!newUploadPic">
+                    <img src="img/default-avatar.png" class="img-circle" ng-src="{{companyData.RootUrl+companyData.logo}}"  ng-if="!newUploadPic">
 
-                    <img src="img/default-avatar.png" class="img-circle" ng-src="{{imgsrc}}" style="max-width: 80px" ng-if="newUploadPic">
+                    <img src="img/default-avatar.png" class="img-circle" ng-src="{{imgsrc}}" ng-if="newUploadPic">
 
-                	<input type="file" class="fileUploadInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)"  />
-
+                	<input type="file" class="fileUploadInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)" ng-show="false"  />
+                    
+                     <div class="changeUserPhotoBtn" ng-click="clickCompanyChangePicture()"><i class="fa fa-camera"></i> Change Photo</div>
 				</div>	
 
-			<div class="row">
+			<div >
 				<div class="col-md-6" ng-show="!profileEdit">
 					Name
 				</div>	
@@ -26,11 +27,11 @@
 						<span >{{companyData.name}}</span>
 								
 				</div>
-				<div class="mtb-10px" ng-show="profileEdit">
-						<input class="form-control" placeholder="full Name" name="fullname" ng-show="profileEdit" type="text" ng-model="companyData.name" >
+				<div class="mtb-10px text-center" ng-show="profileEdit">
+						<input  placeholder="full Name" name="fullname" ng-show="profileEdit" type="text" ng-model="companyData.name" >
 				</div>
 			</div>
-			<div class="row">	
+			<div >	
 				<div class="col-md-6" ng-show="!profileEdit">
 					Industry
 				</div>	
@@ -38,12 +39,12 @@
 					
 				</div>
 
-				<div  class="mtb-10px" ng-show="profileEdit">
-					<input class="form-control" placeholder="Age" type="text" ng-model="companyData.areaOfWork" >
+				<div  class="mtb-10px text-center" ng-show="profileEdit">
+					<input placeholder="Age" type="text" ng-model="companyData.areaOfWork" >
 				</div>
 			</div>	
                 
-            <div class="row">	
+            <div>	
 				<div class="col-md-6" ng-show="!profileEdit">
 					Establishment
 				</div>	
@@ -51,12 +52,12 @@
 					
 				</div>
 
-				<div  class="mtb-10px" ng-show="profileEdit">
-					<input class="form-control" placeholder="Company Name" type="text" ng-model="companyData.establised" >
+				<div  class="mtb-10px text-center" ng-show="profileEdit">
+					<input placeholder="Company Name" type="text" ng-model="companyData.establised" >
 				</div>
 			</div>
                 
-            <div class="row">	
+            <div >	
 				<div class="col-md-6" ng-show="!profileEdit">
 					Location
 				</div>	
@@ -64,12 +65,12 @@
 					
 				</div>
 					
-				<div  class="mtb-10px" ng-show="profileEdit">
-					<input class="form-control" placeholder="Location" type="text" ng-model="companyData.ofcAddress" >
+				<div  class="mtb-10px text-center" ng-show="profileEdit">
+					<input  placeholder="Location" type="text" ng-model="companyData.ofcAddress" >
 				</div>
 			</div>
                 
-            <div class="row">	
+            <div >	
 				<div class="col-md-6" ng-show="!profileEdit">
 					Year Revenue
 				</div>	
@@ -77,8 +78,8 @@
 					
 				</div>
 
-				<div  class="mtb-10px" ng-show="profileEdit">
-					<input class="form-control" placeholder="job Role" type="text" ng-model="companyData.revenue" >
+				<div  class="mtb-10px text-center" ng-show="profileEdit">
+					<input placeholder="job Role" type="text" ng-model="companyData.revenue" >
 				</div>
 			</div>    
             
@@ -98,9 +99,9 @@
 
 				<div class="summaryContainer" ng-show="activeTab == tabs.summary">
 
-					<div class="row-fluid editSaveBtn">
-						<button class="btn btn-primary" ng-show="!profileEdit" ng-click="changeProfileEdit()"> Edit</button>
-						<button   type="button" ng-click="saveProfile()" class="btn btn-primary" ng-show="profileEdit">Save</button>
+					<div class="row-fluid editSaveBtn" style="text-align:right">
+						<span ng-show="!profileEdit" ng-click="changeProfileEdit()"> Edit</span>
+						<span ng-click="saveProfile()" ng-show="profileEdit">Save</span>
 					</div>
 					<div class="row">
 					<div class="contactsContainer col-md-6">
@@ -172,8 +173,8 @@
 							Description
 						</div>
 						<div class="notesContainer">
-						
-	                   <textarea rows="4" cols="50" ng-model="userProfileInfo.notes">
+						<div  ng-show="!profileEdit">{{ companyData.notes }}</div>
+	                   <textarea  ng-show="profileEdit" rows="4" ng-model="companyData.notes">
 <!--	                        {{ userProfileInfo.notes }}-->
 	                    </textarea>   
 						</div>

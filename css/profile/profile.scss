@@ -19,8 +19,34 @@
         .userPicContainer {
             padding-top: 10px;
             text-align:center;
+            position: relative;
+            
+             &:hover{
+                 .changeUserPhotoBtn{
+                    cursor: pointer;
+                    display:block;
+                    background-color:rgba(51,51,51,0.8);
+                    color:white;
+                    position:absolute;
+                    bottom: 0px;
+                    left: 18px;
+                    right: 17px;
+                    text-align:center;
+                    padding:2px 0px;
+                }
+            }
+            
+            .changeUserPhotoBtn{
+                display:none;
+            }
+    
+            
+            
             img {
-                width: 150px; 
+                width: 150px;
+                max-width:150px;
+                height:150px;
+                max-height:150px;
             }
             .fileUploadInput{
                 margin-top: 10px;
@@ -58,6 +84,11 @@
             .contactsContainer,.notesContainer{
                 padding: 10px;
                
+            }
+            .notesContainer{
+                textarea{
+                    width:100%;
+                }
             }
             .contactsContainer{
                 .contactsTxt{

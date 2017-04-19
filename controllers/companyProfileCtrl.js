@@ -69,7 +69,9 @@ inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','A
         
     }
 
-
+    $scope.clickCompanyChangePicture = function(){
+        document.getElementsByClassName("fileUploadInput")[0].click();
+    }
  
     
 }]);

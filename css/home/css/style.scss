@@ -242,3 +242,38 @@ header{
 .icheckbox_square-green.checked {
     background-position: -48px 0;
 }
+
+
+#wrapper{
+    .nav-header{
+        padding:10px;
+        .userPicContainer{
+            position:relative;
+            width: 200px;
+            height: 100px;
+            background-color: black;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            &:hover{
+                 .changeUserPhotoBtn{
+                    cursor: pointer;
+                    display:block;
+                    background-color:rgba(51,51,51,0.8);
+                    color:white;
+                    position:absolute;
+                    bottom: 0px;
+                    left:0;
+                    right: 0;
+                    text-align:center;
+                    padding:2px 0px;
+                }
+            }
+            
+            .changeUserPhotoBtn{
+                display:none;
+            }
+           
+        }
+    }
+}
