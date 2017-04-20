@@ -1,4 +1,4 @@
-inspinia.directive('friendlist', function() {
+inspinia.directive('friendlist', function($rootScope) {
   return {
  	
     restrict: 'E',
@@ -9,3 +9,5 @@ inspinia.directive('friendlist', function() {
     },
   };
 });
+
+

@@ -1,9 +1,9 @@
-inspinia.directive('chatbox', function() {
+inspinia.directive('chatbox', function($rootScope) {
   return {
  	
     restrict: 'E',
     templateUrl: 'Directives/chatbox.html',
-    link: function(scope, elem, attr,$timeout) { 
+    link: function(scope, elem, attr,$timeout,$rootScope) { 
     	
       var chatBoxHt = elem.find('div.msg_container_base')[0];
     //  var chatLength = find('div.msg_container_base').children().length;

@@ -63,7 +63,8 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
 
     var chatInterval = null, userId = ($rootScope.userId || localStorage.getItem("userId")) || null;
     $rootScope.chats = [];
-
+    $rootScope.userId = $rootScope.userId || localStorage.getItem("userId");
+    //$rootScope.myId = 234324;
     $scope.sendMessage = function(chatArrIndex,msg,toUserId) {
      //   console.log("chatArrIndex,msg,toUserId",chatArrIndex,msg,toUserId);
         $rootScope.chats[chatArrIndex].sending = true;
@@ -71,11 +72,11 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
         API.sendMessage(sendMsgObj).then(function(response){
             //console.log("response msg",response);
             if(response.data.responce){
-              $rootScope.chats[chatArrIndex].chatDetail.push({message:msg,from:sendMsgObj.from,to:toUserId,isMessageReaded:false});  
+              $rootScope.chats[chatArrIndex].chatDetail.push({id:response.data.msgId,message:msg,fromId:sendMsgObj.from,toId:toUserId,readed:false});  
               $rootScope.chats[chatArrIndex].sending = false;  
             }
             else{
-                $rootScope.chats[chatArrIndex].chatDetail.push({message:msg,from:sendMsgObj.from,to:toUserId,isMessageReaded:false,isError:true,errorMsg:'MessageCould not be send..'});   
+                $rootScope.chats[chatArrIndex].chatDetail.push({message:msg,from:sendMsgObj.fromId,toId:toUserId,readed:false,isError:true,errorMsg:'MessageCould not be send..'});   
             }
         })
 
@@ -84,7 +85,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
 
 
 
-    $scope.openChatBox = function(fromUserId,messageId) {
+    $scope.openChatBox = function(fromUserId,messageId,fromUserName) {
         
         var chatObj = { from : fromUserId , to: userId ,id:1};
         var isFromIdFound = null, fromIdInChatArr=null;
@@ -117,7 +118,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
             API.getChatDetails(chatObj).then(function(response){
                 $rootScope.chats.push(
                     {
-
+                        "fromUserName":fromUserName,
                         "fromUserId":fromUserId,
                         "chatsArrIndex":$rootScope.chats.length,
                         "active":true,
@@ -175,7 +176,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
     }
 
     function initChat() {
-      
+        $rootScope.userId = $rootScope.userId || localStorage.getItem("userId");
         userId = $rootScope.userId || localStorage.getItem("userId");
         if(userId) {
             API.getAllLatestMsg(userId).then(function(response){
@@ -183,8 +184,12 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
                     if(response.data.chatDetails.length > 0) {
                         $scope.notificationBox = response.data.chatDetails;
                         $scope.latestMsgCount = countUnreadMsg(response.data.chatDetails);
+
                     }
+                    
                 }
+                $rootScope.friendList = response.data.usersList;
+                    console.log($rootScope.friendList);
             })    
         }
 
@@ -196,9 +201,9 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
                         if(response.data.result) {
                             if(response.data.chatDetails.length > 0) {
                                pushNewMsgInActiveChatBox(response.data.chatDetails);
-                               
                         }
                      }
+                     $rootScope.friendList = response.data.usersList;
                 })   
             }
         },5000);   
@@ -207,7 +212,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
 
     //console.log("before chat init")
     initChat();
-
+    $rootScope.userId = $rootScope.userId || localStorage.getItem("userId");
     var userId = $rootScope.userId || localStorage.getItem("userId");
     if(userId) {
         API.getUserInfo(userId).then(function(response) {
@@ -273,10 +278,46 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
 
     }
 
-    $scope.$watch('latestMsgCount',function(newval,oldval){
-        console.log(newval,oldval);
-    })
+    $scope.getfirstname = function(name) {
+        return name.split(" ")[0];
+    }
 
+    $scope.getprofilepicurl = function(profilepic){
+        if(!profilepic || profilepic.length <1){
+            return crmconfig.defaultUserPic;
+        }
+        else{
+            return crmconfig.serverDomainName + profilepic;
+        }
+    }
+
+    $scope.getChatboxUserProfilePic = function(profilepic){
+        if(profilepic && profilepic.length > 0) {
+            return profilepic;
+        }
+        else{
+            return  crmconfig.defaultUserPic;
+        }
+    }
+
+    $scope.getChatboxFromUserProfilePic = function(profilepic) {
+        if(profilepic && profilepic.length > 0) {
+            return crmconfig.serverDomainName + profilepic;
+        }
+        else{
+            return  crmconfig.defaultUserPic;
+        }
+    }
+
+    $scope.browseUserProfilePic = function(){
+        try{
+            document.getElementsByClassName("fileUploadInput")[0].value = '';
+            document.getElementsByClassName("fileUploadInput")[0].click();
+        }
+        catch(ex){
+            console.log(ex);
+        }
+    }
 
     $scope.fileSelected = function (files) {
 
@@ -313,6 +354,16 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
 
         return count;
 
+    }
+
+    $scope.hideFriendList = function() {
+        var hasClass = angular.element( document.querySelector( '.chatboxContainer' ) ).hasClass('hideFriendList');
+        if(!hasClass) {
+            angular.element( document.querySelector( '.chatboxContainer' ) ).addClass('hideFriendList');
+        }
+        else {
+            angular.element( document.querySelector( '.chatboxContainer' ) ).removeClass('hideFriendList');
+        }
     }
 
     $rootScope.formatAMPM = function (date) {

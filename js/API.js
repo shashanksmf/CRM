@@ -132,13 +132,13 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	    })
 	}
 
-	callAPI.getAllLatestMsg = function(user) {
+	callAPI.getAllLatestMsg = function(userId) {
 
 		return $http({
 
 	        method: 'GET',
 	        dataType: "jsonp",
-	        url: baseHttpUrl + '/chat/allLatestMsg.php?userId='+user.userId
+	        url: baseHttpUrl + '/chat/allLatestMsg.php?userId='+userId
 
 	    })
 

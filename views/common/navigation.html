@@ -14,7 +14,8 @@
                       <!--  <img onerror="this.src='img/default-avatar.png';"  class="img-circle" ng-src="{{userProfilePic}}" style="max-width: 80px">
                                  <input type="file" class="fileUploadInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)"  />-->
                        
-                       <div class="changeUserPhotoBtn"><i class="fa fa-camera"></i> Change Photo</div>
+                       <div class="changeUserPhotoBtn" ng-click="browseUserProfilePic()"><i class="fa fa-camera"></i> Change Photo</div>
+                        <input type="file" class="fileUploadInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)" ng-show="false" />
                     </div>
 
                   <!--   <a uib-dropdown-toggle href>
