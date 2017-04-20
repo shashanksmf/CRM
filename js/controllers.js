@@ -107,7 +107,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
 
             $rootScope.chats[fromIdInChatArr].active = true;   
             API.getChatDetails(chatObj).then(function(response){ 
-                $rootScope.chats[i].chatDetail = response;
+                $rootScope.chats[i].chatDetail = response.data.Messages;
             })
 
         }
