@@ -32,6 +32,8 @@ inspinia.controller('personalMsgCtrl', ['$scope','$rootScope','$http','$q','API'
 				if(response.data.responce){
 					alert("message successfully send");
 					$scope.personalMessageTxt = '';
+				}else{
+					alert("please try again");
 				}
 			});
 

@@ -108,13 +108,13 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	}
 
 
-	callAPI.getAllNewChatDetails = function(user){
+	callAPI.getAllNewChatDetails = function(userId){
 		
 		return $http({
 
 	        method: 'GET',
 	        dataType: "jsonp",
-	        url: baseHttpUrl + '/chat/newChatDetails.php?userId='+user.userId
+	        url: baseHttpUrl + '/chat/newChatDetails.php?userId='+userId
 
 	    })
 

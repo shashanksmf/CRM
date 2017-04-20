@@ -53,7 +53,7 @@
  * Contains several global data used in different view
  *
  */
-function MainCtrl($scope,API,$rootScope,crmconfig) {
+function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
   
     /**
      * daterange - Used as initial model for data range picker in Advanced form view
@@ -61,7 +61,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig) {
 
     // if login
 
-    var chatInterval = null;
+    var chatInterval = null, userId = ($rootScope.userId || localStorage.getItem("userId")) || null;
     $rootScope.chats = [];
 
     $scope.sendMessage = function(chatArrIndex,msg,toUserId) {
@@ -84,43 +84,41 @@ function MainCtrl($scope,API,$rootScope,crmconfig) {
 
 
 
-    $scope.showMessage = function(fromUserId,messageId) {
+    $scope.openChatBox = function(fromUserId,messageId) {
         
-        API.readMsg(messageId,fromUserId).then(function(response) {
-            //console.log("response : ",response);
-        });
+        var chatObj = { from : fromUserId , to: userId ,id:1};
+        var isFromIdFound = null, fromIdInChatArr=null;
 
-        $rootScope.userId = $rootScope.userId || localStorage.getItem("userId");
- 
-        //call API to get message between the two users]
-        var toUserId = $rootScope.userId || localStorage.getItem("userId");
-        var from = fromUserId;
-        var chatObj = { from : fromUserId , to: toUserId ,id:messageId};
-        var isChatFound = false , chatfoundIndex = null;
         if($rootScope.chats.length > 0 ) {
             // find to and from
             for(var i=0;i<$rootScope.chats.length;i++){
                 //check chat id and fromId
-                   if($rootScope.chats[i].fromId == from){
-
-                    $rootScope.chats[i].fromUserId = fromUserId;
-                    chatfoundIndex = i;
-                    isChatFound = true;
+                   if($rootScope.chats[i].fromUserId == fromUserId){
+                    isFromIdFound = true;
+                    fromIdInChatArr = i;
                     $rootScope.chats[i].active = true;
                     break;
+
                 }      
             }
         }
 
-       
+        if(isFromIdFound) {
 
-        if(!isChatFound) {
+            $rootScope.chats[fromIdInChatArr].active = true;   
+            API.getChatDetails(chatObj).then(function(response){ 
+                $rootScope.chats[i].chatDetail = response;
+            })
+
+        }
+
+        else if(!isFromIdFound) {
             //here chatid should be lowest so that we can get max caht upto highest
             API.getChatDetails(chatObj).then(function(response){
                 $rootScope.chats.push(
                     {
 
-                        "fromId":fromUserId,
+                        "fromUserId":fromUserId,
                         "chatsArrIndex":$rootScope.chats.length,
                         "active":true,
                         "chatDetail":response.data.Messages
@@ -128,6 +126,10 @@ function MainCtrl($scope,API,$rootScope,crmconfig) {
                     });  
             })
         }
+
+        API.readMsg(messageId,fromUserId).then(function(response) {
+            //console.log("response : ",response);
+        });
     }
 
     //$scope.showMessage(2,34);
@@ -138,39 +140,25 @@ function MainCtrl($scope,API,$rootScope,crmconfig) {
     
     //setInterval to check from server if new message has recieved
  
-    function searchNewMessage(msgDataRes){
-//        console.log("rootscope",$rootScope.chats)
-        //check fromId in chats if available else show it in the notification
-        msgDataRes.forEach(function(msg){
-            var isFromIdFound = false;
-            $rootScope.chats.forEach(function(chat,chatIndex){
-                console.log(chat,msg)
-                if(chat.fromId == msg.fromId){
-                    isFromIdFound = true;
-                    if(msg.id > $rootScope.chats[chatIndex].chatDetail[$rootScope.chats[chatIndex].chatDetail.length-1].id)
-                    {
-                        $rootScope.chats[chatIndex].chatDetail.push(msg);   
-                        API.readMsg(msg.id,chat.fromId).then(function(response) {
-                            console.log("response : ",response);
-                        });
-                    }             
-                }
+    function pushNewMsgInActiveChatBox(newMsgDataArr){
 
-            })
-
-            if(!isFromIdFound) {
-                if(!$scope.newMessages){
-                    $scope.newMessages = [];
-                }
-
-                var isChatIdPresent = CheckChatId($scope.newMessages,msg);
-                if(!isChatIdPresent) {
-                    $scope.newMessages.push(msg);
-                    $scope.latestMsgCount++;     
+        for(var i=0; i < newMsgDataArr.length; i++) {
+            for(var j=0; j < $scope.chats.length; j++) {
+                if($scope.chats[j].chatDetail.length > 0) {
+                    var chatDetailLength = $scope.chats[j].chatDetail.length-1;
+                    if($scope.chats[j].fromUserId == newMsgDataArr[i].fromId && $scope.chats[j].active) {
+                        if(parseInt(newMsgDataArr[i].id) > parseInt($scope.chats[j].chatDetail[chatDetailLength].id)) {
+                            $scope.chats[j].chatDetail.push(newMsgDataArr[i]);
+                            API.readMsg(newMsgDataArr[i].id,newMsgDataArr[i].fromId).then(function(response) {
+                                console.log("response : ",response);
+                            });
+                        }
+                    }    
                 }
             }
+        }
+        replaceNewChatIdInNotificationBox(newMsgDataArr);
 
-        })
     }
 
     function CheckChatId(messages,msg) {
@@ -188,12 +176,12 @@ function MainCtrl($scope,API,$rootScope,crmconfig) {
 
     function initChat() {
       
-        var userId = {userId : $rootScope.userId || localStorage.getItem("userId")};
-        if($rootScope.userId || localStorage.getItem("userId")) {
+        userId = $rootScope.userId || localStorage.getItem("userId");
+        if(userId) {
             API.getAllLatestMsg(userId).then(function(response){
                 if(response.data.result) {
                     if(response.data.chatDetails.length > 0) {
-                        $scope.newMessages = response.data.chatDetails;
+                        $scope.notificationBox = response.data.chatDetails;
                         $scope.latestMsgCount = countUnreadMsg(response.data.chatDetails);
                     }
                 }
@@ -203,16 +191,17 @@ function MainCtrl($scope,API,$rootScope,crmconfig) {
 
         chatInterval = setInterval(function(){
            
-            if(userId.userId) {
+            if(userId) {
                 API.getAllNewChatDetails(userId).then(function(response){
                         if(response.data.result) {
                             if(response.data.chatDetails.length > 0) {
-                               searchNewMessage(response.data.chatDetails)
+                               pushNewMsgInActiveChatBox(response.data.chatDetails);
+                               
                         }
                      }
                 })   
             }
-        },10000);   
+        },5000);   
 
     }
 
@@ -220,13 +209,14 @@ function MainCtrl($scope,API,$rootScope,crmconfig) {
     initChat();
 
     var userId = $rootScope.userId || localStorage.getItem("userId");
-
-    API.getUserInfo(userId).then(function(response) {
-    //    console.log();
-        $rootScope.userName = response.data.details.name;
-        $rootScope.userEmail = response.data.details.email;
-        $rootScope.userProfilePic = crmconfig.serverDomainName + response.data.details.profilePic;
-    });
+    if(userId) {
+        API.getUserInfo(userId).then(function(response) {
+        //    console.log();
+            $rootScope.userName = response.data.details.name;
+            $rootScope.userEmail = response.data.details.email;
+            $rootScope.userProfilePic = crmconfig.serverDomainName + response.data.details.profilePic;
+        });
+    }
 
 
     $scope.$on('initialiseChat', function (event, args) {
@@ -242,7 +232,51 @@ function MainCtrl($scope,API,$rootScope,crmconfig) {
         localStorage.removeItem("userId");
         clearInterval(chatInterval);
     }
-    
+
+    //find out Old chatId and replace by Newchat Id
+    function replaceNewChatIdInNotificationBox(newMsg)  {
+
+        if(!$scope.notificationBox || $scope.notificationBox.length==0){
+            $scope.notificationBox = newMsg;
+            $timeout(function(){
+                $scope.latestMsgCount = countUnreadMsg($scope.notificationBox);   
+            },10)
+            return;
+        }
+
+        for(var j =0; j < newMsg.length; j++) {
+            
+            var isGreaterMsgIdFound = false ,isFromIdFound = false;
+            for(var i=0; i < $scope.notificationBox.length ;i++) {
+                if($scope.notificationBox[i].fromId == newMsg[j].fromId){
+                    isFromIdFound = true;
+                    if(parseInt(newMsg[j].id) >= parseInt($scope.notificationBox[i].id)) {
+                    isGreaterMsgIdFound = true;
+                    $scope.notificationBox.splice(i,1);
+                    $scope.notificationBox.push(newMsg[j]);
+                    $timeout(function(){
+                        $scope.latestMsgCount = countUnreadMsg($scope.notificationBox);   
+                    },10)
+                  //  return;
+                    }
+                }
+            }
+            
+            if(!isGreaterMsgIdFound && !isFromIdFound) {
+                $scope.notificationBox.push(newMsg[j]);
+                $timeout(function(){
+                    $scope.latestMsgCount = countUnreadMsg($scope.notificationBox);   
+                },10)
+            }
+
+        }    
+
+    }
+
+    $scope.$watch('latestMsgCount',function(newval,oldval){
+        console.log(newval,oldval);
+    })
+
 
     $scope.fileSelected = function (files) {
 
@@ -274,7 +308,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig) {
         var count = 0;
         messages.forEach(function(msg){
             
-            count = count + (msg.readed == 0 ? 1 : 0);
+            count = count + (msg.readed == "0" ? 1 : 0);
         });
 
         return count;
