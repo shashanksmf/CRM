@@ -207,7 +207,7 @@
                                         </td>
                                         <td>{{file.name}}</td>
                                         <td>{{file.date}}</td>
-                                        <td>{{file.filesize}}</td>
+                                        <td>{{(file.filesize/(1024)) | number:0  }} KB</td>
                                         
                                         <td><i class="fa fa-file"></i></td>
                             			<td><button class="btn btn-danger" type="button" ng-click="deleteEmplFile(file.id,$index)"><i class="fa fa-trash-o"></i></button></td>
@@ -237,8 +237,15 @@
       <div class="modal-body">
         <input type="text" placeholder="Enter File Name" class="form-control" ng-model="newFileName" style="margin-bottom: 10px">
      	<div style="position: relative;text-align: center;">
-	      	<progress style="height: 30px; width: 80%" id="progress" min="0" max="100" value="{{progressbar}}"></progress>
-	      	<span style="position: absolute;left: 0;right: 0;top: 20%;font-weight: 600;font-family: cursive;">{{progressbar}} {{progressbar ? "%" : ''}}</span>
+	      	<!-- <progress style="height: 30px; width: 80%" id="progress" min="0" max="100" value="{{progressbar}}"></progress> -->
+
+	      	  <div class="progress progress-striped">
+                	<div ng-style="{'width':progressbar}" aria-valuemax="100" aria-valuemin="0" aria-valuenow="{{progressbar}}" role	="progressbar" class="progress-bar progress-bar-warning">
+                    <span class="sr-only">40% Complete (success)</span>
+                </div>
+            </div>
+
+	      	<span style="position: absolute;left: 0;right: 0;top: 7%;font-weight: 600;font-family: cursive;">{{progressbar}} {{progressbar ? "%" : ''}}</span>
       	</div>
       </div>
      

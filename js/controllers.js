@@ -53,7 +53,7 @@
  * Contains several global data used in different view
  *
  */
-function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
+function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
   
     /**
      * daterange - Used as initial model for data range picker in Advanced form view
@@ -61,7 +61,8 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
 
     // if login
 
-    var chatInterval = null, userId = ($rootScope.userId || localStorage.getItem("userId")) || null;
+    var userId = ($rootScope.userId || localStorage.getItem("userId")) || null;
+    $scope.interval = null;
     $rootScope.chats = [];
     $rootScope.userId = $rootScope.userId || localStorage.getItem("userId");
     //$rootScope.myId = 234324;
@@ -90,7 +91,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
         var chatObj = { from : fromUserId , to: userId ,id:1};
         var isFromIdFound = null, fromIdInChatArr=null;
 
-        if($rootScope.chats.length > 0 ) {
+        if($rootScope.chats && $rootScope.chats.length > 0 ) {
             // find to and from
             for(var i=0;i<$rootScope.chats.length;i++){
                 //check chat id and fromId
@@ -113,7 +114,11 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
 
         }
 
+
         else if(!isFromIdFound) {
+            if(!$rootScope.chats) {
+                $rootScope.chats = [];
+            }
             //here chatid should be lowest so that we can get max caht upto highest
             API.getChatDetails(chatObj).then(function(response){
                 $rootScope.chats.push(
@@ -190,13 +195,16 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
                 }
                 
             if(response.data.usersList && response.data.usersList.length > 0){
-                 $rootScope.friendList = response.data.usersList;
+                $timeout(function(){
+                    $rootScope.friendList = response.data.usersList;   
+                },100)
+                 
              }
             })    
         }
 
 
-        chatInterval = setInterval(function(){
+        $scope.interval = $interval(function(){
            
             if(userId) {
                 API.getAllNewChatDetails(userId).then(function(response){
@@ -241,7 +249,13 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
     $scope.logout = function(){
         $rootScope.userId = undefined;
         localStorage.removeItem("userId");
-        clearInterval(chatInterval);
+        $rootScope.friendList = null;
+        $rootScope.chats = null;
+        userId = null;
+        $timeout(function(){
+            $interval.cancel($scope.interval);
+            $scope.interval = undefined;
+        },100)
     }
 
     //find out Old chatId and replace by Newchat Id

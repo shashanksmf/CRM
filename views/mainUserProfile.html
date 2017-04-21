@@ -1,8 +1,8 @@
 <div class="mainUserProfileContainer">
     <header>
         <h2 class="heading" style="display:inline-block;margin-right:5px">Edit Profile</h2>
-        <span class="fa fa-pencil" ng-click="isUserProfileEdit=true"></span>
-        <span class="fa fa-arrow-right" ng-click="saveMainUserProfile()"></span>
+        <span class="fa fa-pencil" style="cursor: pointer;" ng-click="allowEditProfile()" ng-if="!isUserProfileEdit"></span>
+        <span class="fa fa-check" style="cursor: pointer;" ng-if="isUserProfileEdit" ng-click="saveMainUserProfile()"></span>
     </header>
     <h4> 
         <span ng-if="!isUserProfileEdit">{{mainUserInfo.name}}</span>   
@@ -43,7 +43,7 @@
         </div>
         
         <div class="mb10">
-                <i class="fa fa-calenda"></i><span ng-if="!isUserProfileEdit">{{mainUserInfo.hireDate}}</span>
+                <i class="fa fa-user"></i><span ng-if="!isUserProfileEdit">{{mainUserInfo.hireDate}}</span>
                 <input ng-if="isUserProfileEdit"  ng-model="mainUserInfo.hireDate"/> 
         </div>
     
@@ -51,20 +51,7 @@
     </p>
     <!-- Split button -->
     
-    <div class="btn-group">
-        <button type="button" class="btn btn-primary">
-            Social</button>
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            <span class="caret"></span><span class="sr-only">Social</span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Twitter</a></li>
-            <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-            <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Github</a></li>
-        </ul>
-    </div>
+    
 </div>
 
 

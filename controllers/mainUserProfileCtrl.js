@@ -18,5 +18,9 @@ $scope.saveMainUserProfile = function() {
     });
 }
 
+$scope.allowEditProfile = function(){
+ $scope.isUserProfileEdit = true;   
+}
+
 
 }]);	
