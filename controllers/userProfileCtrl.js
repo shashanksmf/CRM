@@ -20,14 +20,14 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 	}
 	
 	$scope.submit = function() {
-        $scope.userProfileInfo.imgUrl = $scope.imgsrc;
+        $scope.userProfileInfo.imgUrl = $scope.profilePicUploadedResUrl;
 	    API.updateUserProfile($scope.userProfileInfo).then(function(response){
 	    	if(response.data.responce){
-	    		alert("profileUpdated");
+	    		//alert("profileUpdated");
 	    		$scope.profileEdit = !$scope.profileEdit;
 	    	}
 	    	else{
-	    		alert("Network Problem");	
+	    		alert("Network Problem Please Try Again");	
 	    	}
 	    	
 	    })
@@ -89,12 +89,12 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 	    	 response = JSON.parse(response);
 	    	 console.log(response);
 	    	 if(response.result) {
-	    		alert("file successFully Uploaded");
+	    		//alert("file successFully Uploaded");
 	    		$("#fileNameModal").modal("hide");
 	    		$scope.fileAttach = '';
 	    	 }
 	    	 else {
-	    	 //	alert("something Went Wrong");
+	    	 	alert("Network problem Please Try Again");
 	    	 }
 
 	    	
@@ -200,7 +200,8 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
         API.uploadEmplProfilePic(file).then(function(response) {
         	if(response.data.result){
 	        //	console.log("upload emplyee pro pic response",response);
-	            alert("Picture successFully Uploaded")
+	            //alert("Picture successFully Uploaded");
+                $scope.profilePicUploadedResUrl = response.data.details.imageUrl;
 			}
         })	
 
@@ -213,7 +214,8 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
     }
     
      $scope.clickUserChangePicture = function(){
-        document.getElementsByClassName("fileUploadInput")[0].click();
+        document.getElementsByClassName("emplpropicfileinput")[0].value = ''; 
+        document.getElementsByClassName("emplpropicfileinput")[0].click();
     }
 
 

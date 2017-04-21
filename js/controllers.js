@@ -188,8 +188,10 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
                     }
                     
                 }
-                $rootScope.friendList = response.data.usersList;
-                    console.log($rootScope.friendList);
+                
+            if(response.data.usersList && response.data.usersList.length > 0){
+                 $rootScope.friendList = response.data.usersList;
+             }
             })    
         }
 
@@ -203,7 +205,11 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
                                pushNewMsgInActiveChatBox(response.data.chatDetails);
                         }
                      }
+                    
+                 if(response.data.usersList && response.data.usersList.length > 0){
                      $rootScope.friendList = response.data.usersList;
+                 }
+                     
                 })   
             }
         },5000);   
@@ -332,8 +338,8 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout) {
 
         var url = "http://jaiswaldevelopers.com/CRMV1/files/index.php";
         API.uploadUserProfilePic(file).then(function(response) {
-            console.log("user profile pic response",response);
-            alert("Picture successFully Uploaded")
+            //console.log("user profile pic response",response);
+           // alert("Picture successFully Uploaded")
 
         })
   };

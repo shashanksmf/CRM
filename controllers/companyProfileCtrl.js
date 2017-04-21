@@ -30,11 +30,11 @@ inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','A
         API.companyProfilePic(file).then(function(response) {
             console.log(response.data.responce);
             if(response.data.responce){
-                alert("Picture successFully Uploaded")
+               // alert("Picture successFully Uploaded")
                 return;    
             }
 
-            alert("server is down");
+            alert("server is down please try again");
             
         })
     };
@@ -58,11 +58,11 @@ inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','A
             API.updateCompanyDetails($scope.companyData).then(function(response){
                 //console.log("response API", response.data.responce);
                 if(response.data.responce){
-                    alert("company data saved successfully");
+                  //  alert("company data saved successfully");
                      $scope.profileEdit = false;
                 }
                 else{
-                    alert("server is down");
+                    alert("server is down please try again");
                 }
             })
         }
@@ -70,7 +70,8 @@ inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','A
     }
 
     $scope.clickCompanyChangePicture = function(){
-        document.getElementsByClassName("fileUploadInput")[0].click();
+        document.getElementsByClassName("companyPicUplaodInput")[0].value='';
+        document.getElementsByClassName("companyPicUplaodInput")[0].click();
     }
  
     

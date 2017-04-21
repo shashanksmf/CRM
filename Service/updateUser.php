@@ -7,6 +7,7 @@ $gender = @$_GET['gender'];
 $homeAddress = @$_GET['homeAddress'];
 $email = @$_GET['email'];
 $phone = @$_GET['phone'];
+$hireDate = @$_GET['hireDate'];
 
 require_once("../Controller/StaticDBCon.php");
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
@@ -19,7 +20,7 @@ if (!$conn) {
     die($responseArr["details"]);
 }
 
-$sql = "UPDATE user SET name= ".$name." ,department=".$department." ,dob=".$dob.",gender = ".$gender.", email=".$email."  WHERE id=".$userId ;
+$sql = "UPDATE user SET name= ".$name." ,department=".$department." ,dob=".$dob.",gender = ".$gender.", email=".$email." ,hireDate =".$hiteDate."  WHERE id=".$userId ;
 
 if (mysqli_query($conn, $sql)) {
     $responseArr["result"] = true;
@@ -28,7 +29,7 @@ if (mysqli_query($conn, $sql)) {
     $responseArr["result"] = false;
 	$responseArr["details"] = mysqli_error($conn);
 	echo json_encode($responseArr);
-    echo "Error updating record: " . mysqli_error($conn);
+   // echo "Error updating record: " . mysqli_error($conn);
 }
 
 mysqli_close($conn);

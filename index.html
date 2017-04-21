@@ -50,7 +50,7 @@
 
 <!--chatbox directive-->
 <div class="chatboxContainer">
-<friendlist></friendlist>
+<friendlist ng-if="friendList"></friendlist>
 <div ng-repeat="chat in chats" ng-show="chat.active" class="chatboxWrapper" >
   <chatbox chat="chat" parentindex="{{$index}}" closechatwindow="closechatwindow($index)"></chatbox>   
 </div>
@@ -108,6 +108,7 @@
 <script src="controllers/signUpCtrl.js"></script>
 <script src="controllers/groupCtrl.js"></script>
 <script src="controllers/userProfileCtrl.js"></script> 
+<script src="controllers/mainUserProfileCtrl.js"></script>
 
 <script src="Directives/userPopUp.js"></script>
 <script src="Directives/companyDetailPopUp.js"></script>
@@ -118,8 +119,7 @@
 <script src="controllers/personalMsgCtrl.js"></script>
 <script src="controllers/companyProfileCtrl.js"></script>
 <script src="Directives/searchbar.js"></script>   
-<script src="Directives/friendList.js"></script> 
-
+<script src="Directives/friendList.js"></script>
 
 </body>
 </html>

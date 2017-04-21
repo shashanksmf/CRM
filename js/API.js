@@ -398,6 +398,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
         
           
        return $http({
+           
                 method: 'GET',
                 dataType: "jsonp",
                 url: baseHttpUrl +'/GetCompanyData.php?id='+comapnyId
@@ -416,6 +417,18 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	    
 	    });
 
+    }
+    
+    callAPI.updateMainUserProfile = function(userObj){
+        
+        return $http({
+           
+                method: 'GET',
+                dataType: "jsonp",
+                url: baseHttpUrl +'/updateUser.php?id='+userObj.id+'&department='+userObj.department+'&dob='+userObj.dob+'&email='+userObj.email+'&gender='+userObj.gender+'&hireDate='+userObj.hireDate+'&homeAddress='+userObj.homeAddress+'&name='+userObj.name+'&phone='+userObj.phone
+            
+        })
+        
     }
 
 
