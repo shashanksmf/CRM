@@ -10,9 +10,9 @@
 
 				<div style="margin-bottom: 20px;" class="userPicContainer">
 
-                    <img src="img/default-avatar.png" class="img-circle" ng-src="{{companyData.RootUrl+companyData.logo}}"  ng-if="!newUploadPic">
+                    <img src="img/default-avatar.png" ng-src="{{companyData.RootUrl+companyData.logo}}"  ng-if="!newUploadPic">
 
-                    <img src="img/default-avatar.png" class="img-circle" ng-src="{{imgsrc}}" ng-if="newUploadPic">
+                    <img src="img/default-avatar.png" ng-src="{{imgsrc}}" ng-if="newUploadPic">
 
                 	<input type="file" class="fileUploadInput companyPicUplaodInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)" ng-show="false"  />
                     

@@ -38,17 +38,23 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             controller:"userProfileCtrl"            
         })
     
-     .state('dashboards.mainprofile',{
+        .state('dashboards.mainprofile',{
             url:"/mainUserProfile",
             templateUrl:"views/mainUserProfile.html",
             controller:"mainUserProfileCtrl"            
         })
     
-         .state('dashboards.companyProfile',{
+        .state('dashboards.companyProfile',{
                 url:"/companyProfile/:id",
                 templateUrl:"views/companyProfile.html",
                 controller:"companyProfileCtrl"            
-            })
+        })
+
+        .state('dashboards.emplProfile',{
+                url:"/emplProfile",
+                templateUrl:"views/emplInsertProfile.html",
+                controller:"emplInsertProfileCtrl"            
+        }) 
 
         .state('dashboards.mail',{
             url:"/mail",

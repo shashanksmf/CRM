@@ -53,7 +53,10 @@
 				</div>
 
 				<div  class="mtb-10px text-center" ng-show="profileEdit">
-					<input placeholder="Company Name" type="text" ng-model="userProfileInfo.Company.name" >
+					<select style="max-width: 160px;" ng-model="userProfileInfo.companyId">
+                        <option ng-repeat="company in companies" value="{{company.id}}">{{company.name}}</option>
+                    </select>
+					<!-- <input placeholder="Company Name" type="text" ng-model="userProfileInfo.Company.name" > -->
 				</div>
 			</div>
                 

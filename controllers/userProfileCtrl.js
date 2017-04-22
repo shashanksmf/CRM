@@ -12,6 +12,9 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 	$scope.emplId = $stateParams.id;
 	
 	//emplProPicSeleted
+	API.getAllComapnies().then(function(response){
+		$scope.companies = response.data.details;
+	})
 
 	$scope.changeProfileEdit = function (){
 		
@@ -20,7 +23,18 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 	}
 	
 	$scope.submit = function() {
-        $scope.userProfileInfo.imgUrl = $scope.profilePicUploadedResUrl;
+        $scope.userProfileInfo.imgUrl = $scope.profilePicUploadedResUrl || $scope.userProfileInfo.imgUrl;
+        
+        try {
+		   	$scope.companies.forEach(function(company){
+		   		if(company.id == $scope.userProfileInfo.companyId) {
+		   			$scope.userProfileInfo.Company.name = company.name;
+		   		}
+		   	})
+	   } catch(ex) {
+	   	console.log(ex);
+	   }
+
 	    API.updateUserProfile($scope.userProfileInfo).then(function(response){
 	    	if(response.data.responce){
 	    		//alert("profileUpdated");
@@ -42,6 +56,15 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
     API.getUserProfile(userObj).then(function(response){
         $scope.userProfileInfo = response.data.Employees[0];
         $scope.imgsrc = domainName + response.data.Employees[0].imgUrl;
+    	try {
+		   	$scope.companies.forEach(function(company){
+		   		if(company.id == $scope.userProfileInfo.companyId) {
+		   			$scope.userProfileInfo.Company.name = company.name;
+		   		}
+		   	})
+	   } catch(ex) {
+	   	console.log(ex);
+	   }
     })
 
 

@@ -161,7 +161,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
         return $http({
 
 	        method: 'GET',
-	        url: baseHttpUrl + '/UpdateEmployees.php?name='+user.name+'&title='+user.title+'&industry='+user.industry+'&location='+user.location+'&ratings='+user.ratings+'&skype='+user.skype+'&age='+user.age+'&gender='+user.gender+'&officePhone='+user.officePhone+'&jobRole='+user.jobRole+'&phone='+user.phone+'&email='+user.email+'&linkedin='+user.linkedin+'&twitter='+user.twitter+'&facebook='+user.facebook+'&notes='+user.notes+'&id='+user.id
+	        url: baseHttpUrl + '/UpdateEmployees.php?name='+user.name+'&title='+user.title+'&industry='+user.industry+'&location='+user.location+'&ratings='+user.ratings+'&skype='+user.skype+'&age='+user.age+'&gender='+user.gender+'&officePhone='+user.officePhone+'&jobRole='+user.jobRole+'&phone='+user.phone+'&email='+user.email+'&linkedin='+user.linkedin+'&twitter='+user.twitter+'&facebook='+user.facebook+'&notes='+user.notes+'&id='+user.id+'&companyId='+user.companyId+'&imgUrl='+user.imgUrl
 
 	    })
         
@@ -431,7 +431,29 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
         
     }
 
+    callAPI.insertEmplProfile = function(file) {
 
+	 	return $http.post(baseHttpUrl + '/insertUserProfile.php', file,  {   
+	    	
+	    	withCredentials: false,
+	        transformRequest: angular.identity,  
+	        headers: {'Content-Type': undefined}  
+	    
+	    });
+
+    }
+
+    callAPI.getAllComapnies = function(){
+
+	    return $http({
+           
+                method: 'GET',
+                dataType: "jsonp",
+                url: baseHttpUrl + '/getAllComapnies.php'
+            
+        })
+    	
+    }
 
 	
 
