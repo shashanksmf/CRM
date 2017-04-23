@@ -10,7 +10,7 @@
 
 				<div style="margin-bottom: 20px;" class="userPicContainer">
 
-                    <img src="img/default-avatar.png" ng-src="{{companyData.RootUrl+companyData.logo}}"  ng-if="!newUploadPic">
+                    <img  ng-src="{{crmconfig.serverDomainName + companyData.logo}}"  ng-if="!newUploadPic">
 
                     <img src="img/default-avatar.png" ng-src="{{imgsrc}}" ng-if="newUploadPic">
 
@@ -23,11 +23,11 @@
 				<div class="col-md-6" ng-show="!profileEdit">
 					Name
 				</div>	
-				<div class="col-md-6" ng-show="!profileEdit">	
+				<div class="col-md-6 wordBreakAll" ng-show="!profileEdit">	
 						<span >{{companyData.name}}</span>
 								
 				</div>
-				<div class="mtb-10px text-center" ng-show="profileEdit">
+				<div class="mtb-10px text-center " ng-show="profileEdit">
 						<input  placeholder="full Name" name="fullname" ng-show="profileEdit" type="text" ng-model="companyData.name" >
 				</div>
 			</div>
@@ -35,11 +35,11 @@
 				<div class="col-md-6" ng-show="!profileEdit">
 					Industry
 				</div>	
-				<div class="col-md-6" ng-show="!profileEdit"><span >{{companyData.areaOfWork}}</span>	
+				<div class="col-md-6 wordBreakAll" ng-show="!profileEdit"><span >{{companyData.areaOfWork}}</span>	
 					
 				</div>
 
-				<div  class="mtb-10px text-center" ng-show="profileEdit">
+				<div  class="mtb-10px text-center " ng-show="profileEdit">
 					<input placeholder="Age" type="text" ng-model="companyData.areaOfWork" >
 				</div>
 			</div>	
@@ -48,11 +48,11 @@
 				<div class="col-md-6" ng-show="!profileEdit">
 					Establishment
 				</div>	
-				<div class="col-md-6" ng-show="!profileEdit"><span >{{companyData.establised}}</span>	
+				<div class="col-md-6 wordBreakAll" ng-show="!profileEdit"><span >{{companyData.establised}}</span>	
 					
 				</div>
 
-				<div  class="mtb-10px text-center" ng-show="profileEdit">
+				<div  class="mtb-10px text-center " ng-show="profileEdit">
 					<input placeholder="Company Name" type="text" ng-model="companyData.establised" >
 				</div>
 			</div>
@@ -61,11 +61,11 @@
 				<div class="col-md-6" ng-show="!profileEdit">
 					Location
 				</div>	
-				<div class="col-md-6" ng-show="!profileEdit"><span >{{companyData.ofcAddress}}</span>	
+				<div class="col-md-6 wordBreakAll" ng-show="!profileEdit"><span >{{companyData.ofcAddress}}</span>	
 					
 				</div>
 					
-				<div  class="mtb-10px text-center" ng-show="profileEdit">
+				<div  class="mtb-10px text-center " ng-show="profileEdit">
 					<input  placeholder="Location" type="text" ng-model="companyData.ofcAddress" >
 				</div>
 			</div>
@@ -74,11 +74,11 @@
 				<div class="col-md-6" ng-show="!profileEdit">
 					Year Revenue
 				</div>	
-				<div class="col-md-6" ng-show="!profileEdit"><span >{{companyData.revenue}}</span>	
+				<div class="col-md-6 wordBreakAll" ng-show="!profileEdit"><span >{{companyData.revenue}}</span>	
 					
 				</div>
 
-				<div  class="mtb-10px text-center" ng-show="profileEdit">
+				<div  class="mtb-10px text-center " ng-show="profileEdit">
 					<input placeholder="job Role" type="text" ng-model="companyData.revenue" >
 				</div>
 			</div>    
@@ -100,8 +100,8 @@
 				<div class="summaryContainer" ng-show="activeTab == tabs.summary">
 
 					<div class="row-fluid editSaveBtn" style="text-align:right">
-						<span ng-show="!profileEdit" ng-click="changeProfileEdit()"> Edit</span>
-						<span ng-click="saveProfile()" ng-show="profileEdit">Save</span>
+						<span class="linkBtn" ng-show="!profileEdit" ng-click="changeProfileEdit()"> Edit</span>
+						<span class="linkBtn" ng-click="saveProfile()" ng-show="profileEdit">Save</span>
 					</div>
 					<div class="row">
 					<div class="contactsContainer col-md-6">

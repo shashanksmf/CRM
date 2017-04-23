@@ -244,7 +244,7 @@
                 <a ui-sref="landing"><i class="fa fa-star"></i> <span class="nav-label">{{ 'LANDING' | translate }}</span> <span class="label label-warning pull-right">NEW</span></a>
             </li> -->
             <li ui-sref-active="active">
-                <a ui-sref="dashboards.mainprofile"><i class="fa fa-envelope"></i> <span class="nav-label">{{ 'Profile' | translate }}</span></a>
+                <a ui-sref="dashboards.emplProfile"><i class="fa fa-envelope"></i> <span class="nav-label">{{ 'Profile' | translate }}</span></a>
             </li>
 
 
@@ -272,7 +272,26 @@
                 <a ><i class="fa fa-area-chart"></i> <span class="nav-label">{{ 'Analytics' | translate }}</span></a>
             </li>
 
+             <li ui-sref-active="active">
+                <a  ui-sref="dashboards.insertCompanyProfile"><i class="fa fa-area-chart"></i> <span class="nav-label">{{ 'Company' | translate }}</span></a>
+            </li>
+
         </ul>
 
+    </div>
+        <div class="btn-group dropup" style="position: fixed;
+    bottom: 10px;
+    left: 0;">
+        <a ui-sref="dashboards.newprofile" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-cog"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="#" id="new_chat"><span class="glyphicon glyphicon-plus"></span> Novo</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-list"></span> Ver outras</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-remove"></span> Fechar Tudo</a></li>
+            <li class="divider"></li>
+            <li><a href="#"><span class="glyphicon glyphicon-eye-close"></span> Invisivel</a></li>
+        </ul>
     </div>
 </nav>

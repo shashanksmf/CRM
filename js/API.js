@@ -443,6 +443,18 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 
     }
 
+    callAPI.insertEmplProfile = function(file) {
+
+	 	return $http.post(baseHttpUrl + '/insertCompanyProfile.php', file,  {   
+	    	
+	    	withCredentials: false,
+	        transformRequest: angular.identity,  
+	        headers: {'Content-Type': undefined}  
+	    
+	    });
+
+    }
+
     callAPI.getAllComapnies = function(){
 
 	    return $http({

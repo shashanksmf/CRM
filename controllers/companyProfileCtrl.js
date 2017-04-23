@@ -1,6 +1,6 @@
 var inspinia = angular.module('inspinia');
-inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','API','$state','$timeout','$stateParams', function ($scope,$rootScope,$http,$q,API,$state,$timeout,$stateParams) {
-
+inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','API','$state','$timeout','$stateParams','crmconfig', function ($scope,$rootScope,$http,$q,API,$state,$timeout,$stateParams,crmconfig) {
+    $scope.crmconfig = crmconfig
     $scope.tabs = { summary:"summary" , attachment : "attachment" };
 	$scope.activeTab = $scope.tabs.summary;
 	$scope.profileEdit = false;
@@ -29,7 +29,7 @@ inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','A
 
         API.companyProfilePic(file).then(function(response) {
             console.log(response.data.responce);
-            if(response.data.responce){
+            if(response.data.result){
                // alert("Picture successFully Uploaded")
                 return;    
             }
