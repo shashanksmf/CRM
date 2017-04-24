@@ -1,5 +1,5 @@
 var inspinia = angular.module('inspinia');
-inspinia.controller('groupCtrl', ['$scope','$rootScope','$http','$q','API','$state','$timeout', function ($scope,$rootScope,$http,$q,API,$state,$timeout) {
+inspinia.controller("groupCtrl", ['$scope','$rootScope','$http','$q','API','$state','$timeout', function ($scope,$rootScope,$http,$q,API,$state,$timeout) {
 	
 	API.getAllGroups().then(function(groupData){
 		$scope.groups = groupData.data;    
@@ -8,7 +8,7 @@ inspinia.controller('groupCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 	$scope.searchEmpl = function(term){
 		$scope.showautocomplete = true;
 		API.searchEmployesNames(term).then(function(response){
-			$scope.emplNames =  response.data.Employees;	
+			$scope.emplNames =  response.data.Employees;
 		})
 
 	}
@@ -39,15 +39,13 @@ inspinia.controller('groupCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 		    	{
 		    		alert(response.data.message)
 		    	}
-		    })
+		    });
 
 			
 		}
 
 		else{
-
 			alert("please enter group Name");
-		
 		}	
 
 	}

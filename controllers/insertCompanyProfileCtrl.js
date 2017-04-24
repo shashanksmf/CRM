@@ -31,24 +31,26 @@ inspinia.controller('companyInsertProfileCtrl', ['$scope','$rootScope','$http','
 			$("#emplLoadingModal").modal('show');
 			$scope.companyProfile.append("data",JSON.stringify($scope.cmpyProfileInfo));
 			
-			API.insertEmplProfile($scope.companyProfile).then(function(response){
+			API.insertCompanyProfile($scope.companyProfile).then(function(response){
 				//console.log("response empl Insert",response);
 				if(response.data.result){
-					//alert("data uploaded");
-					$scope.errorMsg = "data uploaded";
+				    $scope.imgsrc = 'img/default-avatar.png';
+                    $scope.errorMsg = "data uploaded";
 					$scope.cmpyProfileInfo = {};
-					$("#emplLoadingModal").modal('hide');
-					alert("Company Profile Inserted successfully");
+                    $scope.hasError = false;
+
 				}else{
+                    $scope.hasError = true;
 					$timeout(function(){
-						$scope.hidespinner = true;	
 						$scope.errorMsg = response.data.details;
 					},100)
 					//alert(response.data.details);
 				}
-				
-			
-			})	
+                $scope.hidespinner = true;
+
+
+
+            })
 
 		}
 	}

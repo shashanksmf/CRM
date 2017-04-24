@@ -72,6 +72,19 @@
 					<input placeholder="Location" type="text" ng-model="userProfileInfo.location" >
 				</div>
 			</div>
+
+			<div class="row">
+				<div class="col-md-6" ng-show="!profileEdit">
+					Title
+				</div>
+				<div class="col-md-6" ng-show="!profileEdit"><span >{{userProfileInfo.title}}</span>
+
+				</div>
+
+				<div  class="mtb-10px text-center" ng-show="profileEdit">
+					<input placeholder="Location" type="text" ng-model="userProfileInfo.title" >
+				</div>
+			</div>
                 
             <div class="row">	
 				<div class="col-md-6 " ng-show="!profileEdit">
@@ -213,7 +226,7 @@
                                         <td>{{(file.filesize/(1024)) | number:0  }} KB</td>
                                         
                                         <td><i class="fa fa-file"></i></td>
-                            			<td><button class="btn btn-danger" type="button" ng-click="deleteEmplFile(file.id,$index)"><i class="fa fa-trash-o"></i></button></td>
+                            			<td><span style="padding-left: 20px;" class="fa fa-times" type="button" ng-click="deleteEmplFile(file.id,$index)"></span></td>
                                     </tr>
                                     
                                     </tbody>

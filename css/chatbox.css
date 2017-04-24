@@ -1,76 +1,77 @@
-/* line 1, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 1, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatboxContainer {
   position: fixed;
   bottom: 0;
   right: 0;
   transition: 2s;
   display: flex;
+  z-index: 100;
   flex-direction: row-reverse; }
-  /* line 9, C:/shashank/temp/full/trunk/css/chatbox.scss */
+  /* line 10, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
   .chatboxContainer.hideFriendList {
     right: -220px;
     transition: 2s; }
-  /* line 14, C:/shashank/temp/full/trunk/css/chatbox.scss */
+  /* line 15, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
   .chatboxContainer.showFriendList {
     right: -220px;
     transition: 2s; }
-  /* line 18, C:/shashank/temp/full/trunk/css/chatbox.scss */
+  /* line 19, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
   .chatboxContainer .chatboxWrapper {
     display: flex;
     align-items: flex-end;
     margin-right: 10px; }
-  /* line 24, C:/shashank/temp/full/trunk/css/chatbox.scss */
+  /* line 25, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
   .chatboxContainer chatbox {
     position: relative;
     display: inline-block;
     width: 250px; }
-  /* line 30, C:/shashank/temp/full/trunk/css/chatbox.scss */
+  /* line 31, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
   .chatboxContainer friendlist {
     width: 219px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end; }
-    /* line 37, C:/shashank/temp/full/trunk/css/chatbox.scss */
+    /* line 38, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
     .chatboxContainer friendlist .userListHeader {
       height: 25px;
       background-color: black;
       border: 2px solid #483b3b;
       margin-left: 5px; }
-    /* line 43, C:/shashank/temp/full/trunk/css/chatbox.scss */
+    /* line 44, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
     .chatboxContainer friendlist .chat-users {
       height: 100% !important;
       padding-left: 25px; }
-    /* line 48, C:/shashank/temp/full/trunk/css/chatbox.scss */
+    /* line 49, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
     .chatboxContainer friendlist .user-list .chat-user {
       cursor: pointer; }
-      /* line 50, C:/shashank/temp/full/trunk/css/chatbox.scss */
+      /* line 51, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
       .chatboxContainer friendlist .user-list .chat-user::hover {
         background-color: #dddfe2;
         box-shadow: 1px 0 0 #eaebed inset; }
 
-/* line 61, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 62, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .col-md-2, .chatbox .col-md-10 {
   padding: 0; }
 
-/* line 64, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 65, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .panel {
   margin-bottom: 0px; }
 
-/* line 67, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 68, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .chat-window {
   width: 100%;
   padding: 0;
   margin: 0; }
 
-/* line 76, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 77, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .chat-window > div > .panel {
   border-radius: 5px 5px 0 0; }
 
-/* line 79, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 80, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .icon_minim {
   padding: 2px 10px; }
 
-/* line 82, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 83, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .msg_container_base {
   background: #e5e5e5;
   margin: 0;
@@ -78,7 +79,7 @@
   max-height: 300px;
   overflow-x: hidden; }
 
-/* line 89, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 90, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .top-bar {
   background: #666;
   color: white;
@@ -87,23 +88,23 @@
   overflow: hidden;
   white-space: nowrap;
   cursor: pointer; }
-  /* line 98, C:/shashank/temp/full/trunk/css/chatbox.scss */
+  /* line 99, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
   .chatbox .top-bar .chatboxHeader {
     max-width: 150px;
     overflow: hidden;
     text-overflow: ellipsis; }
 
-/* line 104, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 105, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .msg_receive {
   padding-left: 0;
   margin-left: 0; }
 
-/* line 108, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 109, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .msg_sent {
   padding-bottom: 20px !important;
   margin-right: 0; }
 
-/* line 112, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 113, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .messages {
   background: white;
   padding: 10px;
@@ -111,32 +112,32 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   max-width: 100%; }
 
-/* line 119, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 120, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .messages > p {
   font-size: 13px;
   margin: 0 0 0.2rem 0; }
 
-/* line 123, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 124, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .messages > time {
   font-size: 11px;
   color: #ccc; }
 
-/* line 127, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 128, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .msg_container {
   padding: 10px;
   overflow: hidden;
   display: flex; }
 
-/* line 132, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 133, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox img {
   display: block;
   width: 100%; }
 
-/* line 136, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 137, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .avatar {
   position: relative; }
 
-/* line 139, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 140, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .base_receive > .avatar:after {
   content: "";
   position: absolute;
@@ -148,12 +149,12 @@
   border-left-color: transparent;
   border-bottom-color: transparent; }
 
-/* line 151, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 152, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .base_sent {
   justify-content: flex-end;
   align-items: flex-end; }
 
-/* line 155, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 156, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .base_sent > .avatar:after {
   content: "";
   position: absolute;
@@ -166,26 +167,26 @@
   border-top-color: transparent;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); }
 
-/* line 168, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 169, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .msg_sent > time {
   float: right; }
 
-/* line 172, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 173, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .msg_container_base::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #F5F5F5; }
 
-/* line 178, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 179, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .msg_container_base::-webkit-scrollbar {
   width: 12px;
   background-color: #F5F5F5; }
 
-/* line 184, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 185, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .msg_container_base::-webkit-scrollbar-thumb {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #555; }
 
-/* line 190, C:/shashank/temp/full/trunk/css/chatbox.scss */
+/* line 191, C:/wamp64/www/angularphp/CRM.git/trunk/css/chatbox.scss */
 .chatbox .btn-group.dropup {
   position: fixed;
   left: 0px;

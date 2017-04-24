@@ -171,8 +171,8 @@
           <h4 class="modal-title">Data Uploading..</h4>
         </div>
         <div class="modal-body">
-          <p>{{errorMsg}}</p>
-          <p ng-if="hidespinner"> <div class="spiner-example" >
+          <p ng-class="{'alert alert-success':!hasError,'alert alert-danger':hasError}">{{errorMsg}}</p>
+          <p > <div class="spiner-example" ng-hide="hidespinner" >
                 <div class="sk-spinner sk-spinner-wave">
                     <div class="sk-rect1"></div>
                     <div class="sk-rect2"></div>

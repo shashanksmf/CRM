@@ -100,8 +100,8 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 	$scope.uploadNewFileAttach = function (fileName) {
 
 		if(!fileName || fileName.length < 0 ){
-		//	alert("Please Enter FileName");
-		//	return false;
+			alert("Please Enter FileName");
+			return false;
 		}
 
 		$scope.fileAttach.append("fileName",fileName);

@@ -443,7 +443,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 
     }
 
-    callAPI.insertEmplProfile = function(file) {
+    callAPI.insertCompanyProfile = function(file) {
 
 	 	return $http.post(baseHttpUrl + '/insertCompanyProfile.php', file,  {   
 	    	
@@ -465,6 +465,18 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
             
         })
     	
+    }
+
+    callAPI.getCompanyAttachedFiles = function (company) {
+
+        return $http({
+
+            method: 'GET',
+            dataType: "jsonp",
+            url: baseHttpUrl + '/GetCmpyAttachedFiles.php?id='+company.companyId,
+
+        })
+
     }
 
 	

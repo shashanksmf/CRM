@@ -4,6 +4,7 @@
     right: 0;
     transition: 2s;
     display: flex;
+    z-index: 100;
     flex-direction: row-reverse;
     
     &.hideFriendList{

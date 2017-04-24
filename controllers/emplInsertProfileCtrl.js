@@ -3,8 +3,8 @@ inspinia.controller('emplInsertProfileCtrl', ['$scope','$rootScope','$http','$q'
 
 	var baseHttpUrl = 'http://jaiswaldevelopers.com/CRMV1/Service', domainName = 'http://jaiswaldevelopers.com/CRMV1/';
 	$scope.imgsrc = 'img/default-avatar.png';
-	$scope.hidespinner = false;
-
+	$scope.hidespinner = true;
+    //$("#emplLoadingModal").modal('show');
 	API.getAllComapnies().then(function(response){
 		$scope.companies = response.data.details;
 	})
@@ -38,20 +38,20 @@ inspinia.controller('emplInsertProfileCtrl', ['$scope','$rootScope','$http','$q'
 				//console.log("response empl Insert",response);
 				if(response.data.result){
 					//alert("data uploaded");
+                    $scope.imgsrc = 'img/default-avatar.png';
 					$scope.errorMsg = "data uploaded";
+					$scope.hasError = false;
 					$scope.emplProfileInfo = {};
-					$("#emplLoadingModal").modal('hide');
-					alert("user Profile Inserted Successfully");
 				}else{
+                    $scope.hasError = true;
 					$timeout(function(){
-						$scope.hidespinner = true;	
 						$scope.errorMsg = response.data.details;
 					},100)
 					//alert(response.data.details);
 				}
-				
-			
-			})	
+                $scope.hidespinner = true;
+
+            })
 
 		}
 	}
