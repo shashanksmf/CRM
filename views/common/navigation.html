@@ -1,6 +1,6 @@
 <nav class="navbar-default navbar-static-side" role="navigation">
     
-    <div class="sidebar-collapse">
+    <div class="sidebar-collapse"  ng-init="isExpand=false">
 
         <ul side-navigation class="nav metismenu" id="side-menu">
             <li class="nav-header">
@@ -40,25 +40,16 @@
             </li>
 
             <li ui-sref-active="active">
-                <a ui-sref="dashboards.home"><i class="fa fa-home"></i> <span class="nav-label">{{ 'Home' | translate }}</span> </a>
+                <a ui-sref="dashboards.home"><i class="fa fa-book"></i> <span class="nav-label">{{ 'Contacts' | translate }}</span> </a>
             </li>
 
-            <!-- <li ng-class="{active: $state.includes('dashboards')}">
-                <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">{{ 'DASHBOARD' | translate }}</span> <span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('dashboards')}">
-                    <li ui-sref-active="active"><a ui-sref="dashboards.dashboard_1">{{ 'People' | translate }} </a></li>
-                    <li ui-sref-active="active"><a ui-sref="dashboards.dashboard_2">{{ 'Companies' | translate }} </a></li> -->
-                  <!--   <li ui-sref-active="active"><a ui-sref="dashboards.dashboard_3">{{ 'DASHBOARD' | translate }} v.3</a></li>
-                    <li ui-sref-active="active"><a ui-sref="dashboards.dashboard_4_1">{{ 'DASHBOARD' | translate }} v.4</a></li>
-                    <li ui-sref-active="active"><a ui-sref="dashboards.dashboard_5">{{ 'DASHBOARD' | translate }} v.5 <span class="label label-primary pull-right">NEW</span></a></li> -->
-            <!--     </ul>
-            </li> -->
+
             <!-- <li ui-sref-active="active">
                 <a ui-sref="layouts"><i class="fa fa-diamond"></i> <span class="nav-label">{{ 'LAYOUTS' | translate }}</span> </a>
             </li>
  -->
              <li ui-sref-active="active">
-                <a ui-sref="pages.groups"><i class="fa fa-group"></i> <span class="nav-label">{{ 'Group' | translate }}</span> </a>
+                <a ui-sref="pages.groups"><i class="fa fa-group"></i> <span class="nav-label">{{ 'Groups' | translate }}</span> </a>
             </li>
 
            <!--  <li ng-class="{active: $state.includes('charts')}">
@@ -244,37 +235,53 @@
                 <a ui-sref="landing"><i class="fa fa-star"></i> <span class="nav-label">{{ 'LANDING' | translate }}</span> <span class="label label-warning pull-right">NEW</span></a>
             </li> -->
             <li ui-sref-active="active">
-                <a ui-sref="dashboards.emplProfile"><i class="fa fa-envelope"></i> <span class="nav-label">{{ 'Profile' | translate }}</span></a>
-            </li>
-
-
-            <li ui-sref-active="active">
                 <a ui-sref="dashboards.mail"><i class="fa fa-envelope"></i> <span class="nav-label">{{ 'Campaigns' | translate }}</span></a>
             </li>
+
+            <li ng-class="{active: ($state.includes('dashboards') && isExpand == true) }" ng-click="isExpand=!isExpand">
+                <a href="index.html"><i class="fa fa-plus-square-o"></i> <span class="nav-label">{{ 'Add New' | translate }}</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" ng-class="{in: ($state.includes('dashboards') && isExpand == true) }">
+
+                    <li ui-sref-active="active" >
+                        <a ui-sref="dashboards.emplProfile"><i class="fa fa-user"></i> <span class="nav-label">{{ 'Profile' | translate }}</span></a>
+                    </li>
+
+                    <li ui-sref-active="active">
+                        <a  ui-sref="dashboards.insertCompanyProfile"><i class="fa fa-building-o"></i> <span class="nav-label">{{ 'Company' | translate }}</span></a>
+                    </li>
+
+                    <!--<li ui-sref-active="active"><a ui-sref="dashboards.dashboard_3">{{ 'DASHBOARD' | translate }} v.3</a></li>-->
+                    <!--<li ui-sref-active="active"><a ui-sref="dashboards.dashboard_4_1">{{ 'DASHBOARD' | translate }} v.4</a></li>-->
+                    <!--<li ui-sref-active="active"><a ui-sref="dashboards.dashboard_5">{{ 'DASHBOARD' | translate }} v.5 <span class="label label-primary pull-right">NEW</span></a></li> &ndash;&gt;-->
+                </ul>
+            </li>
+
+
+
+
+
             
            <!--   <li ui-sref-active="active">
                 <a ui-sref="dashboards.profile"><i class="fa fa-area-chart"></i> <span class="nav-label">{{ 'Profile' | translate }}</span></a>
             </li> -->
 
-            <li ui-sref-active="active">
-                <a ><i class="fa fa-wechat"></i> <span class="nav-label">{{ 'Calender' | translate }}</span></a>
-            </li>
+            <!--<li ui-sref-active="active">-->
+                <!--<a ><i class="fa fa-wechat"></i> <span class="nav-label">{{ 'Calender' | translate }}</span></a>-->
+            <!--</li>-->
           <!--   
             <li ui-sref-active="active">
                 <a ><i class="fa fa-calendar-o"></i> <span class="nav-label">{{ 'Events' | translate }}</span></a>
             </li> -->
 
-            <li ui-sref-active="active">
-                <a ><i class="fa fa-file-photo-o"></i> <span class="nav-label">{{ 'Files' | translate }}</span></a>
-            </li>
+            <!--<li ui-sref-active="active">-->
+                <!--<a ><i class="fa fa-file-photo-o"></i> <span class="nav-label">{{ 'Files' | translate }}</span></a>-->
+            <!--</li>-->
 
-            <li ui-sref-active="active">
-                <a ><i class="fa fa-area-chart"></i> <span class="nav-label">{{ 'Analytics' | translate }}</span></a>
-            </li>
+            <!--<li ui-sref-active="active">-->
+                <!--<a ><i class="fa fa-area-chart"></i> <span class="nav-label">{{ 'Analytics' | translate }}</span></a>-->
+            <!--</li>-->
 
-             <li ui-sref-active="active">
-                <a  ui-sref="dashboards.insertCompanyProfile"><i class="fa fa-area-chart"></i> <span class="nav-label">{{ 'Company' | translate }}</span></a>
-            </li>
+
 
         </ul>
 
