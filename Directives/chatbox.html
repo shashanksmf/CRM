@@ -19,7 +19,7 @@
                         <div class="col-md-10 col-xs-10">
                             <div class="messages msg_sent">
                                 <p>{{text.message}}</p>
-                                <time datetime="{{formatAMPM(text.time)}}"></time>
+                                <!--<time datetime="{{formatAMPM(text.time)}}"></time>-->
                             </div>
                         </div>
                         <div class="col-md-2 col-xs-2 avatar">
@@ -32,7 +32,7 @@
                             <div class="messages msg_sent" style="background-color: #dcd2d2 ">
                                 <p>{{text.message}}</p>
                                 <span>{{text.errorMsg}}</span>
-                                <time datetime="{{formatAMPM(text.time)}}"></time>
+                                <!--<time datetime="{{formatAMPM(text.time)}}"></time>-->
                             </div>
                         </div>
                         <div class="col-md-2 col-xs-2 avatar">
@@ -48,7 +48,7 @@
                             <div class="messages msg_receive">
 
                                 <p>{{text.message}}</p>
-                                <time datetime="2009-11-13T20:00">{{formatAMPM(text.time)}}</time>
+                                <!--<time datetime="2009-11-13T20:00">{{formatAMPM(text.time)}}</time>-->
                             </div>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                                     <i class="fa fa-spinner fa-spin" aria-hidden="true" ></i>
                                </span>
                                 
-                                <time datetime="{{formatAMPM(text.time)}}"></time>
+                                <!--<time datetime="{{formatAMPM(text.time)}}"></time>-->
                             </div>
                         </div>
                         <div class="col-md-2 col-xs-2 avatar">
@@ -79,7 +79,7 @@
                     <div class="input-group">
                         <input id="btn-input" type="text" ng-model="newMessageFromUser" class="form-control input-sm chat_input" placeholder="Write your message here..." />
                         <span class="input-group-btn">
-                        <button class="btn btn-primary btn-sm" id="btn-chat" ng-click="sendMessage(chat.chatsArrIndex,newMessageFromUser,chat.fromUserId);scrollDown()">Send</button>
+                        <button class="btn btn-primary btn-sm" id="btn-chat" ng-click="sendMessage(chat.chatsArrIndex,newMessageFromUser,chat.fromUserId);scrollDown();newMessageFromUser=''">Send</button>
                         </span>
                     </div>
                 </div>

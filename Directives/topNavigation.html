@@ -59,8 +59,8 @@
                 <ul class="dropdown-messages" uib-dropdown-menu>
 
                     <li ng-repeat="newMsg in notificationBox track by $index" ng-click="openChatBox(newMsg.fromId,newMsg.id,newMsg.fromUserName)" ng-click="newMsg.readed='1'">
-                        
-                        <div class="dropdown-messages-box" ng-style="{'background-color': newMsg.readed=='0' ? '#eae5e5' : 'white' }">
+                        <!--ng-style="{'background-color': newMsg.readed=='0' ? '#eae5e5' : 'white' }"-->
+                        <div class="dropdown-messages-box" >
                             <a ui-sref="profile" class="pull-left">
                                 <img alt="image" class="img-circle" src="img/a7.jpg">
                             </a>
@@ -68,7 +68,7 @@
                             <div>
                                 <small class="pull-right">{{newMsg.time}}</small>
                                 <strong>{{newMsg.from_userName}}</strong> has send you a message <strong></strong>. <br>
-                                <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                                <!--<small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>-->
                             </div>
                         </div>
                          <div class="divider"></div>
