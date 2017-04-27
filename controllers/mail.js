@@ -85,10 +85,15 @@ xhr.send(data);
 		//alert($scope.campaignMessage);
 		var html = decodeHtml($scope.templateObj.templ[0].html);
 		$scope.htmlTemplate = $sce.trustAsHtml(html);
-		setTimeout(function() {
-		document.querySelectorAll("#changeContent table tr td")[0].children[1].innerHTML = $scope.campaignMessage;
-		document.querySelectorAll("#changeContent table tr td")[0].children[2].remove();
-		document.querySelectorAll("#changeContent table tr td")[0].children[3].innerHTML = '';
+		$timeout(function() {
+          //  document.querySelectorAll("#changeContent table tr td")[0].children[2].innerHTML = '';
+            document.querySelectorAll("#changeContent table tr td")[0].children[2].remove();
+         //   document.querySelectorAll("#changeContent table tr td")[0].children[3].innerHTML = '';
+            document.querySelectorAll("#changeContent table tr td")[0].children[2].remove();
+            document.querySelectorAll("#changeContent table tr td")[0].children[2].remove();
+
+            document.querySelectorAll("#changeContent table tr td")[0].children[1].innerHTML = $scope.campaignMessage || '';
+
 				//	console.log(document.querySelectorAll("#changeContent table tr td")[0].children[1].innerHTML)
 		}, 10);
 		
@@ -107,7 +112,12 @@ xhr.send(data);
 
 //	$scope.addCampaignSubmit();
 	$scope.addCampaignSubmit = function(){
-	
+
+		if(!$scope.campaignName) {
+			alert("Please Enter Campaign Name");
+			return;
+		}
+
 		$scope.formData = new FormData();
 		$scope.formData.append("name", $scope.campaignName);
 		$scope.formData.append("createdBy",$rootScope.userName || localStorage.getItem("userName") || "Admin");

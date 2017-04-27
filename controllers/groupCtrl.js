@@ -68,9 +68,9 @@ inspinia.controller("groupCtrl", ['$scope','$rootScope','$http','$q','API','$sta
 			}
 
 			if(isMemberFound) {
-			
-				$scope.groups.Groups[$scope.groupIndex].Members.splice(memberIndex, 1);
-				$scope.groups.Groups[$scope.groupIndex].membersCount = $scope.groups.Groups[$scope.groupIndex].Members.length;
+				alert("Member Already Added");
+				//$scope.groups.Groups[$scope.groupIndex].Members.splice(memberIndex, 1);
+				//$scope.groups.Groups[$scope.groupIndex].membersCount = $scope.groups.Groups[$scope.groupIndex].Members.length;
 			
 			}
 
