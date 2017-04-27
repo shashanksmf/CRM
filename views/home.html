@@ -71,9 +71,9 @@
       <tr ng-repeat="empl in employees |  orderBy:propertyName:reverse " ng-if="emplId.length>0 ? emplId.indexOf(empl.id): true" 
           ng-show="tagSearchedItems.length==0">
          
-        <td class="userImg">
+        <td class="userImg ">
             <div class="userAvatar"><img src="img/default-avatar.png"></div>
-            <span ng-click='showUserDetail(empl.id)'> {{empl.name}}</span>
+            <span class="pointer" ng-click='showUserDetail(empl.id)'> {{empl.name}}</span>
             <!-- ng-click="showUserDetail(empl.id)" -->
         </td>
 
@@ -84,7 +84,7 @@
         
         <td >{{empl.location}}</td>
         
-        <td ng-click="showCompanyDetail(empl.companyId)">{{empl.Company[0].name}}</td>
+        <td class="pointer" ng-click="showCompanyDetail(empl.companyId)">{{empl.Company[0].name}}</td>
           
       </tr>
 
@@ -92,7 +92,7 @@
          
         <td class="userImg">
             <div class="userAvatar"><img src="img/default-avatar.png"></div>
-            <span ng-click="showUserDetail(empl.id)" > {{empl.name}}</span>
+            <span class="pointer" ng-click="showUserDetail(empl.id)" > {{empl.name}}</span>
         </td>
       
         <td>{{empl.title}}</td>
@@ -102,7 +102,7 @@
         
         <td >{{empl.location}}</td>
         
-        <td ng-click="showCompanyDetail(empl.companyId)">{{empl.Company[0].name}}</td>
+        <td class="pointer" ng-click="showCompanyDetail(empl.companyId)">{{empl.Company[0].name}}</td>
           
       </tr>
       

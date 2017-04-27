@@ -44,8 +44,14 @@
         .chat-users{
             height: 100% !important;
             padding-left: 25px;
+            
+            .users-list{
+                max-height: 500px;
+                overflow-y: auto;
+            }
         }
-        .user-list{
+        .users-list{
+                
             .chat-user{
                 cursor: pointer;
                 &::hover{
@@ -53,6 +59,7 @@
                     box-shadow: 1px 0 0 #eaebed inset;
                 }
             }
+            
         }
     }
     
