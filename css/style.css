@@ -1,5 +1,5 @@
 /* 
-primary color changed from #1ab394 to #DC8066 
+primary color changed from #1ab394,#18a689  to #DC8066 
 
 */
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
@@ -171,7 +171,7 @@ h5 {
   transition: all 0.4s;
 }
 .nav > li.active {
-  border-left: 4px solid #19aa8d;
+  border-left: 4px solid #DC8066;
   background: #293846;
 }
 .nav.nav-second-level > li.active {
@@ -636,8 +636,8 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
 .btn-primary:active:hover,
 .btn-primary.active:hover,
 .btn-primary.active:focus {
-  background-color: #18a689;
-  border-color: #18a689;
+  background-color: #DC8066;
+  border-color: #DC8066;
   color: #FFFFFF;
 }
 .btn-primary:active,

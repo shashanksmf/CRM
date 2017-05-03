@@ -35,6 +35,10 @@ header{
     overflow: hidden;
 }
 
+.userImg{
+    display: flex;
+    border-bottom: none !important;
+}
 .userImg > .userAvatar{
     display: inline-block;
 }
@@ -292,4 +296,16 @@ header{
 .fs8px{
     
   font-size:8px;
+}
+
+.viewCampaignTable{
+    table > thead > tr {
+        background-color: #a7b1c2;
+        border-color: #a7b1c2;
+        color: #FFFFFF;
+        
+        th{
+            background-color: #2f4050;
+        }
+    }
 }
