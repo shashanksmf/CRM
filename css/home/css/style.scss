@@ -309,3 +309,28 @@ header{
         }
     }
 }
+
+
+.userPicContainer{
+    position:relative;
+    width:120px;
+    height:100px;      
+    &:hover{
+             .changeUserPhotoBtn{
+                cursor: pointer;
+                display:block;
+                background-color:rgba(51,51,51,0.8);
+                color:white;
+                position:absolute;
+                bottom: 0px;
+                left:0;
+                right: 0;
+                text-align:center;
+                padding:2px 0px;
+            }
+        }
+
+        .changeUserPhotoBtn{
+            display:none;
+        }
+}

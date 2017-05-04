@@ -264,4 +264,25 @@ header nav a {
   .viewCampaignTable table > thead > tr th {
     background-color: #2f4050; }
 
+/* line 314, C:/wamp64/www/angularphp/CRM.git/trunk/css/home/css/style.scss */
+.userPicContainer {
+  position: relative;
+  width: 120px;
+  height: 100px; }
+  /* line 319, C:/wamp64/www/angularphp/CRM.git/trunk/css/home/css/style.scss */
+  .userPicContainer:hover .changeUserPhotoBtn {
+    cursor: pointer;
+    display: block;
+    background-color: rgba(51, 51, 51, 0.8);
+    color: white;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 2px 0px; }
+  /* line 333, C:/wamp64/www/angularphp/CRM.git/trunk/css/home/css/style.scss */
+  .userPicContainer .changeUserPhotoBtn {
+    display: none; }
+
 /*# sourceMappingURL=style.css.map */
