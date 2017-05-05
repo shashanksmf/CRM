@@ -5,30 +5,6 @@
     <comapnydetail ng-show="config.showCompanyDetailPopUp"></comapnydetail>
     <!-- modul PopUp end -->
 	<div class="row">
-     
-      
-                
-        <!--    <div class="searchWrapper">    
-                <input ng-change="seachText(searchInput)" ng-model="searchInput" my-enter="autoCompleteListItem(searchInput,false,'')" class="searchBoxInput" />
-                <div class="closeAutoComplete"></div>
-                <div ng-show="showAutoComplete" class="autoCompleteContainer">
-                    <div ng-repeat="list in listdata track by $index" class="autoCompeleteItem">
-
-                        <div ng-click="autoCompleteListItem(searchInput,list.id,list)">
-                            <span ng-style="list.foundIn.split(',')[0] =='name' && {'font-weight':'bold'}">{{list.name}}</span> 
-                            <span ng-style="list.foundIn.split(',')[0] =='title' && {'font-weight':'bold'}">{{list.title}}</span>
-                            <span ng-style="list.foundIn.split(',')[0] =='industry' && {'font-weight':'bold'}">{{list.industry}}</span>
-                            <span ng-style="list.foundIn.split(',')[0] =='location' && {'font-weight':'bold'}">{{list.location}}</span>
-                            <span ng-style="list.foundIn.split(',')[0] =='company' && {'font-weight':'bold'}">{{list.Company.name}}</span>
-
-                        </div>
-                    </div>
-                </div>
-
-                      custom search End 
-                </div>-->
-
-        
         
   <section id="peopleTable" ng-click="showAutoComplete=false">
            
@@ -45,24 +21,24 @@
     <thead>
       <tr>
         <th ng-click="sortBy('name')">Name
-          <span class="arrowDown" ng-show="propertyName == 'name'  && reverse == false">&#9660;</span>
-          <span class="arrowUp" ng-show="(propertyName == 'name'   && reverse == true) || propertyName !== 'name' ">&#9650;</span>
+          <span class="arrowDown fs10px" ng-show="propertyName == 'name'  && reverse == false">&#9660;</span>
+          <span class="arrowUp fs10px" ng-show="(propertyName == 'name'   && reverse == true) || propertyName !== 'name' ">&#9650;</span>
           </th>
         <th  ng-click="sortBy('title')">Title
-            <span class="arrowDown" ng-show="propertyName == 'title'  && reverse == false">&#9660;</span>
-            <span class="arrowUp" ng-show="(propertyName == 'title'   && reverse == true) || propertyName !== 'title' ">&#9650;</span>
+            <span class="arrowDown fs10px" ng-show="propertyName == 'title'  && reverse == false">&#9660;</span>
+            <span class="arrowUp fs10px" ng-show="(propertyName == 'title'   && reverse == true) || propertyName !== 'title' ">&#9650;</span>
           </th>
         <th ng-click="sortBy('industry')">Industry
-            <span class="arrowDown" ng-show="propertyName=='industry' && reverse == false">&#9660;</span>
-            <span class="arrowUp" ng-show="(propertyName=='industry'   && reverse == true) || propertyName !== 'industry' ">&#9650;</span>
+            <span class="arrowDown fs10px" ng-show="propertyName=='industry' && reverse == false">&#9660;</span>
+            <span class="arrowUp fs10px" ng-show="(propertyName=='industry'   && reverse == true) || propertyName !== 'industry' ">&#9650;</span>
           </th>
         <th ng-click="sortBy('location')">Location
-            <span class="arrowDown" ng-show="propertyName == 'location' && reverse == false" >&#9660;</span>
-            <span class="arrowUp" ng-show="(propertyName == 'location'  && reverse == true) || propertyName !== 'location' ">&#9650;</span>      
+            <span class="arrowDown fs10px" ng-show="propertyName == 'location' && reverse == false" >&#9660;</span>
+            <span class="arrowUp fs10px" ng-show="(propertyName == 'location'  && reverse == true) || propertyName !== 'location' ">&#9650;</span>
           </th>
           <th ng-click="sortBy('company')">Company
-            <span class="arrowDown" ng-show="propertyName == 'company' && reverse == false">&#9660;</span>
-            <span class="arrowUp" ng-show="(propertyName=='company'    && reverse == true) || propertyName !== 'company' ">&#9650;</span>
+            <span class="arrowDown fs10px" ng-show="propertyName == 'company' && reverse == false">&#9660;</span>
+            <span class="arrowUp fs10px" ng-show="(propertyName=='company'    && reverse == true) || propertyName !== 'company' ">&#9650;</span>
           </th>  
         <!-- <th>ratings</th>   -->
       </tr>

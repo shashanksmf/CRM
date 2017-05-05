@@ -7,12 +7,18 @@
             </div>
             
             <div class="row userImageContainer" style="padding-left: 20px;">
-                <div class="col-lg-10">
-                    <img  ng-src="{{imgsrc}}" style="max-width:100px;max-height: 100px; margin-bottom: 20px;width: 100px;height: 100px "/>
+                <div class="col-lg-2">
+                    <!--<img  ng-src="{{imgsrc}}" style="max-width:100px;max-height: 100px; margin-bottom: 20px;width: 100px;height: 100px "/>-->
+                    <div style="margin-bottom: 20px;" class="userPicContainer">
+                        <div class="profileBackgroundImg" ng-style="{'background-image':'url(' + imgsrc + ')'}" >
 
+                            <div class="changeUserPhotoBtn" style="position: absolute;bottom: 0" ng-click="browseEmplProfilePicAttach()"><i class="fa fa-camera"></i>Change Photo</div>
+                            <!--<input type="file" class="fileUploadInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)" ng-show="false" />-->
+                        </div>
+                    </div>
                     <input type="file" class="emplInsertProfilePic" name="image" custom-on-change="attachCompanyProfilePic" ng-show="false"/>
                  
-                    <div class="changeUserPhotoBtn" style="width: 99px; text-align: center;position: absolute; bottom: 15px;" ng-click="browseEmplProfilePicAttach()"><i class="fa fa-camera"></i>Change Pic</div>
+                    <!--<div class="changeUserPhotoBtn" style="width: 99px; text-align: center;position: absolute; bottom: 15px;" ng-click="browseEmplProfilePicAttach()"><i class="fa fa-camera"></i>Change Pic</div>-->
                     <!-- <button class="btn btn-default" ng-click="browseEmplProfilePicAttach()">Upload File</button>  -->
                 </div>
             </div>
@@ -95,10 +101,6 @@
         background-color: black;
     }
 
-    .userImageContainer:hover .changeUserPhotoBtn{
-        
-            display: block;
-        }
     
 </style>
 </div>

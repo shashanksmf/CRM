@@ -9,14 +9,26 @@
 			<div class="userBasicInfoContainer">
 
 				<div style="margin-bottom: 20px;" class="userPicContainer">
+					<div class="profileBackgroundImg" ng-style="{'background-image':'url(' + crmconfig.serverDomainName + companyData.logo + ')'}"  ng-if="!newUploadPic">
 
-                    <img  ng-src="{{crmconfig.serverDomainName + companyData.logo}}"  ng-if="!newUploadPic">
+						<div class="changeUserPhotoBtn" ng-click="clickCompanyChangePicture()"><i class="fa fa-camera"></i> Change Photo</div>
+						<!--<input type="file" class="fileUploadInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)" ng-show="false" />-->
+					</div>
 
-                    <img src="img/default-avatar.png" ng-src="{{imgsrc}}" ng-if="newUploadPic">
+					<div class="profileBackgroundImg" ng-style="{'background-image':'url(' + imgsrc + ')'}"  ng-if="newUploadPic">
+
+						<div class="changeUserPhotoBtn" ng-click="clickCompanyChangePicture()"><i class="fa fa-camera"></i> Change Photo</div>
+						<!--<input type="file" class="fileUploadInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)" ng-show="false" />-->
+					</div>
+
+
+					<!--<img  ng-src="{{crmconfig.serverDomainName + companyData.logo}}"  ng-if="!newUploadPic">-->
+
+                    <!--<img src="img/default-avatar.png" ng-src="{{imgsrc}}" ng-if="newUploadPic">-->
 
                 	<input type="file" class="fileUploadInput companyPicUplaodInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)" ng-show="false"  />
                     
-                     <div class="changeUserPhotoBtn" ng-click="clickCompanyChangePicture()"><i class="fa fa-camera"></i> Change Photo</div>
+                     <!--<div class="changeUserPhotoBtn" ng-click="clickCompanyChangePicture()"><i class="fa fa-camera"></i> Change Photo</div>-->
 				</div>	
 
 			<div >
@@ -121,19 +133,7 @@
 							{{companyData.email}}</span> 
 							<input type="text" ng-model="companyData.email" ng-show="profileEdit">
 						</div>
-	
-<!--
-						<div class="mtb-10px row">
-							<span class="col-md-4">Skype</span>  <span ng-show="!profileEdit">{{ userProfileInfo.skype }}</span>
-							<input type="text" ng-model="userProfileInfo.skype" ng-show="profileEdit">
-						</div>
 
-						<div class="mtb-10p
-						x row">
-							<span class="col-md-4">office number</span> <span ng-show="!profileEdit">{{ userProfileInfo.officePhone }}</span> 
-							<input type="text" ng-model="userProfileInfo.officePhone" ng-show="profileEdit">
-						</div>
--->
 
 					</div>
 					<div class="contactsContainer col-md-6">

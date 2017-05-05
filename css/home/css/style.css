@@ -267,9 +267,9 @@ header nav a {
 /* line 314, C:/wamp64/www/angularphp/CRM.git/trunk/css/home/css/style.scss */
 .userPicContainer {
   position: relative;
-  width: 120px;
-  height: 100px; }
-  /* line 319, C:/wamp64/www/angularphp/CRM.git/trunk/css/home/css/style.scss */
+  width: 130px;
+  height: 140px; }
+  /* line 320, C:/wamp64/www/angularphp/CRM.git/trunk/css/home/css/style.scss */
   .userPicContainer:hover .changeUserPhotoBtn {
     cursor: pointer;
     display: block;
@@ -281,8 +281,25 @@ header nav a {
     right: 0;
     text-align: center;
     padding: 2px 0px; }
-  /* line 333, C:/wamp64/www/angularphp/CRM.git/trunk/css/home/css/style.scss */
+  /* line 334, C:/wamp64/www/angularphp/CRM.git/trunk/css/home/css/style.scss */
   .userPicContainer .changeUserPhotoBtn {
     display: none; }
+
+/* line 339, C:/wamp64/www/angularphp/CRM.git/trunk/css/home/css/style.scss */
+.userPicContainer {
+  margin: auto; }
+  /* line 342, C:/wamp64/www/angularphp/CRM.git/trunk/css/home/css/style.scss */
+  .userPicContainer .profileBackgroundImg {
+    position: relative;
+    height: 130px;
+    width: 130px;
+    background-size: contain;
+    background-color: black;
+    background-repeat: no-repeat;
+    background-position: center center; }
+
+/* line 353, C:/wamp64/www/angularphp/CRM.git/trunk/css/home/css/style.scss */
+.fs10px {
+  font-size: 10px; }
 
 /*# sourceMappingURL=style.css.map */

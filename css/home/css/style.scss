@@ -313,8 +313,9 @@ header{
 
 .userPicContainer{
     position:relative;
-    width:120px;
-    height:100px;      
+    width:130px;
+    height:140px;    
+    
     &:hover{
              .changeUserPhotoBtn{
                 cursor: pointer;
@@ -333,4 +334,22 @@ header{
         .changeUserPhotoBtn{
             display:none;
         }
+}
+
+.userPicContainer {
+    margin:auto;
+    
+    .profileBackgroundImg {
+        position: relative;
+        height: 130px;
+        width: 130px;
+        background-size: contain;
+        background-color: black;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+}
+
+.fs10px{
+    font-size: 10px;
 }

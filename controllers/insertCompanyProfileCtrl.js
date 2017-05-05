@@ -74,6 +74,10 @@ inspinia.controller('companyInsertProfileCtrl', ['$scope','$rootScope','$http','
 				return false;
 			}
 		}
+		else if(!info.phone){
+			alert("please enter phone");
+			return false;
+		}
 
 		else if(!validateEmail(info.email)){
 			alert('Please enter valid email Id');

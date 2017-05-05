@@ -9,11 +9,17 @@
 			
 			 <div class="userPicContainer">
 
-				<img onerror="this.src='img/default-avatar.png';" ng-src="{{imgsrc}}" style="max-width: 180px;
-    max-height: 120px; margin-bottom: 20px;">
+				 <div class="profileBackgroundImg" ng-style="{'background-image':'url(' + imgsrc + ')'}" >
+
+					 <div class="changeUserPhotoBtn" ng-click="clickUserChangePicture()"><i class="fa fa-camera"></i> Change Photo</div>
+					 <!--<input type="file" class="fileUploadInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)" ng-show="false" />-->
+				 </div>
+
+
+				<!--<img onerror="this.src='img/default-avatar.png';" ng-src="{{imgsrc}}" style="max-width: 180px;-->
+    <!--max-height: 120px; margin-bottom: 20px;">-->
 					     <input type="file" class="fileUploadInput emplpropicfileinput" name="image" onchange="angular.element(this).scope().emplProPicSeleted(this.files)" ng-show="false" />
                  
-                 <div class="changeUserPhotoBtn" ng-click="clickUserChangePicture()"><i class="fa fa-camera"></i> Change Photo</div>
 
 			</div>
 	

@@ -49,7 +49,7 @@
 <div ui-view></div>
 
 <!--chatbox directive-->
-<div class="chatboxContainer">
+<div class="chatboxContainer hideFriendList">
 <friendlist ng-show="friendList"></friendlist>
 <div ng-repeat="chat in chats" ng-show="chat.active" class="chatboxWrapper" >
   <chatbox chat="chat" parentindex="{{$index}}" closechatwindow="closechatwindow($index)"></chatbox>   

@@ -8,9 +8,14 @@
             </div>
             
             <div class="row userImageContainer" style="padding-left: 20px;">
-                <div class="col-lg-10">
-                    <img  ng-src="{{imgsrc}}" style="max-width:100px;max-height: 100px; margin-bottom: 20px;width: 100px;height: 100px "/>
+                <div class="col-lg-2">
+                    <div style="margin-bottom: 20px;" class="userPicContainer">
+                        <div class="profileBackgroundImg" ng-style="{'background-image':'url(' + imgsrc + ')'}" >
 
+                            <div class="changeUserPhotoBtn" style="position: absolute; bottom: 0" ng-click="browseEmplProfilePicAttach()"><i class="fa fa-camera"></i>Change Photo</div>
+                            <!--<input type="file" class="fileUploadInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)" ng-show="false" />-->
+                        </div>
+                    </div>
                     <input type="file" class="emplInsertProfilePic" name="image" custom-on-change="attachEmplProfilePic" ng-show="false"   />
                  
                     <div class="changeUserPhotoBtn" style="width: 99px; text-align: center;position: absolute; bottom: 15px;" ng-click="browseEmplProfilePicAttach()"><i class="fa fa-camera"></i>Change Pic</div>
@@ -63,7 +68,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group"><label class="col-lg-2 control-label">Phone No.</label>
+                    <div class="form-group"><label class="col-lg-2 control-label">Phone No<i class="fa fa-asterisk fs8px"></i></label>
                         <div class="col-lg-10">
                             <input type="text" placeholder="Phone No" class="form-control" ng-model="emplProfileInfo.phone">
                         </div>
@@ -94,7 +99,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group"><label class="col-lg-2 control-label">Gender <i class="fa fa-asterisk fs8px"></i></label>
+                    <div class="form-group"><label class="col-lg-2 control-label">Gender </label>
                         <div class="col-lg-10">
                             <select class="form-control" ng-model="emplProfileInfo.gender">
                                 <option></option>
@@ -149,11 +154,7 @@
         background-color: black;
     }
 
-    .userImageContainer:hover .changeUserPhotoBtn{
-        
-            display: block;
-        }
-    
+
 </style>
 
     <div class="row-fluid" style="padding-left: 90px;padding-bottom: 50px;background-color: white">

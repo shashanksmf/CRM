@@ -59,8 +59,8 @@ inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','A
 
 
     $scope.imageIsLoaded = function(e){
-            $scope.newUploadPic = true;
-            $scope.$apply(function() {  
+            $scope.$apply(function() {
+                $scope.newUploadPic = true;
                 $scope.imgsrc= e.target.result;
             });
     }
