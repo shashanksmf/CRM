@@ -388,7 +388,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 
 	        method: 'GET',
 	        dataType: "jsonp",
-	        url: baseHttpUrl + '/UpdateCompany.php?id='+company.id+'&name='+company.name+'&areaOfWork='+company.areaOfWork+'&establised='+company.establised+'&employees='+company.employees+'&revenue='+company.revenue+'&ofcAddress='+company.ofcAddress+'&email='+company.email+'&google='+company.google+'&phone='+company.phone
+	        url: baseHttpUrl + '/UpdateCompany.php?id='+company.id+'&name='+company.name+'&areaOfWork='+company.areaOfWork+'&establised='+company.establised+'&employees='+company.employees+'&revenue='+company.revenue+'&ofcAddress='+company.ofcAddress+'&email='+company.email+'&google='+company.google+'&phone='+company.phone+'&fb='+company.fb+'&twitter='+company.twitter+'&ln='+company.linkedin
 
 	    })
         
