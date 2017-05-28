@@ -32,9 +32,18 @@ inspinia.controller('emplInsertProfileCtrl', ['$scope','$rootScope','$http','$q'
 		isValid = checkEmplFields($scope.emplProfileInfo);
 		if(isValid) {
 			$("#emplLoadingModal").modal('show');
+            try {
+                $scope.companies.forEach(function(company){
+                    if(company.id == $scope.userProfileInfo.company) {
+                        $scope.userProfileInfo.companyName = company.name;
+                    }
+                })
+            } catch(ex) {
+                console.log(ex);
+            }
 			$scope.emplProfile.append("data",JSON.stringify($scope.emplProfileInfo));
-			if(!$scope.emplProfile.name)
-			API.insertEmplProfile($scope.emplProfile).then(function(response){
+			
+            API.insertEmplProfile($scope.emplProfile).then(function(response){
 				//console.log("response empl Insert",response);
 				if(response.data.result){
 					//alert("data uploaded");

@@ -29,6 +29,7 @@ inspinia.controller('companyInsertProfileCtrl', ['$scope','$rootScope','$http','
 		isValid = checkEmplFields($scope.cmpyProfileInfo);
 		if(isValid) {
 			$("#emplLoadingModal").modal('show');
+
 			$scope.companyProfile.append("data",JSON.stringify($scope.cmpyProfileInfo));
 			
 			API.insertCompanyProfile($scope.companyProfile).then(function(response){

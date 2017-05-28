@@ -31,7 +31,7 @@
                      <!--<div class="changeUserPhotoBtn" ng-click="clickCompanyChangePicture()"><i class="fa fa-camera"></i> Change Photo</div>-->
 				</div>	
 
-			<div >
+			<div  class="clearboth">
 				<div class="col-md-6" ng-show="!profileEdit">
 					Name
 				</div>	
@@ -43,7 +43,7 @@
 						<input  placeholder="full Name" name="fullname" ng-show="profileEdit" type="text" ng-model="companyData.name" >
 				</div>
 			</div>
-			<div >	
+			<div class="clearboth">
 				<div class="col-md-6" ng-show="!profileEdit">
 					Industry
 				</div>	
@@ -52,11 +52,11 @@
 				</div>
 
 				<div  class="mtb-10px text-center " ng-show="profileEdit">
-					<input placeholder="Age" type="text" ng-model="companyData.areaOfWork" >
+					<input placeholder="Industry" type="text" ng-model="companyData.areaOfWork" >
 				</div>
 			</div>	
                 
-            <div>	
+            <div class="clearboth">
 				<div class="col-md-6" ng-show="!profileEdit">
 					Establishment
 				</div>	
@@ -65,11 +65,11 @@
 				</div>
 
 				<div  class="mtb-10px text-center " ng-show="profileEdit">
-					<input placeholder="Company Name" type="text" ng-model="companyData.establised" >
+					<input placeholder="Establishment" type="text" ng-model="companyData.establised" >
 				</div>
 			</div>
                 
-            <div >	
+            <div  class="clearboth">
 				<div class="col-md-6" ng-show="!profileEdit">
 					Location
 				</div>	
@@ -82,10 +82,10 @@
 				</div>
 			</div>
                 
-            <div >	
+            <div class="clearboth">
 				<div class="col-md-6" ng-show="!profileEdit">
 					Year Revenue
-				</div>	
+				</div>
 				<div class="col-md-6 wordBreakAll" ng-show="!profileEdit"><span >{{companyData.revenue}}</span>	
 					
 				</div>
@@ -175,6 +175,16 @@
 						<div class="notesContainer">
 						<div  ng-show="!profileEdit">{{ companyData.notes }}</div>
 	                   <textarea  ng-show="profileEdit" rows="4" ng-model="companyData.notes">
+<!--	                        {{ userProfileInfo.notes }}-->
+	                    </textarea>   
+						</div>
+
+						<div class="notesDivider row">
+							Keywords
+						</div>
+						<div class="notesContainer">
+						<div  ng-show="!profileEdit">{{ companyData.extra }}</div>
+	                   <textarea  ng-show="profileEdit" rows="4" ng-model="companyData.extra">
 <!--	                        {{ userProfileInfo.notes }}-->
 	                    </textarea>   
 						</div>

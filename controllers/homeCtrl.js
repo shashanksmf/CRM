@@ -44,7 +44,7 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','
                 })
     
         $scope.employees = response.data.Employees;
-        
+
         $scope.loadTags = function(query) {
                 
             autoComplete = [{"id":"2","name":"Bob Robson","title":"Engineer","industry":"Development","location":"Chicago","ratings":"5.0"},{"id":"3","name":"John Boo","title":"Investor","industry":"Health tech","location":"London","ratings":"5.0"},{"id":"4","name":"Bob Kennedy","title":"Director","industry":"Finance","location":"Madrid","ratings":"4.5"}];
@@ -300,3 +300,81 @@ inspinia.directive('myEnter', function () {
         });
     };
 });
+
+
+
+
+
+inspinia.controller('insertEmplBulkDataCtrl', ['$scope','$rootScope','$http','$q','$timeout','$state','$stateParams','API', function ($scope,$rootScope,$http,$q,$timeout,$state,$stateParams,API) {
+    //console.log("Hello insertEmplBulkDataCtrl");
+
+    $scope.dataResult = [];
+
+    $scope.importData = function(e) {
+        rABS = document.getElementsByName("userabs")[0].checked;
+        use_worker = document.getElementsByName("useworker")[0].checked;
+        var files = e.target.files;
+        var f = files[0];
+        {
+            var reader = new FileReader();
+            //var name = f.name;
+            reader.onload = function(e) {
+                if(typeof console !== 'undefined') console.log("onload", new Date(), rABS, use_worker);
+                var data = e.target.result;
+                if(use_worker) {
+                    xw(data, process_wb);
+                } else {
+                    var wb;
+                    if(rABS) {
+                        wb = X.read(data, {type: 'binary'});
+                    } else {
+                        var arr = fixdata(data);
+                        wb = X.read(btoa(arr), {type: 'base64'});
+                    }
+                    process_wb(wb);
+                }
+            };
+            if(rABS) reader.readAsBinaryString(f);
+            else reader.readAsArrayBuffer(f);
+        }
+    }
+
+    function process_wb(wb) {
+    global_wb = wb;
+    var output = "";
+    switch(get_radio_value("format")) {
+        case "json":
+            output = JSON.stringify(to_json(wb), 2, 2);
+            break;
+        case "form":
+            output = to_formulae(wb);
+            break;
+        case "html": return to_html(wb);
+        default:
+            output = to_csv(wb);
+    }
+    output = JSON.parse(output);
+    output = (output.Sheet1);
+    //console.log("output",output);
+     
+     $.ajax({
+       type: "POST",
+       url: "http://jaiswaldevelopers.com/CRMV1/Service/sampleService.php",
+       data: {"data":output},
+    // //  contentType: "application/json; charset=utf-8",
+      success: function(response){
+       // console.log(response);
+         $scope.dataResult.push(JSON.parse(response));
+       }
+     });
+    
+    API.insertEmplBulkData(output).then(function(response){
+        console.log("response",response);
+    })
+
+    if(OUT.innerText === undefined) OUT.textContent = output;
+    else OUT.innerText = output;
+    if(typeof console !== 'undefined') console.log("output", new Date());
+}
+
+}]);

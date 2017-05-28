@@ -117,8 +117,13 @@ xhr.send(data);
 			alert("Please Enter Campaign Name");
 			return;
 		}
+		else if(!$scope.groupSelected.id) {
+			alert("Please Select Group");
+			return;
+		}
 
 		$scope.formData = new FormData();
+		$scope.formData.append("groupId", $scope.groupSelected.id);
 		$scope.formData.append("name", $scope.campaignName);
 		$scope.formData.append("createdBy",$rootScope.userName || localStorage.getItem("userName") || "Admin");
 		$scope.formData.append("emails", $rootScope.userEmail || localStorage.getItem("userName") || "shashanksmf@outlook.com" );

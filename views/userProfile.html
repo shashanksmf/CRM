@@ -25,7 +25,7 @@
 	
 			<!--	onchange="angular.element(this).scope().uploadFile(this.files)"-->
 			<div class="userBasicInfoContainer col-md-12">
-			<div class="row">
+			<div class="row clearboth">
 				<div class="col-md-6" ng-show="!profileEdit">
 					Full Name
 				</div>	
@@ -37,7 +37,7 @@
 						<input  placeholder="full Name" name="fullname" ng-show="profileEdit" type="text" ng-model="userProfileInfo.name" >
 				</div>
 			</div>
-			<div class="row">	
+			<div class="row clearboth">
 				<div class="col-md-6" ng-show="!profileEdit">
 					Age
 				</div>	
@@ -50,7 +50,7 @@
 				</div>
 			</div>	
                 
-            <div class="row">	
+            <div class="row clearboth">
 				<div class="col-md-6" ng-show="!profileEdit">
 					Company
 				</div>	
@@ -66,7 +66,7 @@
 				</div>
 			</div>
                 
-            <div class="row">	
+            <div class="row clearboth">
 				<div class="col-md-6" ng-show="!profileEdit">
 					Location
 				</div>	
@@ -79,7 +79,7 @@
 				</div>
 			</div>
 
-			<div class="row">
+			<div class="row clearboth">
 				<div class="col-md-6" ng-show="!profileEdit">
 					Title
 				</div>
@@ -92,7 +92,7 @@
 				</div>
 			</div>
                 
-            <div class="row">	
+            <div class="row clearboth">
 				<div class="col-md-6 " ng-show="!profileEdit">
 					Job Role
 				</div>	
@@ -105,7 +105,7 @@
 				</div>
 			</div>    
             
-             <div class="row">	
+             <div class="row clearboth">
 				<div class="col-md-6" ng-show="!profileEdit">
 					Gender
 				</div>	
@@ -197,6 +197,15 @@
 						<div ng-show="!profileEdit">{{ userProfileInfo.notes }}</div>
 	                   <textarea ng-show="profileEdit" rows="4" ng-model="userProfileInfo.notes">{{ userProfileInfo.notes }}</textarea>   
 						</div>
+
+						<div class="notesDivider row">
+							Keywords
+						</div>
+						<div class="notesContainer">
+						<div ng-show="!profileEdit">{{ userProfileInfo.extra }}</div>
+	                   <textarea ng-show="profileEdit" rows="4" ng-model="userProfileInfo.extra"></textarea>   
+						</div>
+
 					</div>	
 				</div>
 				<div class="attachmentContainer" ng-show="activeTab == tabs.attachment">

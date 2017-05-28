@@ -24,9 +24,9 @@
           <span class="arrowDown fs10px" ng-show="propertyName == 'name'  && reverse == false">&#9660;</span>
           <span class="arrowUp fs10px" ng-show="(propertyName == 'name'   && reverse == true) || propertyName !== 'name' ">&#9650;</span>
           </th>
-        <th  ng-click="sortBy('title')">Title
-            <span class="arrowDown fs10px" ng-show="propertyName == 'title'  && reverse == false">&#9660;</span>
-            <span class="arrowUp fs10px" ng-show="(propertyName == 'title'   && reverse == true) || propertyName !== 'title' ">&#9650;</span>
+        <th  ng-click="sortBy('jobRole')">jobRole
+            <span class="arrowDown fs10px" ng-show="propertyName == 'jobRole'  && reverse == false">&#9660;</span>
+            <span class="arrowUp fs10px" ng-show="(propertyName == 'jobRole'   && reverse == true) || propertyName !== 'jobRole' ">&#9650;</span>
           </th>
         <th ng-click="sortBy('industry')">Industry
             <span class="arrowDown fs10px" ng-show="propertyName=='industry' && reverse == false">&#9660;</span>
@@ -53,7 +53,7 @@
             <!-- ng-click="showUserDetail(empl.id)" -->
         </td>
 
-        <td>{{empl.title}}</td>
+        <td>{{empl.jobRole}}</td>
         
         <td><span class="label " ng-class="{'label-success':empl.industry=='Finance'||empl.industry=='IT','label-warning':empl.industry=='Development'||empl.industry=='Health tech','label-info':empl.industry=='Real-Estate'}">{{empl.industry}}</span>
         </td>
@@ -65,13 +65,13 @@
       </tr>
 
       <tr ng-show="tagSearchedItems.length>0" ng-repeat="empl in tagSearchedDetails  | unique:'id'|  orderBy:propertyName:reverse" ng-if="emplId.length>0 ? emplId.indexOf(empl.id): true">
-         
+
         <td class="userImg">
             <div class="userAvatar"><img src="img/default-avatar.png"></div>
             <span class="pointer" ng-click="showUserDetail(empl.id)" > {{empl.name}}</span>
         </td>
       
-        <td>{{empl.title}}</td>
+        <td>{{empl.jobRole}}</td>
         
         <td><span class="label " ng-class="{'label-success':empl.industry=='Finance'||empl.industry=='IT','label-warning':empl.industry=='Development'||empl.industry=='Health tech','label-info':empl.industry=='Real-Estate'}">{{empl.industry}}</span>
         </td>

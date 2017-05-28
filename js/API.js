@@ -161,7 +161,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
         return $http({
 
 	        method: 'GET',
-	        url: baseHttpUrl + '/UpdateEmployees.php?name='+user.name+'&title='+user.title+'&industry='+user.industry+'&location='+user.location+'&ratings='+user.ratings+'&skype='+user.skype+'&age='+user.age+'&gender='+user.gender+'&officePhone='+user.officePhone+'&jobRole='+user.jobRole+'&phone='+user.phone+'&email='+user.email+'&linkedin='+user.linkedin+'&twitter='+user.twitter+'&facebook='+user.facebook+'&notes='+user.notes+'&id='+user.id+'&companyId='+user.companyId+'&imgUrl='+user.imgUrl
+	        url: baseHttpUrl + '/UpdateEmployees.php?name='+user.name+'&title='+user.title+'&industry='+user.industry+'&location='+user.location+'&ratings='+user.ratings+'&skype='+user.skype+'&age='+user.age+'&gender='+user.gender+'&officePhone='+user.officePhone+'&jobRole='+user.jobRole+'&phone='+user.phone+'&email='+user.email+'&linkedin='+user.linkedin+'&twitter='+user.twitter+'&facebook='+user.facebook+'&notes='+user.notes+'&id='+user.id+'&companyId='+user.companyId+'&companyName='+user.Company.name+'&imgUrl='+user.imgUrl+'&extra='+user.extra
 
 	    })
         
@@ -303,6 +303,20 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 
 	}
 
+	callAPI.insertEmplBulkData = function(output) {
+	
+	//console.log("API file",output);
+	var output = output;
+		return $http({
+
+	        method: 'POST',
+	        data: {"data":output},
+	        url: "http://jaiswaldevelopers.com/CRMV1/sampleService.php",
+
+    	})
+
+	}
+
 
 	callAPI.sendMail = function(users){
 
@@ -388,7 +402,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 
 	        method: 'GET',
 	        dataType: "jsonp",
-	        url: baseHttpUrl + '/UpdateCompany.php?id='+company.id+'&name='+company.name+'&areaOfWork='+company.areaOfWork+'&establised='+company.establised+'&employees='+company.employees+'&revenue='+company.revenue+'&ofcAddress='+company.ofcAddress+'&email='+company.email+'&google='+company.google+'&phone='+company.phone+'&fb='+company.fb+'&twitter='+company.twitter+'&ln='+company.linkedin
+	        url: baseHttpUrl + '/UpdateCompany.php?id='+company.id+'&name='+company.name+'&areaOfWork='+company.areaOfWork+'&establised='+company.establised+'&employees='+company.employees+'&revenue='+company.revenue+'&ofcAddress='+company.ofcAddress+'&email='+company.email+'&google='+company.google+'&phone='+company.phone+'&fb='+company.fb+'&twitter='+company.twitter+'&ln='+company.linkedin+'&extra='+company.extra
 
 	    })
         

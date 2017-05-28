@@ -79,6 +79,12 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             templateUrl:"views/personalMessage.html",
             controller:"personalMsgCtrl"            
         })
+
+        .state('dashboards.insertEmplBulkData',{
+            url:"/insertEmplBulkData",
+            templateUrl:"views/insertEmplData/insertEmpl.html",
+            controller:"insertEmplBulkDataCtrl"  
+        })
         
         .state('dashboards.dashboard_1', {
             url: "/dashboard_1",

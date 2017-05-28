@@ -54,10 +54,14 @@
          	
          	<input type="text" class="form-control" placeholder="Campaign Name" ng-model="campaignName">
 
-         	<select id="groupDropDown">
+         <!--	<select id="groupDropDown">
          		<option ng-repeat="group in groups.Groups">{{group.name}}</option>
          	</select>
-
+-->
+<!--groupName : {{groupSelected.id}}-->
+    <select ng-model="groupSelected" ng-options="group.name for group in groups.Groups">
+      <option value="">Choose Group </option>
+    </select>
          	<input type="text" class="form-control" placeholder="subject" ng-model="campaignEmailSubject">
 
          	<textarea class="form-control" placeholder="Message or body" ng-model="campaignMessage">{{campaignMessage}}</textarea>

@@ -73,6 +73,7 @@ inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','A
     $scope.saveProfile = function(){
         //console.log("saveProfile clicked ",companyId);
         if(companyId){
+            $scope.companyData.id = companyId;
             API.updateCompanyDetails($scope.companyData).then(function(response){
                 //console.log("response API", response.data.responce);
                 if(response.data.responce){
