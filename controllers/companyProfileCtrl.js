@@ -1,7 +1,7 @@
 var inspinia = angular.module('inspinia');
 inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','API','$state','$timeout','$stateParams','crmconfig', function ($scope,$rootScope,$http,$q,API,$state,$timeout,$stateParams,crmconfig) {
 
-    var baseHttpUrl = 'http://jaiswaldevelopers.com/CRMV1/Service', domainName = 'http://jaiswaldevelopers.com/CRMV1/';
+    var baseHttpUrl = crmconfig.servicePath, domainName = crmconfig.serverDomainName + '/';
     $scope.crmconfig = crmconfig;
     $scope.tabs = { summary:"summary" , attachment : "attachment" };
 	$scope.activeTab = $scope.tabs.summary;

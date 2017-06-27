@@ -3,8 +3,17 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	
 	var callAPI = {}; 
   //  var baseHttpUrl = "/angularphp/template/Angular_Full_Version/Service";
-	var baseHttpUrl = 'http://jaiswaldevelopers.com/CRMV1/Service';
+	var baseHttpUrl = 'http://raffia.co/Service';
     
+	callAPI.getAllEmpl = function(){
+			return  $http({
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl+'/GetEmplData.php'
+    	})
+
+	}
+
 	callAPI.registerUser = function(user) {
 		
 		return $http({

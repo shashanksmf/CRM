@@ -9,7 +9,7 @@
 			<div class="userBasicInfoContainer">
 
 				<div style="margin-bottom: 20px;" class="userPicContainer">
-					<div class="profileBackgroundImg" ng-style="{'background-image':'url(' + crmconfig.serverDomainName + companyData.logo + ')'}"  ng-if="!newUploadPic">
+					<div class="profileBackgroundImg" ng-style="{'background-image':'url(' + crmconfig.serverDomainName + '/'+companyData.logo + ')'}"  ng-if="!newUploadPic">
 
 						<div class="changeUserPhotoBtn" ng-click="clickCompanyChangePicture()"><i class="fa fa-camera"></i> Change Photo</div>
 						<!--<input type="file" class="fileUploadInput" name="image" onchange="angular.element(this).scope().fileSelected(this.files)" ng-show="false" />-->

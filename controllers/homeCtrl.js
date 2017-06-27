@@ -1,5 +1,5 @@
 var inspinia = angular.module('inspinia');
-inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','$state','$stateParams', function ($scope,$rootScope,$http,$q,$timeout,$state,$stateParams) {
+inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','$state','$stateParams','crmconfig','API', function ($scope,$rootScope,$http,$q,$timeout,$state,$stateParams,crmconfig,API) {
   
 
 
@@ -16,15 +16,11 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','
     $scope.emplId = [];
     $scope.tagSearchedDetails = [];
     //var baseHttpUrl = '/angularphp/template/Angular_Full_Version/Service';
-    var baseHttpUrl = 'http://jaiswaldevelopers.com/CRMV1/Service';    
-    
+    //var baseHttpUrl = 'http://jaiswaldevelopers.com/CRMV1/Service';    
+    var baseHttpUrl = crmconfig.serverDomainName +'/Service';
     
     // code to load employee tabel
-    $http({
-        method: 'GET',
-        dataType: "jsonp",
-        url: baseHttpUrl+'/GetEmplData.php'
-    })
+   API.getAllEmpl()
         .then(function successCallback(response) {
             response.data.Employees.forEach(function (empl) {
                     var splitRating = empl.ratings.split(".");
@@ -368,9 +364,9 @@ inspinia.controller('insertEmplBulkDataCtrl', ['$scope','$rootScope','$http','$q
        }
      });
     
-    API.insertEmplBulkData(output).then(function(response){
-        console.log("response",response);
-    })
+    // API.insertEmplBulkData(output).then(function(response){
+    //     console.log("response",response);
+    // })
 
     if(OUT.innerText === undefined) OUT.textContent = output;
     else OUT.innerText = output;
