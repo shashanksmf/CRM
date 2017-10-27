@@ -3,3 +3,4 @@ env: flex
 
 runtime_config:
   document_root: /
+  front_controller_file: index.html
