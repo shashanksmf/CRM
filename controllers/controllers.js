@@ -233,7 +233,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
         //    console.log();
             $rootScope.userName = response.data.details.name;
             $rootScope.userEmail = response.data.details.email;
-            $rootScope.userProfilePic = crmconfig.serverDomainName + response.data.details.profilePic;
+            $rootScope.userProfilePic = crmconfig.serverDomainName +"/"+ response.data.details.profilePic;
         });
     }
 

@@ -15,7 +15,7 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 				localStorage.setItem("userName",response.data.name);
 				localStorage.setItem("userId",response.data.id);
 				//localStorage.setItem("userUUID",response.data.responce);
-				$rootScope.userProfilePic = crmconfig.serverDomainName + response.data.profilePic;
+				$rootScope.userProfilePic = crmconfig.serverDomainName +"/"+ response.data.profilePic;
 				 $scope.$emit('initialiseChat', { initChat : true });
  					
 

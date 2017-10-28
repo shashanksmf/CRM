@@ -233,7 +233,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
         //    console.log();
             $rootScope.userName = response.data.details.name;
             $rootScope.userEmail = response.data.details.email;
-            $rootScope.userProfilePic = crmconfig.serverDomainName + response.data.details.profilePic;
+            $rootScope.userProfilePic = crmconfig.serverDomainName +"/"+ response.data.details.profilePic;
         });
     }
 
@@ -307,7 +307,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
             return crmconfig.defaultUserPic;
         }
         else{
-            return crmconfig.serverDomainName + profilepic;
+            return crmconfig. +serverDomainName +"/"+ profilepic;
         }
     }
 
@@ -322,7 +322,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
 
     $scope.getChatboxFromUserProfilePic = function(profilepic) {
         if(profilepic && profilepic.length > 0) {
-            return crmconfig.serverDomainName + profilepic;
+            return crmconfig.serverDomainName +"/"+ profilepic;
         }
         else{
             return  crmconfig.defaultUserPic;
