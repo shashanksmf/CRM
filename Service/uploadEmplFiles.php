@@ -2,7 +2,7 @@
 	
 	//http://localhost/wehnc/Service/GetUserData.php?id=1
 	
-	//ob_start();
+	ob_start();
 	header("Access-Control-Allow-Origin: *");
 	$responseArr = array();
 	$dats = '';
@@ -17,7 +17,7 @@
 	}
 	
 	
-
+	ob_clean();
 	  //exit("before If");
     if(isset($_FILES['image'])){
 	  $extt = $_FILES['image']['name'];

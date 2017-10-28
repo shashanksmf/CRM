@@ -1,4 +1,5 @@
 <?php
+ob_start()();
 $userId = @$_GET['id'];
 $name = @$_GET['name'];
 $department = @$_GET['department'];
@@ -23,6 +24,7 @@ if (!$conn) {
 mysqli_set_charset($conn,"utf8");
 $sql = "UPDATE user SET name= '".$name."' ,department='".$department."' ,dob='".$dob."',gender = '".$gender."', email='".$email."',phone='".$phone."',homeAddress='".$homeAddress."' ,hireDate ='".$hireDate."'  WHERE id=".$userId ;
 //echo $sql;
+ob_clean();
 if (mysqli_query($conn, $sql)) {
 //echo "if";
     $responseArr["result"] = true;

@@ -1,4 +1,5 @@
 <?php
+ob_start();
 $userId = @$_GET['id'];
 $password =  @$_GET['password'];
 
@@ -14,7 +15,7 @@ if (!$conn) {
 }
 
 $sql = "UPDATE user SET password= ".$password." WHERE id=".$userId ;
-
+ob_clean();
 if (mysqli_query($conn, $sql)) {
     $responseArr["result"] = true;
 	echo json_encode($responseArr);

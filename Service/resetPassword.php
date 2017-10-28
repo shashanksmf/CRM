@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 $email =  @$_GET['email'];
 
 require_once("../Controller/StaticDBCon.php");
@@ -29,7 +29,7 @@ for ($i = 0; $i < $random_string_length; $i++) {
 // code for random alpha numeric string generator
 
 // insert random string into database
-
+ob_clean();
 $sql = "UPDATE user SET forgetpasscode= ".$code." WHERE email=".$email;
 if (mysqli_query($conn, $sql)) {
 	

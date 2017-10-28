@@ -3,7 +3,7 @@
 	
 	
 	//Link -> localhost/wehnc/Service/GetEmplData.php
-	
+	ob_start();
 	header("Access-Control-Allow-Origin: *");
 	
 	$id = @$_GET['id'];
@@ -26,6 +26,7 @@
 	require_once("../Controller/Class_Company_Controller.php");
 	$controller = new CompanyController();
 	header('Content-Type: application/json');
+	ob_clean();
 	echo $controller->updateCompanyJson($id, $name, $areaOfWork, $establised, $employees, $revenue, $ofcAddress, $email, $phone,$fb,$tw,$ln,$extra);
 
 ?>

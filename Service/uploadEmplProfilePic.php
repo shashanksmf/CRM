@@ -2,7 +2,7 @@
 	
 	//http://localhost/wehnc/Service/GetUserData.php?id=1
 	
-	//ob_start();
+	ob_start();
 	header("Access-Control-Allow-Origin: *");
 	$responseArr = array();
 	$dats = '';
@@ -15,6 +15,8 @@
 		$responseArr["details"] = $conn->connect_error;
 		exit(json_encode($responseArr));
 	}
+
+	ob_clean();
 	
 	if(isset($_FILES['image'])){
 	  $extt = $_FILES['image']['name'];
