@@ -13,9 +13,9 @@
  */
 class StaticDBCon {
     
-    public static $servername = "localhost";
-    public static $username = "root";
-    public static $password = "wppassword";
-    public static $dbname = "erp_crm";
+    public static $servername = "us-cdbr-iron-east-05.cleardb.net";
+    public static $username = "b0a609ade3f255";
+    public static $password = "88e3f7a9";
+    public static $dbname = "heroku_8741ac758f86db8";
     
 }
