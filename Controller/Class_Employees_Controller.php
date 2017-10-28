@@ -13,7 +13,7 @@
                 }
                 if($id==''){
                 //	$sql = "SELECT * FROM employee inner join company on company.id = employee.companyId;";
-                    $sql = "SELECT * FROM employee";
+                    $sql = "SELECT * FROM employee ";
                 }else{
                 //	$sql = "SELECT * FROM erp_crm.employee inner join company on company.id = employee.companyId where company.id='".$id."';";
                     $sql = "SELECT * FROM erp_crm.employee where id='".$id."';";
@@ -25,6 +25,7 @@
                     while($row = $result->fetch_assoc()) {
                         //$comp = new Company($row["company.companyId"],$row["areaOfWork"],$row["establised"],$row["employees"],$row["revenue"],$row["ofcAddress"],$row["email"],$row["phone"],$row["logo"]);
                         $empl = new Employees($row["id"],$row["name"],$row["title"],$row["industry"],$row["location"],$row["ratings"],"",$row["companyId"],$row["skype"],$row["age"],$row["gender"],$row["officePhone"],$row["jobRole"],$row["phone"],$row["email"],$row["linkedin"],$row["twitter"],$row["facebook"],$row["notes"],$row["imgUrl"]);
+                        $empl->extra = $row["extra"];
                         $emplList[$i]=$empl;
                         //echo $emplList[$i]->getName();
                         $i++;
@@ -44,10 +45,11 @@
                     foreach($EmployeeList as $empl){
                             $jsonStr.='{';
                             $jsonStr.='"id":"'.$empl->getId().'",';
-                            $jsonStr.='"CompanyId":"'.$empl->getCompanyId().'",';
+                            $jsonStr.='"companyId":"'.$empl->getCompanyId().'",';
                             $jsonStr.='"RootUrl":"http://jaiswaldevelopers.com/CRMV1/files/Files/",';
                             $jsonStr.='"name":"'.$empl->getName().'",';
                             $jsonStr.='"title":"'.$empl->getTitle().'",';
+                            $jsonStr.='"extra":"'.$empl->extra.'",';
                             $jsonStr.='"industry":"'.$empl->getIndustry().'",';
                             $jsonStr.='"location":"'.$empl->getLocation().'",';
                             $jsonStr.='"ratings":"'.$empl->getRatings().'",';
@@ -129,7 +131,7 @@
 
 
 
-            public function updateEmployee($id,$name,$title,$industry,$location,$ratings,$companyId,$skype,$age,$gender,$officePhone,$jobRole,$phone,$email,$linkedin,$twitter,$facebook,$notes,$imgUrl){
+            public function updateEmployee($id,$name,$title,$industry,$location,$ratings,$companyId,$skype,$age,$gender,$officePhone,$jobRole,$phone,$email,$linkedin,$twitter,$facebook,$notes,$imgUrl,$companyName,$extra){
                     $date = new DateTime();
                     $time = $date->getTimestamp();
                     $membersCount="";
@@ -141,7 +143,7 @@
                             $read = 0;
                             //$sql = "UPDATE ".StaticDBCon::$dbname.".employee SET (name,title,industry,location,ratings,companyId,skype,age,gender,officePhone,jobRole,phone,email,linkedin,twitter,facebook,notes,imgUrl)
                             //VALUES ('".$name."','".$title."','".$industry."','".$location."','".$ratings."','".$companyId."','".$skype."','".$age."','".$gender."','".$officePhone."','".$jobRole."','".$phone."','".$email."','".$linkedin."','".$twitter."','".$facebook."','".$notes."','".$imgUrl."') WHERE id=".$id."";
-                            $sql = "UPDATE `employee` SET `name` = '".$name."',`title` = '".$title."',`industry` = '".$industry."',`location` = '".$location."',`ratings` = '".$ratings."',`companyId` = '".$companyId."',`skype` = '".$skype."',`age` = '".$age."',`gender` = '".$gender."',`officePhone` = '".$officePhone."',`jobRole` = '".$jobRole."',`phone` = '".$phone."',`email` = '".$email."',`linkedin` = '".$linkedin."',`twitter` = '".$twitter."',`facebook` = '".$facebook."',`notes` = '".$notes."',`imgUrl` = '".$imgUrl."' WHERE id = ".$id."";
+                            $sql = "UPDATE `employee` SET `companyName` = '".$companyName."',`name` = '".$name."',`title` = '".$title."',`industry` = '".$industry."',`location` = '".$location."',`ratings` = '".$ratings."',`companyId` = '".$companyId."',`skype` = '".$skype."',`age` = '".$age."',`gender` = '".$gender."',`officePhone` = '".$officePhone."',`jobRole` = '".$jobRole."',`phone` = '".$phone."',`email` = '".$email."',`linkedin` = '".$linkedin."',`twitter` = '".$twitter."',`facebook` = '".$facebook."',`notes` = '".$notes."',`imgUrl` = '".$imgUrl."',`extra` = '".$extra."' WHERE id = ".$id."";
                             //echo 'Query : '.$sql;
                             if ($conn->query($sql) === TRUE) {
                                     $msg->isUpdateSuccess = TRUE;
@@ -156,8 +158,8 @@
                     return $msg;
             }	
 
-            public function updateEmployeeJson($id,$name,$title,$industry,$location,$ratings,$companyId,$skype,$age,$gender,$officePhone,$jobRole,$phone,$email,$linkedin,$twitter,$facebook,$notes,$imgUrl){
-                    $msg  = $this->updateEmployee($id,$name,$title,$industry,$location,$ratings,$companyId,$skype,$age,$gender,$officePhone,$jobRole,$phone,$email,$linkedin,$twitter,$facebook,$notes,$imgUrl);
+            public function updateEmployeeJson($id,$name,$title,$industry,$location,$ratings,$companyId,$skype,$age,$gender,$officePhone,$jobRole,$phone,$email,$linkedin,$twitter,$facebook,$notes,$imgUrl,$companyName,$extra){
+                    $msg  = $this->updateEmployee($id,$name,$title,$industry,$location,$ratings,$companyId,$skype,$age,$gender,$officePhone,$jobRole,$phone,$email,$linkedin,$twitter,$facebook,$notes,$imgUrl,$companyName,$extra);
                     if ($msg->isUpdateSuccess) {
                             $jsonStr = '{"responce":true}';
                     }  else {
@@ -520,7 +522,7 @@
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
                 } 
-                $sql = "select * from employee where employee.id like '".$term."%' or employee.name like '".$term."%' or employee.title like '".$term."%' or employee.location like '".$term."%' or employee.industry like '".$term."%' LIMIT 10;";
+                $sql = "select * from employee where employee.id like '".$term."%' employee.companyName like '".$term."%' or employee.name like '".$term."%' or employee.title like '".$term."%' or employee.location like '".$term."%' or employee.industry like '".$term."%' LIMIT 10";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     $i = 0;
@@ -528,7 +530,6 @@
                         $arr = array();
                         $arr = $this->getKeysArray($row,$term);
                         $empl = new Employees($row["id"],$row["name"],$row["title"],$row["industry"],$row["location"],$row["ratings"],"",$row["companyId"],$row["skype"],$row["age"],$row["gender"],$row["officePhone"],$row["jobRole"],$row["phone"],$row["email"],$row["linkedin"],$row["twitter"],$row["facebook"],$row["notes"],$row["imgUrl"]);
-                        $empl->isActive = $row["isActive"];
                         $emplList[$i]=$empl;
                         $i++;
                     }
@@ -555,7 +556,6 @@
                     $jsonStr.='"industry":"'.$empl->getIndustry().'",';
                     $jsonStr.='"location":"'.$empl->getLocation().'",';
                     $jsonStr.='"ratings":"'.$empl->getRatings().'",';
-                    $jsonStr.='"isActive":"'.$empl->isActive.'",';
                     $jsonStr.='"foundIn":"'.$String_Contains.'",';
                     $jsonStr.='"Company":['.$comps->getCompanyJsonForEmpl($empl->getCompanyId()).']}';
                     $i--;
@@ -579,8 +579,8 @@
                 }
                 $var_db = explode(" ", $terms);
                 $term = $var_db[0];
-                $sql = "select * from employee where employee.id like '%".$term."%' or employee.name like '%".$term."%' or employee.title like '%".$term."%' or employee.location like '%".$term."%' or employee.industry like '%".$term."%'";
-                //echo 'Query : '.$sql;
+                $sql = "select * from employee where employee.companyName like '%".$term."%' or employee.name like '%".$term."%' or employee.title like '%".$term."%' or employee.location like '%".$term."%' or employee.industry like '%".$term."%'";
+             //   echo 'Query : '.$sql;
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     $i = 0;
@@ -663,6 +663,7 @@
                    $jsonStr.='"id":"'.$empl->getId().'",';
                    $jsonStr.='"CompanyId":"'.$empl->getCompanyId().'",';
                    $jsonStr.='"name":"'.$empl->getName().'",';
+                   $jsonStr.='"jobRole":"'.$empl->getJobRole().'",';
                    $jsonStr.='"title":"'.$empl->getTitle().'",';
                    $jsonStr.='"industry":"'.$empl->getIndustry().'",';
                    $jsonStr.='"location":"'.$empl->getLocation().'",';

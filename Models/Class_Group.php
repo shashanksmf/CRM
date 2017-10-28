@@ -1,10 +1,10 @@
 <?php
 
 
-
+ header("Access-Control-Allow-Origin: *");
 class Group{
 	
-	private $id;
+	public $id;
 	private $name;
 	private $details;
 	private $admin;

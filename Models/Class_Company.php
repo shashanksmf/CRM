@@ -1,9 +1,10 @@
 <?php
 
 
-
+ header("Access-Control-Allow-Origin: *");
 class Company{
 	
+        public $id;
 	private $name;
 	private $areaOfWork;
 	private $establised;
@@ -13,18 +14,27 @@ class Company{
 	private $email;
 	private $phone;
 	private $logo;
-	
-	public function __construct ( $Name, $AreaOfWork, $Establised, $Employees, $Revenue, $OfcAddress, $Email, $Phone, $Logo) {
-    $this->name = $Name;
-    $this->areaOfWork = $AreaOfWork;
-    $this->establised = $Establised;
-    $this->employees = $Employees;
-    $this->revenue = $Revenue;
-    $this->ofcAddress = $OfcAddress;
-    $this->email = $Email;
-    $this->phone = $Phone;
-    $this->logo = $Logo;
-  }
+	private $fb;
+	private $tw;
+        public  $isUpdateSuccess;
+        public $outMessage;
+        public $extra;
+
+
+        public function __construct ( $Id, $Name, $AreaOfWork, $Establised, $Employees, $Revenue, $OfcAddress, $Email, $Phone, $Logo, $Fb, $Tw) {
+            $this->id= $Id;
+            $this->name = $Name;
+            $this->areaOfWork = $AreaOfWork;
+            $this->establised = $Establised;
+            $this->employees = $Employees;
+            $this->revenue = $Revenue;
+            $this->ofcAddress = $OfcAddress;
+            $this->email = $Email;
+            $this->phone = $Phone;
+            $this->fb = $Fb;
+            $this->tw = $Tw;
+            $this->logo = $Logo;
+          }
 	
 	public function getName(){
 		return $this->name;
@@ -53,9 +63,12 @@ class Company{
 	public function getLogo(){
 		return $this->logo;
 	}
+	public function getFb(){
+		return $this->fb;
+	}
+	public function getTw(){
+		return $this->tw;
+	}
 }
-
-
-
 
 ?>

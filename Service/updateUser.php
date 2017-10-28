@@ -15,17 +15,20 @@ $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon
 
 $responseArr = array();
 if (!$conn) {
+//echo "not conn";
 	$responseArr["result"] = false;
 	$responseArr["details"] =  mysqli_connect_error();
-    die($responseArr["details"]);
+    die($responseArr);
 }
-
-$sql = "UPDATE user SET name= ".$name." ,department=".$department." ,dob=".$dob.",gender = ".$gender.", email=".$email." ,hireDate =".$hiteDate."  WHERE id=".$userId ;
-
+mysqli_set_charset($conn,"utf8");
+$sql = "UPDATE user SET name= '".$name."' ,department='".$department."' ,dob='".$dob."',gender = '".$gender."', email='".$email."',phone='".$phone."',homeAddress='".$homeAddress."' ,hireDate ='".$hireDate."'  WHERE id=".$userId ;
+//echo $sql;
 if (mysqli_query($conn, $sql)) {
+//echo "if";
     $responseArr["result"] = true;
 	echo json_encode($responseArr);
 } else {
+//echo "else".mysqli_error($conn);
     $responseArr["result"] = false;
 	$responseArr["details"] = mysqli_error($conn);
 	echo json_encode($responseArr);

@@ -22,12 +22,54 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 		   "text":"My first Infobip SMS"
 		}
 
-	$scope.sendSMS = function(){	
+	$scope.sendSMS = function(groupObj){
+		//console.log(groupObj);
+		
 
-		API.sendSMS(SMSdata).then(function(response){
-			console.log(response);
+		console.log(phNoArr)
 
-		})	
+		if(!groupObj || !groupObj.id) {
+			alert("Please select group");
+			return;
+		}
+		else if(groupObj.Members.length <=0) {
+			alert("No Members in group");
+		}
+		else {
+			
+				var phNoArr = [];
+				groupObj.Members.forEach(function(item){
+					if(item && item.phone && item.phone.length >1) {
+						phNoArr.push(item.phone);
+					}
+				});
+
+				if(phNoArr.length <= 0) {
+					alert("No Phone Numbers attached to Members");
+					return;
+				}
+			//	console.log(phNoArr);
+				
+				var encoded = "VVBTQUlMMTpVMjQyODk3bA==";
+				$.ajax({
+	  			type:"POST",
+	  			url:"https://api.infobip.com/sms/1/text/multi",
+	  			headers:{
+	  				"Authorization": "Basic "+encoded,
+	  				"Content-Type":"application/json",
+	  				"Accept":"application/json"			
+	  			},
+	  			data:JSON.stringify({
+	  				   "from": $scope.smsFrom || "Raffia",
+					   "to":phNoArr,
+					   "text": $scope.smsMsg
+	  			})
+
+	  		})
+				
+		}
+
+return;
 
 
 

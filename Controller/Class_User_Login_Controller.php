@@ -2,54 +2,62 @@
 
 require_once("../Models/Class_User.php");
 require_once("../Controller/StaticDBCon.php");
-
+ header("Access-Control-Allow-Origin: *");
 class UserLoginController{
-	
-	public function getUser($userName,$password){
-		
-            $usr = new User("","","","","","","","","");
-            $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
-            if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-            }
-            $sql = "SELECT * FROM user where email='".$userName."' and password='".$password."' limit 1;";
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    $usr = new User($row["name"],$row["department"],$row["hireDate"],$row["dob"],$row["gender"],$row["homeAddress"],$row["email"],$row["phone"],$row["profilePic"]);  
-                    $usr->isSignedIn = TRUE;
-                    $usr->message = "Signin Success!";
+
+            public function getUser($userName,$password){
+				$nowTime = date("Y-m-d H:i:s");
+                $usr = new User("0","","","","","","","","","");
+                $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
+                if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
                 }
-            } else {
-                $usr = new User("","","","","","","","","");
-                $usr->isSignedIn = FALSE;
-                $usr->message = "Signin Failed!";
+                $sql = "SELECT * FROM user where email='".$userName."' and password='".$password."' limit 1;";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                	$userId = '';	
+                    while($row = $result->fetch_assoc()) {
+                        $usr = new User($row["id"],$row["name"],$row["department"],$row["hireDate"],$row["dob"],$row["gender"],$row["homeAddress"],$row["email"],$row["phone"],$row["profilePic"]);  
+                        $usr->isSignedIn = TRUE;
+                        $usr->message = "Signin Success!";
+                        $userId = $row['id'];
+                    }
+					
+			$insertTimeSql = "UPDATE user SET lastactive = '".$nowTime."' WHERE id=".$userId;
+			$conn->query($insertTimeSql);
+					
+					
+                } else {
+                    $usr = new User("","","","","","","","","");
+                    $usr->isSignedIn = FALSE;
+                    $usr->message = "Signin Failed!";
+                }
+                $conn->close();
+                return $usr;
+            }	
+
+            public function getUserJson($userName,$password){
+                $usr = $this->getUser($userName,$password);
+                $jsonStr = "";
+                if ($usr->isSignedIn) {
+                    $jsonStr = '{"responce":true,';
+                    $jsonStr.='"name":"'.$usr->getName().'",';
+                    $jsonStr.='"id":"'.$usr->getId().'",';
+                    $jsonStr.='"department":"'.$usr->getDepartment().'",';
+                    $jsonStr.='"hireDate":"'.$usr->getHireDate().'",';
+                    $jsonStr.='"dob":"'.$usr->getDob().'",';
+                    $jsonStr.='"gender":"'.$usr->getGender().'",';
+                    $jsonStr.='"homeAddress":"'.$usr->getHomeAddress().'",';
+                    $jsonStr.='"email":"'.$usr->getEmail().'",';
+                    $jsonStr.='"profilePic":"'.$usr->getProfilePic().'",';
+                    $jsonStr.='"phone":"'.$usr->getPhone().'"}';
+                }  else {
+                    $jsonStr = '{"responce":false,';
+                    $jsonStr.='"message":"'.$usr->getMessage().'"}';
+                }
+                return $jsonStr;
+
             }
-            $conn->close();
-            return $usr;
-	}	
-	
-	public function getUserJson($userName,$password){
-            $usr = $this->getUser($userName,$password);
-            $jsonStr = "";
-            if ($usr->isSignedIn) {
-                $jsonStr = '{"responce":true,';
-                $jsonStr.='"name":"'.$usr->getName().'",';
-                $jsonStr.='"department":"'.$usr->getDepartment().'",';
-                $jsonStr.='"hireDate":"'.$usr->getHireDate().'",';
-                $jsonStr.='"dob":"'.$usr->getDob().'",';
-                $jsonStr.='"gender":"'.$usr->getGender().'",';
-                $jsonStr.='"homeAddress":"'.$usr->getHomeAddress().'",';
-                $jsonStr.='"email":"'.$usr->getEmail().'",';
-                $jsonStr.='"profilePic":"'.$usr->getProfilePic().'",';
-                $jsonStr.='"phone":"'.$usr->getPhone().'"}';
-            }  else {
-                $jsonStr = '{"responce":false,';
-                $jsonStr.='"message":"'.$usr->getMessage().'"}';
-            }
-            return $jsonStr;
-		
-	}
         
         
 	public function addUser($name, $department, $hireDate, $dob, $gender, $homeAddress, $email, $phone, $profilePic, $password){

@@ -3,7 +3,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	
 	var callAPI = {}; 
   //  var baseHttpUrl = "/angularphp/template/Angular_Full_Version/Service";
-	var baseHttpUrl = 'https://upsailgroup.herokuapp.com/Service';
+	var baseHttpUrl = 'http://raffia.co/Service';
     
 	callAPI.getAllEmpl = function(){
 			return  $http({

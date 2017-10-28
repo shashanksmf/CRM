@@ -1,7 +1,7 @@
 <?php 
 	
 	//http://localhost/wehnc/Service/GetUserData.php?id=1
-	
+	ob_start();
 	
 	$dats = '';
 	$dats = @$_GET['name'];
@@ -10,6 +10,7 @@
 	require_once("../Controller/Class_User_Controller.php");
 	$controller = new UserController();
 	//header('Content-Type: application/json');
-	echo $controller->getUserJson($dats);
+	ob_clean();
+	echo $controller->getUserNameJson($dats);
 
 ?>

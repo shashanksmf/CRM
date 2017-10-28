@@ -4,10 +4,11 @@
 
 class User{
 	
+	private $id;
 	public $isSignedUp;
 	public $isSignedIn;
 	public $message;
-        private $name;
+	private $name;
 	private $department;
 	private $hireDate;
 	private $dob;
@@ -17,7 +18,8 @@ class User{
 	private $phone;
 	private $profilePic;
 	
-	public function __construct ( $Name, $Department, $HireDate, $Dob, $Gender, $HomeAddress, $Email, $PhoneNumber, $ProfilePic) {
+	public function __construct ($Id, $Name, $Department, $HireDate, $Dob, $Gender, $HomeAddress, $Email, $PhoneNumber, $ProfilePic) {
+            $this->id = $Id;
             $this->name = $Name;
             $this->department = $Department;
             $this->hireDate = $HireDate;
@@ -31,6 +33,10 @@ class User{
 	
 	public function getName(){
 		return $this->name;
+	}
+	
+	public function getId(){
+		return $this->id;
 	}
 	public function getDepartment(){
 		return $this->department;
