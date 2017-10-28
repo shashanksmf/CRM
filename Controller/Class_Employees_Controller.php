@@ -16,7 +16,7 @@
                     $sql = "SELECT * FROM employee ";
                 }else{
                 //	$sql = "SELECT * FROM erp_crm.employee inner join company on company.id = employee.companyId where company.id='".$id."';";
-                    $sql = "SELECT * FROM erp_crm.employee where id='".$id."';";
+                    $sql = "SELECT * FROM employee where id='".$id."';";
                 }
 
                 $result = $conn->query($sql);
@@ -353,7 +353,7 @@
                     $sql = "SELECT * FROM employee";
                 }else{
                 //	$sql = "SELECT * FROM erp_crm.employee inner join company on company.id = employee.companyId where company.id='".$id."';";
-                    $sql = "SELECT * FROM erp_crm.employee where id='".$id."';";
+                    $sql = "SELECT * FROM employee where id='".$id."';";
                 }
 
                 $result = $conn->query($sql);
@@ -410,7 +410,7 @@
                 }
               
                 //	$sql = "SELECT * FROM erp_crm.employee inner join company on company.id = employee.companyId where company.id='".$id."';";
-                $sql = "SELECT * FROM erp_crm.employee where name LIKE '%".$term."%' LIMIT 10;";
+                $sql = "SELECT * FROM employee where name LIKE '%".$term."%' LIMIT 10;";
                 
 
                 $result = $conn->query($sql);
