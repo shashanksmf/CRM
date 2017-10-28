@@ -13,7 +13,7 @@
 	require_once("../Controller/Class_Group_Controller.php");
 	$controller = new GroupController();
 	header('Content-Type: application/json');
-//	ob_clean();
+	ob_clean();
 	echo $controller->updateGroupJson($id,$members);
 
 	
