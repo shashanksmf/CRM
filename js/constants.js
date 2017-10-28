@@ -1,9 +1,9 @@
 var inspinia = angular.module('inspinia');
 inspinia.constant('crmconfig', {
 
-  serverDomainName: 'http://raffia.co',
+  serverDomainName: 'https://upsailgroup.herokuapp.com',
   defaultUserPic:'img/default-avatar.png',
-  servicePath:'http://raffia.co/Service',
-  uploadFolder:'http://raffia.co/uploads',
-  rootFilesUrl :'http://raffia.co/files/Files/'	  
+  servicePath:'https://upsailgroup.herokuapp.com/Service',
+  uploadFolder:'https://upsailgroup.herokuapp.com/uploads',
+  rootFilesUrl :'https://upsailgroup.herokuapp.com/files/Files/'	  
 });
