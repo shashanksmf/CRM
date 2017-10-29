@@ -307,7 +307,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
             return crmconfig.defaultUserPic;
         }
         else{
-            return crmconfig. +serverDomainName +"/"+ profilepic;
+            return crmconfig.serverDomainName +"/"+ profilepic;
         }
     }
 
