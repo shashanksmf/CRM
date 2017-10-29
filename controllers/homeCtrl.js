@@ -15,9 +15,11 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','
     $rootScope.searchInput = '';
     $scope.emplId = [];
     $scope.tagSearchedDetails = [];
+    $scope.crmconfig = { "serverDomainName" : crmconfig.serverDomainName };
     //var baseHttpUrl = '/angularphp/template/Angular_Full_Version/Service';
     //var baseHttpUrl = 'http://jaiswaldevelopers.com/CRMV1/Service';    
     var baseHttpUrl = crmconfig.serverDomainName +'/Service';
+
     
     // code to load employee tabel
    API.getAllEmpl()
