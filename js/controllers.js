@@ -311,6 +311,8 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
         }
     }
 
+    
+
     $scope.getChatboxUserProfilePic = function(profilepic){
         if(profilepic && profilepic.length > 0) {
             return profilepic;
