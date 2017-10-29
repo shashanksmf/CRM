@@ -1,5 +1,6 @@
 <?php
-$the_folder = 'uploads';
+$upload_asset = 'uploads';
+$files_asset = "files";
 $zip_file_name = 'dwuploadedAssets.zip';
 
 class FlxZipArchive extends ZipArchive {
@@ -25,14 +26,28 @@ class FlxZipArchive extends ZipArchive {
 
 $za = new FlxZipArchive;
 $res = $za->open($zip_file_name, ZipArchive::CREATE);
+$isfolderexists = false;
 if($res === TRUE)    {
-    $za->addDir($the_folder, basename($the_folder)); $za->close();
+    if(file_exists($upload_asset)) {
+        $za->addDir($upload_asset, basename($upload_asset));
+        $isfolderexists = true;    
+    } 
 
-    header("Content-type: application/zip"); 
-    header("Content-Disposition: attachment; filename=$zip_file_name"); 
-    header("Pragma: no-cache"); 
-    header("Expires: 0"); 
-    readfile("$zip_file_name");
+    if(file_exists($files_asset)) {
+        $za->addDir($files_asset, basename($files_asset)); 
+        $isfolderexists = true;   
+    } 
+
+    $za->close();
+
+    if($isfolderexists == true) {
+        header("Content-type: application/zip"); 
+        header("Content-Disposition: attachment; filename=$zip_file_name"); 
+        header("Pragma: no-cache"); 
+        header("Expires: 0"); 
+        readfile("$zip_file_name");    
+    }
+    
     exit;
 }
 else  { echo 'Could not create a zip archive';}

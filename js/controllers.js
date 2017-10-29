@@ -249,6 +249,8 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
     $scope.logout = function(){
         $rootScope.userId = undefined;
         localStorage.removeItem("userId");
+        localStorage.removeItem("userName");
+        localStorage.removeItem("userEmail");
         $rootScope.friendList = null;
         $rootScope.chats = null;
         userId = null;
