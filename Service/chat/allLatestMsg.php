@@ -2,6 +2,7 @@
 <?php
 ob_start();
 ob_clean();
+header("Access-Control-Allow-Origin: *");
 header('Content-Type: application/json');
 require_once("../../Controller/StaticDBCon.php");
 
