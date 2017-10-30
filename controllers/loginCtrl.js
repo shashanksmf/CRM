@@ -1,7 +1,7 @@
 var inspinia = angular.module('inspinia');
 inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$state','$timeout','crmconfig', function ($scope,$rootScope,$http,$q,API,$state,$timeout,crmconfig) {
 
-	console.log("crmConfig ",crmconfig);	
+	//console.log("crmConfig ",crmconfig);	
 	$scope.loginUser = function(){
 		var user = { userName: $scope.userEmail ,  userPassword : $scope.userPassword };
 		

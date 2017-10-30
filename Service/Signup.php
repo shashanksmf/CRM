@@ -21,7 +21,8 @@
 	require_once("../Controller/Class_User_Login_Controller.php");
 	$controller = new UserLoginController();
 	header('Content-Type: application/json');
-	ob_clean();
+	
+	//ob_clean();
 	echo $controller->addUserJson($name, $department, $hireDate, $dob, $gender, $homeAddress, $email, $phone, $profilePic, $password);
 
 	
