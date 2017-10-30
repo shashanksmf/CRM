@@ -1,6 +1,8 @@
 
 <?php
 ob_start();
+ob_clean();
+header('Content-Type: application/json');
 require_once("../../Controller/StaticDBCon.php");
 
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
@@ -68,8 +70,7 @@ if (mysqli_num_rows($chatResult) > 0) {
 	$responseArr["reason"] = "No New Messages";   
 	//echo json_encode($responseArr);
 }
-header('Content-Type: application/json');
-ob_clean();
+
 $usersList = "SELECT id,name,profilePic,lastactive FROM user WHERE id <>".$userId;
 $userListResult = mysqli_query($conn,$usersList);
 $nowTime = date("Y-m-d H:i:s");
