@@ -16,6 +16,7 @@ class UserLoginController{
                 }
                 $sql = "SELECT * FROM user where email='".$userName."' and password='".$password."' limit 1;";
                 $result = $conn->query($sql);
+                exit($result);
                 if ($result->num_rows > 0) {
                 	$userId = '';	
                     while($row = $result->fetch_assoc()) {
