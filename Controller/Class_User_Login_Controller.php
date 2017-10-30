@@ -3,7 +3,7 @@
 require_once("../Models/Class_User.php");
 require_once("../Controller/StaticDBCon.php");
  header("Access-Control-Allow-Origin: *");
-exit("helklo".$jsonStr); 
+
 class UserLoginController{
 
             public function getUser($userName,$password){
@@ -89,7 +89,7 @@ class UserLoginController{
 	}	
 	
 	public function addUserJson($name, $department, $hireDate, $dob, $gender, $homeAddress, $email, $phone, $profilePic, $password){
-         
+         exit("helklo".$name); 
   $usr  = $this->addUser($name, $department, $hireDate, $dob, $gender, $homeAddress, $email, $phone, $profilePic, $password);
 		
             if ($usr->isSignedUp) {
