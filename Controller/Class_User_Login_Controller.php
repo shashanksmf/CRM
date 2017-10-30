@@ -3,6 +3,7 @@
 require_once("../Models/Class_User.php");
 require_once("../Controller/StaticDBCon.php");
  header("Access-Control-Allow-Origin: *");
+exit("helklo");
 class UserLoginController{
 
             public function getUser($userName,$password){
