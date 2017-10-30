@@ -68,7 +68,6 @@ class UserLoginController{
             $usr = new User("","","","","","","","","");
    
             if ($conn->connect_error) {
-                exit("connection failed")  
                 die("Connection failed: " . $conn->connect_error);
             }
             echo "email: ".$email;
