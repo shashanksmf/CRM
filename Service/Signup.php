@@ -17,9 +17,9 @@
 	$profilePic= @$_GET['profilePic'];
 	$password= @$_GET['password'];
 	require_once("./../Controller/Class_User_Login_Controller.php");
-
+      exit("signup file");
 	$controller = new UserLoginController();
-        exit("signup file");
+  
 	
 	header('Content-Type: application/json');
         
