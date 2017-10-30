@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 require_once("../Models/Class_User.php");
 require_once("StaticDBCon.php");
  header("Access-Control-Allow-Origin: *");
@@ -64,21 +66,21 @@ class UserLoginController{
            
  $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
             $usr = new User("","","","","","","","","");
-            exit("before conn")  
+   
             if ($conn->connect_error) {
                 exit("connection failed")  
                 die("Connection failed: " . $conn->connect_error);
             }
             echo "email: ".$email;
             $sql = "SELECT * FROM user where email='".$email."' limit 1;";
-            exit($sql);
+           
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 $usr->isSignedUp = FALSE;
                 $usr->message=$email." is already used!";
-               echo "email already in use";  
+             
             } else {
-                echo "else";
+                
                 $sql = "INSERT INTO user (name, department, hireDate, dob, gender, homeAddress, email, phone, profilePic, password)
                 VALUES ('".$name."','".$department."','".$hireDate."','".$dob."','".$gender."','".$homeAddress."','".$email."','".$phone."','".$profilePic."','".$password."')";
                 //echo 'Query : '.$sql;
@@ -95,7 +97,7 @@ class UserLoginController{
 	}	
 	
 	public function addUserJson($name, $department, $hireDate, $dob, $gender, $homeAddress, $email, $phone, $profilePic, $password){
-         exit("sadasd"); 
+      
   $usr  = $this->addUser($name, $department, $hireDate, $dob, $gender, $homeAddress, $email, $phone, $profilePic, $password);
 		
             if ($usr->isSignedUp) {
@@ -104,7 +106,7 @@ class UserLoginController{
                 $jsonStr = '{"responce":false,';
                 $jsonStr.='"message":"'.$usr->getMessage().'"}';
             }
-		exit("end");
+		
             return $jsonStr;	
 	}
 }
