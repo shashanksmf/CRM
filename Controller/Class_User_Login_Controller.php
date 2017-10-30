@@ -19,10 +19,12 @@ class UserLoginController{
                 print_r($conn);
                 $result = $conn->query($sql);
                 print_r($result);
-                exit();
+
                 if ($result->num_rows > 0) {
                 	$userId = '';	
+                echo "In If";
                     while($row = $result->fetch_assoc()) {
+                        echo "In while";
                         $usr = new User($row["id"],$row["name"],$row["department"],$row["hireDate"],$row["dob"],$row["gender"],$row["homeAddress"],$row["email"],$row["phone"],$row["profilePic"]);  
                         $usr->isSignedIn = TRUE;
                         $usr->message = "Signin Success!";
