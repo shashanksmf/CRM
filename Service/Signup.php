@@ -5,7 +5,7 @@
 	//Link -> localhost/wehnc/Service/GetEmplData.php
 	
 	
-	ob_start();	
+	//ob_start();	
 	$name = @$_GET['name'];
 	$department= @$_GET['departmen'];
 	$hireDate= @$_GET['hireDate'];
@@ -16,8 +16,8 @@
 	$phone= @$_GET['phone'];
 	$profilePic= @$_GET['profilePic'];
 	$password= @$_GET['password'];
-	
-	require_once("./../Controller/Class_User_Login_Controller.php");
+	exit("signup file");
+	require_once("../Controller/Class_User_Login_Controller.php");
 	$controller = new UserLoginController();
 	header('Content-Type: application/json');
         
