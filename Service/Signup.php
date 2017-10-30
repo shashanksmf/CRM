@@ -16,8 +16,8 @@
 	$phone= @$_GET['phone'];
 	$profilePic= @$_GET['profilePic'];
 	$password= @$_GET['password'];
-exit("signup file");
-	include("./../Controller/Class_User_Login_Controller.php");
+
+	require_once("../Controller/Class_User_Login_Controller.php");
       
 	$controller = new UserLoginController();
   
