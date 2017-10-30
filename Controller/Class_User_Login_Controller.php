@@ -91,7 +91,7 @@ class UserLoginController{
 	public function addUserJson($name, $department, $hireDate, $dob, $gender, $homeAddress, $email, $phone, $profilePic, $password){
          
   $usr  = $this->addUser($name, $department, $hireDate, $dob, $gender, $homeAddress, $email, $phone, $profilePic, $password);
-		echo "hello"; 
+		exit("hello"); 
             if ($usr->isSignedUp) {
                 $jsonStr = '{"responce":true}';
             }  else {
