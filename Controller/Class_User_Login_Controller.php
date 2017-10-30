@@ -3,7 +3,7 @@
 require_once("../Models/Class_User.php");
 require_once("../Controller/StaticDBCon.php");
  header("Access-Control-Allow-Origin: *");
-
+exit("helklo".$jsonStr); 
 class UserLoginController{
 
             public function getUser($userName,$password){
@@ -98,7 +98,7 @@ class UserLoginController{
                 $jsonStr = '{"responce":false,';
                 $jsonStr.='"message":"'.$usr->getMessage().'"}';
             }
-		exit("helklo".$jsonStr); 
+		
             return $jsonStr;	
 	}
 }
