@@ -65,14 +65,19 @@ class UserLoginController{
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
             $usr = new User("","","","","","","","","");
             if ($conn->connect_error) {
+                exit("connection failed")  
                 die("Connection failed: " . $conn->connect_error);
             }
+            echo "email: ".$email;
             $sql = "SELECT * FROM user where email='".$email."' limit 1;";
+            exit($sql);
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 $usr->isSignedUp = FALSE;
                 $usr->message=$email." is already used!";
+               echo "email already in use";  
             } else {
+                echo "else";
                 $sql = "INSERT INTO user (name, department, hireDate, dob, gender, homeAddress, email, phone, profilePic, password)
                 VALUES ('".$name."','".$department."','".$hireDate."','".$dob."','".$gender."','".$homeAddress."','".$email."','".$phone."','".$profilePic."','".$password."')";
                 //echo 'Query : '.$sql;
