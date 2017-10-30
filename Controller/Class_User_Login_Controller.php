@@ -15,6 +15,8 @@ class UserLoginController{
                         die("Connection failed: " . $conn->connect_error);
                 }
                 $sql = "SELECT * FROM user where email='".$userName."' and password='".$password."' limit 1;";
+                echo $sql;
+                print_r($conn);
                 $result = $conn->query($sql);
                 exit($result);
                 if ($result->num_rows > 0) {
