@@ -1,4 +1,6 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header('Content-Type: application/json');
 require_once("../../Controller/StaticDBCon.php");
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 if (!$conn) {
