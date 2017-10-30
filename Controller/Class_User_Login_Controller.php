@@ -18,7 +18,8 @@ class UserLoginController{
                 echo $sql;
                 print_r($conn);
                 $result = $conn->query($sql);
-                exit($result);
+                print_r($result);
+                exit();
                 if ($result->num_rows > 0) {
                 	$userId = '';	
                     while($row = $result->fetch_assoc()) {
