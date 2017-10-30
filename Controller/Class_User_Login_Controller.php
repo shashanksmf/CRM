@@ -64,6 +64,7 @@ class UserLoginController{
 	public function addUser($name, $department, $hireDate, $dob, $gender, $homeAddress, $email, $phone, $profilePic, $password){
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
             $usr = new User("","","","","","","","","");
+            exit("before conn")  
             if ($conn->connect_error) {
                 exit("connection failed")  
                 die("Connection failed: " . $conn->connect_error);
