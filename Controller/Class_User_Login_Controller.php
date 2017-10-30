@@ -1,7 +1,6 @@
 <?php
-exit("top");
 require_once("../Models/Class_User.php");
-require_once("../Controller/StaticDBCon.php");
+require_once("StaticDBCon.php");
  header("Access-Control-Allow-Origin: *");
  
 class UserLoginController{
@@ -62,7 +61,7 @@ class UserLoginController{
         
         
 	public function addUser($name, $department, $hireDate, $dob, $gender, $homeAddress, $email, $phone, $profilePic, $password){
-  exit("add user")             
+           
  $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
             $usr = new User("","","","","","","","","");
             exit("before conn")  
