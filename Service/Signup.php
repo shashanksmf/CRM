@@ -17,7 +17,7 @@
 	$profilePic= @$_GET['profilePic'];
 	$password= @$_GET['password'];
 	
-	require_once("../Controller/Class_User_Login_Controller.php");
+	require_once("./../Controller/Class_User_Login_Controller.php");
 	$controller = new UserLoginController();
 	header('Content-Type: application/json');
         
