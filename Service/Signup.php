@@ -21,7 +21,7 @@
 	$controller = new UserLoginController();
 	header('Content-Type: application/json');
 	echo "yeah".$name;
-        exit();
+       // exit();
 	//ob_clean();
 	echo $controller->addUserJson($name, $department, $hireDate, $dob, $gender, $homeAddress, $email, $phone, $profilePic, $password);
 
