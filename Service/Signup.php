@@ -16,9 +16,11 @@
 	$phone= @$_GET['phone'];
 	$profilePic= @$_GET['profilePic'];
 	$password= @$_GET['password'];
-	exit("signup file");
 	require_once("../Controller/Class_User_Login_Controller.php");
+
 	$controller = new UserLoginController();
+        exit("signup file");
+	
 	header('Content-Type: application/json');
         
 	//ob_clean();
