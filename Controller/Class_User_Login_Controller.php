@@ -30,7 +30,7 @@ class UserLoginController{
 					
 					
                 } else {
-                    $usr = new User("","","","","","","","","");
+                    $usr = new User("","","","","","","","","","");
                     $usr->isSignedIn = FALSE;
                     $usr->message = "Signin Failed!";
                 }
