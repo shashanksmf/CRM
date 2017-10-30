@@ -1,6 +1,7 @@
 
 <?php
 require_once("../../Controller/StaticDBCon.php");
+header('Content-Type: application/json');
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
