@@ -89,16 +89,16 @@ class UserLoginController{
 	}	
 	
 	public function addUserJson($name, $department, $hireDate, $dob, $gender, $homeAddress, $email, $phone, $profilePic, $password){
-         exit("helklo".$name); 
+         
   $usr  = $this->addUser($name, $department, $hireDate, $dob, $gender, $homeAddress, $email, $phone, $profilePic, $password);
-		
+		echo "hello"; 
             if ($usr->isSignedUp) {
                 $jsonStr = '{"responce":true}';
             }  else {
                 $jsonStr = '{"responce":false,';
                 $jsonStr.='"message":"'.$usr->getMessage().'"}';
             }
-		
+		exit("end");
             return $jsonStr;	
 	}
 }
