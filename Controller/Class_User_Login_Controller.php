@@ -65,12 +65,12 @@ class UserLoginController{
 	public function addUser($name, $department, $hireDate, $dob, $gender, $homeAddress, $email, $phone, $profilePic, $password){
            
  $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
-            $usr = new User("","","","","","","","","");
+            $usr = new User("","","","","","","","","","");
    
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-            echo "email: ".$email;
+		
             $sql = "SELECT * FROM user where email='".$email."' limit 1;";
            
             $result = $conn->query($sql);
