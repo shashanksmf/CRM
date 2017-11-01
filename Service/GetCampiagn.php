@@ -13,7 +13,7 @@ ini_set('display_errors', '1');
 
 	require_once("../Controller/Class_Campaign_Controller.php");
 	$controller = new CampaignController();
-	$controller->apiKey = getenv("mailChimpApiKey")
+	$controller->apiKey = getenv("mailChimpApiKey");
 	header('Content-Type: application/json');
 	ob_clean();
 	echo $controller->getCampaignJson($dats);
