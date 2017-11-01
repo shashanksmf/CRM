@@ -126,6 +126,7 @@ class GroupController{
         public function addNewGroup($name,$details,$admin,$members,$createdOn){
             $membersCount="";
             $emailMgr = new EmailMgr();
+            $emailMgr->apiKey = getenv("mailChimpApiKey");
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
             $grp = new Group("","","","","","","");
             if ($conn->connect_error) {
@@ -172,6 +173,7 @@ class GroupController{
         public function updateGroup($id,$members){
             $membersCount="";
             $emailMgr = new EmailMgr();
+            $emailMgr->apiKey = getenv("mailChimpApiKey");
                     
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
             $grp = new Group("","","","","","","");
@@ -241,7 +243,7 @@ class GroupController{
         public function updateGroup2($id,$segId){
             $membersCount="";
             $emailMgr = new EmailMgr();
-                    
+            $emailMgr->apiKey = getenv("mailChimpApiKey");
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
             $grp = new Group("","","","","","","");
             if ($conn->connect_error) {

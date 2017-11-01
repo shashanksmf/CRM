@@ -14,7 +14,7 @@ require('../libs/mandril/Mandrill.php');
         
        $emlMgr = new EmailMgr();
        
-       
+       $emlMgr->apiKey = getenv("mailChimpApiKey");
        
        
        

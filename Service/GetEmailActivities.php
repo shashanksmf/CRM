@@ -12,6 +12,7 @@
 
 	require_once("../Controller/EmailMgr.php");
 	$controller = new EmailMgr();
+	$controller->apiKey = getenv("mailChimpApiKey");
 	header('Content-Type: application/json');
 	
 	ob_clean(); 

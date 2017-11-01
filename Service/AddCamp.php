@@ -24,6 +24,7 @@ require('../libs/mandril/Mandrill.php');
 	$groupId = $_POST['groupId'];
         
        $emlMgr = new EmailMgr();
+       $emlMgr->apiKey = getenv("mailChimpApiKey");
        $resAr = array();
        $camps = new CampaignController();
        
