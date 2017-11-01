@@ -59,7 +59,7 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 				var msgObj = { "messages" : [] };
 				groupObj.Members.forEach(function(item){
 					if(item && item.phone && item.phone.length >1) {
-						msgObj.messages.push({ "from" : smsSenderName , "to" : item.phone , "text" : smsText });
+						msgObj.messages.push({ "from" : $scope.smsSenderName , "to" : item.phone , "text" : $scope.smsText });
 					}
 				});
 
