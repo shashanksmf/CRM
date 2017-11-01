@@ -75,8 +75,11 @@ class GroupController{
 
             $sql = "SELECT * FROM employee where id in(".$ids.");";
             //echo 'Query: '.$sql;
+            ob_start();
             $result = $conn->query($sql);
+
             if ($result->num_rows > 0) {
+                ob_clean();
                 $i = 0;
                 while($row = $result->fetch_assoc()) {
                     //$usr = new User($row["id"],$row["name"],$row["department"],$row["hireDate"],$row["dob"],$row["gender"],$row["homeAddress"],$row["email"],$row["phone"],$row["profilePic"]);
@@ -87,6 +90,7 @@ class GroupController{
                     $i++;
                 }
             } else {
+                ob_clean();
                    // echo "0 results";
             }
             $conn->close();
