@@ -1,7 +1,8 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-global $mailChimpApiKey = getenv("mailChimpApiKey");
+global $mailChimpApiKey;
+$mailChimpApiKey = getenv("mailChimpApiKey");
 
 /*
  * To change this license header, choose License Headers in Project Properties.
