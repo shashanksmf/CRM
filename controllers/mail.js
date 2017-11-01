@@ -27,18 +27,18 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 			{  
 			   "from":"InfoSMS",
 			   "to":"+918983485655",
-			   "text":"My first Infobip SMS"
-			},
-			{  
-			   "from":"FromShasahnk",
-			   "to":"+918989012123",
-			   "text":"Hello Anil how are You?"
-			},
-			{  
-			   "from":"FromShashank",
-			   "to":"+919589496829",
-			   "text":"Hello Jitu how are you?"
+			   "text":"Yoo Infobip SMS"
 			}
+			// {  
+			//    "from":"FromShasahnk",
+			//    "to":"+918989012123",
+			//    "text":"Hello Anil how are You?"
+			// },
+			// {  
+			//    "from":"FromShashank",
+			//    "to":"+919589496829",
+			//    "text":"Hello Jitu how are you?"
+			// }
 		]
 	}
 		
