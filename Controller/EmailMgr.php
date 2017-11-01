@@ -1,6 +1,8 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
+echo "hello".getenv("mailChimpApiKey");
+exit();
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,11 +13,10 @@ ini_set('display_errors', '1');
  * Description of EmailMgr
  *
  */
-echo "hello".getenv("mailChimpApiKey");
-exit();
+
 class EmailMgr {
     //put your code here
-    const $apiKey = getenv("mailChimpApiKey");
+    public $apiKey = getenv("mailChimpApiKey");
 
     function generateRandomString($length = 6) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
