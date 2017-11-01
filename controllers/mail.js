@@ -47,8 +47,6 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 		//console.log(groupObj);
 		
 
-		console.log(phNoArr)
-
 		if(!groupObj || !groupObj.id) {
 			alert("Please select group");
 			return;
@@ -58,10 +56,10 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 		}
 		else {
 			
-				var phNoArr = [];
+				var msgObj = { "messages" : [] };
 				groupObj.Members.forEach(function(item){
 					if(item && item.phone && item.phone.length >1) {
-						phNoArr.push(item.phone);
+						msgObj.messages.push({ "from" : smsSenderName , "to" : item.phone , "text" : smsText });
 					}
 				});
 
@@ -82,7 +80,7 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 	  				"Content-Type":"application/json",
 	  				"Accept":"application/json"			
 	  			},
-	  			data:JSON.stringify(multiSms)
+	  			data:JSON.stringify(msgObj)
 
 	  		})
 				

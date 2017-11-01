@@ -93,13 +93,13 @@
         </div>
         <div class="modal-body addCampaignModalBody">
          	
-         	<input type="text" class="form-control" placeholder="Sender Name" >
+         	<input type="text" class="form-control" placeholder="Sender Name" ng-model="smsSenderName" >
 
          	<select id="groupDropDown" ng-model="group.id" ng-options="group.name for group in groups.Groups">
          		<option ></option>
          	</select>
 
-         	<textarea class="form-control" placeholder="Message or body"></textarea>
+         	<textarea class="form-control" placeholder="Message or body" ng-model="smsText"></textarea>
 
 
          	<button class="btn btn-primary" ng-click="sendSMS(group.id)">Send SMS</button>
