@@ -17,7 +17,7 @@ class EmailMgr {
     public $apiKey = "";
 
     public function __construct(mailChimpApiKey) {
-        $this->apiKey = apikey;
+        $this->apiKey = mailChimpApiKey;
     }
 
     function generateRandomString($length = 6) {
