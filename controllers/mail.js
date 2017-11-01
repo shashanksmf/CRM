@@ -59,11 +59,7 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 	  				"Content-Type":"application/json",
 	  				"Accept":"application/json"			
 	  			},
-	  			data:JSON.stringify({
-	  				   "from": $scope.smsFrom || "Raffia",
-					   "to":phNoArr,
-					   "text": $scope.smsMsg
-	  			})
+	  			data:JSON.stringify(SMSdata)
 
 	  		})
 				
