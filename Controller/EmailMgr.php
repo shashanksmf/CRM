@@ -11,6 +11,8 @@ ini_set('display_errors', '1');
  * Description of EmailMgr
  *
  */
+echo getenv("mailChimpApiKey");
+exit();
 class EmailMgr {
     //put your code here
     const apiKey = getenv("mailChimpApiKey");
