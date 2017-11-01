@@ -20,7 +20,28 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 		   "from":"InfoSMS",
 		   "to":"+918983485655",
 		   "text":"My first Infobip SMS"
-		}
+		};
+
+	var multiSms = {
+		"messages" : [
+			{  
+			   "from":"InfoSMS",
+			   "to":"+918983485655",
+			   "text":"My first Infobip SMS"
+			},
+			{  
+			   "from":"FromShasahnk",
+			   "to":"+918989012123",
+			   "text":"Hello Anil how are You?"
+			},
+			{  
+			   "from":"FromShashank",
+			   "to":"+919589496829",
+			   "text":"Hello Jitu how are you?"
+			}
+		]
+	}
+		
 
 	$scope.sendSMS = function(groupObj){
 		//console.log(groupObj);
@@ -54,13 +75,14 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 				var encoded = "VVBTQUlsMTpVMjQyODk3bA==";
 				$.ajax({
 	  			type:"POST",
-	  			url:"https://api.infobip.com/sms/1/text/single",
+	  			//url:"https://api.infobip.com/sms/1/text/single",
+	  			url:"https://api.infobip.com/sms/1/text/multi"
 	  			headers:{
 	  				"Authorization": "Basic "+encoded,
 	  				"Content-Type":"application/json",
 	  				"Accept":"application/json"			
 	  			},
-	  			data:JSON.stringify(SMSdata)
+	  			data:JSON.stringify(multiSms)
 
 	  		})
 				

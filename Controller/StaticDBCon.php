@@ -18,5 +18,10 @@ class StaticDBCon {
     public static $username = "b0a609ade3f255";
     public static $password = "88e3f7a9";
     public static $dbname = "heroku_8741ac758f86db8";
+
+    //    public static $servername = "localhost:3306";
+    // public static $username = "root";
+    // public static $password = "";
+    // public static $dbname = "erp_crm";
     
 }
