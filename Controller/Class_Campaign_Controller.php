@@ -57,7 +57,7 @@ class CampaignController{
                 $jsonStr.='"subject":"'.$grp->subject.'",';
                 $jsonStr.='"html":"'.urlencode ($grp->body).'",';
                 $jsonStr.='"recievedBy":"'.$grp->recievedBy.'",';
-                $jsonStr.='"groupId":"'.$grp->groupId.'",';
+                $jsonStr.='"groupId":"'.@$grp->groupId.'",'
                 $jsonStr.='"tempId":"'.$grp->tempId.'",';
                 $jsonStr.='"createdOn":"'.$grp->dates.'"}';
                 $i--;
