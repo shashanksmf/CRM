@@ -50,10 +50,11 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 				}
 			//	console.log(phNoArr);
 				
-				var encoded = "VVBTQUlMMTpVMjQyODk3bA==";
+				//var encoded = "VVBTQUlMMTpVMjQyODk3bA==";
+				var encoded = "VVBTQUlsMTpVMjQyODk3bA==";
 				$.ajax({
 	  			type:"POST",
-	  			url:"https://api.infobip.com/sms/1/text/multi",
+	  			url:"https://api.infobip.com/sms/1/text/single",
 	  			headers:{
 	  				"Authorization": "Basic "+encoded,
 	  				"Content-Type":"application/json",
