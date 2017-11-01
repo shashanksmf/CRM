@@ -75,7 +75,7 @@ class GroupController{
                     die("Connection failed: " . $conn->connect_error);
             } 
 
-            $sql = "SELECT * FROM ".StaticDBCon::$dbname.".employee where id in(".$ids.");";
+            $sql = "SELECT * FROM employee where id in(".$ids.");";
             //echo 'Query: '.$sql;
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
