@@ -18,7 +18,7 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 
    var SMSdata =  {  
 		   "from":"InfoSMS",
-		   "to":"8983485655",
+		   "to":"+918983485655",
 		   "text":"My first Infobip SMS"
 		}
 
