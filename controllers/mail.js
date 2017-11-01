@@ -63,7 +63,7 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 					}
 				});
 
-				if(phNoArr.length <= 0) {
+				if(msgObj.messages.length <= 0) {
 					alert("No Phone Numbers attached to Members");
 					return;
 				}
@@ -80,7 +80,10 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 	  				"Content-Type":"application/json",
 	  				"Accept":"application/json"			
 	  			},
-	  			data:JSON.stringify(msgObj)
+	  			data:JSON.stringify(msgObj),
+	  			success:function(response){
+	  				console.log("response",response);
+	  			}
 
 	  		})
 				
