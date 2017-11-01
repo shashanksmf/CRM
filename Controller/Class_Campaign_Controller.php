@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
 require_once("../Models/Class_Campaign.php");
 require_once("../Controller/StaticDBCon.php");
 
@@ -57,7 +55,7 @@ class CampaignController{
                 $jsonStr.='"subject":"'.$grp->subject.'",';
                 $jsonStr.='"html":"'.urlencode ($grp->body).'",';
                 $jsonStr.='"recievedBy":"'.$grp->recievedBy.'",';
-                $jsonStr.='"groupId":"'.@$grp->groupId.'",'
+                $jsonStr.='"groupId":"'.$grp->groupId.'",'
                 $jsonStr.='"tempId":"'.$grp->tempId.'",';
                 $jsonStr.='"createdOn":"'.$grp->dates.'"}';
                 $i--;
