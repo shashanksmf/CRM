@@ -10,11 +10,10 @@ ini_set('display_errors', '1');
 /**
  * Description of EmailMgr
  *
- * @author sanwe
  */
 class EmailMgr {
     //put your code here
-    const $apiKey = getenv("mailChimpApiKey");
+    const apiKey = getenv("mailChimpApiKey");
 
     function generateRandomString($length = 6) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
