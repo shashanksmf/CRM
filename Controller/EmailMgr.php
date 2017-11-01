@@ -14,11 +14,7 @@ ini_set('display_errors', '1');
  */
 class EmailMgr {
     //put your code here
-    public $apiKey = "";
-
-    public function __construct(mailChimpApiKey) {
-        $this->apiKey = mailChimpApiKey;
-    }
+    public $apiKey;
 
     function generateRandomString($length = 6) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
