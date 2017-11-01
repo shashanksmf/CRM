@@ -41,7 +41,7 @@ require('../libs/mandril/Mandrill.php');
         'html' => $template,
         'text' => 'Example text content',
         'subject' => $subject,
-        'from_email' => 'support@jaiswaldevelopers.com',
+        'from_email' => 'info@raffia.co',
         'from_name' => 'Online Support Mail',
         'to' => array(
             array(
@@ -50,7 +50,7 @@ require('../libs/mandril/Mandrill.php');
                 'type' => 'to'
             )
         ),
-        'headers' => array('Reply-To' => 'support@jaiswaldevelopers.com'),
+        'headers' => array('Reply-To' => 'info@raffia.co'),
         'important' => false,
         'track_opens' => null,
         'merge' => true,
