@@ -76,7 +76,7 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 				$.ajax({
 	  			type:"POST",
 	  			//url:"https://api.infobip.com/sms/1/text/single",
-	  			url:"https://api.infobip.com/sms/1/text/multi"
+	  			url:"https://api.infobip.com/sms/1/text/multi",
 	  			headers:{
 	  				"Authorization": "Basic "+encoded,
 	  				"Content-Type":"application/json",
