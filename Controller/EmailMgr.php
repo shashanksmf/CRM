@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-$mailChimpApiKey = getenv("mailChimpApiKey");
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,17 +12,20 @@ $mailChimpApiKey = getenv("mailChimpApiKey");
  * Description of EmailMgr
  *
  */
-
 class EmailMgr {
     //put your code here
-    public $apiKey = $GLOBALS["mailChimpApiKey"];
+    public $apiKey = "";
+
+    public function __construct(mailChimpApiKey) {
+        $this->apiKey = apikey;
+    }
 
     function generateRandomString($length = 6) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
         for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
+            $randomString .= $characters[rand(0, charactersLength - 1)];
         }
         return $randomString;
     }    
