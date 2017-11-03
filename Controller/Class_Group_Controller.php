@@ -6,6 +6,7 @@ require_once("../Models/Class_User.php");
 
 require_once("../Models/Class_Employees.php");
 require_once("../Controller/EmailMgr.php");
+require_once("mailChimpService.php");
 
 class GroupController{
 	
@@ -140,8 +141,11 @@ class GroupController{
                 $grp->isGroupAdded = FALSE;
                 $grp->message=$name." is already present with the same admin!";
             } else {
-                $sql = "INSERT INTO ".StaticDBCon::$dbname.".group (name, details, admin, members, membersCount, createdOn)
-                VALUES ('".$name."','".$details."','".$admin."','".$members."','".$membersCount."','".$createdOn."')";
+
+                //create segmentid from mailChimp
+
+                $sql = "INSERT INTO ".StaticDBCon::$dbname.".group (name, details, admin, members, membersCount, createdOn,segId)
+                VALUES ('".$name."','".$details."','".$admin."','".$members."','".$membersCount."','".$createdOn."','".$segmentId."')";
                 //echo 'Query : '.$sql;
                 if ($conn->query($sql) === TRUE) {
                     $grp->isGroupAdded = TRUE;
@@ -174,6 +178,7 @@ class GroupController{
         
         public function updateGroup($id,$members){
             $membersCount="";
+            $segId = FALSE;
             $emailMgr = new EmailMgr();
             $emailMgr->apiKey = getenv("mailChimpApiKey");
                     
@@ -182,39 +187,77 @@ class GroupController{
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "SELECT * FROM ".StaticDBCon::$dbname.".group where admin='".$admin."' AND name='".$name."' limit 1;";
+
+            $sql = "SELECT * FROM ".StaticDBCon::$dbname.".group where id='".$id."' limit 1;";
             $result = $conn->query($sql);
+            $groupRow = $result->fetch_assoc();
+            $membersArr = explode(",",$members);
+
+            //we are findind old members to remove from segment
+            $oldMembers = array_diff(explode(",",$groupRow['members']),$membersArr);
             
-                $sql = "UPDATE `group` SET `members` = '".$members."' WHERE `group`.`id` = ".$id.";";
-                $membersArr = explode(",",$members);
-                for($i=0;$i<sizeof($membersArr);$i++) {
-                   $memberSql = "SELECT * from employee WHERE id=".trim($membersArr[$i]);
-                 //  echo "sql".$memberSql;
-                   $selctResult = $conn->query($memberSql);
-                   if ($selctResult->num_rows > 0) {
-                         while($emplRow = $selctResult->fetch_assoc()) {
-                         	$emplEmail = $emplRow["email"]; 
-                         	$emplName = $emplRow["name"];
-                         	$resEmail = $emailMgr->addMebmberToList($emplEmail,'d0a4dda674',$emplName,'','');
- 			      //print_r($resEmail);
-    			}
-                   }
+            // get all new employees and subscribe them
+            $memberSql = "SELECT * from employee WHERE id IN (".trim($members).");";
+            $selctResult = $conn->query($memberSql);
+            $membersEmailArr = array();
+            
+            /* subscribe the user */
+            $log = array( 'datetime' => date('Y-m-d H:i:s') , 'operation' => 'updategroup');
+            $log['userSubscribed'] = array();   
+
+            if ($selctResult->num_rows > 0) {
+                while($emplRow = $selctResult->fetch_assoc()) {
+                    $emplEmail = $emplRow["email"]; 
+                    $emplName = $emplRow["name"];
+                    array_push($membersEmailArr,$emplEmail);
+                    $subEmplRes = subscribeUser($emplEmail,$emplName,$api_key,$server,$list_id);
+                    array_push($log['userSubscribed'],$subEmplRes);         
+                }
+            }
+
+             //check if segId Exists, If yes then subscribe members & removeBulk members and then addbulkMembers
+            if(isset($groupRow['segId']) && strlen($groupRow['segId']) > 0) {
+               
+                if(sizeof($oldMembers) > 0) {
+                    $oldMemberSql = "SELECT * from employee WHERE id IN (".implode(",",$oldMembers).");";
+                    $oldMemberSqlResult = $conn->query($oldMemberSql);
+                    $oldMemberEmailArr = array();
+                    while($oldMemberSqlRow = $oldMemberSqlResult->fetch_assoc()) {
+                        array_push($oldMemberEmailArr,$oldMemberSqlRow['email']);
+                    }
+
+                    if(sizeof($oldMemberEmailArr) > 0) {
+                        $removeBulkEmailReq = removeBulkMembersFromSegment($oldMemberEmailArr,$groupRow['segId'],$list_id,$mailChimpApiKey,$mailChimpSubDomainInit);
+                        $log['removeBulkEmailFromSegment'] = $removeBulkEmailReq;
+                    }
+                }
+
+                if(sizeof($membersEmailArr) > 0) {
+                    $addBulkEmailReq = addBulkMembersToSegment(diff($membersEmailArr,$oldMemberEmailArr),$segmentId,$list_id,$mailChimpApiKey,$mailChimpSubDomainInit);
+                     $log['removeBulkEmailFromSegment'] = $addBulkEmailReq;
                 }
                 
-                //echo 'Query : '.$sql;
-                if ($conn->query($sql) === TRUE) {
-                    $grp->isGroupAdded = TRUE;
-                    $segId = $this->getGroup($id);
-                    $usList = $this->getUserList($members);
-                    foreach($UserList as $empl){
-                        $emailMgr->updateSegment($empl->getEmail(), $segId);
-                    }
-                    
-                } else {
-                    //echo "Error: " . $sql . "<br>" . $conn->error;
-                    $grp->isGroupAdded = FALSE;
-                    $grp->message ="Something went wrong";
-                }
+            }
+            else {
+                //generate SegmentId and subscribe members
+                $createSegReq = createSegment($groupRow['name'],$mailChimpSubDomainInit,$emailArr,$list_id,$api_key);
+                $log['createSegment'] = $createSegReq
+                $groupRow['segId'] = $createSegReq['id'];
+             }
+
+            //echo 'Query : '.$sql;
+            $sql = "UPDATE `group` SET `members` = '".$members."',`segId` = '".$groupRow['segId']."' WHERE `group`.`id` = ".$id.";";
+            if ($conn->query($sql) === TRUE) {
+                $grp->isGroupAdded = TRUE;
+                $grp->logs = $logs;
+            } else {
+                $grp->isGroupAdded = FALSE;
+                $grp->message ="Something went wrong";
+            }
+
+            $logFile = fopen('./../logs/log-'.date('Y-m-d-H-i-s').json, "w");
+            fwrite($logFile, json_encode($logs));
+            fclose($logFile);
             
             $conn->close();
             return $grp;
@@ -234,13 +277,7 @@ class GroupController{
             }
             return $jsonStr;	
 	}
-        
-        
-        
-        
-        
-        
-        
+
         
         public function updateGroup2($id,$segId){
             $membersCount="";
@@ -295,9 +332,6 @@ class GroupController{
             return $grp;
 	}	
 	
-        
-        
-        
 }
 
 
