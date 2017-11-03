@@ -178,7 +178,7 @@ class GroupController{
         
         public function updateGroup($id,$members){
             $membersCount="";
-            $segId = FALSE;
+            $segId = "";
             $emailMgr = new EmailMgr();
             $emailMgr->apiKey = getenv("mailChimpApiKey");
                     
@@ -191,6 +191,7 @@ class GroupController{
             $sql = "SELECT * FROM ".StaticDBCon::$dbname.".group where id='".$id."' limit 1;";
             $result = $conn->query($sql);
             $groupRow = $result->fetch_assoc();
+            exit($groupRow);
             $membersArr = explode(",",$members);
 
             //we are findind old members to remove from segment
@@ -218,6 +219,7 @@ class GroupController{
              //check if segId Exists, If yes then subscribe members & removeBulk members and then addbulkMembers
             if(isset($groupRow['segId']) && strlen($groupRow['segId']) > 0) {
                
+                $segId = $groupRow['segId'];
                 if(sizeof($oldMembers) > 0) {
                     $oldMemberSql = "SELECT * from employee WHERE id IN (".implode(",",$oldMembers).");";
                     $oldMemberSqlResult = $conn->query($oldMemberSql);
@@ -236,13 +238,15 @@ class GroupController{
                     $addBulkEmailReq = addBulkMembersToSegment(diff($membersEmailArr,$oldMemberEmailArr),$segmentId,$list_id,$mailChimpApiKey,$mailChimpSubDomainInit);
                      $log['removeBulkEmailFromSegment'] = $addBulkEmailReq;
                 }
+
+
                 
             }
             else {
                 //generate SegmentId and subscribe members
                 $createSegReq = createSegment($groupRow['name'],$mailChimpSubDomainInit,$emailArr,$list_id,$api_key);
                 $log['createSegment'] = $createSegReq
-                $groupRow['segId'] = $createSegReq['id'];
+                $segId = $createSegReq['id'];
              }
 
             //echo 'Query : '.$sql;
