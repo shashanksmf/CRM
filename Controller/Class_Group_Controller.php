@@ -6,12 +6,11 @@ require_once("../Models/Class_User.php");
 
 require_once("../Models/Class_Employees.php");
 require_once("../Controller/EmailMgr.php");
-require_once("mailChimpService.php");
 
 class GroupController{
-	
-	public function getGroupList($id){
-		
+    
+    public function getGroupList($id){
+        
             $groupList = array();
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
             if ($conn->connect_error) {
@@ -36,11 +35,11 @@ class GroupController{
             }
             $conn->close();
             return $groupList;
-	}	
-	
-	
-	
-	public function getGroupJson($id){
+    }   
+    
+    
+    
+    public function getGroupJson($id){
             //echo "id : ".$id;
             $GroupList = $this->getGroupList($id);
             $jsonStr = '{"Groups":[';
@@ -62,12 +61,12 @@ class GroupController{
             $jsonStr.=']}';
 
             return $jsonStr;
-		
-	}
-	
-	        
-	public function getUserList($ids){
-		
+        
+    }
+    
+            
+    public function getUserList($ids){
+        
             $usrlList = array();
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
             if ($conn->connect_error) {
@@ -96,9 +95,9 @@ class GroupController{
             }
             $conn->close();
             return $usrlList;
-	}	
-	
-	public function getUserJson($id){
+    }   
+    
+    public function getUserJson($id){
             $UserList = $this->getUserList($id);
             $jsonStr = '"Members":[';
             $i=count($UserList);
@@ -111,7 +110,7 @@ class GroupController{
                 $jsonStr.='"email":"'.$empl->getEmail().'",';
                 $jsonStr.='"industry":"'.$empl->getIndustry().'",';
                 $jsonStr.='"location":"'.$empl->getLocation().'",';
-				$jsonStr.='"phone":"'.$empl->getPhone().'",';
+                $jsonStr.='"phone":"'.$empl->getPhone().'",';
                 $jsonStr.='"ratings":"'.$empl->getRatings().'"}';
                 $i--;
                 if($i!=0){
@@ -121,8 +120,8 @@ class GroupController{
             $jsonStr.=']';
 
             return $jsonStr;
-		
-	}
+        
+    }
         
         
         
@@ -141,11 +140,8 @@ class GroupController{
                 $grp->isGroupAdded = FALSE;
                 $grp->message=$name." is already present with the same admin!";
             } else {
-
-                //create segmentid from mailChimp
-
-                $sql = "INSERT INTO ".StaticDBCon::$dbname.".group (name, details, admin, members, membersCount, createdOn,segId)
-                VALUES ('".$name."','".$details."','".$admin."','".$members."','".$membersCount."','".$createdOn."','".$segmentId."')";
+                $sql = "INSERT INTO ".StaticDBCon::$dbname.".group (name, details, admin, members, membersCount, createdOn)
+                VALUES ('".$name."','".$details."','".$admin."','".$members."','".$membersCount."','".$createdOn."')";
                 //echo 'Query : '.$sql;
                 if ($conn->query($sql) === TRUE) {
                     $grp->isGroupAdded = TRUE;
@@ -162,9 +158,9 @@ class GroupController{
             }
             $conn->close();
             return $grp;
-	}	
-	
-	public function addGroupJson($name,$details,$admin,$members,$createdOn){
+    }   
+    
+    public function addGroupJson($name,$details,$admin,$members,$createdOn){
             $grp  = $this->addNewGroup($name,$details,$admin,$members,$createdOn);
             if ($grp->isGroupAdded) {
                 $jsonStr = '{"responce":true}';
@@ -172,13 +168,12 @@ class GroupController{
                 $jsonStr = '{"responce":false,';
                 $jsonStr.='"message":"'.$grp->message.'"}';
             }
-            return $jsonStr;	
-	}
+            return $jsonStr;    
+    }
         
         
         public function updateGroup($id,$members){
             $membersCount="";
-            $segId = "";
             $emailMgr = new EmailMgr();
             $emailMgr->apiKey = getenv("mailChimpApiKey");
                     
@@ -187,91 +182,49 @@ class GroupController{
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-
-            $sql = "SELECT * FROM ".StaticDBCon::$dbname.".group where id='".$id."' limit 1;";
+            $sql = "SELECT * FROM ".StaticDBCon::$dbname.".group where admin='".$admin."' AND name='".$name."' limit 1;";
             $result = $conn->query($sql);
-            $groupRow = $result->fetch_assoc();
-           // exit($groupRow);
-            $membersArr = explode(",",$members);
-
-            //we are findind old members to remove from segment
-            $oldMembers = array_diff(explode(",",$groupRow['members']),$membersArr);
             
-            // get all new employees and subscribe them
-            $memberSql = "SELECT * from employee WHERE id IN (".trim($members).");";
-            $selctResult = $conn->query($memberSql);
-            $membersEmailArr = array();
-            
-            /* subscribe the user */
-            $log = array( 'datetime' => date('Y-m-d H:i:s') , 'operation' => 'updategroup');
-            $log['userSubscribed'] = array();   
-
-            if ($selctResult->num_rows > 0) {
-                while($emplRow = $selctResult->fetch_assoc()) {
-                    $emplEmail = $emplRow["email"]; 
-                    $emplName = $emplRow["name"];
-                    array_push($membersEmailArr,$emplEmail);
-                    $subEmplRes = subscribeUser($emplEmail,$emplName,$api_key,$server,$list_id);
-                    array_push($log['userSubscribed'],$subEmplRes);         
+                $sql = "UPDATE `group` SET `members` = '".$members."' WHERE `group`.`id` = ".$id.";";
+                $membersArr = explode(",",$members);
+                for($i=0;$i<sizeof($membersArr);$i++) {
+                   $memberSql = "SELECT * from employee WHERE id=".trim($membersArr[$i]);
+                 //  echo "sql".$memberSql;
+                   $selctResult = $conn->query($memberSql);
+                   if ($selctResult->num_rows > 0) {
+                         while($emplRow = $selctResult->fetch_assoc()) {
+                            $emplEmail = $emplRow["email"]; 
+                            $emplName = $emplRow["name"];
+                            $resEmail = $emailMgr->addMebmberToList($emplEmail,'d0a4dda674',$emplName,'','');
+                  //print_r($resEmail);
                 }
-            }
-
-             //check if segId Exists, If yes then subscribe members & removeBulk members and then addbulkMembers
-            if(isset($groupRow['segId']) && strlen($groupRow['segId']) > 0) {
-               
-                $segId = $groupRow['segId'];
-                if(sizeof($oldMembers) > 0) {
-                    $oldMemberSql = "SELECT * from employee WHERE id IN (".implode(",",$oldMembers).");";
-                    $oldMemberSqlResult = $conn->query($oldMemberSql);
-                    $oldMemberEmailArr = array();
-                    while($oldMemberSqlRow = $oldMemberSqlResult->fetch_assoc()) {
-                        array_push($oldMemberEmailArr,$oldMemberSqlRow['email']);
-                    }
-
-                    if(sizeof($oldMemberEmailArr) > 0) {
-                        $removeBulkEmailReq = removeBulkMembersFromSegment($oldMemberEmailArr,$groupRow['segId'],$list_id,$mailChimpApiKey,$mailChimpSubDomainInit);
-                        $log['removeBulkEmailFromSegment'] = $removeBulkEmailReq;
-                    }
+                   }
                 }
-
-                if(sizeof($membersEmailArr) > 0) {
-                    $addBulkEmailReq = addBulkMembersToSegment(diff($membersEmailArr,$oldMemberEmailArr),$segmentId,$list_id,$mailChimpApiKey,$mailChimpSubDomainInit);
-                     $log['removeBulkEmailFromSegment'] = $addBulkEmailReq;
-                }
-
-
                 
-            }
-            else {
-                //generate SegmentId and subscribe members
-                $createSegReq = createSegment($groupRow['name'],$mailChimpSubDomainInit,$emailArr,$list_id,$api_key);
-                $log['createSegment'] = $createSegReq;
-                $segId = $createSegReq['id'];
-             }
-
-            //echo 'Query : '.$sql;
-            $sql = "UPDATE `group` SET `members` = '".$members."',`segId` = '".$segId."' WHERE `group`.`id` = ".$id.";";
-            if ($conn->query($sql) === TRUE) {
-                $grp->isGroupAdded = TRUE;
-                $grp->logs = $logs;
-            } else {
-                $grp->isGroupAdded = FALSE;
-                $grp->message ="Something went wrong";
-            }
-
-            $logFile = fopen('./../logs/log-'.date('Y-m-d-H-i-s').json, "w");
-            fwrite($logFile, json_encode($logs));
-            fclose($logFile);
+                //echo 'Query : '.$sql;
+                if ($conn->query($sql) === TRUE) {
+                    $grp->isGroupAdded = TRUE;
+                    $segId = $this->getGroup($id);
+                    $usList = $this->getUserList($members);
+                    foreach($UserList as $empl){
+                        $emailMgr->updateSegment($empl->getEmail(), $segId);
+                    }
+                    
+                } else {
+                    //echo "Error: " . $sql . "<br>" . $conn->error;
+                    $grp->isGroupAdded = FALSE;
+                    $grp->message ="Something went wrong";
+                }
             
             $conn->close();
             return $grp;
-	}	
-	
+    }   
+    
         
         
         
         
-	public function updateGroupJson($id,$members){
+    public function updateGroupJson($id,$members){
             $grp  = $this->updateGroup($id,$members);
             if ($grp->isGroupAdded) {
                 $jsonStr = '{"responce":true}';
@@ -279,9 +232,15 @@ class GroupController{
                 $jsonStr = '{"responce":false,';
                 $jsonStr.='"message":"'.$grp->message.'"}';
             }
-            return $jsonStr;	
-	}
-
+            return $jsonStr;    
+    }
+        
+        
+        
+        
+        
+        
+        
         
         public function updateGroup2($id,$segId){
             $membersCount="";
@@ -306,13 +265,13 @@ class GroupController{
             
             $conn->close();
             return $grp;
-	}	
-	
+    }   
+    
         
         
         
-	public function getGroup($id){
-		
+    public function getGroup($id){
+        
             $grp = "";
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
             if ($conn->connect_error) {
@@ -334,8 +293,11 @@ class GroupController{
             }
             $conn->close();
             return $grp;
-	}	
-	
+    }   
+    
+        
+        
+        
 }
 
 
