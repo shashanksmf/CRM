@@ -250,7 +250,7 @@ class GroupController{
              }
 
             //echo 'Query : '.$sql;
-            $sql = "UPDATE `group` SET `members` = '".$members."',`segId` = '".$groupRow['segId']."' WHERE `group`.`id` = ".$id.";";
+            $sql = "UPDATE `group` SET `members` = '".$members."',`segId` = '".$segId."' WHERE `group`.`id` = ".$id.";";
             if ($conn->query($sql) === TRUE) {
                 $grp->isGroupAdded = TRUE;
                 $grp->logs = $logs;
