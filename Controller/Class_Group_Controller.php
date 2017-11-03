@@ -191,7 +191,7 @@ class GroupController{
             $sql = "SELECT * FROM ".StaticDBCon::$dbname.".group where id='".$id."' limit 1;";
             $result = $conn->query($sql);
             $groupRow = $result->fetch_assoc();
-            exit($groupRow);
+           // exit($groupRow);
             $membersArr = explode(",",$members);
 
             //we are findind old members to remove from segment
