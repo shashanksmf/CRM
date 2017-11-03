@@ -1,6 +1,8 @@
 <?php 
 	
 	//http://localhost/wehnc/Service/GetUserData.php?id=1
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 	header("Access-Control-Allow-Origin: *");
 	ob_start();
 	$dats = '';
