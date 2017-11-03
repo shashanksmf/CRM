@@ -245,7 +245,7 @@ class GroupController{
             else {
                 //generate SegmentId and subscribe members
                 $createSegReq = createSegment($groupRow['name'],$mailChimpSubDomainInit,$emailArr,$list_id,$api_key);
-                $log['createSegment'] = $createSegReq
+                $log['createSegment'] = $createSegReq;
                 $segId = $createSegReq['id'];
              }
 
