@@ -84,12 +84,12 @@ class CampaignController{
 
                     $mailChimpService = new MailChimpService();
                     $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
-                    $mailChimpApiKey = $mailChimpService->$mailChimpApiKey = getenv("mailChimpApiKey");
+                    $mailChimpApiKey = $mailChimpService->mailChimpApiKey = getenv("mailChimpApiKey");
                     $fromName = MailChimpConfig::$emailFromName;
                     $replyTo = MailChimpConfig::$emailReplyTo;
                     $toName = MailChimpConfig::$emailToName;
                     $templateId = MailChimpConfig::$emailTemplateId;
-                    $list_id = $mailChimpService->$list_id = getenv('mailChimpListId');
+                    $list_id = $mailChimpService->list_id = getenv('mailChimpListId');
                     $title = "";
 
                     ob_start();
