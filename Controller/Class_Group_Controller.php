@@ -7,7 +7,7 @@ require_once("../Models/Class_User.php");
 require_once("../Models/Class_Employees.php");
 //require_once("../Controller/EmailMgr.php");
 require_once("mailChimpService.php");
-require_once("MailChimpConfig.php");
+require_once("mailChimpConfig.php");
 
 
 class GroupController{

@@ -6,7 +6,7 @@ require_once("../Controller/StaticDBCon.php");
 
 require_once("../Controller/EmailMgr.php");
 require_once("mailChimpService.php");
-require_once("MailChimpConfig.php");
+require_once("mailChimpConfig.php");
 header("Access-Control-Allow-Origin: *");
 
 class CampaignController{
