@@ -1,9 +1,6 @@
 <?php 
 	
-	 ob_start();
-	
-	//Link -> localhost/wehnc/Service/GetEmplData.php
-	
+	ob_start();	
 	header("Access-Control-Allow-Origin: *");
 	
 	//$id = @$_POST['id'];
@@ -16,14 +13,13 @@
 	$dates = $_POST['dates'];
 	$templateId = $_POST['templateId'];
 	$groupId = $_POST['groupId'];
+	$segId = $_POST['segId'];
 	
-//echo "name: ".$_POST['name']."-"."Emails: ". $_POST['emails']."-"."body:". $_POST['body']."-"."date: ". $_POST['dates']."-"."templateID: ". $_POST['templateId']."-". "groupId".$_POST['groupId'];
-//exit("adasd");
 	require_once("../Controller/Class_Campaign_Controller.php");
 	$controller = new CampaignController();
 	header('Content-Type: application/json');
 	ob_clean();
-	echo $controller->addNewCampaignJson($name, $createdBy, $emails, $subject, $body, "", $dates, $templateId,$groupId)
+	echo $controller->addNewCampaignJson($name, $createdBy, $emails, $subject, $body, "", $dates, $templateId,$groupId,$segId);
 	
 
 ?>

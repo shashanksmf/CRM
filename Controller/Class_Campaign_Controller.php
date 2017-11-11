@@ -5,7 +5,10 @@ require_once("../Models/Class_Campaign.php");
 require_once("../Controller/StaticDBCon.php");
 
 require_once("../Controller/EmailMgr.php");
+require_once("mailChimpService.php");
+require_once("MailChimpConfig.php");
 header("Access-Control-Allow-Origin: *");
+
 class CampaignController{
 
         public function getCampaignList($id){
@@ -74,37 +77,62 @@ class CampaignController{
 
 
 
-            public function addNewCampaign($name,$createdBy,$emails,$subject,$body,$recievedBy,$dates,$templateId,$groupId){
+            public function addNewCampaign($name,$createdBy,$emails,$subject,$body,$recievedBy,$dates,$templateId,$groupId,$segId){
                     $date = new DateTime();
                     $time = $date->getTimestamp();
-                    
-	            
                     $membersCount="";
+
+                    $mailChimpService = new MailChimpService();
+                    $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
+                    $mailChimpApiKey = MailChimpConfig::$mailChimpApiKey;
+                    $fromName = MailChimpConfig::$emailFromName;
+                    $replyTo = MailChimpConfig::$emailReplyTo;
+                    $toName = MailChimpConfig::$emailToName;
+                    $templateId = MailChimpConfig::$emailTemplateId;
+                    $list_id = MailChimpConfig::$list_id;
+                    $title = "";
+
+                    ob_start();
+                    $createCamReq = $mailChimpService->createCampaign($mailChimpSubDomainInit,$mailChimpApiKey,$list_id,(int)$segId,$subject,$body,$title,$fromName,$replyTo,$toName,(int)$templateId);
+                    //echo $createCamReq;
+                    $createCamReq = ob_get_clean();
+                    ob_flush();
+                    //echo $createCamReq;
+                    //print_r(json_decode($createCamReq));
+
+                    $createCamReqArr = array();
+                    $createCamReqArr = $createCamReq === NULL ? array() : json_decode($createCamReq,true);
+                    $mcCampId = array_key_exists("id",$createCamReqArr) ? $createCamReqArr["id"] : NULL;
+                    //exit();
+                    ob_start();
+                    $runCampReq = $mailChimpService->runCampaign($mailChimpSubDomainInit,$mailChimpApiKey,$mcCampId);
+                  
                     $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
                     $msg = new Campaign("", "", "", "", "", "", "", "", "", "", "");
                     if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                     }
-                            $read = 0;
-                            $sql = "INSERT INTO ".StaticDBCon::$dbname.".campaign(name,createdBy,emails,subject,body,recievedBy,dates,replacingContent,templateId,groupId)
-                            VALUES ('".$name."','".$createdBy."','".$emails."','".$subject."','".$body."','".$recievedBy."','".$dates."','','".$templateId."','".$groupId."')";
-                            //echo 'Query : '.$sql;
-                            if ($conn->query($sql) === TRUE) {
-                                    $msg->isAdded = TRUE;
-                                    $msg->id = mysqli_insert_id($conn);
-                                    $msg->msg = "Added Successfully!";
-                            } else {
-                                    //echo "Error: " . $sql . "<br>" . $conn->error;
-                                    $msg->isAdded = FALSE;
-                                    $msg->msg ="Something went wrong";
-                            }
+                   
+                    $read = 0;
+                    $sql = "INSERT INTO ".StaticDBCon::$dbname.".campaign(name,createdBy,emails,subject,body,recievedBy,dates,replacingContent,templateId,groupId,campaignId,segId)
+                    VALUES ('".$name."','".$createdBy."','".$emails."','".$subject."','".$body."','".$recievedBy."','".$dates."','','".$templateId."','".$groupId."','".$mcCampId."','".$segId."')";
+                    //echo 'Query : '.$sql;
+                    if ($conn->query($sql) === TRUE) {
+                            $msg->isAdded = TRUE;
+                            $msg->id = mysqli_insert_id($conn);
+                            $msg->msg = "Added Successfully!";
+                    } else {
+                            //echo "Error: " . $sql . "<br>" . $conn->error;
+                            $msg->isAdded = FALSE;
+                            $msg->msg ="Something went wrong";
+                    }
 
                     $conn->close();
                     return $msg;
             }	
 
-            public function addNewCampaignJson($name,$createdBy,$emails,$subject,$body,$recievedBy,$dates,$templateId,$groupId){
-                $msg  = $this->addNewCampaign($name,$createdBy,$emails,$subject,$body,$recievedBy,$dates,$templateId,$groupId);
+            public function addNewCampaignJson($name,$createdBy,$emails,$subject,$body,$recievedBy,$dates,$templateId,$groupId,$segId){
+                $msg  = $this->addNewCampaign($name,$createdBy,$emails,$subject,$body,$recievedBy,$dates,$templateId,$groupId,$segId);
                 if ($msg->isAdded) {
                     $jsonStr = '{"responce":true,'
                             . '"id":'.$msg->id

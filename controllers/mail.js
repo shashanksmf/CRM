@@ -183,6 +183,10 @@ xhr.send(data);
 			alert("Please Select Group");
 			return;
 		}
+		else if(!$scope.groupSelected.segId || $scope.groupSelected.segId.length == 0) {
+			alert("Mailchimp Segment Id not created, Please create segment for this group by updating the group");
+			return;
+		}
 
 		$scope.formData = new FormData();
 		$scope.formData.append("groupId", $scope.groupSelected.id);
@@ -192,6 +196,7 @@ xhr.send(data);
 		$scope.formData.append("subject", $scope.campaignEmailSubject);
 		$scope.formData.append("body", $scope.campaignMessage);
 		$scope.formData.append("templateId", "2");
+		$scope.formData.append("segId", $scope.groupSelected.segId);
 		$scope.formData.append("dates", new Date());
 
 		API.addCampaign($scope.formData).then(function(response){

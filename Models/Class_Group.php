@@ -13,8 +13,9 @@ class Group{
 	private $createdOn;
 	public $isGroupAdded;
 	public $message;
+	public $segId;
 	
-	public function __construct ( $Id,$Name,$Details,$Admin,$Members,$MembersCount,$createdOn) {
+	public function __construct ( $Id,$Name,$Details,$Admin,$Members,$MembersCount,$createdOn,$segId) {
             $this->id = $Id;
             $this->name = $Name;
             $this->details = $Details;
@@ -22,6 +23,7 @@ class Group{
             $this->members = $Members;
             $this->membersCount = $MembersCount;
             $this->createdOn = $createdOn;
+            $this->segId = $segId;
           }
 	
 	public function getId(){
@@ -47,6 +49,9 @@ class Group{
 	}
 	public function getCreatedOn(){
 		return $this->createdOn;
+	}
+	public function getSegmentId(){
+		return $this->segId;
 	}
 	
 }
