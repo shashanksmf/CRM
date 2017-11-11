@@ -14,7 +14,7 @@ header("Access-Control-Allow-Origin: *");
  */
 class MailChimpConfig {
     
-    public static $mailChimpApiKey = getenv("mailChimpApiKey");
+    public $mailChimpApiKey = getenv("mailChimpApiKey");
     public static $mailChimpSubDomainInit = 'us14.';
     public static $list_id = getenv('mailChimpListId');
 
