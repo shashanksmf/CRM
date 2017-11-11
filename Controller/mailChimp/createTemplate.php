@@ -29,7 +29,7 @@
  require_once("./../MailChimpConfig.php");
 
  $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
- $mailChimpApiKey = MailChimpConfig::$mailChimpApiKey;
+ $mailChimpApiKey = $mailChimpService->$mailChimpApiKey = getenv("mailChimpApiKey");
                    
  $createTemReq = createTemplate($htmlStr,$mailChimpSubDomainInit,$mailChimpApiKey);
  echo $createTemReq;

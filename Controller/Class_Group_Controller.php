@@ -146,8 +146,8 @@ class GroupController{
                 // create SegmentId using MailchimpApi
                 $mailChimpService = new MailChimpService();
                 $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
-                $mailChimpApiKey = MailChimpConfig::$mailChimpApiKey;
-                $list_id = MailChimpConfig::$list_id;
+                $mailChimpApiKey = $mailChimpService->$mailChimpApiKey = getenv("mailChimpApiKey");
+                $list_id = $mailChimpService->$list_id = getenv('mailChimpListId');
                 $membersEmailArr = array();
                 $log = array();
               //  $log["createSegment"] = array();
@@ -208,8 +208,8 @@ class GroupController{
             $membersCount = "";
             $mailChimpService = new MailChimpService();
             $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
-            $mailChimpApiKey = MailChimpConfig::$mailChimpApiKey;
-            $list_id = MailChimpConfig::$list_id;
+            $mailChimpApiKey = $mailChimpService->$mailChimpApiKey = getenv("mailChimpApiKey");
+            $list_id = $mailChimpService->$list_id = getenv('mailChimpListId');
                     
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
             $grp = new Group("","","","","","","");
