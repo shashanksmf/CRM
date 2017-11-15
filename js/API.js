@@ -2,7 +2,7 @@ var inspinia = angular.module('inspinia');
 inspinia.factory('API', ['$http','$q',function($http,$q){
 	
 	var callAPI = {}; 
-    //var baseHttpUrl = "/crm-github/CRM/Service";
+//    var baseHttpUrl = "/crm-github/CRM/Service";
 	var baseHttpUrl = 'https://upsailgroup.herokuapp.com/Service';
     
 	callAPI.getAllEmpl = function(){
@@ -516,17 +516,19 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 
     callAPI.saveSmsCampaign = function (smsData) {
 
-       return $http({
+    	return $http.post(baseHttpUrl + "/insertSmsCampaign.php", 	smsData, {headers: {'Content-Type': 'application/json'} } )
 
-	        method: 'POST',
-	        data: smsData,
-	        url: baseHttpUrl + "/insertSmsCampaign.php",
-	        headers: {
-		        "content-type": "application/json",
-		        "accept": "application/json"
-	        }
+     //   return $http({
+
+	    //     method: 'POST',
+	    //     data: smsData,
+	    //     url: baseHttpUrl + "/insertSmsCampaign.php",
+	    //     headers: {
+		   //      "content-type": "application/json",
+		   //      "accept": "application/json"
+	    //     }
 	    	
-	    })
+	    // })
 
     }
 
