@@ -1,6 +1,6 @@
 <?php
 	header("Access-Control-Allow-Origin: *");
-	require_once("../Controller/StaticDBCon.php");
+	require_once("./../Controller/StaticDBCon.php");
 
 	$conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 	if($conn->connect_error) {
@@ -16,7 +16,7 @@
 	$name = isset($smsArr["name"]) ? $smsArr["name"] : "";
 	//echo ($groupid);
 
-	if(sizeof($smsArr > 0)  && array_key_exists("data", $smsArr)) {
+	if(sizeof($smsArr > 0)  && array_key_exists("data", $smsArr))	 {
 
 		$sql = "INSERT INTO `smscampaign` (name, groupid, infobipresponse) VALUES ('".$name."', '".$groupid."' , '".$smsdata."')";
 
