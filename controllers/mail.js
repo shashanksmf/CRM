@@ -59,7 +59,8 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 				var msgObj = { "messages" : [] };
 				groupObj.Members.forEach(function(item){
 					if(item && item.phone && item.phone.length >1) {
-						msgObj.messages.push({ "from" : $scope.smsSenderName , "to" : item.phone , "text" : $scope.smsText });
+						item.phone = item.phone.trim();
+						msgObj.messages.push({ "from" : $scope.smsSenderName , "to" : item.phone.charAt(0) !== "+" ? "+" + item.phone : item.phone  , "text" : $scope.smsText });
 					}
 				});
 
@@ -83,6 +84,9 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 	  			data:JSON.stringify(msgObj),
 	  			success:function(response){
 	  				console.log("response",response);
+	  				API.saveSmsCampaign({ data : response, groupid: groupObj.id, name: groupObj.name || "SMS" }).then(function(res){
+	  					console.log("sms db save res",res);
+	  				})
 	  			}
 
 	  		})

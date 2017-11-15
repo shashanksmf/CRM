@@ -2,7 +2,7 @@ var inspinia = angular.module('inspinia');
 inspinia.factory('API', ['$http','$q',function($http,$q){
 	
 	var callAPI = {}; 
-   // var baseHttpUrl = "/crm-github/CRM/Service";
+    //var baseHttpUrl = "/crm-github/CRM/Service";
 	var baseHttpUrl = 'https://upsailgroup.herokuapp.com/Service';
     
 	callAPI.getAllEmpl = function(){
@@ -100,6 +100,18 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	        method: 'GET',
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/AddGroups.php?name='+group.name+'&details='+group.details+'&admin='+group.groupadmin+'&members='+group.members+'&membersCount='+group.membersCount+'&createdOn='+group.createdOn
+
+	    })
+	
+	}
+
+	callAPI.deleteGroup = function(group) {
+		
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/DeleteGroup.php?id='+group.id
 
 	    })
 	
@@ -499,6 +511,22 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
             url: baseHttpUrl + '/GetCmpyAttachedFiles.php?id='+company.companyId,
 
         })
+
+    }
+
+    callAPI.saveSmsCampaign = function (smsData) {
+
+       return $http({
+
+	        method: 'POST',
+	        data: smsData,
+	        url: baseHttpUrl + "/insertSmsCampaign.php",
+	        headers: {
+		        "content-type": "application/json",
+		        "accept": "application/json"
+	        }
+	    	
+	    })
 
     }
 
