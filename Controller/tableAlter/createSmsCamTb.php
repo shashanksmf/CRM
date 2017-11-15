@@ -11,7 +11,7 @@ $sql = "CREATE TABLE `smscampaign` (
   `id` int(100) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
   `groupid` int(100) DEFAULT NULL,
-  `infobipresponse` json DEFAULT NULL,
+  `infobipresponse` text,
   `ibmessageid` varchar(100) DEFAULT NULL,
   `createdat` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;";
