@@ -19,7 +19,7 @@
     
    
   
-   $backup_file = "dbBackup" . '.gz';
+   $backup_file = "dbBackup" . '.sql';
    $command = "mysqldump --opt -h $dbhost -u $dbuser -p $dbpass ". "$dbname | gzip > $backup_file";
    
    system($command);
