@@ -23,4 +23,5 @@
    $command = "mysqldump --opt -h $dbhost -u $dbuser -p $dbpass ". "$dbname | gzip > $backup_file";
    
    system($command);
+   echo "done->".$backup_file;
 ?>
