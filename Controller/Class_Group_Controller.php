@@ -28,7 +28,6 @@ class GroupController{
                 $sql = "SELECT * FROM ".StaticDBCon::$dbname.".group where id='".$id."' AND isactive = 1;";
             }
             $result = $conn->query($sql);
-            print_r($result);
             //echo $sql.' id : '.$id;
             if ($result->num_rows > 0) {
                 $i = 0;
