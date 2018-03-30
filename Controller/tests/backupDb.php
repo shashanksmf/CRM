@@ -6,7 +6,7 @@
     $dbhost = StaticDBCon::$servername;
     $dbuser = StaticDBCon::$username;
     $dbpass = StaticDBCon::$password;
-    $dbname = StaticDBCon::$dbname;
+    $dbname = "heroku_f1331253e1e8450";
 
     if($conn->connect_error) {
 		$responseArr["result"] = false;

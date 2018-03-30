@@ -33,6 +33,9 @@ inspinia.controller("groupCtrl", ['$scope','$rootScope','$http','$q','API','$sta
 		    API.createGroup(createGroupObj).then(function(response){
 		    	//check if group already exists
 		    	if(response.data.responce){
+		    		if(responce.data.responce.hasOwnProperty("groupid") && responce.data.responce.length > 0) {
+		    			createGroupObj.id = responce.data.responce.groupid;
+		    		}
 		    		$scope.groups.Groups.push(createGroupObj)
 		    	}
 		    	else if(!response.data.responce)
@@ -52,7 +55,8 @@ inspinia.controller("groupCtrl", ['$scope','$rootScope','$http','$q','API','$sta
 
 
 	$scope.editGroup = function(groupIndex) {
-			$scope.groupIndex = groupIndex;
+		$scope.groupIndex = groupIndex;
+		$("#addEmplmModal").modal("show");
 	}
 
 	$scope.addEmpl = function(emplName,emplId) {
@@ -140,38 +144,30 @@ inspinia.controller("groupCtrl", ['$scope','$rootScope','$http','$q','API','$sta
 
 	}	
 
+
+	$scope.deleteGroup = function(groupId) {
+		if(!groupId || groupId.length == 0 ) {
+			alert("Group has not been assigned any Id");
+			return;
+		}
+
+		API.deleteGroup({ id: groupId }).then(function(response){
+			if(response.data.hasOwnProperty("result") && response.data.result) {
+				for(var i=0 ; i < $scope.groups.Groups.length;i++) {
+					if(groupId == $scope.groups.Groups[i].id) {
+						$scope.groups.Groups.splice(i,1);
+						alert("group Deleted Successfully");
+					}
+				}
+			}
+			else if(response.data.hasOwnProperty("details")) {
+				alert(response.data.details);
+			}
+			else {
+				alert("Something Wrong with the server");
+			}
+
+		})
+	}
+
 }])
-
-
-
-// $scope.addEmpl = function(emplName,emplId,arrayIndex) {
-			
-// 			var isMemberFound = false , memberIndex = null;
-
-// 			for(var i=0; i < $scope.groups.Groups[$scope.groupIndex].Members.length ; i++) {
-// 				if($scope.groups.Groups[$scope.groupIndex].Members[i].id == emplId) {
-// 					memberIndex = i;
-// 					isMemberFound = true;
-// 					break;
-// 				}
-// 			}
-
-// 			if(isMemberFound) {
-			
-// 				$scope.groups.Groups[$scope.groupIndex].Members.splice(memberIndex, 1);
-// 				$scope.groups.Groups[$scope.groupIndex].membersCount = $scope.groups.Groups[$scope.groupIndex].Members.length;
-			
-// 			}
-
-// 			else{
-			
-// 				if(!$scope.groups.Groups[$scope.groupIndex].hasOwnProperty("Members")) {
-// 					$scope.groups.Groups[$scope.groupIndex].Members = [];
-// 				}
-
-// 			 	$scope.groups.Groups[$scope.groupIndex].Members.push({"name":emplName,"id":emplId});
-// 			 	$scope.groups.Groups[$scope.groupIndex].membersCount = $scope.groups.Groups[$scope.groupIndex].Members.length;
-			
-// 			}
-
-// 	}

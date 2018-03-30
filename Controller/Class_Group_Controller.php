@@ -23,9 +23,9 @@ class GroupController{
                     die("Connection failed: " . $conn->connect_error);
             } 
             if($id==''){
-                $sql = "SELECT * FROM ".StaticDBCon::$dbname.".group;";
+                $sql = "SELECT * FROM ".StaticDBCon::$dbname.".group WHERE isactive = 1;";
             }else{
-                $sql = "SELECT * FROM ".StaticDBCon::$dbname.".group where id='".$id."';";
+                $sql = "SELECT * FROM ".StaticDBCon::$dbname.".group where id='".$id."' AND isactive = 1;";
             }
             $result = $conn->query($sql);
             //echo $sql.' id : '.$id;
@@ -190,7 +190,7 @@ class GroupController{
     public function addGroupJson($name,$details,$admin,$members,$createdOn){
             $grp  = $this->addNewGroup($name,$details,$admin,$members,$createdOn);
             if ($grp->isGroupAdded) {
-                $jsonStr = '{"responce":true,"logs":'.json_encode($grp,true).'}';
+                $jsonStr = '{"responce":true,"logs":'.json_encode($grp,true).',"groupid":'.$grp->id.'}';
             }  else {
                 $jsonStr = '{"responce":false,';
                 $jsonStr.='"message":"'.$grp->message.'"}';
@@ -273,8 +273,10 @@ class GroupController{
             if(sizeof($oldMembers) > 0) {
                 $oldMemberSql = "SELECT * from employee WHERE id IN (".implode(",",$oldMembers).");";
                 $oldMemberSqlResult = $conn->query($oldMemberSql);
-                while($oldMemberSqlRow = $oldMemberSqlResult->fetch_assoc()) {
-                    array_push($oldMemberEmailArr,$oldMemberSqlRow['email']);
+                if ($oldMemberSqlResult->num_rows > 0) {
+                    while($oldMemberSqlRow = $oldMemberSqlResult->fetch_assoc()) {
+                        array_push($oldMemberEmailArr,$oldMemberSqlRow['email']);
+                    }
                 }
                 //print_r($oldMemberEmailArr);
                 //exit();
@@ -377,7 +379,7 @@ class GroupController{
                     die("Connection failed: " . $conn->connect_error);
             } 
            
-            $sql = "SELECT * FROM ".StaticDBCon::$dbname.".group where id='".$id."';";
+            $sql = "SELECT * FROM ".StaticDBCon::$dbname.".group where id='".$id."' AND isactive = 1;";
           
             $result = $conn->query($sql);
             //echo $sql.' id : '.$id;

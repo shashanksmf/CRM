@@ -5,10 +5,11 @@
 
 
     <div class="row">
-        <div class="col-md-3 pointer" ng-repeat="group in groups.Groups track by $index" ng-click="editGroup($index)">
+        <div class="col-md-3 pointer" ng-repeat="group in groups.Groups track by $index" >
+      
             <div class="ibox">
-                <div class="ibox-content product-box" data-toggle="modal" data-target="#addEmplmModal" >
-                <span class="glyphicon glyphicon-pencil"></span>
+                <div class="ibox-content product-box"  >
+                    <span class="glyphicon glyphicon-pencil" ng-click="editGroup($index)"></span>
                     <div class="product-imitation" style="background-image:url('./img/groupIcon.png');    background-position: center center;
                         background-size: cover;">
                         
@@ -24,9 +25,11 @@
                         <div class="small m-t-xs">
                            {{group.details}}
                         </div>
-                        <div class="m-t text-righ">
+                        <div class="m-t text-right flex-justify-space-around">
 
-                            <a  class="btn btn-xs btn-outline btn-primary"> <i class="glyphicon glyphicon-user"></i> {{group.Members.length}} contacts</a>
+                            <a  class="btn btn-xs btn-outline btn-primary" ng-click="editGroup($index)"> <i class="glyphicon glyphicon-user"></i> {{group.Members.length}} contacts</a>
+
+                            <a  class="btn btn-xs btn-outline btn-primary" ng-click="deleteGroup(group.id)"> <i class="glyphicon glyphicon-remove"></i> Delete</a>
                         </div>
                     </div>
                 </div>
