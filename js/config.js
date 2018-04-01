@@ -1734,12 +1734,15 @@ angular
   .run(["$rootScope", "$state", "API", "$location", function($rootScope, $state,
     API, $location) {
     $rootScope.$on('$stateChangeStart', function(event, toState, fromState) {
+
+
       if (!localStorage.getItem("userEmail") && toState.name != 'login') {
+        if (toState.name == 'register') {
+          return;
+        }
         $state.go('login');
         event.preventDefault();
       }
       return;
     });
-
-
   }]);
