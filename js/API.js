@@ -145,9 +145,10 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		
 	    return $http({
 
-	        method: 'GET',
+	        method: 'POST',
 	        dataType: "jsonp",
-	        url: baseHttpUrl + '/mailChimpSubscribeUserTest.php?emplName='+emplData.name+'&emplEmail='+emplData.email
+	        data:{emplName:emplData.name,emplEmail:emplData.email},
+	        url: baseHttpUrl + '/mailChimpSubscribeUserTest.php'
 
 	    })
 	}

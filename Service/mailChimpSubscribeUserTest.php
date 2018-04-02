@@ -1,11 +1,12 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 
-require_once("../Controller/mailchimptest/mailChimpUserTest.php");
+require_once("../Controller/tests/mailchimptest/mailChimpUserTest.php");
 require_once("mailChimpConfig.php");
 
 
-	$emplName = @$_GET['emplName'];
-	$emplEmail = @$_GET['emplEmail'];
+	$emplName = @$_POST['emplName'];
+	$emplEmail = @$_POST['emplEmail'];
 
 	echo ("$emplName" .$emplName);
 	echo ("$empl" .$emplEmail);
