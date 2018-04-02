@@ -1,11 +1,12 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 
 
 class MailChimpUserTest {
 
 	public function subscribeUser($email,$first_name,$mailChimpApiKey,$mailChimpSubDomainInit,$list_id) {
 
-		
+
      
     $auth = base64_encode( 'user:'.$mailChimpApiKey);
         
