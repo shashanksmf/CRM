@@ -10,7 +10,7 @@ $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
 $mailChimpApiKey = $mailChimpService->mailChimpApiKey = getenv("mailChimpApiKey");
 $list_id = $mailChimpService->list_id = getenv('mailChimpListId');
 
-echo $mailChimpSubDomainInit."-".$mailChimpApiKey."-".$list_id;
+echo $mailChimpSubDomainInit."hello".$mailChimpApiKey."hello".$list_id;
 
 class MailChimpUserTest {
 
