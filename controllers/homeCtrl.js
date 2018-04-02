@@ -260,15 +260,14 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','
          }
     }
     
-    $scope.deleteContact = function(emplId) {
+    $scope.deleteContact = function(emplId, emplName, emplEmail) {
         
 
-        API.deleteContact({ id: emplId }).then(function(response){
+        API.userSubcription({ name: emplName, email: emplEmail }).then(function(response){
 
                 alert("Something Wrong with the server");
 
         })
-
 
         // if(!emplId || emplId.length == 0 ) {
         //     alert("Contact has not been assigned any Id");
