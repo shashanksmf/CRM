@@ -2,8 +2,8 @@ var inspinia = angular.module('inspinia');
 inspinia.factory('API', ['$http','$q',function($http,$q){
 	
 	var callAPI = {}; 
-//    var baseHttpUrl = "/crm-github/CRM/Service";
-	var baseHttpUrl = 'https://upsailgroup.herokuapp.com/Service';
+    var baseHttpUrl = "/CRM.git/trunk/Service";
+	// var baseHttpUrl = 'https://upsailgroup.herokuapp.com/Service';
     
 	callAPI.getAllEmpl = function(){
 			return  $http({
@@ -51,6 +51,18 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	        method: 'GET',
 	        dataType: "jsonp",
 	        url: baseHttpUrl+'/GetGroups.php' 
+
+	    })
+	
+	}
+
+	callAPI.getAllCompanies = function() {
+		
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl+'/GetCompanyData.php' 
 
 	    })
 	
@@ -112,6 +124,44 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	        method: 'GET',
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/DeleteGroup.php?id='+group.id
+
+	    })
+	
+	}
+
+	callAPI.deleteContact = function(emplId) {
+		
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/DeleteContact.php?id='+emplId.id
+
+	    })
+	
+	}
+
+	callAPI.deleteCampaign = function(campaignID) {
+		console.log("api", campaignID);
+		
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/DeleteCampaign.php?id='+campaignID.id
+
+	    })
+	
+	}
+
+	callAPI.deleteCompany = function(companyId) {
+		console.log("api", companyId);
+		
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/DeleteCompany.php?id='+companyId.id
 
 	    })
 	

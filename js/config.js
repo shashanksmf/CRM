@@ -74,6 +74,12 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider,
     controller: "mailCtrl"
   })
 
+  .state('dashboards.companies', {
+    url: "/companies",
+    templateUrl: "views/companies.html",
+    controller: "companiesCtrl"
+  })
+
   .state('dashboards.message', {
     url: "/personalMessage",
     templateUrl: "views/personalMessage.html",

@@ -35,6 +35,10 @@
                 <a ui-sref="dashboards.mail"><i class="fa fa-envelope"></i> <span class="nav-label">{{ 'Campaigns' | translate }}</span></a>
             </li>
 
+            <li ui-sref-active="active">
+                <a ui-sref="dashboards.companies"><i class="fa fa-building-o"></i> <span class="nav-label">{{ 'Companies' | translate }}</span></a>
+            </li>
+
             <li ng-class="{active: ($state.includes('dashboards') && isExpand == true) }" ng-click="isExpand=!isExpand">
                 <a href="index.html"><i class="fa fa-plus-square-o"></i> <span class="nav-label">{{ 'Add New' | translate }}</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse" ng-class="{in: ($state.includes('dashboards') && isExpand == true) }">
