@@ -19,9 +19,9 @@ class CampaignController{
                         die("Connection failed: " . $conn->connect_error);
                 } 
                 if($id==''){
-                        $sql = "SELECT * FROM campaign;";
+                        $sql = "SELECT * FROM campaign WHERE isactive = 1;";
                 }else{
-                        $sql = "SELECT * FROM campaign where id='".$id."';";
+                        $sql = "SELECT * FROM campaign where id='".$id."' AND isactive = 1;";
                 }
                 $result = $conn->query($sql);
                 //echo $sql.' id : '.$id;

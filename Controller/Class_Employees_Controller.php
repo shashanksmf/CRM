@@ -13,10 +13,10 @@
                 }
                 if($id==''){
                 //	$sql = "SELECT * FROM employee inner join company on company.id = employee.companyId;";
-                    $sql = "SELECT * FROM employee ";
+                    $sql = "SELECT * FROM employee WHERE isactive = 1;";
                 }else{
                 //	$sql = "SELECT * FROM erp_crm.employee inner join company on company.id = employee.companyId where company.id='".$id."';";
-                    $sql = "SELECT * FROM employee where id='".$id."';";
+                    $sql = "SELECT * FROM employee where id='".$id."' AND isactive = 1;";
                 }
 
                 $result = $conn->query($sql);
@@ -350,10 +350,10 @@
                 }
                 if($id==''){
                 //	$sql = "SELECT * FROM employee inner join company on company.id = employee.companyId;";
-                    $sql = "SELECT * FROM employee";
+                    $sql = "SELECT * FROM employee  WHERE isactive = 1;";
                 }else{
                 //	$sql = "SELECT * FROM erp_crm.employee inner join company on company.id = employee.companyId where company.id='".$id."';";
-                    $sql = "SELECT * FROM employee where id='".$id."';";
+                    $sql = "SELECT * FROM employee where id='".$id."' AND isactive = 1;";
                 }
 
                 $result = $conn->query($sql);

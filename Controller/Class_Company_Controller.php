@@ -14,9 +14,9 @@ class CompanyController{
 			die("Connection failed: " . $conn->connect_error);
 		} 
 		if($id==''){
-			$sql = "SELECT * FROM company;";
+			$sql = "SELECT * FROM company WHERE isactive = 1;";
 		}else{
-			$sql = "SELECT * FROM company where id='".$id."';";
+			$sql = "SELECT * FROM company where id='".$id."' AND isactive = 1;";
 		}
 		$result = $conn->query($sql);
 		//echo $sql.' id : '.$id;
@@ -47,7 +47,7 @@ class CompanyController{
 			die("Connection failed: " . $conn->connect_error);
 		} 
 		
-			$sql = "SELECT * FROM company where id='".$id."' LIMIT 1;";
+			$sql = "SELECT * FROM company where id='".$id."' AND isactive = 1 LIMIT 1;";
 		
 		$result = $conn->query($sql);
 		//echo $sql.' id : '.$id;
@@ -76,6 +76,7 @@ class CompanyController{
 		$i=count($CompList);
 		foreach($CompList as $comp){
 			$jsonStr.='{';
+			$jsonStr.='"id":"'.$comp->id.'",';
 			$jsonStr.='"name":"'.$comp->getName().'",';
 			$jsonStr.='"areaOfWork":"'.$comp->getAreaOfWork().'",';
 			$jsonStr.='"establised":"'.$comp->getEstablised().'",';
@@ -110,6 +111,7 @@ class CompanyController{
 		$i=count($CompList);
 		foreach($CompList as $comp){
 			$jsonStr.='{';
+			$jsonStr.='"id":"'.$comp->id.'",';
 			$jsonStr.='"name":"'.$comp->getName().'",';
 			$jsonStr.='"areaOfWork":"'.$comp->getAreaOfWork().'",';
 			$jsonStr.='"establised":"'.$comp->getEstablised().'",';
