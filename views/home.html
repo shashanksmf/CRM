@@ -40,6 +40,7 @@
             <span class="arrowDown fs10px" ng-show="propertyName == 'company' && reverse == false">&#9660;</span>
             <span class="arrowUp fs10px" ng-show="(propertyName=='company'    && reverse == true) || propertyName !== 'company' ">&#9650;</span>
           </th>  
+          <th>Delete</th>
         <!-- <th>ratings</th>   -->
       </tr>
     </thead>
@@ -63,6 +64,8 @@
         <td >{{empl.location}}</td>
         
         <td class="pointer" ng-click="showCompanyDetail(empl.companyId)">{{empl.Company[0].name}}</td>
+
+        <td><button type="button" class="btn btn-danger" ng-click="deleteContact(empl.id)">Delete</button></td>
           
       </tr>
 
