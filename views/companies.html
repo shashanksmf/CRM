@@ -1,0 +1,110 @@
+
+<div class="container-fluid" >
+    
+  <div class="row">
+        
+  <section id="companyTable">
+           
+    <div class="row-fluid homeBreadCumb">
+      <span class="breadcrumbTitle">  Companies</span>
+      <ol class="breadcrumb">
+
+        <!--<li class="active"><a href="#">Layouts</a></li>-->
+      </ol>
+    </div>       
+
+    <table class="table dataTables-example  table-striped table-bordered table-hover">
+    
+    <thead>
+      <tr>
+        <th ng-click="sortBy('name')">Name
+          <span class="arrowDown fs10px" ng-show="propertyName == 'name'  && reverse == false">&#9660;</span>
+          <span class="arrowUp fs10px" ng-show="(propertyName == 'name'   && reverse == true) || propertyName !== 'name' ">&#9650;</span>
+          </th>
+        <th  ng-click="sortBy('ofcAddress')">Office Address
+            <span class="arrowDown fs10px" ng-show="propertyName == 'ofcAddress'  && reverse == false">&#9660;</span>
+            <span class="arrowUp fs10px" ng-show="(propertyName == 'ofcAddress'   && reverse == true) || propertyName !== 'ofcAddress' ">&#9650;</span>
+          </th>
+        <th ng-click="sortBy('email')">Email
+            <span class="arrowDown fs10px" ng-show="propertyName=='email' && reverse == false">&#9660;</span>
+            <span class="arrowUp fs10px" ng-show="(propertyName=='email'   && reverse == true) || propertyName !== 'email' ">&#9650;</span>
+          </th>
+        <th ng-click="sortBy('phone')">Phone
+            <span class="arrowDown fs10px" ng-show="propertyName == 'phone' && reverse == false" >&#9660;</span>
+            <span class="arrowUp fs10px" ng-show="(propertyName == 'phone'  && reverse == true) || propertyName !== 'phone' ">&#9650;</span>
+          </th>
+           
+          <th>Delete</th>
+        <!-- <th>ratings</th>   -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="comp in companies |  orderBy:propertyName:reverse ">
+    
+        <td ng-click="showCompanyDetail(comp.id)">{{comp.name}}</td>
+
+        <td>{{comp.ofcAddress}}</td>
+        
+        <td>{{comp.email}}</td>
+        
+        <td >{{comp.phone}}</td>
+        
+        <td><button type="button" class="btn btn-danger" ng-click="deleteCompany(comp.id)">Delete</button></td>
+          
+      </tr>
+
+            
+    </tbody>
+  </table>
+                      
+  </section>
+
+</div>
+</div>
+
+
+<style>
+  #companyTable {
+    padding: 20px 30px;
+
+    background-color: white;
+}
+#companyTable .homeBreadCumb {
+    margin-bottom: 20px;
+}
+
+#companyTable .homeBreadCumb .breadcrumbTitle {
+    font-size: 20px;
+}
+
+#companyTable .homeBreadCumb ol li.active {
+    font-weight: bold;
+}
+
+#companyTable table {
+    table-layout: fixed;
+}
+
+#companyTable table > thead > tr {
+    cursor: pointer;
+
+    color: #fff;
+    border-color: #a7b1c2;
+    background-color: #a7b1c2;
+}
+
+#companyTable table > thead > tr th {
+    white-space: nowrap;
+
+    background-color: #2f4050;
+}
+
+#companyTable table > thead > tr th span {
+    float: right;
+}
+
+#companyTable table > tbody > tr td {
+    border: 1px solid #e7e7e7;
+    border-bottom: 1px solid #ddd;
+}
+</style>
