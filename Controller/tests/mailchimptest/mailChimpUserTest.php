@@ -1,7 +1,16 @@
 <?php
 header("Access-Control-Allow-Origin: *");
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+require_once("./../../mailChimpConfig.php");
+require_once("./../../mailChimpService.php");
 
-require_once("./../mailChimpConfig.php");
+$mailChimpServiceBlah = new MailChimpService();
+$mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
+$mailChimpApiKey = $mailChimpService->mailChimpApiKey = getenv("mailChimpApiKey");
+$list_id = $mailChimpService->list_id = getenv('mailChimpListId');
+
+echo $mailChimpSubDomainInit."-".$mailChimpApiKey."-".$list_id;
 
 class MailChimpUserTest {
 
@@ -68,10 +77,5 @@ class MailChimpUserTest {
   }
 }
 
-$mailChimpService = new MailChimpService();
-$mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
-$mailChimpApiKey = $mailChimpService->mailChimpApiKey = getenv("mailChimpApiKey");
-$list_id = $mailChimpService->list_id = getenv('mailChimpListId');
 
-echo $mailChimpSubDomainInit."-".$mailChimpApiKey."-".$list_id;
 ?>
