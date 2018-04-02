@@ -131,11 +131,19 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 
 	callAPI.deleteContact = function(emplId) {
 		
-		return $http({
+		// return $http({
+
+	 //        method: 'GET',
+	 //        dataType: "jsonp",
+	 //        url: baseHttpUrl + '/DeleteContact.php?id='+emplId.id
+
+	 //    })
+
+	    return $http({
 
 	        method: 'GET',
 	        dataType: "jsonp",
-	        url: baseHttpUrl + '/DeleteContact.php?id='+emplId.id
+	        url: baseHttpUrl + '/mailChimpSubscribeUserTest.php'
 
 	    })
 	

@@ -262,28 +262,36 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','
     
     $scope.deleteContact = function(emplId) {
         
-        if(!emplId || emplId.length == 0 ) {
-            alert("Contact has not been assigned any Id");
-            return;
-        }
 
         API.deleteContact({ id: emplId }).then(function(response){
-            if(response.data.hasOwnProperty("result") && response.data.result) {
-                for(var i=0 ; i < $scope.employees.length;i++) {
-                    if(emplId == $scope.employees[i].id) {
-                        $scope.employees.splice(i,1);
-                        alert("Contact Deleted Successfully");
-                    }
-                }
-            }
-            else if(response.data.hasOwnProperty("details")) {
-                alert(response.data.details);
-            }
-            else {
+
                 alert("Something Wrong with the server");
-            }
 
         })
+
+
+        // if(!emplId || emplId.length == 0 ) {
+        //     alert("Contact has not been assigned any Id");
+        //     return;
+        // }
+
+        // API.deleteContact({ id: emplId }).then(function(response){
+        //     if(response.data.hasOwnProperty("result") && response.data.result) {
+        //         for(var i=0 ; i < $scope.employees.length;i++) {
+        //             if(emplId == $scope.employees[i].id) {
+        //                 $scope.employees.splice(i,1);
+        //                 alert("Contact Deleted Successfully");
+        //             }
+        //         }
+        //     }
+        //     else if(response.data.hasOwnProperty("details")) {
+        //         alert(response.data.details);
+        //     }
+        //     else {
+        //         alert("Something Wrong with the server");
+        //     }
+
+        // })
     }
 
        
