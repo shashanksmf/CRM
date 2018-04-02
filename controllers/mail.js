@@ -15,6 +15,33 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 		console.log("$scope.groups : ",$scope.groups)
 	})
 
+		$scope.deleteCampaign = function(campaignId) {
+		console.log("hey",campaignId);
+        
+        if(!campaignId || campaignId.length == 0 ) {
+            alert("Campaign has not been assigned any Id");
+            return;
+        }
+
+        API.deleteCampaign({ id: campaignId }).then(function(response){
+            if(response.data.hasOwnProperty("result") && response.data.result) {
+                for(var i=0 ; i < $scope.campaigns.length;i++) {
+                    if(campaignId == $scope.campaigns[i].id) {
+                        $scope.campaigns.splice(i,1);
+                        alert("Campaign Deleted Successfully");
+                    }
+                }
+            }
+            else if(response.data.hasOwnProperty("details")) {
+                alert(response.data.details);
+            }
+            else {
+                alert("Something Wrong with the server");
+            }
+
+        })
+    }
+
 
    var SMSdata =  {  
 		   "from":"InfoSMS",
