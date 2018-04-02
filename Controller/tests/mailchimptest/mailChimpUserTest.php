@@ -81,4 +81,10 @@ class MailChimpUserTest {
 $subUser = new MailChimpUserTest();
 $result = $subUser->subscribeUser("shashanksmf@outlook.com","shashank",$mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
 echo $result;
+echo "<br/>";
+
+$unSubUser = new MailChimpUserTest();
+$result = $subUser->unSubscribeUser("shashanksmf@outlook.com","shashank",$mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
+echo $result;
+echo "<br/>";
 ?>
