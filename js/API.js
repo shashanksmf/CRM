@@ -129,29 +129,16 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	
 	}
 
-	callAPI.deleteContact = function(emplId) {
-		
+	callAPI.deleteContact = function(emplData) {
+		console.log(emplData);
 		return $http({
 
 	        method: 'GET',
 	        dataType: "jsonp",
-	        url: baseHttpUrl + '/DeleteContact.php?id='+emplId.id
+	        url: baseHttpUrl + '/DeleteContact.php?id='+emplData.id+'&name='+emplData.name+'&email='+emplData.email
 
 	    })
 	
-	}
-
-	callAPI.userSubcription = function(emplData){
-		console.log(emplData);
-		
-	    return $http({
-
-	        method: 'POST',
-	        dataType: "jsonp",
-	        data:{emplName:emplData.name,emplEmail:emplData.email},
-	        url: baseHttpUrl + '/mailChimpSubscribeUserTest.php'
-
-	    })
 	}
 
 	callAPI.deleteCampaign = function(campaignID) {
