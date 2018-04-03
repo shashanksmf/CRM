@@ -2,7 +2,7 @@
 	
 	header("Access-Control-Allow-Origin: *");
 	require_once("../Controller/StaticDBCon.php");
-	require_once("./mailChimp/unSubEmpl/unSubEmplCall.php");
+	require_once("./mailChimp/unSubEmpl/unSubUser.php");
 
 	$emplId = @$_GET['id'];
 	$emplName = @$_GET['name'];
@@ -22,11 +22,15 @@
 
 		$unSubSql = "UPDATE `employee` set isSubscribed = 0 WHERE id=".$emplId.";";
 		if(isset($emplEmail) && !empty($emplEmail)){
-			$unSubEmplCall = new unSubEmplCall();
-        	$unSubresult = $unSubEmplCall->unSubUser($emplEmail,$emplName);
-        	if ($unSubresult == true) {
+			$unSubUser = new unSubUser();
+        	$unSubResult = $unSubUser->unSubUserFun($emplEmail,$emplName);
+        	if ($unSubResult['status'] == true) {
         		mysqli_query($conn, $unSubSql);
-        	}         	
+        	} else{
+        		$responseArr["result"] = false;
+				$responseArr["details"] = $unSubResult['reason'];
+				exit(json_encode($responseArr));
+        	}        	
         }
 
 		
