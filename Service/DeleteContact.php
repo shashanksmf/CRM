@@ -23,9 +23,9 @@
 		$unSubSql = "UPDATE `employee` set isSubscribed = 0 WHERE id=".$emplId.";";
 		if(isset($emplEmail) && !empty($emplEmail)){
 			$unSubEmplCall = new unSubEmplCall();
-        	$result = $unSubEmplCall->unSubUser($emplEmail,$emplName);
-        	echo $result;
-        	if ($result == true) {
+        	$unSubresult = $unSubEmplCall->unSubUser($emplEmail,$emplName);
+        	// echo $unSubresult;
+        	if ($unSubresult == true) {
         		if(mysqli_query($conn, $unSubSql)){
         			echo "hey";
 					$responseArr["result"] = true;
