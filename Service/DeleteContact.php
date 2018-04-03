@@ -28,7 +28,7 @@
         		mysqli_query($conn, $unSubSql);
         	} else{
         		$responseArr["result"] = false;
-				$responseArr["details"] = $unSubResult['reason'];
+				$responseArr["details"] = $unSubResult['unsubscribe_reason'];
 				exit(json_encode($responseArr));
         	}        	
         }
