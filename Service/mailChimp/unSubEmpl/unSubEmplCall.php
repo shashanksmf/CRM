@@ -21,11 +21,16 @@
 
             $resultArr = array();
             $resultArr = json_decode($result);
-            if ($resultArr["status"] == "unsubscribed") {
-                return true;
-            } else{
-                return false;
-            }
+            echo $resultArr;
+            echo $resultArr["status"];
+
+            return true;
+
+            // if ($resultArr["status"] == "unsubscribed") {
+            //     return true;
+            // } else{
+            //     return false;
+            // }
 
         }
 
