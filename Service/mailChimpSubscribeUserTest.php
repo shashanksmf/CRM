@@ -20,7 +20,7 @@ require_once("mailChimpService.php");
     $list_id = $mailChimpService->list_id = getenv('mailChimpListId');
 
     $unSubUser = new MailChimpUserTest();
-    $result = $subUser->unSubscribeUser($emplEmail,$emplName,$mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
+    $result = $unSubUser->unSubscribeUser($emplEmail,$emplName,$mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
     echo $result;
 
 	// $mailChimpUserTest = new MailChimpUserTest();

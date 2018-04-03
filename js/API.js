@@ -142,6 +142,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	}
 
 	callAPI.userSubcription = function(emplData){
+		console.log(emplData);
 		
 	    return $http({
 
