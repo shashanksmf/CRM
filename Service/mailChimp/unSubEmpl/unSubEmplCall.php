@@ -21,8 +21,6 @@
             echo $result;
 
             $resultArr = json_decode($result);
-            print $resultArr->{'status'};
-            // echo $resultArr;
             echo .json_decode($result);
 
             return true;
