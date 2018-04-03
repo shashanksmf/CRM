@@ -25,15 +25,7 @@
 			$unSubEmplCall = new unSubEmplCall();
         	$unSubresult = $unSubEmplCall->unSubUser($emplEmail,$emplName);
         	if ($unSubresult == true) {
-        		if(mysqli_query($conn, $unSubSql)){
-        			$responseArr["result"] = true;
-					echo json_encode($responseArr);
-				}
-				else{
-					$responseArr["result"] = false;
-					$responseArr["details"] =  mysqli_error($conn);
-					echo json_encode($responseArr);
-				}
+        		mysqli_query($conn, $unSubSql);
         	}         	
         }
 
