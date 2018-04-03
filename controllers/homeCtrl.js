@@ -265,7 +265,7 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','
 
         API.userSubcription({ name: emplName, email: emplEmail }).then(function(response){
 
-                alert("Something Wrong with the server");
+                alert("User unSbscribed");
 
         })
 
@@ -293,7 +293,7 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','
         // })
     }
 
-       
+   
     
     
     

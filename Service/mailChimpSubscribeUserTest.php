@@ -1,8 +1,11 @@
 <?php
 header("Access-Control-Allow-Origin: *");
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 require_once("../Controller/tests/mailchimptest/mailChimpUserTest.php");
 require_once("mailChimpConfig.php");
+require_once("mailChimpService.php");
 
 
 	$emplName = @$_POST['emplName'];
@@ -11,20 +14,28 @@ require_once("mailChimpConfig.php");
 	echo ("$emplName" .$emplName);
 	echo ("$empl" .$emplEmail);
 
-
-	$mailChimpUserTest = new MailChimpUserTest();
+    $mailChimpService = new MailChimpService();
     $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
-    $mailChimpApiKey = $mailChimpUserTest->mailChimpApiKey = getenv("mailChimpApiKey");
-    $list_id = $mailChimpUserTest->list_id = getenv('mailChimpListId');
+    $mailChimpApiKey = $mailChimpService->mailChimpApiKey = getenv("mailChimpApiKey");
+    $list_id = $mailChimpService->list_id = getenv('mailChimpListId');
+
+    $unSubUser = new MailChimpUserTest();
+    $result = $subUser->unSubscribeUser($emplEmail,$emplName,$mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
+    echo $result;
+
+	// $mailChimpUserTest = new MailChimpUserTest();
+ //    $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
+ //    $mailChimpApiKey = $mailChimpUserTest->mailChimpApiKey = getenv("mailChimpApiKey");
+ //    $list_id = $mailChimpUserTest->list_id = getenv('mailChimpListId');
 
 
-    $subUserRes = $mailChimpUserTest->subscribeUser($emplEmail,$emplName,$mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
+ //    $unSubUserRes = $mailChimpUserTest->unSubscribeUser($emplEmail,$emplName,$mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
 
-    $subUserRes = $subUserRes === NULL ? "" : $subUserRes;
+ //    $unSubUserRes = $unSubUserRes === NULL ? "" : $unSubUserRes;
 
-    print_r($subUserRes);
+ //    print_r($unSubUserRes);
 
-    echo ("result :" .json_encode($subUserRes));
+ //    echo ("result :" .json_encode($unSubUserRes));
 
 
 
