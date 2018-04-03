@@ -269,7 +269,7 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','
 
         API.deleteContact({ id: emplId, name: emplName, email: emplEmail }).then(function(response){
             console.log(response.data.result);
-            if(response.data.hasOwnProperty("result") && response.data.result) {
+            if(response.data.hasOwnProperty("result")) {
                 for(var i=0 ; i < $scope.employees.length;i++) {
                     if(emplId == $scope.employees[i].id) {
                         $scope.employees.splice(i,1);
