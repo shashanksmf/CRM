@@ -22,8 +22,7 @@
             
             $result = json_decode($result, true);
             echo $result['status'];
-            return true;
-
+            
             if ($result['status'] == "unsubscribed") {
                 return true;
             } 
