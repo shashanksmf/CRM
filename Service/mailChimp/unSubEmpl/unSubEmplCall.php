@@ -19,10 +19,9 @@
             $unSubAPI = new unSubAPI();
             $result = $unSubAPI->unSubscribeUser($emplEmail,$emplName,$mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
 
-            $resultArr = array();
             $resultArr = json_decode($result);
             echo $resultArr;
-            echo $resultArr["status"];
+            
 
             return true;
 
