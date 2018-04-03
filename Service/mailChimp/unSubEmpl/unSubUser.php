@@ -33,7 +33,7 @@
             } 
             else {
                 $responseArr['status'] = false;
-                $responseArr['unsubscribe_reason'] = $result['status'];
+                $responseArr['reason'] = $result['unsubscribe_reason'];
                 return $responseArr;
             }
 
