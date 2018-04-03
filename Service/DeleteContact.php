@@ -24,11 +24,9 @@
 		if(isset($emplEmail) && !empty($emplEmail)){
 			$unSubEmplCall = new unSubEmplCall();
         	$unSubresult = $unSubEmplCall->unSubUser($emplEmail,$emplName);
-        	// echo $unSubresult;
         	if ($unSubresult == true) {
         		if(mysqli_query($conn, $unSubSql)){
-        			echo "hey";
-					$responseArr["result"] = true;
+        			$responseArr["result"] = true;
 					echo json_encode($responseArr);
 				}
 				else{
