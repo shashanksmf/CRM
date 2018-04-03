@@ -18,14 +18,14 @@
 
             $unSubAPI = new unSubAPI();
             $result = $unSubAPI->unSubscribeUser($emplEmail,$emplName,$mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
-            echo $result;
+            // echo $result;
             
             $result = json_decode($result, true);
             $responseArr = array();
             $responseArr = $result;
             // echo $result['status'];
-            echo $responseArr['status'];
-            echo $responseArr['unsubscribe_reason'];
+            // echo $responseArr['status'];
+            // echo $responseArr['unsubscribe_reason'];
             
             if ($responseArr['status'] == "unsubscribed") {
                 $responseArr['status'] = true;
