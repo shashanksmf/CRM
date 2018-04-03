@@ -21,8 +21,7 @@
 
             $resultArr = json_decode($result);
             // echo $resultArr;
-            var_dump($resultArr);
-            // echo $resultArr["status"];
+            echo json_decode($result);
 
             return true;
 
