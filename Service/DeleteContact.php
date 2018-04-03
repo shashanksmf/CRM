@@ -20,11 +20,22 @@
 
 	if(isset($emplId) && !empty($emplId)) {
 
+		$unSubSql = "UPDATE `employee` set isSubscribed = 0 WHERE id=".$emplId.";";
 		if(isset($emplEmail) && !empty($emplEmail)){
-			echo "inside";
 			$unSubEmplCall = new unSubEmplCall();
         	$result = $unSubEmplCall->unSubUser($emplEmail,$emplName);
         	echo $result;
+        	if ($result == "true") {
+        		if(mysqli_query($conn, $unSubSql)){
+					$responseArr["result"] = true;
+					echo json_encode($responseArr);
+				}
+				else{
+					$responseArr["result"] = false;
+					$responseArr["details"] =  mysqli_error($conn);
+					echo json_encode($responseArr);
+				}
+        	}         	
         }
 
 		
