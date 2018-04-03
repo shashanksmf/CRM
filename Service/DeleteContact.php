@@ -21,6 +21,7 @@
 	if(isset($emplId) && !empty($emplId)) {
 
 		if(isset($emplEmail) && !empty($emplEmail)){
+			echo "inside";
 			$unSubEmplCall = new unSubEmplCall();
         	$result = $unSubEmplCall->unSubUser($emplEmail,$emplName);
         	echo $result;
