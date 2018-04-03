@@ -7,9 +7,9 @@
     require_once("../../../Controller/mailChimpConfig.php");
     require_once("../../../Controller/mailChimpService.php");
 
-	class subUserList {
+	// class subUserList {
 
-        public function subUserListFun() {
+ //        public function subUserListFun() {
 
             $mailChimpService = new MailChimpService();
             $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
@@ -18,12 +18,12 @@
 
             $mailChimpSubUserList = new mailChimpSubUserList();
             $result = $mailChimpSubUserList->userList($mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
-            $result = json_decode($result, true);
+            // $result = json_decode($result, true);
             echo $result;
                     
-        }
+    //     }
 
-    }
+    // }
 
 
 
