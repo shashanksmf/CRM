@@ -19,7 +19,7 @@ $mailChimpApiKey = $mailChimpService->mailChimpApiKey = getenv("mailChimpApiKey"
 $list_id = $mailChimpService->list_id = getenv('mailChimpListId');
 
 $checkListId = new checkListId();
-$result = $checkListId->key($mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
+$result = $checkListId->checkList($mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
 echo "checkListId",$result;
 
 // $result = json_decode($result, true);
