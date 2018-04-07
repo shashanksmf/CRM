@@ -40,6 +40,21 @@
 <!-- Main controller with serveral data used in Inspinia theme on diferent view -->
 <body ng-controller="MainCtrl as main" class="{{$state.current.data.specialClass}}" landing-scrollspy id="page-top">
 
+<div class="modal fade" id="tokenErrorModal" tabindex="-1" role="dialog" aria-labelledby="tokenErrorModalLabel" aria-hidden="true" style="z-index: 99999999 !important">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title text-center" ng-model="tokenErrorModalLabel" id="tokenErrorModalLabel"></h4>
+          </div>
+          <div class="modal-footer">
+            <div style="float: left;">
+                <h4 class="modal-title">Please Login.</h4>
+            </div>
+            <a href="http://www.raffia.co/#/login" ng-click="tokenErrorModalBtn()" id="tokenErrorModalBtn" class="btn btn-danger" role="button" aria-pressed="true">OK</a>
+          </div>
+        </div>
+      </div>
+</div>
 
 
 <!-- Main view  -->
