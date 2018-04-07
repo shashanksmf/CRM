@@ -6,7 +6,16 @@ inspinia.controller('emplInsertProfileCtrl', ['$scope','$rootScope','$http','$q'
 	$scope.hidespinner = true;
     //$("#emplLoadingModal").modal('show');
 	API.getAllComapnies().then(function(response){
-		$scope.companies = response.data.details;
+		if(response.data.result){
+			$scope.companies = response.data.details;
+		}
+		else if(response.data.errorType == "token"){
+			$('#tokenErrorModalLabel').html(response.data.details);
+			$('#tokenErrorModal').modal("show");
+			$('#tokenErrorModalBtn').click(function(){
+				$('#tokenErrorModal').modal("hide");
+			})
+		}  
 	})
 	$scope.emplProfileInfo = {};
 	$scope.emplProfile = new FormData();
@@ -46,18 +55,27 @@ inspinia.controller('emplInsertProfileCtrl', ['$scope','$rootScope','$http','$q'
             API.insertEmplProfile($scope.emplProfile).then(function(response){
 				//console.log("response empl Insert",response);
 				if(response.data.result){
-					//alert("data uploaded");
-                    $scope.imgsrc = 'img/default-avatar.png';
-					$scope.errorMsg = "data uploaded";
-					$scope.hasError = false;
-					$scope.emplProfileInfo = {};
-				}else{
-                    $scope.hasError = true;
-					$timeout(function(){
-						$scope.errorMsg = response.data.details;
-					},100)
-					//alert(response.data.details);
+					if(response.data.result){
+						//alert("data uploaded");
+	                    $scope.imgsrc = 'img/default-avatar.png';
+						$scope.errorMsg = "data uploaded";
+						$scope.hasError = false;
+						$scope.emplProfileInfo = {};
+					}else{
+	                    $scope.hasError = true;
+						$timeout(function(){
+							$scope.errorMsg = response.data.details;
+						},100)
+						//alert(response.data.details);
+					}
 				}
+				else if(response.data.errorType == "token"){
+					$('#tokenErrorModalLabel').html(response.data.details);
+					$('#tokenErrorModal').modal("show");
+					$('#tokenErrorModalBtn').click(function(){
+						$('#tokenErrorModal').modal("hide");
+					})
+				} 
                 $scope.hidespinner = true;
 
             })

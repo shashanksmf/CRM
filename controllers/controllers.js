@@ -76,6 +76,13 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
               $rootScope.chats[chatArrIndex].chatDetail.push({id:response.data.msgId,message:msg,fromId:sendMsgObj.from,toId:toUserId,readed:false});  
               $rootScope.chats[chatArrIndex].sending = false;  
             }
+            else if(response.data.errorType == "token"){
+                $('#tokenErrorModalLabel').html(response.data.details);
+                $('#tokenErrorModal').modal("show");
+                $('#tokenErrorModalBtn').click(function(){
+                    $('#tokenErrorModal').modal("hide");
+                })
+            } 
             else{
                 $rootScope.chats[chatArrIndex].chatDetail.push({message:msg,from:sendMsgObj.fromId,toId:toUserId,readed:false,isError:true,errorMsg:'MessageCould not be send..'});   
             }
@@ -109,7 +116,16 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
 
             $rootScope.chats[fromIdInChatArr].active = true;   
             API.getChatDetails(chatObj).then(function(response){ 
-                $rootScope.chats[i].chatDetail = response.data.Messages;
+                if(response.data.result){
+                    $rootScope.chats[i].chatDetail = response.data.Messages;
+                }
+                else if(response.data.errorType == "token"){
+                    $('#tokenErrorModalLabel').html(response.data.details);
+                    $('#tokenErrorModal').modal("show");
+                    $('#tokenErrorModalBtn').click(function(){
+                        $('#tokenErrorModal').modal("hide");
+                    })
+                } 
             })
 
         }
@@ -121,15 +137,24 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
             }
             //here chatid should be lowest so that we can get max caht upto highest
             API.getChatDetails(chatObj).then(function(response){
-                $rootScope.chats.push(
-                    {
-                        "fromUserName":fromUserName,
-                        "fromUserId":fromUserId,
-                        "chatsArrIndex":$rootScope.chats.length,
-                        "active":true,
-                        "chatDetail":response.data.Messages
+                if(response.data.result){
+                    $rootScope.chats.push(
+                        {
+                            "fromUserName":fromUserName,
+                            "fromUserId":fromUserId,
+                            "chatsArrIndex":$rootScope.chats.length,
+                            "active":true,
+                            "chatDetail":response.data.Messages
 
-                    });  
+                        });  
+                }
+                else if(response.data.errorType == "token"){
+                    $('#tokenErrorModalLabel').html(response.data.details);
+                    $('#tokenErrorModal').modal("show");
+                    $('#tokenErrorModalBtn').click(function(){
+                        $('#tokenErrorModal').modal("hide");
+                    })
+                } 
             })
         }
 
@@ -193,6 +218,13 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
                     }
                     
                 }
+                else if(response.data.errorType == "token"){
+                    $('#tokenErrorModalLabel').html(response.data.details);
+                    $('#tokenErrorModal').modal("show");
+                    $('#tokenErrorModalBtn').click(function(){
+                        $('#tokenErrorModal').modal("hide");
+                    })
+                } 
                 
             if(response.data.usersList && response.data.usersList.length > 0){
                 $timeout(function(){
@@ -213,6 +245,13 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
                                pushNewMsgInActiveChatBox(response.data.chatDetails);
                         }
                      }
+                     else if(response.data.errorType == "token"){
+                        $('#tokenErrorModalLabel').html(response.data.details);
+                        $('#tokenErrorModal').modal("show");
+                        $('#tokenErrorModalBtn').click(function(){
+                            $('#tokenErrorModal').modal("hide");
+                        })
+                    } 
                     
                  if(response.data.usersList && response.data.usersList.length > 0){
                      $rootScope.friendList = response.data.usersList;
@@ -231,9 +270,19 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
     if(userId) {
         API.getUserInfo(userId).then(function(response) {
         //    console.log();
-            $rootScope.userName = response.data.details.name;
-            $rootScope.userEmail = response.data.details.email;
-            $rootScope.userProfilePic = crmconfig.serverDomainName +"/"+ response.data.details.profilePic;
+            if(response.data.result){
+                $rootScope.userName = response.data.details.name;
+                $rootScope.userEmail = response.data.details.email;
+                $rootScope.userProfilePic = crmconfig.serverDomainName +"/"+ response.data.details.profilePic;
+            }
+            else if(response.data.errorType == "token"){
+                $('#tokenErrorModalLabel').html(response.data.details);
+                $('#tokenErrorModal').modal("show");
+                $('#tokenErrorModalBtn').click(function(){
+                    $('#tokenErrorModal').modal("hide");
+                })
+            }  
+            
         });
     }
 

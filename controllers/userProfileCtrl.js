@@ -13,7 +13,16 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 	
 	//emplProPicSeleted
 	API.getAllComapnies().then(function(response){
-		$scope.companies = response.data.details;
+		if(response.data.result){
+			$scope.companies = response.data.details;
+		}
+		else if(response.data.errorType == "token"){
+			$('#tokenErrorModalLabel').html(response.data.details);
+			$('#tokenErrorModal').modal("show");
+			$('#tokenErrorModalBtn').click(function(){
+				$('#tokenErrorModal').modal("hide");
+			})
+		} 
 	})
 
 	$scope.changeProfileEdit = function (){
@@ -23,56 +32,74 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 	}
 	
 	$scope.submit = function() {
-        $scope.userProfileInfo.imgUrl = $scope.profilePicUploadedResUrl || $scope.userProfileInfo.imgUrl;
-        
-        try {
-		   	$scope.companies.forEach(function(company){
-		   		if(company.id == $scope.userProfileInfo.companyId) {
-		   			$scope.userProfileInfo.Company.name = company.name;
-		   		}
-		   	})
-	   } catch(ex) {
-	   	console.log(ex);
-	   }
+		$scope.userProfileInfo.imgUrl = $scope.profilePicUploadedResUrl || $scope.userProfileInfo.imgUrl;
 
-	    API.updateUserProfile($scope.userProfileInfo).then(function(response){
-	    	if(response.data.responce){
-	    		//alert("profileUpdated");
-	    		$scope.profileEdit = !$scope.profileEdit;
-	    	}
-	    	else{
-	    		alert("Network Problem Please Try Again");	
-	    	}
-	    	
-	    })
+		try {
+			$scope.companies.forEach(function(company){
+				if(company.id == $scope.userProfileInfo.companyId) {
+					$scope.userProfileInfo.Company.name = company.name;
+				}
+			})
+		} catch(ex) {
+			console.log(ex);
+		}
 
-   
+		API.updateUserProfile($scope.userProfileInfo).then(function(response){
+			if(response.data.result){
+				if(response.data.responce){
+					//alert("profileUpdated");
+					$scope.profileEdit = !$scope.profileEdit;
+				}
+				else{
+					alert("Network Problem Please Try Again");	
+				}
+			}
+			else if(response.data.errorType == "token"){
+				$('#tokenErrorModalLabel').html(response.data.details);
+				$('#tokenErrorModal').modal("show");
+				$('#tokenErrorModalBtn').click(function(){
+					$('#tokenErrorModal').modal("hide");
+				})
+			} 
+
+		})
+
+
 	};
 
 
 	
-    
-    var userObj = { userId : $scope.emplId };
-    API.getUserProfile(userObj).then(function(response){
-        $scope.userProfileInfo = response.data.Employees[0];
-        $scope.imgsrc = domainName + response.data.Employees[0].imgUrl;
-    	try {
-		   	$scope.companies.forEach(function(company){
-		   		if(company.id == $scope.userProfileInfo.companyId) {
-		   			$scope.userProfileInfo.Company.name = company.name;
-		   		}
-		   	})
-	   } catch(ex) {
-	   	console.log(ex);
-	   }
-    })
+
+	var userObj = { userId : $scope.emplId };
+	API.getUserProfile(userObj).then(function(response){
+		if(response.data.result){
+			$scope.userProfileInfo = response.data.Employees[0];
+			$scope.imgsrc = domainName + response.data.Employees[0].imgUrl;
+			try {
+				$scope.companies.forEach(function(company){
+					if(company.id == $scope.userProfileInfo.companyId) {
+						$scope.userProfileInfo.Company.name = company.name;
+					}
+				})
+			} catch(ex) {
+				console.log(ex);
+			}
+		}
+		else if(response.data.errorType == "token"){
+			$('#tokenErrorModalLabel').html(response.data.details);
+			$('#tokenErrorModal').modal("show");
+			$('#tokenErrorModalBtn').click(function(){
+				$('#tokenErrorModal').modal("hide");
+			})
+		} 
+	})
 
 
 	$scope.browseFileAttach = function() {
 		$scope.progressbar = 0;
 		try{
-		document.getElementsByClassName("fileAttachmentInput")[0].value = '';
-		document.getElementsByClassName("fileAttachmentInput")[0].click();
+			document.getElementsByClassName("fileAttachmentInput")[0].value = '';
+			document.getElementsByClassName("fileAttachmentInput")[0].click();
 		}
 		catch(ex){
 			console.log(ex);
@@ -106,27 +133,27 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 
 		$scope.fileAttach.append("fileName",fileName);
 		
-	    	uploadEmplFile($scope.fileAttach).then(function(response) {
-	    	
-	    	//alert("file successFully Uploaded")
-	    	 response = JSON.parse(response);
-	    	 console.log(response);
-	    	 if(response.result) {
-	    		//alert("file successFully Uploaded");
-	    		$("#fileNameModal").modal("hide");
-	    		$scope.fileAttach = '';
-	    	 }
-	    	 else {
-	    	 	alert("Network problem Please Try Again");
-	    	 }
+		uploadEmplFile($scope.fileAttach).then(function(response) {
 
-	    	
-	    	$timeout(function() {
+			//alert("file successFully Uploaded")
+			response = JSON.parse(response);
+			console.log(response);
+			if(response.result) {
+				//alert("file successFully Uploaded");
+				$("#fileNameModal").modal("hide");
+				$scope.fileAttach = '';
+			}
+			else {
+				alert("Network problem Please Try Again");
+			}
+
+
+			$timeout(function() {
 				$scope.files.push({checked:false,"name":response.details.fileName,"date":response.details.date,id:response.details.id,filesize:response.details.filesize,isactive:'1'})
 				//console.log($scope.files);
 			}, 500);	
 
-	    })
+		})
 
 
 	} 
@@ -141,142 +168,160 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 				console.log($scope.files)
 			}
 		} 
-		else {
-
-		}
+		else if(response.data.errorType == "token"){
+			$('#tokenErrorModalLabel').html(response.data.details);
+			$('#tokenErrorModal').modal("show");
+			$('#tokenErrorModalBtn').click(function(){
+				$('#tokenErrorModal').modal("hide");
+			})
+		} 
 
 	});
 	
 
-    function uploadEmplFile (file){
+	function uploadEmplFile (file){
 
-        var xhttp = new XMLHttpRequest();
-        var promise = $q.defer();
+		var xhttp = new XMLHttpRequest();
+		var promise = $q.defer();
 
-        xhttp.upload.addEventListener("progress",function (e) {
-        //    console.log("progress ",e); 
-            var progress = Math.ceil(((e.loaded) / e.total) * 100);
-            $timeout(function(){
-            	$scope.progressbar = progress;
-            },10);
-            
-         //   console.log(progress);
-            //promise.notify(e);
-        });
-        // xhttp.upload.addEventListener("load",function (e) {
-        //     promise.resolve(e);
-        // });
+		xhttp.upload.addEventListener("progress",function (e) {
+			//    console.log("progress ",e); 
+			var progress = Math.ceil(((e.loaded) / e.total) * 100);
+			$timeout(function(){
+				$scope.progressbar = progress;
+			},10);
 
-        xhttp.onreadystatechange=function() {
-         //   alert(xhttp.readyState + " " + xhttp.status);
-            if (xhttp.readyState==4 && xhttp.status==200) {
-                console.log(xhttp.responseText);
-             // document.getElementById("captcha_error").innerHTML=xmlhttp.responseText;
-              promise.resolve(xhttp.responseText);
-              //return false;
-            }
-        }
+			//   console.log(progress);
+			//promise.notify(e);
+		});
+		// xhttp.upload.addEventListener("load",function (e) {
+			//     promise.resolve(e);
+			// });
 
-        xhttp.upload.addEventListener("error",function (e) {
-            promise.reject(e);
-        });
-
-        xhttp.open("POST",baseHttpUrl + '/uploadEmplFiles.php',true);
-        //xhttp.setRequestHeader("Content-Type", undefined);
-    
-        xhttp.send(file);
-
-        return promise.promise;
-    }
-
-    $scope.deleteEmplFile = function(fileId,index) {
-    	var fileObj = { emplId : $scope.emplId , fileId : fileId };
-    	API.deleteEmplFile(fileObj).then(function(response){
-	    	 if(response.data.result){
-	    	 	$scope.files[index].isactive = 0;	
-	    	 }
-    	})
-    }
-
-
-
-   // below code for uppdate profile Pic
-
-   // when user click on choose file for emplyee profile pic
-   $scope.emplProPicSeleted = function(files) {
-
-   	  	var file = new FormData();
-        file.append("image", files[0]);
-        file.append("fileName",files[0].name);
-        file.append("id", $scope.emplId);
-        
-        var reader = new FileReader();
-        reader.onload = $scope.imageIsLoaded; 
-        reader.readAsDataURL(files[0]);
-        try{
-        	document.getElementsByClassName("emplpropicfileinput")[0].value = '';
-        }
-        catch(ex){
-        	console.log(ex);
-        }
-        //var url = "http://jaiswaldevelopers.com/CRMV1/files/index.php";
-        API.uploadEmplProfilePic(file).then(function(response) {
-        	if(response.data.result){
-	        //	console.log("upload emplyee pro pic response",response);
-	            //alert("Picture successFully Uploaded");
-                $scope.profilePicUploadedResUrl = response.data.details.imageUrl;
+			xhttp.onreadystatechange=function() {
+				//   alert(xhttp.readyState + " " + xhttp.status);
+				if (xhttp.readyState==4 && xhttp.status==200) {
+					console.log(xhttp.responseText);
+					// document.getElementById("captcha_error").innerHTML=xmlhttp.responseText;
+					promise.resolve(xhttp.responseText);
+					//return false;
+				}
 			}
-        })	
 
-   }
+			xhttp.upload.addEventListener("error",function (e) {
+				promise.reject(e);
+			});
 
-    $scope.imageIsLoaded = function(e){
-        $scope.$apply(function() {
-            $scope.imgsrc = e.target.result;
-        });
-    }
-    
-     $scope.clickUserChangePicture = function(){
-        document.getElementsByClassName("emplpropicfileinput")[0].value = ''; 
-        document.getElementsByClassName("emplpropicfileinput")[0].click();
-    }
+			xhttp.open("POST",baseHttpUrl + '/uploadEmplFiles.php',true);
+			//xhttp.setRequestHeader("Content-Type", undefined);
 
+			xhttp.send(file);
 
+			return promise.promise;
+		}
 
-
-
-	// $scope.files = [
-	// 	{
-	// 		"id":"1",
-	// 		"name":"x-man pdf",
-	// 		"date":"02/05/2012",
-	// 		"checked":false
-	// 	},
-	// 	{
-	// 		"id":"2",
-	// 		"name":"The Economic Policy pdf",
-	// 		"date":"02/05/2012",
-	// 		"checked":false
-	// 	},
-	// 	{
-	// 		"id":"3",
-	// 		"name":"tail Head Png",
-	// 		"date":"02/05/2012",
-	// 		"checked":false
-	// 	}
-	// ]
+		$scope.deleteEmplFile = function(fileId,index) {
+			var fileObj = { emplId : $scope.emplId , fileId : fileId };
+			API.deleteEmplFile(fileObj).then(function(response){
+				if(response.data.result){
+					$scope.files[index].isactive = 0;	
+				}
+				else if(response.data.errorType == "token"){
+					$('#tokenErrorModalLabel').html(response.data.details);
+					$('#tokenErrorModal').modal("show");
+					$('#tokenErrorModalBtn').click(function(){
+						$('#tokenErrorModal').modal("hide");
+					})
+				} 
+			})
+		}
 
 
-}]);	
+
+		// below code for uppdate profile Pic
+
+		// when user click on choose file for emplyee profile pic
+		$scope.emplProPicSeleted = function(files) {
+
+			var file = new FormData();
+			file.append("image", files[0]);
+			file.append("fileName",files[0].name);
+			file.append("id", $scope.emplId);
+
+			var reader = new FileReader();
+			reader.onload = $scope.imageIsLoaded; 
+			reader.readAsDataURL(files[0]);
+			try{
+				document.getElementsByClassName("emplpropicfileinput")[0].value = '';
+			}
+			catch(ex){
+				console.log(ex);
+			}
+			//var url = "http://jaiswaldevelopers.com/CRMV1/files/index.php";
+			API.uploadEmplProfilePic(file).then(function(response) {
+				if(response.data.result){
+					//	console.log("upload emplyee pro pic response",response);
+					//alert("Picture successFully Uploaded");
+					$scope.profilePicUploadedResUrl = response.data.details.imageUrl;
+				}
+				else if(response.data.errorType == "token"){
+					$('#tokenErrorModalLabel').html(response.data.details);
+					$('#tokenErrorModal').modal("show");
+					$('#tokenErrorModalBtn').click(function(){
+						$('#tokenErrorModal').modal("hide");
+					})
+				} 
+			})	
+
+		}
+
+		$scope.imageIsLoaded = function(e){
+			$scope.$apply(function() {
+				$scope.imgsrc = e.target.result;
+			});
+		}
+
+		$scope.clickUserChangePicture = function(){
+			document.getElementsByClassName("emplpropicfileinput")[0].value = ''; 
+			document.getElementsByClassName("emplpropicfileinput")[0].click();
+		}
+
+
+
+
+
+		// $scope.files = [
+		// 	{
+			// 		"id":"1",
+			// 		"name":"x-man pdf",
+			// 		"date":"02/05/2012",
+			// 		"checked":false
+			// 	},
+			// 	{
+				// 		"id":"2",
+				// 		"name":"The Economic Policy pdf",
+				// 		"date":"02/05/2012",
+				// 		"checked":false
+				// 	},
+				// 	{
+					// 		"id":"3",
+					// 		"name":"tail Head Png",
+					// 		"date":"02/05/2012",
+					// 		"checked":false
+					// 	}
+					// ]
+
+
+				}]);	
 
 
 
 inspinia.directive('customOnChange', function() {
-  return {
-    restrict: 'A',
-    link: function (scope, element, attrs) {
-      var onChangeHandler = scope.$eval(attrs.customOnChange);
-      element.bind('change', onChangeHandler);
-    }
-  };
+	return {
+		restrict: 'A',
+		link: function (scope, element, attrs) {
+			var onChangeHandler = scope.$eval(attrs.customOnChange);
+			element.bind('change', onChangeHandler);
+		}
+	};
 });

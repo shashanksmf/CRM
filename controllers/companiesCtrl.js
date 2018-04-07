@@ -1,8 +1,17 @@
 var inspinia = angular.module('inspinia');
 inspinia.controller("companiesCtrl", ['$scope','$rootScope','$http','$q','API','$state','$timeout', function ($scope,$rootScope,$http,$q,API,$state,$timeout) {
 	
-	API.getAllCompanies().then(function(companiesData){
-		$scope.companies = companiesData.data.Users; 
+	API.getAllCompanies().then(function(response){
+		if(response.data.result){
+			$scope.companies = response.data.Users;;
+		}
+		else{
+            $('#tokenErrorModalLabel').html(response.data.details);
+            $('#tokenErrorModal').modal("show");
+            $('#tokenErrorModalBtn').click(function(){
+                $('#tokenErrorModal').modal("hide");
+            })
+        }  
 	})
 
 	
@@ -18,26 +27,34 @@ inspinia.controller("companiesCtrl", ['$scope','$rootScope','$http','$q','API','
 
 
 	$scope.deleteCompany = function(companyId) {
-		console.log(companyId);
 		if(!companyId || companyId.length == 0 ) {
 			alert("Company has not been assigned any Id");
 			return;
 		}
 
 		API.deleteCompany({ id: companyId }).then(function(response){
-			if(response.data.hasOwnProperty("result") && response.data.result) {
-				for(var i=0 ; i < $scope.companies.length;i++) {
-					if(companyId == $scope.companies[i].id) {
-						$scope.companies.splice(i,1);
-						alert("Company Deleted Successfully");
+			if(response.data.result){
+				if(response.data.hasOwnProperty("result") && response.data.result) {
+					for(var i=0 ; i < $scope.companies.length;i++) {
+						if(companyId == $scope.companies[i].id) {
+							$scope.companies.splice(i,1);
+							alert("Company Deleted Successfully");
+						}
 					}
 				}
+				else if(response.data.hasOwnProperty("details")) {
+					alert(response.data.details);
+				}
+				else {
+					alert("Something Wrong with the server");
+				}
 			}
-			else if(response.data.hasOwnProperty("details")) {
-				alert(response.data.details);
-			}
-			else {
-				alert("Something Wrong with the server");
+			else if(response.data.errorType == "token"){
+					$('#tokenErrorModalLabel').html(response.data.details);
+					$('#tokenErrorModal').modal("show");
+					$('#tokenErrorModalBtn').click(function(){
+						$('#tokenErrorModal').modal("hide");
+					})
 			}
 
 		})

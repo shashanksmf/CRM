@@ -7,37 +7,62 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 
 
 	API.getAllCampaigns().then(function(response){
-		$scope.campaigns = response.data.camp;
+		if(response.data.result){
+			$scope.campaigns = response.data.camp;
+		}
+		else if(response.data.errorType == "token"){
+			$('#tokenErrorModalLabel').html(response.data.details);
+			$('#tokenErrorModal').modal("show");
+			$('#tokenErrorModalBtn').click(function(){
+				$('#tokenErrorModal').modal("hide");
+			})
+		} 
 	})
 
-	API.getAllGroups().then(function(groupData){
-		$scope.groups = groupData.data;    
-		console.log("$scope.groups : ",$scope.groups)
+	API.getAllGroups().then(function(response){
+		if(response.data.result){
+			$scope.groups = response.data;
+		}
+		else if(response.data.errorType == "token"){
+			$('#tokenErrorModalLabel').html(response.data.details);
+			$('#tokenErrorModal').modal("show");
+			$('#tokenErrorModalBtn').click(function(){
+				$('#tokenErrorModal').modal("hide");
+			})
+		}  
 	})
 
 		$scope.deleteCampaign = function(campaignId) {
-		console.log("hey",campaignId);
-        
+		
         if(!campaignId || campaignId.length == 0 ) {
             alert("Campaign has not been assigned any Id");
             return;
         }
 
         API.deleteCampaign({ id: campaignId }).then(function(response){
-            if(response.data.hasOwnProperty("result") && response.data.result) {
-                for(var i=0 ; i < $scope.campaigns.length;i++) {
-                    if(campaignId == $scope.campaigns[i].id) {
-                        $scope.campaigns.splice(i,1);
-                        alert("Campaign Deleted Successfully");
-                    }
-                }
-            }
-            else if(response.data.hasOwnProperty("details")) {
-                alert(response.data.details);
-            }
-            else {
-                alert("Something Wrong with the server");
-            }
+        	if(response.data.result){
+	            if(response.data.hasOwnProperty("result") && response.data.result) {
+	                for(var i=0 ; i < $scope.campaigns.length;i++) {
+	                    if(campaignId == $scope.campaigns[i].id) {
+	                        $scope.campaigns.splice(i,1);
+	                        alert("Campaign Deleted Successfully");
+	                    }
+	                }
+	            }
+	            else if(response.data.hasOwnProperty("details")) {
+	                alert(response.data.details);
+	            }
+	            else {
+	                alert("Something Wrong with the server");
+	            }
+        	}
+        	else if(response.data.errorType == "token"){
+				$('#tokenErrorModalLabel').html(response.data.details);
+				$('#tokenErrorModal').modal("show");
+				$('#tokenErrorModalBtn').click(function(){
+					$('#tokenErrorModal').modal("hide");
+				})
+			}
 
         })
     }
@@ -161,10 +186,19 @@ xhr.send(data);
 
 
 	API.getTemplate().then(function(response){
-		var templateStr = JSON.stringify(response.data).replace(/\r?\n|\r/g,'');
-		var str = ((JSON.parse(templateStr)).replace(/\r?\n|\r/g,''));
-		$scope.templateObj =JSON.parse(str);
-
+		
+		if(response.data.result){
+			var templateStr = JSON.stringify(response.data).replace(/\r?\n|\r/g,'');
+			var str = ((JSON.parse(templateStr)).replace(/\r?\n|\r/g,''));
+			$scope.templateObj =JSON.parse(str);
+		}
+		else if(response.data.errorType == "token"){
+			$('#tokenErrorModalLabel').html(response.data.details);
+			$('#tokenErrorModal').modal("show");
+			$('#tokenErrorModalBtn').click(function(){
+				$('#tokenErrorModal').modal("hide");
+			})
+		}
 		//var html = decodeHtml(htmlObj.templ[0].html);
 		//$(html).children().find("#changeContent table > tbody > tr > td > p ").eq(1).html($scope.campaignMessage);
 		//$scope.htmlTemplate = $sce.trustAsHtml(html);
@@ -232,20 +266,38 @@ xhr.send(data);
 
 		API.addCampaign($scope.formData).then(function(response){
 			console.log(response);
-			$scope.campaignId = response.data.id;
+			if(response.data.responce){
+				$scope.campaignId = response.data.id;
 
-			console.log("run campaign")
-			API.runCampaign($scope.campaignId).then(function(response){
-				console.log(response);
-
-				alert("campaign Successfully started");
-//				location.reload();
-			},
-			    function(data) {
-			  	alert("campaign Successfully started");
-			        // Handle error here
-//			  	location.reload();
-			    })
+				console.log("run campaign")
+				API.runCampaign($scope.campaignId).then(function(response){
+					console.log(response);
+					if(response.data.responce){
+						alert("campaign Successfully started");
+						// location.reload();
+					}
+					else if(response.data.errorType == "token"){
+						$('#tokenErrorModalLabel').html(response.data.details);
+						$('#tokenErrorModal').modal("show");
+						$('#tokenErrorModalBtn').click(function(){
+							$('#tokenErrorModal').modal("hide");
+						})
+					}
+				},
+				    function(data) {
+				  	alert("campaign Successfully started");
+				        // Handle error here
+				  		// location.reload();
+				    })
+			}
+			else if(response.data.errorType == "token"){
+				$('#tokenErrorModalLabel').html(response.data.details);
+				$('#tokenErrorModal').modal("show");
+				$('#tokenErrorModalBtn').click(function(){
+					$('#tokenErrorModal').modal("hide");
+				})
+			}
+			
 		})
 	
 	}

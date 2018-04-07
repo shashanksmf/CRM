@@ -4,16 +4,25 @@ inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','A
     var baseHttpUrl = crmconfig.servicePath, domainName = crmconfig.serverDomainName + '/';
     $scope.crmconfig = crmconfig;
     $scope.tabs = { summary:"summary" , attachment : "attachment" };
-	$scope.activeTab = $scope.tabs.summary;
-	$scope.profileEdit = false;
+    $scope.activeTab = $scope.tabs.summary;
+    $scope.profileEdit = false;
     
     var companyId = $stateParams.id;
-     
+
     $scope.newUploadPic = false;
 
     API.getCompanyDetails(companyId).then(function(response){
-        $scope.companyData = response.data.Users[0];
-        $scope.companyData.id = companyId;
+        if(response.data.result){
+            $scope.companyData = response.data.Users[0];
+            $scope.companyData.id = companyId;
+        }
+        else if(response.data.errorType == "token"){
+            $('#tokenErrorModalLabel').html(response.data.details);
+            $('#tokenErrorModal').modal("show");
+            $('#tokenErrorModalBtn').click(function(){
+                $('#tokenErrorModal').modal("hide");
+            })
+        } 
     })
 
 
@@ -27,18 +36,22 @@ inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','A
                 console.log($scope.files)
             }
         }
-        else {
-
-        }
+        else if(response.data.errorType == "token"){
+            $('#tokenErrorModalLabel').html(response.data.details);
+            $('#tokenErrorModal').modal("show");
+            $('#tokenErrorModalBtn').click(function(){
+                $('#tokenErrorModal').modal("hide");
+            })
+        } 
 
     });
 
-      
+
     $scope.fileSelected = function (files) {
 
         var file = new FormData();
         file.append("image", files[0]);
-     //   file.append("fileName",files[0].name);
+        //   file.append("fileName",files[0].name);
         file.append("id", companyId);
         
         var reader = new FileReader();
@@ -48,21 +61,28 @@ inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','A
         API.companyProfilePic(file).then(function(response) {
             console.log(response.data.responce);
             if(response.data.result){
-               // alert("Picture successFully Uploaded")
-                return;    
-            }
+             // alert("Picture successFully Uploaded")
+             return;    
+         }
+         else if(response.data.errorType == "token"){
+            $('#tokenErrorModalLabel').html(response.data.details);
+            $('#tokenErrorModal').modal("show");
+            $('#tokenErrorModalBtn').click(function(){
+                $('#tokenErrorModal').modal("hide");
+            })
+        } 
 
-            alert("server is down please try again");
-            
-        })
+        alert("server is down please try again");
+
+    })
     };
 
 
     $scope.imageIsLoaded = function(e){
-            $scope.$apply(function() {
-                $scope.newUploadPic = true;
-                $scope.imgsrc= e.target.result;
-            });
+        $scope.$apply(function() {
+            $scope.newUploadPic = true;
+            $scope.imgsrc= e.target.result;
+        });
     }
 
     
@@ -78,12 +98,18 @@ inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','A
                 //console.log("response API", response.data.responce);
                 if(response.data.responce){
                   //  alert("company data saved successfully");
-                     $scope.profileEdit = false;
-                }
-                else{
-                    alert("server is down please try again");
-                }
-            })
+                  $scope.profileEdit = false;
+              }else if(response.data.errorType == "token"){
+                $('#tokenErrorModalLabel').html(response.data.details);
+                $('#tokenErrorModal').modal("show");
+                $('#tokenErrorModalBtn').click(function(){
+                    $('#tokenErrorModal').modal("hide");
+                })
+            } 
+            else{
+                alert("server is down please try again");
+            }
+        })
         }
         
     }
@@ -105,70 +131,70 @@ inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','A
     $scope.uploadNewFileAttach = function (fileName) {
 
         if(!fileName || fileName.length < 0 ){
-            	alert("Please Enter FileName");
-            	return false;
+           alert("Please Enter FileName");
+           return false;
+       }
+
+       $scope.fileAttach.append("fileName",fileName);
+
+       uploadCompanyFile($scope.fileAttach).then(function(response) {
+
+        //alert("file successFully Uploaded")
+        response = JSON.parse(response);
+        console.log(response);
+        if(response.result) {
+            //alert("file successFully Uploaded");
+            $("#fileNameModal").modal("hide");
+            $scope.fileAttach = '';
+        }
+        else {
+            alert("Network problem Please Try Again");
         }
 
-        $scope.fileAttach.append("fileName",fileName);
 
-        uploadCompanyFile($scope.fileAttach).then(function(response) {
+        $timeout(function() {
+            $scope.files.push({checked:false,"name":response.details.fileName,"date":response.details.date,id:response.details.id,filesize:response.details.filesize,isactive:'1'})
+            //console.log($scope.files);
+        }, 500);
 
-            //alert("file successFully Uploaded")
-            response = JSON.parse(response);
-            console.log(response);
-            if(response.result) {
-                //alert("file successFully Uploaded");
-                $("#fileNameModal").modal("hide");
-                $scope.fileAttach = '';
-            }
-            else {
-                alert("Network problem Please Try Again");
-            }
+    })
 
 
-            $timeout(function() {
-                $scope.files.push({checked:false,"name":response.details.fileName,"date":response.details.date,id:response.details.id,filesize:response.details.filesize,isactive:'1'})
-                //console.log($scope.files);
-            }, 500);
+   }
 
-        })
+   $scope.clickCompanyChangePicture = function(){
+    document.getElementsByClassName("companyPicUplaodInput")[0].value='';
+    document.getElementsByClassName("companyPicUplaodInput")[0].click();
+}
 
-
+$scope.browseFileAttach = function() {
+    $scope.progressbar = 0;
+    try{
+        document.getElementsByClassName("fileAttachmentInput")[0].value = '';
+        document.getElementsByClassName("fileAttachmentInput")[0].click();
     }
-
-    $scope.clickCompanyChangePicture = function(){
-        document.getElementsByClassName("companyPicUplaodInput")[0].value='';
-        document.getElementsByClassName("companyPicUplaodInput")[0].click();
+    catch(ex){
+        console.log(ex);
     }
-
-    $scope.browseFileAttach = function() {
-        $scope.progressbar = 0;
-        try{
-            document.getElementsByClassName("fileAttachmentInput")[0].value = '';
-            document.getElementsByClassName("fileAttachmentInput")[0].click();
-        }
-        catch(ex){
-            console.log(ex);
-        }
-    };
+};
 
 
-    function uploadCompanyFile (file){
+function uploadCompanyFile (file){
 
-        var xhttp = new XMLHttpRequest();
-        var promise = $q.defer();
+    var xhttp = new XMLHttpRequest();
+    var promise = $q.defer();
 
-        xhttp.upload.addEventListener("progress",function (e) {
-            //    console.log("progress ",e);
-            var progress = Math.ceil(((e.loaded) / e.total) * 100);
-            $timeout(function(){
-                $scope.progressbar = progress;
-            },10);
+    xhttp.upload.addEventListener("progress",function (e) {
+        //    console.log("progress ",e);
+        var progress = Math.ceil(((e.loaded) / e.total) * 100);
+        $timeout(function(){
+            $scope.progressbar = progress;
+        },10);
 
-            //   console.log(progress);
-            //promise.notify(e);
-        });
-        // xhttp.upload.addEventListener("load",function (e) {
+        //   console.log(progress);
+        //promise.notify(e);
+    });
+    // xhttp.upload.addEventListener("load",function (e) {
         //     promise.resolve(e);
         // });
 
@@ -193,6 +219,6 @@ inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','A
 
         return promise.promise;
     }
- 
+
     
 }]);

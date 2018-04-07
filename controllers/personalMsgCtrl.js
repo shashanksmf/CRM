@@ -4,7 +4,16 @@ inspinia.controller('personalMsgCtrl', ['$scope','$rootScope','$http','$q','API'
 
 	var userId = $rootScope.userId || localStorage.getItem("userId");
 	API.getUsersList(userId).then(function(response){
-		$scope.UsersList = response.data.details;
+		 if(response.data.result) {
+             $scope.UsersList = response.data.details;
+         }
+         else if(response.data.errorType == "token"){
+                $('#tokenErrorModalLabel').html(response.data.details);
+                $('#tokenErrorModal').modal("show");
+                $('#tokenErrorModalBtn').click(function(){
+                    $('#tokenErrorModal').modal("hide");
+                })
+         }
 	})
 
 	$scope.sendPersonalMsg = function(userId,msg){
@@ -30,11 +39,20 @@ inspinia.controller('personalMsgCtrl', ['$scope','$rootScope','$http','$q','API'
 			API.sendMessage(chat).then(function(response){
 				//console.log("response",response.data.responce);
 				if(response.data.responce){
-					alert("message successfully send");
-					$scope.personalMessageTxt = '';
-				}else{
-					alert("please try again");
+					if(response.data.responce){
+						alert("message successfully send");
+						$scope.personalMessageTxt = '';
+					}else{
+						alert("please try again");
+					}
 				}
+				else if(response.data.errorType == "token"){
+	                $('#tokenErrorModalLabel').html(response.data.details);
+	                $('#tokenErrorModal').modal("show");
+	                $('#tokenErrorModalBtn').click(function(){
+	                    $('#tokenErrorModal').modal("hide");
+	                })
+	         	}
 			});
 
 		}

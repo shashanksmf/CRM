@@ -35,17 +35,26 @@ inspinia.controller('companyInsertProfileCtrl', ['$scope','$rootScope','$http','
 			API.insertCompanyProfile($scope.companyProfile).then(function(response){
 				//console.log("response empl Insert",response);
 				if(response.data.result){
-				    $scope.imgsrc = 'img/default-avatar.png';
-                    $scope.errorMsg = "data uploaded";
-					$scope.cmpyProfileInfo = {};
-                    $scope.hasError = false;
+					if(response.data.result){
+					    $scope.imgsrc = 'img/default-avatar.png';
+	                    $scope.errorMsg = "data uploaded";
+						$scope.cmpyProfileInfo = {};
+	                    $scope.hasError = false;
 
-				}else{
-                    $scope.hasError = true;
-					$timeout(function(){
-						$scope.errorMsg = response.data.details;
-					},100)
-					//alert(response.data.details);
+					}else{
+	                    $scope.hasError = true;
+						$timeout(function(){
+							$scope.errorMsg = response.data.details;
+						},100)
+						//alert(response.data.details);
+					}
+				}
+				else if(response.data.errorType == "token"){
+					$('#tokenErrorModalLabel').html(response.data.details);
+					$('#tokenErrorModal').modal("show");
+					$('#tokenErrorModalBtn').click(function(){
+						$('#tokenErrorModal').modal("hide");
+					})
 				}
                 $scope.hidespinner = true;
 
