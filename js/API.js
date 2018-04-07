@@ -4,10 +4,11 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	var callAPI = {}; 
     // var baseHttpUrl = "/CRM.git/trunk/Service";
 	var baseHttpUrl = 'https://upsailgroup.herokuapp.com/Service';
-    
+
 	callAPI.getAllEmpl = function(){
 			return  $http({
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl+'/GetEmplData.php'
     	})
@@ -49,6 +50,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl+'/GetGroups.php' 
 
@@ -61,6 +63,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl+'/GetCompanyData.php' 
 
@@ -74,6 +77,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl+'/GetGroups.php?id'+id
 
@@ -86,6 +90,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl+'/GetEmplNameData.php'
 
@@ -98,6 +103,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl+'/GetENSearch.php?term='+term
 
@@ -110,6 +116,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/AddGroups.php?name='+group.name+'&details='+group.details+'&admin='+group.groupadmin+'&members='+group.members+'&membersCount='+group.membersCount+'&createdOn='+group.createdOn
 
@@ -122,6 +129,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/DeleteGroup.php?id='+group.id
 
@@ -134,6 +142,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/DeleteContact.php?id='+emplData.id+'&name='+emplData.name+'&email='+emplData.email
 
@@ -142,11 +151,11 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	}
 
 	callAPI.deleteCampaign = function(campaignID) {
-		console.log("api", campaignID);
 		
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/DeleteCampaign.php?id='+campaignID.id
 
@@ -155,11 +164,11 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	}
 
 	callAPI.deleteCompany = function(companyId) {
-		console.log("api", companyId);
 		
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/DeleteCompany.php?id='+companyId.id
 
@@ -172,6 +181,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/UpdateGroup.php?id='+group.id+'&members='+group.members
 
@@ -184,6 +194,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/chat/newChatDetails.php?userId='+userId
 
@@ -197,6 +208,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/GetChatMessages.php?from='+chat.from+'&to='+chat.to
 
@@ -208,6 +220,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/chat/allLatestMsg.php?userId='+userId
 
@@ -220,6 +233,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
         return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "text",
 	        url: baseHttpUrl + '/GetProfiles.php?id='+user.userId
 
@@ -232,6 +246,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
         return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        url: baseHttpUrl + '/UpdateEmployees.php?name='+user.name+'&title='+user.title+'&industry='+user.industry+'&location='+user.location+'&ratings='+user.ratings+'&skype='+user.skype+'&age='+user.age+'&gender='+user.gender+'&officePhone='+user.officePhone+'&jobRole='+user.jobRole+'&phone='+user.phone+'&email='+user.email+'&linkedin='+user.linkedin+'&twitter='+user.twitter+'&facebook='+user.facebook+'&notes='+user.notes+'&id='+user.id+'&companyId='+user.companyId+'&companyName='+user.Company.name+'&imgUrl='+user.imgUrl+'&extra='+user.extra
 
 	    })
@@ -245,7 +260,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	    	
 	    	withCredentials: false,
 	        transformRequest: angular.identity,  
-	        headers: {'Content-Type': undefined}  
+	        headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')}  
 	    
 	    });
 
@@ -256,8 +271,21 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
      return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/getUserInfo.php?id='+userId
+
+	    })
+    }
+
+    callAPI.getUserMailChimpDetails = function(userId) {
+    	console.log("id",userId);
+     return $http({
+
+	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
+	        dataType: "jsonp",
+	        url: baseHttpUrl + '/getUserMailChimpDetails.php?id='+userId.id
 
 	    })
     }
@@ -293,6 +321,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/AddMessage.php?from='+chat.from+'&to='+chat.to+'&msg='+chat.msg
 
@@ -304,6 +333,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/chat/messageRead.php?chatId='+chatId+'&fromId='+fromId
 
@@ -317,6 +347,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/GetAtt.php?id='+user.userId,
 
@@ -331,6 +362,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/deleteEmplFile.php?emplId='+empl.emplId+'&fileId='+empl.fileId
 
@@ -346,7 +378,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	    	
 	    	withCredentials: false,
 	        transformRequest: angular.identity,  
-	        headers: {'Content-Type': undefined}  
+	        headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')}  
 	    
 	    });
 
@@ -394,6 +426,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/TestMail.php?to='+users.to+'&toName='+users.toName+'&subject='+users.subject
 
@@ -407,6 +440,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/GetTemplates.php'
 
@@ -422,7 +456,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	    	
 	    	withCredentials: false,
 	        transformRequest: angular.identity,  
-	        headers: {'Content-Type': undefined}  
+	        headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')}  
 	    
 	    });
 
@@ -434,6 +468,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/RunCampaign.php?id='+campaignId
 
@@ -446,6 +481,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/GetCampiagn.php'
 
@@ -458,6 +494,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/getUsersList.php?id='+id
 
@@ -472,6 +509,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
         return $http({
 
 	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
 	        url: baseHttpUrl + '/UpdateCompany.php?id='+company.id+'&name='+company.name+'&areaOfWork='+company.areaOfWork+'&establised='+company.establised+'&employees='+company.employees+'&revenue='+company.revenue+'&ofcAddress='+company.ofcAddress+'&email='+company.email+'&google='+company.google+'&phone='+company.phone+'&fb='+company.fb+'&twitter='+company.twitter+'&ln='+company.linkedin+'&extra='+company.extra
 
@@ -485,7 +523,8 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
        return $http({
            
                 method: 'GET',
-                dataType: "jsonp",
+                headers: {'token': localStorage.getItem('token')},
+	        	dataType: "jsonp",
                 url: baseHttpUrl +'/GetCompanyData.php?id='+comapnyId
         })
 
@@ -498,7 +537,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	    	
 	    	withCredentials: false,
 	        transformRequest: angular.identity,  
-	        headers: {'Content-Type': undefined}  
+	        headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')}  
 	    
 	    });
 
@@ -509,9 +548,22 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
         return $http({
            
                 method: 'GET',
-                dataType: "jsonp",
+                headers: {'token': localStorage.getItem('token')},
+	        	dataType: "jsonp",
                 url: baseHttpUrl +'/updateUser.php?id='+userObj.id+'&department='+userObj.department+'&dob='+userObj.dob+'&email='+userObj.email+'&gender='+userObj.gender+'&hireDate='+userObj.hireDate+'&homeAddress='+userObj.homeAddress+'&name='+userObj.name+'&phone='+userObj.phone
             
+        })
+        
+    }
+
+    callAPI.saveMailChimpDetails = function(mailchimpDetails){
+        
+        return $http({
+           
+                method: 'GET',
+                headers: {'token': localStorage.getItem('token')},
+	        	dataType: "jsonp",
+                url: baseHttpUrl +'/saveMailChimpDetails.php?userId='+mailchimpDetails.userId+'&apiKey='+mailchimpDetails.apiKey+'&listId='+mailchimpDetails.listId+'&listName='+mailchimpDetails.listName           
         })
         
     }
@@ -522,7 +574,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	    	
 	    	withCredentials: false,
 	        transformRequest: angular.identity,  
-	        headers: {'Content-Type': undefined}  
+	        headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')},  
 	    
 	    });
 
@@ -534,10 +586,47 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	    	
 	    	withCredentials: false,
 	        transformRequest: angular.identity,  
-	        headers: {'Content-Type': undefined}  
+	        headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')}, 
 	    
 	    });
 
+    }
+
+    callAPI.addMailChimpId = function(apiKeyData){
+
+	    return $http({
+           
+                method: 'GET',
+                headers: {'token': localStorage.getItem('token')},
+	        	dataType: "jsonp",
+                url: baseHttpUrl + '/addMailChimpId.php?userId='+apiKeyData.userId+'&apiKey='+apiKeyData.apiKey       })
+    	
+    }
+
+    callAPI.addMailChimpList = function(listData){
+
+	    return $http({
+           
+                method: 'GET',
+                headers: {'token': localStorage.getItem('token')},
+	        	dataType: "jsonp",
+                url: baseHttpUrl + '/addMailChimpList.php?userId='+listData.userId+'&apiKey='+listData.apiKey+'&listId='+listData.listId+'&listName='+listData.listName,
+            
+        })
+    	
+    }
+
+    callAPI.creatMailChimpList = function(listData){
+
+	    return $http({
+           
+                method: 'GET',
+                headers: {'token': localStorage.getItem('token')},
+	        	dataType: "jsonp",
+                url: baseHttpUrl + '/creatMailChimpList.php?userId='+listData.userId+'&apiKey='+listData.apiKey+'&listName='+listData.listName,
+            
+        })
+    	
     }
 
     callAPI.getAllComapnies = function(){
@@ -545,7 +634,8 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	    return $http({
            
                 method: 'GET',
-                dataType: "jsonp",
+                headers: {'token': localStorage.getItem('token')},
+	        	dataType: "jsonp",
                 url: baseHttpUrl + '/getAllComapnies.php'
             
         })
@@ -557,7 +647,8 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
         return $http({
 
             method: 'GET',
-            dataType: "jsonp",
+            headers: {'token': localStorage.getItem('token')},
+	        dataType: "jsonp",
             url: baseHttpUrl + '/GetCmpyAttachedFiles.php?id='+company.companyId,
 
         })
