@@ -82,9 +82,123 @@
 
 
         </tbody></table>
+        <div class="mailChimpDetails">
+            <span id="mailChimpDetailsTitle">MailChimp Details</span>
+            <div>
+                <button class="btn btn-primary btn-sm addMailChimpIdIdModalBtn" id="addMailChimpIdIdModalBtn" type="button"  data-toggle="modal" data-target="#addMailChimpIdModal">Add MailChimp Id</button>
+                <button class="btn btn-primary btn-sm addListIdModalBtn" id="addListIdModalBtn" type="button"  data-toggle="modal" data-target="#addListModal">Add List Id</button>
+                <button class="btn btn-primary btn-sm createListModalBtn" id="createListModalBtn" type="button"  data-toggle="modal" data-target="#createListModal">Create List</button>
+            </div>
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>API Key</th>
+                            <th>List Id</th>
+                            <th>List Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- <tr ng-repeat="dt in mailChimpDetails"> -->
+                        <tr>
+                            <td><span>{{mailChimpDetails.apiKey}}</span></td>
+                            <td><span>{{mailChimpDetails.listId}}</span></td>
+                            <td><span>{{mailChimpDetails.listName}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+   </div>
+        <div id="addMailChimpIdModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">MailChimp Details</h4>
+              </div>
+              <div class="modal-body">
+               <div class="row"> 
+                <div class="col-sm-10 addMailChimpIdForm">
+                      <form role="form" class="ng-pristine ng-valid">
+                          <div class="form-mailChimp">
+                              <label for="addMailChimpIdApiKey">API Key:</label>
+                              <input type="text" ng-trim="true" ng-model="addMailChimpIdApiKey" id="addMailChimpIdApiKey" placeholder="API Key" class="form-control">
+                          </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                 <button class="btn btn-primary addMailChimpIdBtn" ng-click="addMailChimpIdBtn()" id="addMailChimpIdBtn" type="button"  data-dismiss="modal"><i class="fa fa-check"></i>&nbsp;Save</button>
+              </div>
+            </div>
 
-        
-</div></div>
+          </div>
+        </div>
+
+
+        <div id="addListModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">List Details</h4>
+              </div>
+              <div class="modal-body">
+               <div class="row"> 
+                <div class="col-sm-10 addMailChimpListForm">
+                      <form role="form" class="ng-pristine ng-valid">
+                          <div class="form-mailChimp">
+                              <label for="addListApiKey">API Key:</label>
+                              <input type="text" ng-trim="true" ng-model="addListApiKey" id="addListApiKey" placeholder="API Key" class="form-control">
+                              <label for="addListId">List Id:</label>
+                              <input type="text" ng-trim="true" ng-model="addListId" id="addListId" placeholder="List Id" class="form-control">
+                              <label for="addListName">List Name:</label>
+                              <input type="text" ng-trim="true" ng-model="addListName" id="addListName" placeholder="List Name" class="form-control">
+                          </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                 <button class="btn btn-primary addListBtn" ng-click="addListBtn()" id="addListBtn" type="button"  data-dismiss="modal"><i class="fa fa-check"></i>&nbsp;Add List</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div id="createListModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">List Details</h4>
+              </div>
+              <div class="modal-body">
+               <div class="row"> 
+                <div class="col-sm-10 createmailChimpForm">
+                      <form role="form" class="ng-pristine ng-valid">
+                          <div class="form-mailChimp">
+                              <label for="createListApiKey">API Key:</label>
+                              <input type="text" ng-trim="true" ng-model="createListApiKey" id="createListApiKey" placeholder="API Key" class="form-control">
+                              <label for="createListName">List Name:</label>
+                              <input type="text" ng-trim="true" ng-model="createListName" id="createListName" placeholder="List Name" class="form-control">
+                          </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                 <button class="btn btn-primary createListBtn" ng-click="createListBtn()" id="createListBtn" type="button"  data-dismiss="modal"><i class="fa fa-check"></i>&nbsp;Create List</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
             <!--
 <div class="span5" style="display:none;">
     <div id="reports" class="well">
@@ -109,16 +223,21 @@
 </a></li></ul></div>
 </div>
 -->
-</div></div>
     </div>
-
-
-
-  
-
+  </div>
+ </div>
 </div>
 
 <style type="text/css">
+    .mailChimpDetails {
+        margin-left: 4px !important;
+    }
+    #mailChimpDetailsTitle {
+        margin-left: -10px !important;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 8px;
+    }
     .span7 {
         width: 60%;
         float: left;
@@ -130,5 +249,8 @@
 
     .newUserProfile{
         background-color: white;
+    }
+    #tdLabel{
+        width: 162px !important;
     }
 </style>
