@@ -59,7 +59,7 @@ class MessageController{
 	public function getMsgJson($id,$from,$to){
             //echo "id : ".$id;
 		$MsgList = $this->getMsgList($id,$from,$to);
-		$jsonStr = '{"Messages":[';
+		$jsonStr = '{"result": true,"Messages":[';
 		$i=count($MsgList);
 		foreach($MsgList as $msg){
 			//	print_r($msg);

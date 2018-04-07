@@ -40,7 +40,7 @@
             public function getEmployeeJson($id){
                     $EmployeeList = $this->getEmployeeList($id);
                     $comps = new CompanyController();
-                    $jsonStr = '{"Employees":[';
+                    $jsonStr = '{"result": true,"Employees":[';
                     $i=count($EmployeeList);
                     foreach($EmployeeList as $empl){
                             $jsonStr.='{';
@@ -161,7 +161,7 @@
             public function updateEmployeeJson($id,$name,$title,$industry,$location,$ratings,$companyId,$skype,$age,$gender,$officePhone,$jobRole,$phone,$email,$linkedin,$twitter,$facebook,$notes,$imgUrl,$companyName,$extra){
                     $msg  = $this->updateEmployee($id,$name,$title,$industry,$location,$ratings,$companyId,$skype,$age,$gender,$officePhone,$jobRole,$phone,$email,$linkedin,$twitter,$facebook,$notes,$imgUrl,$companyName,$extra);
                     if ($msg->isUpdateSuccess) {
-                            $jsonStr = '{"responce":true}';
+                            $jsonStr = '{"result": true,"responce":true}';
                     }  else {
                             $jsonStr = '{"responce":false,';
                             $jsonStr.='"message":"'.$msg->outMessage.'"}';
@@ -376,7 +376,7 @@
             public function getEmployeeNameJson($id){
                 $EmployeeList = $this->getEmployeeNameList($id);
                 $comps = new CompanyController();
-                $jsonStr = '{"Employees":[';
+                $jsonStr = '{"result": true,"Employees":[';
                 $i=count($EmployeeList);
                 foreach($EmployeeList as $empl){
                     $jsonStr.='{';
@@ -433,7 +433,7 @@
             public function getEmployeeNameSearchJson($term){
                 $EmployeeList = $this->getEmployeeNameSearchList($term);
                 $comps = new CompanyController();
-                $jsonStr = '{"Employees":[';
+                $jsonStr = '{"result": true,"Employees":[';
                 $i=count($EmployeeList);
                 foreach($EmployeeList as $empl){
                     $jsonStr.='{';

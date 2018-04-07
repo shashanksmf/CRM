@@ -2,15 +2,15 @@
 header("Access-Control-Allow-Origin: *");
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-require_once("./../../mailChimpConfig.php");
-require_once("./../../mailChimpService.php");
+// require_once("./../../mailChimpConfig.php");
+// require_once("./../../mailChimpService.php");
 
-$mailChimpServiceBlah = new MailChimpService();
-$mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
-$mailChimpApiKey = $mailChimpService->mailChimpApiKey = getenv("mailChimpApiKey");
-$list_id = $mailChimpService->list_id = getenv('mailChimpListId');
+// $mailChimpServiceBlah = new MailChimpService();
+// $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
+// $mailChimpApiKey = $mailChimpService->mailChimpApiKey = getenv("mailChimpApiKey");
+// $list_id = $mailChimpService->list_id = getenv('mailChimpListId');
 
-echo $mailChimpSubDomainInit."hello".$mailChimpApiKey."hello".$list_id."<br/>";
+// echo $mailChimpSubDomainInit."hello".$mailChimpApiKey."hello".$list_id."<br/>";
 
 class MailChimpUserTest {
 
@@ -78,13 +78,13 @@ class MailChimpUserTest {
 }
 
 
-$subUser = new MailChimpUserTest();
-$result = $subUser->subscribeUser("shashanksmf@outlook.com","shashank",$mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
-echo $result;
-echo "<br/>";
+// $subUser = new MailChimpUserTest();
+// $result = $subUser->subscribeUser("shashanksmf@outlook.com","shashank",$mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
+// echo $result;
+// echo "<br/>";
 
-$unSubUser = new MailChimpUserTest();
-$result = $subUser->unSubscribeUser("shashanksmf@outlook.com","shashank",$mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
-echo $result;
-echo "<br/>";
+// $unSubUser = new MailChimpUserTest();
+// $result = $subUser->unSubscribeUser("shashanksmf@outlook.com","shashank",$mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
+// echo $result;
+// echo "<br/>";
 ?>

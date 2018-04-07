@@ -45,7 +45,7 @@ class TemplateController{
 		
                 
             $List = $this->getTemplateList($id);
-            $jsonStr = '{"templ":[';
+            $jsonStr = '{"result": true,"templ":[';
             $i=count($List);
             foreach($List as $grp){
                 $jsonStr.='{';

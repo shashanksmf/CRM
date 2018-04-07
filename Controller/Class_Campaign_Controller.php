@@ -49,7 +49,7 @@ class CampaignController{
                 //echo "id : ".$id;
             $List = $this->getCampaignList($id);
 
-            $jsonStr = '{"camp":[';
+            $jsonStr = '{"result": true,"camp":[';
             $i=count($List);
             foreach($List as $grp){
                 $jsonStr.='{';

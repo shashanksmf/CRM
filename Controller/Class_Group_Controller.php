@@ -48,7 +48,7 @@ class GroupController{
     public function getGroupJson($id){
             //echo "id : ".$id;
             $GroupList = $this->getGroupList($id);
-            $jsonStr = '{"Groups":[';
+            $jsonStr = '{"result": true,"Groups":[';
             $i=count($GroupList);
             foreach($GroupList as $grp){
                 $jsonStr.='{';
@@ -106,7 +106,7 @@ class GroupController{
 
     public function getUserJson($id){
             $UserList = $this->getUserList($id);
-            $jsonStr = '"Members":[';
+            $jsonStr = '"result":true,"Members":[';
             $i=count($UserList);
             foreach($UserList as $empl){
                 $jsonStr.='{';
@@ -190,7 +190,7 @@ class GroupController{
     public function addGroupJson($name,$details,$admin,$members,$createdOn){
             $grp  = $this->addNewGroup($name,$details,$admin,$members,$createdOn);
             if ($grp->isGroupAdded) {
-                $jsonStr = '{"responce":true,"logs":'.json_encode($grp,true).',"groupid":'.$grp->id.'}';
+                $jsonStr = '{"result": true,"responce":true,"logs":'.json_encode($grp,true).',"groupid":'.$grp->id.'}';
             }  else {
                 $jsonStr = '{"responce":false,';
                 $jsonStr.='"message":"'.$grp->message.'"}';
@@ -338,7 +338,7 @@ class GroupController{
     public function updateGroupJson($id,$members){
             $grp  = $this->updateGroup($id,$members);
             if ($grp->isGroupAdded) {
-                $jsonStr = '{"responce":true,"logs":'.(json_encode($grp->logs,JSON_UNESCAPED_SLASHES)).'}';
+                $jsonStr = '{"result":true,"responce":true,"logs":'.(json_encode($grp->logs,JSON_UNESCAPED_SLASHES)).'}';
             }  else {
                 $jsonStr = '{"responce":false,';
                 $jsonStr.='"message":"'.$grp->message.'"}';

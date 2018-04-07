@@ -72,7 +72,7 @@ class CompanyController{
 	public function getCompanyJson($id){
 		//echo "id : ".$id;
 		$CompList = $this->getCompanyList($id);
-		$jsonStr = '{"Users":[';
+		$jsonStr = '{"result": true,"Users":[';
 		$i=count($CompList);
 		foreach($CompList as $comp){
 			$jsonStr.='{';
