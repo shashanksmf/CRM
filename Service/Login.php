@@ -6,6 +6,7 @@
 	
 	
 	ob_start();
+	
 	$email = @$_GET['userName'];
 	$password= @$_GET['password'];
 	

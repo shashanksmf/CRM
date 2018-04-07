@@ -1,5 +1,9 @@
 <?php
 ob_start();
+$headers = apache_request_headers();
+$headers = $headers['token'];
+require_once("./token/validateToken.php");
+
 $email =  @$_GET['email'];
 
 require_once("../Controller/StaticDBCon.php");
@@ -10,13 +14,13 @@ $responseArr = array();
 if (!$conn) {
 	$responseArr["result"] = false;
 	$responseArr["details"] =  mysqli_connect_error();
-    die($responseArr["details"]);
+	die($responseArr["details"]);
 }
 
 if(!isset($email) || empty($email)) {
 	$responseArr["result"] = false;
 	$responseArr["details"] =  "Please enter Email Id";
-    die($responseArr["details"]);
+	die($responseArr["details"]);
 }
 
 // code for random alpha numeric string generator
@@ -24,7 +28,7 @@ $characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
 $code = '';
 $max = strlen($characters) - 1;
 for ($i = 0; $i < $random_string_length; $i++) {
-  $code .= $characters[mt_rand(0, $max)];
+	$code .= $characters[mt_rand(0, $max)];
 }
 // code for random alpha numeric string generator
 
@@ -58,7 +62,7 @@ if (mysqli_query($conn, $sql)) {
 
 	
 } else {
-    $responseArr["result"] = false;
+	$responseArr["result"] = false;
 	$responseArr["details"] = mysqli_error($conn);
 	echo json_encode($responseArr);
   //  echo "Error updating record: " . mysqli_error($conn);
@@ -70,6 +74,5 @@ if (mysqli_query($conn, $sql)) {
 mysqli_close($conn);
 ?>  
 
-		
-		
-		
+
+

@@ -1,35 +1,35 @@
 <?php
-ob_start();
+header("Access-Control-Allow-Origin: *");
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 $headers = apache_request_headers();
 $headers = $headers['token'];
 require_once("./token/validateToken.php");
 
 $userId = @$_GET['userId'];
 $apiKey = @$_GET['apiKey'];
-$listId = @$_GET['listId'];
-$listName = @$_GET['listName'];
 
-require_once("./mailChimp/list/checkListId.php");
+require_once("./mailChimp/list/checkAPIKey.php");
 require_once(".../../../Controller/mailChimpConfig.php");
 require_once(".../../../Controller/mailChimpService.php");
 
 $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
 
-$checkListId = new checkListId();
-$result = $checkListId->checkList($apiKey,$mailChimpSubDomainInit,$listId);
-// echo "checkListId",$result;
+$checkAPIKey = new checkAPIKey();
+$result = $checkAPIKey->key($mailChimpApiKey,$mailChimpSubDomainInit);
+// echo $result;
 
 $result = json_decode($result, true);
 $responseArr = array();
 $responseArr = $result;
 
-if ($responseArr['id'] != "") {
+if ($responseArr['account_id'] != "") {
     $responseArr['result'] = true;
     // echo $responseArr;
 } 
 else {
     $responseArr['result'] = false;
-    exit $responseArr;
+    exit $responseArr['result'];
 }
 
 require_once("../Controller/StaticDBCon.php");

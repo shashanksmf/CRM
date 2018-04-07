@@ -3,6 +3,9 @@
 	 ob_start();
 	//http://localhost/wehnc/Service/GetUserData.php?id=1
 	header("Access-Control-Allow-Origin: *");
+	$headers = apache_request_headers();
+	$headers = $headers['token'];
+	require_once("./token/validateToken.php");
 	
 	$fIds = '';
 	$fIds = @$_GET['from'];

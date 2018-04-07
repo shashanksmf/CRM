@@ -1,5 +1,9 @@
 <?php
- header('Access-Control-Allow-Origin: *'); 
+header('Access-Control-Allow-Origin: *'); 
+$headers = apache_request_headers();
+$headers = $headers['token'];
+require_once("./token/validateToken.php");
+
 require_once("../Controller/EmailMgr.php");
 $c2 = new EmailMgr();
 $jsondata = $_POST["data"];
@@ -9,13 +13,13 @@ $new_array = objectToArray($param);
 
 function objectToArray($d) 
 {
-    if (is_object($d)) {
+	if (is_object($d)) {
         // Gets the properties of the given object
         // with get_object_vars function
-        $d = get_object_vars($d);
-    }
+		$d = get_object_vars($d);
+	}
 
-    if (is_array($d)) {
+	if (is_array($d)) {
         /*
         * Return array converted to object
         * Using __FUNCTION__ (Magic constant)
@@ -24,7 +28,7 @@ function objectToArray($d)
         return array_map(__FUNCTION__, $d);
     } else {
         // Return array
-        return $d;
+    	return $d;
     }
 }
 
@@ -37,7 +41,7 @@ $conn = mysqli_connect($servername,$username, $password,$db);
 
 // Check connection
 if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+	die("Connection failed: " . mysqli_connect_error());
 }
 //echo "Connected successfully";
 //print_r($new_array);
@@ -84,8 +88,8 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 			$foundCompnayId = null;
 			$foundCompanyName = null;
 			while($row = mysqli_fetch_assoc($result)) { 
-					$foundCompnayId = $row["id"];
-					$foundCompanyName = $row["name"];
+				$foundCompnayId = $row["id"];
+				$foundCompanyName = $row["name"];
 			}
 			
 			//check if email Id already exists
@@ -102,7 +106,7 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 			
 			$responseArr["details"][$i]["loopNo"] = $i;
 			if (mysqli_query($conn, $insertSql)) {
-			
+				
 				
 				$c2->addMebmberToList($email,'d0a4dda674',$name,'','');
 				$responseArr["details"][$i]["listResponse"] = json_encode($c2);
@@ -118,7 +122,7 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 			}
 			
 		} else {
-		
+			
 			$insertNewCmpySql = "INSERT INTO company(name,ofcAddress) VALUES('".trim($companyName)."','".$ofcAddress."')";
 			if (mysqli_query($conn, $insertNewCmpySql)) {
 				$companyId = mysqli_insert_id($conn);
@@ -163,7 +167,7 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 	else {
 		
 		$insertEmplSql = "INSERT INTO employee (name,companyName,jobRole,industry,location,website,email) VALUES('".$name."','".$companyName."','".$jobRole."','".$industry."','".$country."','".$website."','".$email."')";
-			
+		
 		$emailFound = checkDupEmail($email);
 		if($emailFound["result"] == false) {
 			//insert query
@@ -174,8 +178,8 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 			// update query
 			$updateSql = 'UPDATE employee SET name = "'.$name.'" , companyName = "'.$companyName.'" , jobRole = "'.$jobRole.'" ,industry = "'.$industry.'" , location = "'.$country.'" , website = "'.$website.'" WHERE email = "'.$email.'" ';
 		}
-			
-			$responseArr["details"][$i]["loopNo"] = $i;
+		
+		$responseArr["details"][$i]["loopNo"] = $i;
 		if (mysqli_query($conn, $insertEmplSql)) {
 			$c2->addMebmberToList($email,'d0a4dda674',$name,'','');
 			$responseArr["details"][$i]["listResponse"] = json_encode($c2);

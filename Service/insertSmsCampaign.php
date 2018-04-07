@@ -1,5 +1,9 @@
 <?php
 	header("Access-Control-Allow-Origin: *");
+	$headers = apache_request_headers();
+	$headers = $headers['token'];
+	require_once("./token/validateToken.php");
+	
 	require_once("./../Controller/StaticDBCon.php");
 
 	$conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);

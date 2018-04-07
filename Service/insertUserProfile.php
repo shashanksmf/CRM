@@ -1,6 +1,10 @@
 <?php
 
-header("Access-Control-Allow-Origin: *");	
+header("Access-Control-Allow-Origin: *");
+$headers = apache_request_headers();
+$headers = $headers['token'];
+require_once("./token/validateToken.php");
+
 require_once("../Controller/StaticDBCon.php");
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 $responseArr = array();
@@ -63,7 +67,7 @@ if (mysqli_query($conn, $insertEmplProfile)) {
 	echo json_encode($responseArr);
 	
 	if(isset($_FILES['image'])){
-	  
+		
 		$file_name =  $_FILES['image']['name']; 
 		$file_tmp = $_FILES['image']['tmp_name'];
 
@@ -77,28 +81,28 @@ if (mysqli_query($conn, $insertEmplProfile)) {
 		$emplFolder = $proPicFolder."/empl";
 
 		if (!file_exists($emplFolder)) {
-		mkdir($emplFolder);
+			mkdir($emplFolder);
 		}
 
 		$emplIdFolder = $emplFolder."/".$emplId;
 		if (!file_exists($emplIdFolder)) {
-		mkdir($emplIdFolder, 0777, true);
+			mkdir($emplIdFolder, 0777, true);
 		}
 		$emplIdFolderPath = "uploads/profilepic/empl/".$emplId."/";
 		$fileUrl = $emplIdFolderPath; 	
-		  
+		
 		$updateEmplProfilePicSql = "UPDATE employee SET imgUrl = '".$fileUrl.$file_name."' WHERE id=".$emplId;
 		
 		if (mysqli_query($conn, $updateEmplProfilePicSql)) { 
 			
 			move_uploaded_file($file_tmp,$emplIdFolder."/".$file_name);  
-		
+			
 		}
 		
 	}
 	
 } else {
-   	$responseArr["result"] = false;
+	$responseArr["result"] = false;
 	echo json_encode($responseArr);
 }
 ?>

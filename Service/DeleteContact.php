@@ -1,6 +1,10 @@
 <?php
 	
 	header("Access-Control-Allow-Origin: *");
+	$headers = apache_request_headers();
+	$headers = $headers['token'];
+	require_once("./token/validateToken.php");
+	
 	require_once("../Controller/StaticDBCon.php");
 	require_once("./mailChimp/unSubEmpl/unSubUser.php");
 

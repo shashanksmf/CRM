@@ -5,6 +5,9 @@
 	//Link -> localhost/wehnc/Service/GetEmplData.php
 	
 	header("Access-Control-Allow-Origin: *");
+	$headers = apache_request_headers();
+	$headers = $headers['token'];
+	require_once("./token/validateToken.php");
 	
 	$name = @$_GET['name'];
 	$details= @$_GET['details'];
@@ -13,6 +16,9 @@
 	$membersCount= @$_GET['membersCount'];
 	$createdOn= @$_GET['createdOn'];
 	
+	$headers = apache_request_headers();
+	$headers = $headers['token'];
+	require_once("./token/validateToken.php");	
 
 	require_once("../Controller/Class_Group_Controller.php");
 	$controller = new GroupController();

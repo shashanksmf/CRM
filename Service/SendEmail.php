@@ -1,8 +1,12 @@
 <?php
 
+$headers = apache_request_headers();
+$headers = $headers['token'];
+require_once("./token/validateToken.php");
+
 require('../libs/mandril/Mandrill.php');
-	
-	try {
+
+try {
     $mandrill = new Mandrill('zXgKhQkDREZr-GmCdkorpw');
     $message = array(
         'html' => '<p>Example HTML content</p>',
@@ -38,7 +42,7 @@ require('../libs/mandril/Mandrill.php');
                 'name' => 'name',
                 'content' => 'merge1 content'
             ),
-			array(
+            array(
                 'name' => 'email',
                 'content' => 'merge1 content'
             )

@@ -1,16 +1,20 @@
 <?php
-	header("Access-Control-Allow-Origin: *");
-	$responseArr = array();
-	$dats = '';
-	$userId = @$_GET['id'];
-	require_once("../Controller/StaticDBCon.php");
-	$conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
-	
-	if($conn->connect_error) {
-		$responseArr["result"] = false;
-		$responseArr["details"] = $conn->connect_error;
-		exit(json_encode($responseArr));
-	}
+header("Access-Control-Allow-Origin: *");
+$headers = apache_request_headers();
+$headers = $headers['token'];
+require_once("./token/validateToken.php");
+
+$responseArr = array();
+$dats = '';
+$userId = @$_GET['id'];
+require_once("../Controller/StaticDBCon.php");
+$conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
+
+if($conn->connect_error) {
+	$responseArr["result"] = false;
+	$responseArr["details"] = $conn->connect_error;
+	exit(json_encode($responseArr));
+}
 
 $sql = "SELECT id,department,dob,email,gender,hireDate,homeAddress,name,phone,profilePic FROM user WHERE id=".$userId;
 
@@ -23,13 +27,13 @@ if (mysqli_num_rows($result) > 0) {
 	$responseArr["details"] = array(); 
 	while($row = mysqli_fetch_assoc($result)) {
 //	print_r($row);
-        $responseArr["details"] = $row;
-      }
+		$responseArr["details"] = $row;
+	}
 	echo json_encode($responseArr);
 } else {
 	$responseArr["result"] = false;
 	$responseArr["details"] = "user Not found";
-    echo (json_encode($responseArr));
+	echo (json_encode($responseArr));
 }
 mysqli_close($conn);
 ?>

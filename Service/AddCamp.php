@@ -1,5 +1,9 @@
 <?php
  ob_start();
+ $headers = apache_request_headers();
+ $headers = $headers['token'];
+ require_once("./token/validateToken.php");
+
 require('../libs/mandril/Mandrill.php');
  require('../Controller/Class_Group_Controller.php');
  require('../Controller/Class_Campaign_Controller.php');

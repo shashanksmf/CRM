@@ -1,11 +1,14 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+    header("Access-Control-Allow-Origin: *");
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    $headers = apache_request_headers();
+    $headers = $headers['token'];
+    require_once("./token/validateToken.php");
 
-require_once("../Controller/tests/mailchimptest/mailChimpUserTest.php");
-require_once("mailChimpConfig.php");
-require_once("mailChimpService.php");
+    require_once("../Controller/tests/mailchimptest/mailChimpUserTest.php");
+    require_once("mailChimpConfig.php");
+    require_once("mailChimpService.php");
 
 
 	$emplName = @$_POST['emplName'];

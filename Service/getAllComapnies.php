@@ -1,6 +1,10 @@
 <?php
 
-header("Access-Control-Allow-Origin: *");	
+header("Access-Control-Allow-Origin: *");
+$headers = apache_request_headers();
+$headers = $headers['token'];
+require_once("./token/validateToken.php");
+
 require_once("../Controller/StaticDBCon.php");
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 $responseArr = array();
@@ -18,13 +22,13 @@ if (mysqli_num_rows($result) > 0) {
 	$responseArr["result"] = true;
 	$responseArr["details"] = array();
 	// output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        array_push($responseArr["details"],$row);
-    }
+	while($row = mysqli_fetch_assoc($result)) {
+		array_push($responseArr["details"],$row);
+	}
 	echo json_encode($responseArr);
 	
 } else {
-    $responseArr["result"] = false;
+	$responseArr["result"] = false;
 	$responseArr["details"] = "No Data Found";
 	echo json_encode($responseArr);
 }

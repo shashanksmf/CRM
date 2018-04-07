@@ -4,15 +4,10 @@ $headers = apache_request_headers();
 $headers = $headers['token'];
 require_once("./token/validateToken.php");
 
-$userId = @$_GET['id'];
-$name = @$_GET['name'];
-$department = @$_GET['department'];
-$dob = @$_GET['dob'];
-$gender = @$_GET['gender'];
-$homeAddress = @$_GET['homeAddress'];
-$email = @$_GET['email'];
-$phone = @$_GET['phone'];
-$hireDate = @$_GET['hireDate'];
+$userId = @$_GET['userId'];
+$apiKey = @$_GET['apiKey'];
+$listId = @$_GET['listId'];
+$listName = @$_GET['listName'];
 
 require_once("../Controller/StaticDBCon.php");
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
@@ -26,12 +21,15 @@ if (!$conn) {
 	die($responseArr);
 }
 mysqli_set_charset($conn,"utf8");
-$sql = "UPDATE user SET name= '".$name."' ,department='".$department."' ,dob='".$dob."',gender = '".$gender."', email='".$email."',phone='".$phone."',homeAddress='".$homeAddress."' ,hireDate ='".$hireDate."'  WHERE id=".$userId ;
-//echo $sql;
-ob_clean();
+$sql = "INSERT INTO .mailchimpdetails (userId,apiKey,listId,listName)
+VALUES ('".$userId."','".$apiKey."','".$listId."','".$listName."')";
+
 if (mysqli_query($conn, $sql)) {
 //echo "if";
 	$responseArr["result"] = true;
+	$last_id = mysqli_insert_id($conn);
+	$responseArr["lastId"] = $last_id;
+
 	echo json_encode($responseArr);
 } else {
 //echo "else".mysqli_error($conn);

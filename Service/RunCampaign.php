@@ -1,41 +1,45 @@
 <?php
 
+$headers = apache_request_headers();
+$headers = $headers['token'];
+require_once("./token/validateToken.php");
+
 require('../libs/mandril/Mandrill.php');
- require('../Controller/Class_Group_Controller.php');
- require('../Controller/Class_Campaign_Controller.php');
- require ('../Controller/Class_Template_Controller.php');
-       $campaignId = $_GET['id'];
-       
-       $resAr = array();
-       $camps = new CampaignController();
-       
-       
-       
-       $groupId = $camps->getCampaignList($campaignId)[0]->groupId;
-       $tempId = $camps->getCampaignList($campaignId)[0]->tempId;
-       $subject = $camps->getCampaignList($campaignId)[0]->subject;
-       
-       $template = "";
-       $templateC = new TemplateController(); 
-       $template = $templateC->getTemplateList($tempId)[0]->html;
-       $to = "";
-       $toName = "";
-       
-       $grp = new GroupController();
-       $list = $grp->getGroupList($groupId);
-       
-       
-       
-       $empls = $grp->getUserList($list[0]->getMembers());
-       $ii = 0;
-       foreach($empls as $empl) {
-           
-             $template = str_replace("CHANGETHISNAME", $empl->getName(), $template);
-             $template = str_replace("ADDBODYHERE", $camps->getCampaignList($campaignId)[0]->body, $template);
-       
-       
-       
-	try {
+require('../Controller/Class_Group_Controller.php');
+require('../Controller/Class_Campaign_Controller.php');
+require ('../Controller/Class_Template_Controller.php');
+$campaignId = $_GET['id'];
+
+$resAr = array();
+$camps = new CampaignController();
+
+
+
+$groupId = $camps->getCampaignList($campaignId)[0]->groupId;
+$tempId = $camps->getCampaignList($campaignId)[0]->tempId;
+$subject = $camps->getCampaignList($campaignId)[0]->subject;
+
+$template = "";
+$templateC = new TemplateController(); 
+$template = $templateC->getTemplateList($tempId)[0]->html;
+$to = "";
+$toName = "";
+
+$grp = new GroupController();
+$list = $grp->getGroupList($groupId);
+
+
+
+$empls = $grp->getUserList($list[0]->getMembers());
+$ii = 0;
+foreach($empls as $empl) {
+ 
+   $template = str_replace("CHANGETHISNAME", $empl->getName(), $template);
+   $template = str_replace("ADDBODYHERE", $camps->getCampaignList($campaignId)[0]->body, $template);
+   
+   
+   
+   try {
     $mandrill = new Mandrill('zXgKhQkDREZr-GmCdkorpw');
     $message = array(
         'html' => $template,
@@ -60,7 +64,7 @@ require('../libs/mandril/Mandrill.php');
                 'name' => 'name',
                 'content' => 'merge1 content'
             ),
-			array(
+            array(
                 'name' => 'email',
                 'content' => 'merge1 content'
             )
@@ -84,7 +88,7 @@ require('../libs/mandril/Mandrill.php');
     $resAr[$ii] = $result;
     $ii++;
     //header('Content-Type: application/json');
-	
+    
     //echo json_encode($result);
     
     
@@ -109,24 +113,24 @@ require('../libs/mandril/Mandrill.php');
     throw $e;
 }
 
-    
-           
-        }
+
+
+}
        // print_r($resAr);
-        $jsonStr = '{"responce":true,"result":[';
-        $i=count($resAr);
-                
-        foreach ($resAr as $value) {
-             $jsonStr.='{';
-                    $jsonStr.='"email":"'.$value[0]['email'].'",';
-                    $jsonStr.='"status":"'.$value[0]['status'].'"}';
-                    $i--;
-                    if($i!=0){
-                            $jsonStr.=',';
-                    }
-        }
-        $jsonStr.=']}';
-        header('Content-Type: application/json');
-        echo $jsonStr;
-        
+$jsonStr = '{"responce":true,"result":[';
+$i=count($resAr);
+
+foreach ($resAr as $value) {
+   $jsonStr.='{';
+   $jsonStr.='"email":"'.$value[0]['email'].'",';
+   $jsonStr.='"status":"'.$value[0]['status'].'"}';
+   $i--;
+   if($i!=0){
+    $jsonStr.=',';
+}
+}
+$jsonStr.=']}';
+header('Content-Type: application/json');
+echo $jsonStr;
+
 ?>
