@@ -8,11 +8,9 @@ ini_set('display_errors', 1);
 
 // $userId = @$_GET['userId'];
 // $apiKey = @$_GET['apiKey'];
-// $listId = @$_GET['listId'];
 // $listName = @$_GET['listName'];
 
 require_once("./mailChimp/list/createList.php");
-require_once("./mailChimp/list/checkAPIKey.php");
 require_once(".../../../Controller/mailChimpConfig.php");
 require_once(".../../../Controller/mailChimpService.php");
 
@@ -21,25 +19,21 @@ $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
 $mailChimpApiKey = $mailChimpService->mailChimpApiKey = getenv("mailChimpApiKey");
 $list_id = $mailChimpService->list_id = getenv('mailChimpListId');
 
-$checkAPIKey = new checkAPIKey();
-$result = $checkAPIKey->key($mailChimpApiKey,$mailChimpSubDomainInit);
-echo $result;
+$createList = new createList();
+$result = $createList->list($mailChimpApiKey,$mailChimpSubDomainInit);
+echo "createList",$result;
 
 // $result = json_decode($result, true);
 // $responseArr = array();
 // $responseArr = $result;
-// // echo $result['status'];
-// // echo $responseArr['status'];
-// // echo $responseArr['unsubscribe_reason'];
 
-// if ($responseArr['status'] == "unsubscribed") {
+// if ($responseArr['account_id'] != "") {
 //     $responseArr['result'] = true;
-//     // return $responseArr;
+//     // echo $responseArr;
 // } 
 // else {
 //     $responseArr['result'] = false;
-//     $responseArr['reason'] = $result['unsubscribe_reason'];
-//     // return $responseArr;
+//     exit $responseArr;
 // }
 
 // require_once("../Controller/StaticDBCon.php");
