@@ -43,7 +43,6 @@ class validateToken {
 		}
 }
 
-
 	$validateToken = new validateToken();
   $result = $validateToken->validate($headers);
     // echo json_encode($result);
