@@ -19,9 +19,9 @@ class UserLoginController{
         $sql = "SELECT * FROM user where email='".$userName."' and password='".$password."' limit 1;";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
-           $userId = '';	
+           $userId = '';
            while($row = $result->fetch_assoc()) {
-            $usr = new User($row["id"],$row["name"],$row["department"],$row["hireDate"],$row["dob"],$row["gender"],$row["homeAddress"],$row["email"],$row["phone"],$row["profilePic"]);  
+            $usr = new User($row["id"],$row["name"],$row["department"],$row["hireDate"],$row["dob"],$row["gender"],$row["homeAddress"],$row["email"],$row["phone"],$row["profilePic"]);
             $usr->isSignedIn = TRUE;
             $usr->message = "Signin Success!";
             $userId = $row['id'];
@@ -38,15 +38,15 @@ class UserLoginController{
     }
     $conn->close();
     return $usr;
-}	
+}
 
 public function getUserJson($userName,$password){
-    $getNewtoken = new getNewtoken();
-    $token = $getNewtoken->getToken();
     // echo $token['token'];
-    
+
     $usr = $this->getUser($userName,$password);
     $jsonStr = "";
+    $getNewtoken = new getNewtoken();
+    $token = $getNewtoken->getToken($usr->getId());
 
     if ($usr->isSignedIn) {
         $jsonStr = '{"responce":true,';
@@ -74,7 +74,7 @@ public function addUser($name, $department, $hireDate, $dob, $gender, $homeAddre
 
    $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
    $usr = new User("","","","","","","","","","");
-   
+
    if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -101,7 +101,7 @@ if ($result->num_rows > 0) {
 }
 $conn->close();
 return $usr;
-}	
+}
 
 public function addUserJson($name, $department, $hireDate, $dob, $gender, $homeAddress, $email, $phone, $profilePic, $password){
 
@@ -114,7 +114,7 @@ public function addUserJson($name, $department, $hireDate, $dob, $gender, $homeA
     $jsonStr.='"message":"'.$usr->getMessage().'"}';
 }
 
-return $jsonStr;	
+return $jsonStr;
 }
 }
 

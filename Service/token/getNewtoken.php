@@ -9,7 +9,7 @@
 
  class getNewtoken {
 
-        public function getToken() {
+        public function getToken($userId) {
           $dateTime = Carbon::now()->addHours(1)->toDateTimeString(); // + 60 seconds for testing
           $secretKey = 'SecretSuperstar@99';
           // $token = Token::getToken('shankie1990@gmail.com', $secretKey, $nowDate, 'www.raffia.co');
@@ -18,7 +18,7 @@
           $token = $builder->setIssuer('http://localhost')
                    ->setSecret($secretKey)
                    ->setExpiration($dateTime)
-                   ->addPayload(['key' => 'user_id', 'value' => 22])
+                   ->addPayload(['key' => 'userId', 'value' => $userId])
                    ->build();
 
           $responseArr = array();
