@@ -8,7 +8,7 @@ ob_start();
 	//Link -> localhost/wehnc/Service/GetEmplData.php
 header("Access-Control-Allow-Origin: *");
 $headers = apache_request_headers();
-print_r($headers);
+// print_r($headers);
 $headers = $headers['TOKEN'];
 require_once("./token/validateToken.php");
 
