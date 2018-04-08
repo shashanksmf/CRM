@@ -1,5 +1,6 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
 include_once('.../../../vendor/autoload.php');
 
 use ReallySimpleJWT\TokenValidator;
@@ -9,8 +10,8 @@ use ReallySimpleJWT\TokenBuilder;
 
 class validateToken {
 
-        public function validate($token) {
-        	$validator = new TokenValidator;
+      public function validate($token) {
+    	$validator = new TokenValidator;
 			$secret =  'SecretSuperstar@99';
 			// $token = $_POST['token'];
 			$responseArr = array();
@@ -44,7 +45,7 @@ class validateToken {
 
 
 	$validateToken = new validateToken();
-    $result = $validateToken->validate($headers);
+  $result = $validateToken->validate($headers);
     // echo json_encode($result);
  	if (strlen($result['details']) > 0 && $result['result'] == false) {
     	 exit(json_encode($result));

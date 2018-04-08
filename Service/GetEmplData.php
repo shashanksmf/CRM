@@ -1,7 +1,8 @@
-<?php 
+<?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 ob_start();
-
 	//Link -> localhost/wehnc/Service/GetEmplData.php
 header("Access-Control-Allow-Origin: *");
 $headers = apache_request_headers();

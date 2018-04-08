@@ -7,7 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Twilio\\' => array($vendorDir . '/twilio/sdk/Twilio'),
+    'Twig\\' => array($vendorDir . '/twig/twig/src'),
     'Tests\\' => array($vendorDir . '/rbdwllr/reallysimplejwt/tests'),
+    'Symfony\\Polyfill\\Php70\\' => array($vendorDir . '/symfony/polyfill-php70'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
     'Symfony\\Component\\Routing\\' => array($vendorDir . '/symfony/routing'),
@@ -21,6 +23,7 @@ return array(
     'ReallySimpleJWT\\Exception\\' => array($vendorDir . '/rbdwllr/reallysimplejwt/src/Exception'),
     'ReallySimpleJWT\\' => array($vendorDir . '/rbdwllr/reallysimplejwt/src'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
+    'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
 );

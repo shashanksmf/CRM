@@ -18,6 +18,10 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\Finder;
+use Twig\Environment;
+use Twig\Error\Error;
+use Twig\Loader\ArrayLoader;
+use Twig\Source;
 
 /**
  * Command that will validate your template syntax and output encountered errors.
@@ -27,31 +31,42 @@ use Symfony\Component\Finder\Finder;
  */
 class LintCommand extends Command
 {
+    protected static $defaultName = 'lint:twig';
+
     private $twig;
 
     /**
-     * {@inheritdoc}
+     * @param Environment $twig
      */
-    public function __construct($name = 'lint:twig')
+    public function __construct($twig = null)
     {
-        parent::__construct($name);
+        if (!$twig instanceof Environment) {
+            @trigger_error(sprintf('Passing a command name as the first argument of "%s" is deprecated since Symfony 3.4 and will be removed in 4.0. If the command was registered by convention, make it a service instead.', __METHOD__), E_USER_DEPRECATED);
+
+            parent::__construct($twig);
+
+            return;
+        }
+
+        parent::__construct();
+
+        $this->twig = $twig;
     }
 
-    /**
-     * Sets the twig environment.
-     *
-     * @param \Twig_Environment $twig
-     */
-    public function setTwigEnvironment(\Twig_Environment $twig)
+    public function setTwigEnvironment(Environment $twig)
     {
+        @trigger_error(sprintf('Method "%s" is deprecated since Symfony 3.4 and will be removed in 4.0.', __METHOD__), E_USER_DEPRECATED);
+
         $this->twig = $twig;
     }
 
     /**
-     * @return \Twig_Environment $twig
+     * @return Environment $twig
      */
     protected function getTwigEnvironment()
     {
+        @trigger_error(sprintf('Method "%s" is deprecated since Symfony 3.4 and will be removed in 4.0.', __METHOD__), E_USER_DEPRECATED);
+
         return $this->twig;
     }
 
@@ -87,10 +102,17 @@ EOF
     {
         $io = new SymfonyStyle($input, $output);
 
-        if (null === $twig = $this->getTwigEnvironment()) {
-            $io->error('The Twig environment needs to be set.');
+        // BC to be removed in 4.0
+        if (__CLASS__ !== get_class($this)) {
+            $r = new \ReflectionMethod($this, 'getTwigEnvironment');
+            if (__CLASS__ !== $r->getDeclaringClass()->getName()) {
+                @trigger_error(sprintf('Usage of method "%s" is deprecated since Symfony 3.4 and will no longer be supported in 4.0. Construct the command with its required arguments instead.', get_class($this).'::getTwigEnvironment'), E_USER_DEPRECATED);
 
-            return 1;
+                $this->twig = $this->getTwigEnvironment();
+            }
+        }
+        if (null === $this->twig) {
+            throw new \RuntimeException('The Twig environment needs to be set.');
         }
 
         $filenames = $input->getArgument('filename');
@@ -105,20 +127,20 @@ EOF
                 $template .= fread(STDIN, 1024);
             }
 
-            return $this->display($input, $output, $io, array($this->validate($twig, $template, uniqid('sf_', true))));
+            return $this->display($input, $output, $io, array($this->validate($template, uniqid('sf_', true))));
         }
 
-        $filesInfo = $this->getFilesInfo($twig, $filenames);
+        $filesInfo = $this->getFilesInfo($filenames);
 
         return $this->display($input, $output, $io, $filesInfo);
     }
 
-    private function getFilesInfo(\Twig_Environment $twig, array $filenames)
+    private function getFilesInfo(array $filenames)
     {
         $filesInfo = array();
         foreach ($filenames as $filename) {
             foreach ($this->findFiles($filename) as $file) {
-                $filesInfo[] = $this->validate($twig, file_get_contents($file), $file);
+                $filesInfo[] = $this->validate(file_get_contents($file), $file);
             }
         }
 
@@ -136,19 +158,19 @@ EOF
         throw new \RuntimeException(sprintf('File or directory "%s" is not readable', $filename));
     }
 
-    private function validate(\Twig_Environment $twig, $template, $file)
+    private function validate($template, $file)
     {
-        $realLoader = $twig->getLoader();
+        $realLoader = $this->twig->getLoader();
         try {
-            $temporaryLoader = new \Twig_Loader_Array(array((string) $file => $template));
-            $twig->setLoader($temporaryLoader);
-            $nodeTree = $twig->parse($twig->tokenize(new \Twig_Source($template, (string) $file)));
-            $twig->compile($nodeTree);
-            $twig->setLoader($realLoader);
-        } catch (\Twig_Error $e) {
-            $twig->setLoader($realLoader);
+            $temporaryLoader = new ArrayLoader(array((string) $file => $template));
+            $this->twig->setLoader($temporaryLoader);
+            $nodeTree = $this->twig->parse($this->twig->tokenize(new Source($template, (string) $file)));
+            $this->twig->compile($nodeTree);
+            $this->twig->setLoader($realLoader);
+        } catch (Error $e) {
+            $this->twig->setLoader($realLoader);
 
-            return array('template' => $template, 'file' => $file, 'valid' => false, 'exception' => $e);
+            return array('template' => $template, 'file' => $file, 'line' => $e->getTemplateLine(), 'valid' => false, 'exception' => $e);
         }
 
         return array('template' => $template, 'file' => $file, 'valid' => true);
@@ -179,7 +201,7 @@ EOF
             }
         }
 
-        if ($errors === 0) {
+        if (0 === $errors) {
             $io->success(sprintf('All %d Twig files contain valid syntax.', count($filesInfo)));
         } else {
             $io->warning(sprintf('%d Twig files have valid syntax and %d contain errors.', count($filesInfo) - $errors, $errors));
@@ -207,7 +229,7 @@ EOF
         return min($errors, 1);
     }
 
-    private function renderException(OutputInterface $output, $template, \Twig_Error $exception, $file = null)
+    private function renderException(OutputInterface $output, $template, Error $exception, $file = null)
     {
         $line = $exception->getTemplateLine();
 

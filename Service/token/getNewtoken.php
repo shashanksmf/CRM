@@ -1,11 +1,12 @@
 <?php
+  header("Access-Control-Allow-Origin: *");
   include_once('.../../../vendor/autoload.php');
   use ReallySimpleJWT\Token;
   use Carbon\Carbon;
   use ReallySimpleJWT\TokenValidator;
   use ReallySimpleJWT\TokenBuilder;
 
-  
+
  class getNewtoken {
 
         public function getToken() {
