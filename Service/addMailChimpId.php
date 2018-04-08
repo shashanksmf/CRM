@@ -70,11 +70,11 @@ VALUES ('".$userId."','".$apiKey."','".$resultArr['account_id']."','".$resultArr
 
 if (mysqli_query($conn, $sql)) {
 //echo "if";
-    // $responseArr["result"] = true;
-    // $last_id = mysqli_insert_id($conn);
-    // $responseArr["lastId"] = $last_id;
+    $responseArr["result"] = true;
+    $last_id = mysqli_insert_id($conn);
+    $responseArr["lastId"] = $last_id;
 
-    // echo json_encode($responseArr);
+    echo json_encode($responseArr);
 } else {
 //echo "else".mysqli_error($conn);
     $responseArr["result"] = false;
