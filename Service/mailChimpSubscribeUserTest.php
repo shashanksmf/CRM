@@ -1,30 +1,32 @@
 <?php
-    header("Access-Control-Allow-Origin: *");
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
-    $headers = apache_request_headers();
-    $headers = $headers['token'];
-    require_once("./token/validateToken.php");
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+require_once("./phpHeader/getHeader.php");
 
-    require_once("../Controller/tests/mailchimptest/mailChimpUserTest.php");
-    require_once("mailChimpConfig.php");
-    require_once("mailChimpService.php");
+header("Access-Control-Allow-Origin: *");
+$headers = apache_request_headers();
+$headers = $headers['token'];
+require_once("./token/validateToken.php");;
+
+require_once("../Controller/tests/mailchimptest/mailChimpUserTest.php");
+require_once("mailChimpConfig.php");
+require_once("mailChimpService.php");
 
 
-	$emplName = @$_POST['emplName'];
-	$emplEmail = @$_POST['emplEmail'];
+$emplName = @$_POST['emplName'];
+$emplEmail = @$_POST['emplEmail'];
 
-	echo ("$emplName" .$emplName);
-	echo ("$empl" .$emplEmail);
+echo ("$emplName" .$emplName);
+echo ("$empl" .$emplEmail);
 
-    $mailChimpService = new MailChimpService();
-    $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
-    $mailChimpApiKey = $mailChimpService->mailChimpApiKey = getenv("mailChimpApiKey");
-    $list_id = $mailChimpService->list_id = getenv('mailChimpListId');
+$mailChimpService = new MailChimpService();
+$mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
+$mailChimpApiKey = $mailChimpService->mailChimpApiKey = getenv("mailChimpApiKey");
+$list_id = $mailChimpService->list_id = getenv('mailChimpListId');
 
-    $unSubUser = new MailChimpUserTest();
-    $result = $unSubUser->unSubscribeUser($emplEmail,$emplName,$mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
-    echo $result;
+$unSubUser = new MailChimpUserTest();
+$result = $unSubUser->unSubscribeUser($emplEmail,$emplName,$mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
+echo $result;
 
 	// $mailChimpUserTest = new MailChimpUserTest();
  //    $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
