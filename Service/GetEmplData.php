@@ -29,7 +29,7 @@ function apache_request_headers() {
 	//Link -> localhost/wehnc/Service/GetEmplData.php
 header("Access-Control-Allow-Origin: *");
 $headers = apache_request_headers();
-print_r("$headers",$headers);
+print_r($headers);
 $headers = $headers['token'];
 require_once("./token/validateToken.php");
 
