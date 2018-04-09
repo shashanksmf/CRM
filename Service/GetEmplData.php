@@ -6,7 +6,7 @@ require_once("./phpHeader/getHeader.php");
 
 header("Access-Control-Allow-Origin: *");
 $headers = apache_request_headers();
-print_r($headers);
+print_r($headers['ACCESS-CONTROL-REQUEST-HEADERS']);
 $headers = $headers['token'];
 echo $headers['token'];
 require_once("./token/validateToken.php");
