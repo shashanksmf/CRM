@@ -20,9 +20,7 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 				//localStorage.setItem("userUUID",response.data.responce);
 				$rootScope.userProfilePic = crmconfig.serverDomainName +"/"+ response.data.profilePic;
 				$scope.$emit('initialiseChat', { initChat : true });
-				$http.defaults.headers.common = {
-					token:response.data.token
-				}
+				
 
 				API.setAuth(response.data);
 				$state.go("dashboards.home");
