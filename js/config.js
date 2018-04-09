@@ -9,7 +9,7 @@
 function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider,
   IdleProvider, KeepaliveProvider,$httpProvider) {
   $httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
-  $httpProvider.defaults.headers.common['Access-Control-Request-Method'] = 'GET';
+  $httpProvider.defaults.headers.common['Access-Control-Request-Method'] = 'POST,GET';
   $httpProvider.defaults.headers.common['token'] = localStorage.getItem('token') || null;
     
   // Configure Idle settings
