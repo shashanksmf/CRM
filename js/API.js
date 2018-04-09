@@ -8,9 +8,9 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	callAPI.getAllEmpl = function(){
 			return  $http({
 	        method: 'GET',
-	        headers: {'token': localStorage.getItem('token'),
-	        			'Access-Control-Request-Headers': 'token',
-'Access-Control-Request-Method': 'GET'
+	        headers: {'token': localStorage.getItem('token')
+// 	        			'Access-Control-Request-Headers': 'token',
+// 'Access-Control-Request-Method': 'GET'
 	    },
 	        url: baseHttpUrl+'/GetEmplData.php',
 

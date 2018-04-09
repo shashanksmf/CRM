@@ -7,8 +7,8 @@
  *
  */
 function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider,
-  IdleProvider, KeepaliveProvider) {
-
+  IdleProvider, KeepaliveProvider,$httpProvider) {
+  $httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
   // Configure Idle settings
   IdleProvider.idle(5); // in seconds
   IdleProvider.timeout(120); // in seconds
