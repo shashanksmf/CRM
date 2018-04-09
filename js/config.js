@@ -11,7 +11,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider,
   $httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
   $httpProvider.defaults.headers.common['Access-Control-Request-Method'] = 'GET';
   $httpProvider.defaults.headers.common = {
-          token:response.data.token
+          token: localStorage.getItem('token') || null
         }
   // Configure Idle settings
   IdleProvider.idle(5); // in seconds
