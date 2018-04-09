@@ -96,14 +96,22 @@
                             <th>API Key</th>
                             <th>List Id</th>
                             <th>List Name</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- <tr ng-repeat="dt in mailChimpDetails"> -->
-                        <tr>
-                            <td><span>{{mailChimpDetails.apiKey}}</span></td>
-                            <td><span>{{mailChimpDetails.listId}}</span></td>
-                            <td><span>{{mailChimpDetails.listName}}</span></td>
+                        <tr ng-repeat="dt in mailChimpDetails">
+                            <td><span>{{dt.apiKey}}</span></td>
+                            <td><span ng-if="editRow !=$index+1">{{dt.listId}}</span>
+                              <input ng-if="editRow == $index+1"  ng-model="dt.listId"/>
+                            </td>
+                            <td><span ng-if="editRow !=$index+1">{{dt.listName}}</span>
+                              <input ng-if="editRow == $index+1"  ng-model="dt.listName"/>
+                            </td>
+                            <td>
+                              <span class="fa fa-pencil" style="cursor: pointer;" ng-click="allowEditMailChimpDetails($index+1)" ng-if="editRow != $index+1"></span>
+                              <span class="fa fa-check" style="cursor: pointer;" ng-if="editRow == $index+1" ng-click="saveMailChimpDetails($index+1, dt)"></span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

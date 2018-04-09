@@ -8,11 +8,35 @@ header("Access-Control-Allow-Origin: *");
 $headers = apache_request_headers();
 // $headers = $headers['token'];
 // require_once("./token/validateToken.php");
-
+$id = @$_GET['id'];
 $userId = @$_GET['userId'];
 $apiKey = @$_GET['apiKey'];
 $listId = @$_GET['listId'];
 $listName = @$_GET['listName'];
+
+require_once("./mailChimp/list/checkListId.php");
+require_once(".../../../Controller/mailChimpConfig.php");
+require_once(".../../../Controller/mailChimpService.php");
+
+$mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
+
+$checkListId = new checkListId();
+$result = $checkListId->checkList($apiKey,$mailChimpSubDomainInit,$listId);
+// echo "checkListId",$result;
+
+$result = json_decode($result, true);
+$resultArr = array();
+$resultArr = $result;
+
+if ($resultArr['id'] != "") {
+    $resultArr['result'] = true;
+    // echo $resultArr;
+} 
+else {
+    $resultArr['result'] = false;
+    $resultArr['errorType'] = "listId";
+    exit $resultArr;
+}
 
 require_once("../Controller/StaticDBCon.php");
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
@@ -26,8 +50,7 @@ if (!$conn) {
 	die($responseArr);
 }
 mysqli_set_charset($conn,"utf8");
-$sql = "INSERT INTO .mailchimpdetails (userId,apiKey,listId,listName)
-VALUES ('".$userId."','".$apiKey."','".$listId."','".$listName."')";
+$sql = "UPDATE mailchimpdetails SET userId='".$userId."',apiKey='".$apiKey."',listId='".$listId."',listName='".$listName."' WHERE id=".$id;
 
 if (mysqli_query($conn, $sql)) {
 //echo "if";

@@ -25,16 +25,17 @@ $result = $checkListId->checkList($apiKey,$mailChimpSubDomainInit,$listId);
 // echo "checkListId",$result;
 
 $result = json_decode($result, true);
-$responseArr = array();
-$responseArr = $result;
+$resultArr = array();
+$resultArr = $result;
 
-if ($responseArr['id'] != "") {
-    $responseArr['result'] = true;
-    // echo $responseArr;
+if ($resultArr['id'] != "") {
+    $resultArr['result'] = true;
+    // echo $resultArr;
 } 
 else {
-    $responseArr['result'] = false;
-    exit $responseArr;
+    $resultArr['result'] = false;
+    $resultArr['errorType'] = "listId";
+    exit $resultArr;
 }
 
 require_once("../Controller/StaticDBCon.php");
@@ -53,18 +54,25 @@ $sql = "INSERT INTO .mailchimpdetails (userId,apiKey,listId,listName)
 VALUES ('".$userId."','".$apiKey."','".$listId."','".$listName."')";
 
 if (mysqli_query($conn, $sql)) {
-//echo "if";
-    $responseArr["result"] = true;
-    $last_id = mysqli_insert_id($conn);
-    $responseArr["lastId"] = $last_id;
 
-    echo json_encode($responseArr);
 } else {
 //echo "else".mysqli_error($conn);
     $responseArr["result"] = false;
     $responseArr["details"] = mysqli_error($conn);
     echo json_encode($responseArr);
    // echo "Error updating record: " . mysqli_error($conn);
+}
+
+mysqli_set_charset($conn,"utf8");
+$sql = "INSERT INTO .mailchimp_list_id_details(id, userId, apiKey, listId, web_id, name, date_created, subscribe_url_long) VALUES ('".$userId."','".$apiKey."','".$resultArr['id']."','".$resultArr['web_id']."','".$resultArr['name']."','".$resultArr['date_created']."','".$resultArr['subscribe_url_long']."')";
+
+if (mysqli_query($conn, $sql)) {
+    $responseArr["result"] = true;
+    echo json_encode($responseArr);
+} else {
+    $responseArr["result"] = false;
+    $responseArr["details"] = mysqli_error($conn);
+    echo json_encode($responseArr);
 }
 
 mysqli_close($conn);
