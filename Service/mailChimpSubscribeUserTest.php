@@ -5,8 +5,8 @@ require_once("./phpHeader/getHeader.php");
 
 header("Access-Control-Allow-Origin: *");
 $headers = apache_request_headers();
-$headers = $headers['token'];
-require_once("./token/validateToken.php");;
+// $headers = $headers['token'];
+// require_once("./token/validateToken.php");;
 
 require_once("../Controller/tests/mailchimptest/mailChimpUserTest.php");
 require_once("mailChimpConfig.php");

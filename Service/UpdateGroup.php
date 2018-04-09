@@ -10,8 +10,8 @@ require_once("./phpHeader/getHeader.php");
 
 header("Access-Control-Allow-Origin: *");
 $headers = apache_request_headers();
-$headers = $headers['token'];
-require_once("./token/validateToken.php");
+// $headers = $headers['token'];
+// require_once("./token/validateToken.php");
 
 $id = @$_GET['id'];
 $members= @$_GET['members'];

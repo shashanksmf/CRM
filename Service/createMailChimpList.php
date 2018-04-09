@@ -6,7 +6,7 @@
 // header("Access-Control-Allow-Origin: *");
 // $headers = apache_request_headers();
 // $headers = $headers['token'];
-// require_once("./token/validateToken.php");
+// // require_once("./token/validateToken.php");
 
 // $userId = @$_GET['userId'];
 // $apiKey = @$_GET['apiKey'];

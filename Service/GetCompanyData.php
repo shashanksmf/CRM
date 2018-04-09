@@ -10,15 +10,15 @@ require_once("./phpHeader/getHeader.php");
 
 header("Access-Control-Allow-Origin: *");
 $headers = apache_request_headers();
-$headers = $headers['token'];
-require_once("./token/validateToken.php");
+// $headers = $headers['token'];
+// require_once("./token/validateToken.php");
 
 $dats = '';
 $dats = @$_GET['id'];
 
 $headers = apache_request_headers();
-$headers = $headers['token'];
-require_once("./token/validateToken.php");
+// $headers = $headers['token'];
+// require_once("./token/validateToken.php");
 
 require_once("../Controller/Class_Company_Controller.php");
 $controller = new CompanyController();
