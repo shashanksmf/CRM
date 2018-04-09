@@ -7,9 +7,10 @@ ini_set('display_errors', '1');
 require_once("./phpHeader/getHeader.php");
 
 $headers = apache_request_headers();
+print_r($headers);
 $headers = $headers['token'];
+echo $headers['token'];
 require_once("./token/validateToken.php");
-// print_r($headers);
 //Link -> localhost/wehnc/Service/GetEmplData.php
 
 
