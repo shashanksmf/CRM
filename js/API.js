@@ -8,7 +8,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	callAPI.getAllEmpl = function(){
 			return  $http({
 	        method: 'GET',
-	        headers: {'token': 'dsfghdsuifdpof'
+	        headers: {'token': 'dsfghdsuifdpof', 'check': '1232434'
 // 	        			'Access-Control-Request-Headers': 'token',
 // 'Access-Control-Request-Method': 'GET'
 	    },
