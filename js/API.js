@@ -4,8 +4,8 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	var callAPI = {}; 
     // var baseHttpUrl = "/CRM.git/trunk/Service";
 	var baseHttpUrl = 'https://upsailgroup.herokuapp.com/Service';
-	console.log("token",localStorage.getItem('token'));
 	callAPI.getAllEmpl = function(){
+	console.log("token",localStorage.getItem('token'));
 			return  $http({
 	        method: 'GET',
 	        headers: {'token': localStorage.getItem('token')},
