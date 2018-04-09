@@ -8,7 +8,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	callAPI.getAllEmpl = function(){
 			return  $http({
 	        method: 'GET',
-	        headers: {'an':'one' },
+	        {headers: {'an':'one' }},
 	        url: baseHttpUrl+'/GetEmplData.php',
 
     	});
