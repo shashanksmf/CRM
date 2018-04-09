@@ -1,21 +1,24 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-require_once("./phpHeader/getHeader.php");
+// error_reporting(E_ALL);
+// ini_set('display_errors', '1');
+// require_once("./phpHeader/getHeader.php");
 
-header("Access-Control-Allow-Origin: *");
-$headers = apache_request_headers();
+// header("Access-Control-Allow-Origin: *");
+// $headers = apache_request_headers();
 // $headers = $headers['token'];
 // require_once("./token/validateToken.php");
 
-$userId = @$_GET['userId'];
-$apiKey = @$_GET['apiKey'];
+// $userId = @$_GET['userId'];
+// $apiKey = @$_GET['apiKey'];
 
 require_once("./mailChimp/list/checkAPIKey.php");
 require_once(".../../../Controller/mailChimpConfig.php");
 require_once(".../../../Controller/mailChimpService.php");
 
-$mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
+$mailChimpService = new MailChimpService();
+            $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
+            $mailChimpApiKey = $mailChimpService->mailChimpApiKey = getenv("mailChimpApiKey");
+            $list_id = $mailChimpService->list_id = getenv('mailChimpListId');
 
 $checkAPIKey = new checkAPIKey();
 $result = $checkAPIKey->key($mailChimpApiKey,$mailChimpSubDomainInit);
