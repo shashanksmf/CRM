@@ -8,8 +8,8 @@ require_once("./phpHeader/getHeader.php");
 
 $headers = apache_request_headers();
 print_r($headers);
-$headers = $headers['token'];
-echo $headers['token'];
+// $headers = $headers['token'];
+echo $headers['TOKEN'];
 require_once("./token/validateToken.php");
 //Link -> localhost/wehnc/Service/GetEmplData.php
 

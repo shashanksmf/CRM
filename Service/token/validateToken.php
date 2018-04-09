@@ -44,7 +44,7 @@ class validateToken {
 }
 
 	$validateToken = new validateToken();
-  $result = $validateToken->validate($headers);
+  $result = $validateToken->validate($headers['TOKEN']);
     // echo json_encode($result);
  	if (strlen($result['details']) > 0 && $result['result'] == false) {
     	 exit(json_encode($result));
