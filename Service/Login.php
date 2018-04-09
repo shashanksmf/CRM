@@ -1,5 +1,6 @@
 <?php
 	header("Access-Control-Allow-Origin: *");
+	 header('Access-Control-Allow-Headers: token');
 	ob_start();
 	$email = @$_GET['userName'];
 	$password= @$_GET['password'];
