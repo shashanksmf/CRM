@@ -9,21 +9,23 @@ inspinia.directive('chatbox', function($rootScope) {
       //  var chatLength = find('div.msg_container_base').children().length;
       scope.scrollDown = function() {
         setTimeout(function() {
-          // scope.$apply(function() {
-          //   chatBoxHt.scrollTop = chatBoxHt.scrollHeight;
-          //   console.log(chatBoxHt);
-          // })
+          scope.$apply(function() {
+            chatBoxHt.scrollTop = chatBoxHt.scrollHeight;
+            console.log(chatBoxHt);
+          })
 
         }, 1000);
       }
 
       scope.scrollDown();
 
-      //  scope.$watch(function(){return scope.chat.chatDetail;}, function(newChat,oldChat) {
-      //   if(newChat.length > oldChat.length) {
-      //     scope.scrollDown();
-      //   }
-      // }, true);
+      scope.$watch(function() {
+        return scope.chat.chatDetail;
+      }, function(newChat, oldChat) {
+        if (newChat.length > oldChat.length) {
+          scope.scrollDown();
+        }
+      }, true);
 
 
 
