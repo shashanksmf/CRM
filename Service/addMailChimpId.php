@@ -18,7 +18,6 @@ require_once(".../../../Controller/mailChimpService.php");
 $mailChimpService = new MailChimpService();
             $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
             $mailChimpApiKey = $mailChimpService->mailChimpApiKey = getenv("mailChimpApiKey");
-            $list_id = $mailChimpService->list_id = getenv('mailChimpListId');
 
 $checkAPIKey = new checkAPIKey();
 $result = $checkAPIKey->key($mailChimpApiKey,$mailChimpSubDomainInit);
@@ -27,7 +26,7 @@ echo $result;
 $result = json_decode($result, true);
 $resultArr = array();
 $resultArr = $result;
-echo $resultArr['account_id'];
+echo "account_id".$resultArr['account_id'];
 
 // if ($resultArr['account_id'] != "") {
 //     // $resultArr['result'] = true;
@@ -79,7 +78,7 @@ echo $resultArr['account_id'];
 
 $contactArr = array();
 $contactArr = $resultArr['contact'];
-echo $contactArr['company'];
+echo "company".$contactArr['company'];
 // mysqli_set_charset($conn,"utf8");
 // $sql = "INSERT INTO .mailchimp_apikey_contact_details(id, userId, apiKey, company, addr1, addr2, city, state, zip, country) VALUES ('".$userId."','".$apiKey."','".$contactArr['company']."','".$contactArr['addr1']."','".$contactArr['addr2']."','".$contactArr['city']."','".$contactArr['state']."','".$contactArr['zip']."','".$contactArr['country']."')";
 
