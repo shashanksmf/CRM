@@ -2,14 +2,18 @@ var inspinia = angular.module('inspinia');
 inspinia.factory('API', ['$http','$q',function($http,$q){
 	
 	var callAPI = {}; 
-    // var baseHttpUrl = */CRM.git/trunk/Service";
+    // var baseHttpUrl = "/CRM.git/trunk/Service";
 	var baseHttpUrl = 'https://upsailgroup.herokuapp.com/Service';
 
 	callAPI.getAllEmpl = function(){
 			return  $http({
 	        method: 'GET',
-	        headers: {'token': localStorage.getItem('token')},
-	        url: baseHttpUrl+'/GetEmplData.php'
+	        headers: {'token': localStorage.getItem('token'),
+	        			'Access-Control-Request-Headers': 'token',
+'Access-Control-Request-Method': 'GET'
+	    },
+	        url: baseHttpUrl+'/GetEmplData.php',
+
     	})
 
 	}
