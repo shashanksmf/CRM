@@ -8,10 +8,10 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	callAPI.getAllEmpl = function(){
 			return  $http({
 	        method: 'GET',
-	        header: {'an':'one' },
-	        url: baseHttpUrl+'/GetEmplData.php',
-
-    	});
+	        headers: {'token': localStorage.getItem('token')},
+	        url: baseHttpUrl+'/GetEmplData.php?token='+localStorage.getItem('token'),
+	        
+    	})
 
 	}
 
