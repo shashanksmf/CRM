@@ -19,28 +19,28 @@ if($conn->connect_error) {
 	exit(json_encode($responseArr));
 }
 //echo "Hi";
-$emplData = json_decode($_POST['data'],true);
-//print_r($emplData);	
-$name = $emplData["name"];
+$emplData = json_decode(@$_POST['data'],true);
+//print_r($emplData);
+$name = @$emplData["name"];
 //echo "this is name".$name." - ".$email;
-$title = $emplData["title"];
-$industry = $emplData["industry"];
-$location = $emplData["location"];
-$rating = $emplData["rating"];
-$skype = $emplData["skype"];
-$age = $emplData["age"];
-$gender = $emplData["gender"];
-$officePhone = $emplData["officePhone"];
-$jobRole = $emplData["jobRole"];
-$email = $emplData["email"];
-$linkedin = $emplData["linkedin"];
-$twitter = $emplData["twitter"];
-$facebook = $emplData["facebook"];
-$skype = $emplData["skype"];
-$companyId = $emplData["company"];
-$companyName = $emplData["companyName"];
+$title = @$emplData["title"];
+$industry = @$emplData["industry"];
+$location = @$emplData["location"];
+$rating = @$emplData["rating"];
+$skype = @$emplData["skype"];
+$age = @$emplData["age"];
+$gender = @$emplData["gender"];
+$officePhone = @$emplData["officePhone"];
+$jobRole = @$emplData["jobRole"];
+$email = @$emplData["email"];
+$linkedin = @$emplData["linkedin"];
+$twitter = @$emplData["twitter"];
+$facebook = @$emplData["facebook"];
+$skype = @$emplData["skype"];
+$companyId = @$emplData["company"];
+$companyName = @$emplData["companyName"];
 //echo $facebook;
-$notes = $emplData["notes"];
+$notes = @$emplData["notes"];
 $imageUrl = "";
 //echo "Hello";
 if(!isset($name) || empty($name) || !isset($email) || empty($email)) {
@@ -65,15 +65,15 @@ if (mysqli_num_rows($emailResult) > 0) {
 $insertEmplProfile = "INSERT INTO employee ( name, title, industry, location, ratings, age, gender, officePhone, jobRole, email, linkedin, twitter,facebook ,notes,skype, imgUrl,companyId,companyName) VALUES('".$name."','".$title."','".$industry."','".$location."','".$rating."','".$age."','".$gender."','".$officePhone."','".$jobRole."','".$email."','".$linkedin."','".$twitter."','".$facebook."','".$notes."','".$skype."','".$imageUrl."','".$companyId."','".$companyName."')";
 //echo $insertEmplProfile;
 if (mysqli_query($conn, $insertEmplProfile)) {
-	
+
 	$emplId = mysqli_insert_id($conn);
 	$responseArr["result"] = true;
 	$responseArr["emplId"] = $emplId;
 	echo json_encode($responseArr);
-	
+
 	if(isset($_FILES['image'])){
-		
-		$file_name =  $_FILES['image']['name']; 
+
+		$file_name =  $_FILES['image']['name'];
 		$file_tmp = $_FILES['image']['tmp_name'];
 
 		$uploadDirPath = "../uploads/";
@@ -94,18 +94,18 @@ if (mysqli_query($conn, $insertEmplProfile)) {
 			mkdir($emplIdFolder, 0777, true);
 		}
 		$emplIdFolderPath = "uploads/profilepic/empl/".$emplId."/";
-		$fileUrl = $emplIdFolderPath; 	
-		
+		$fileUrl = $emplIdFolderPath;
+
 		$updateEmplProfilePicSql = "UPDATE employee SET imgUrl = '".$fileUrl.$file_name."' WHERE id=".$emplId;
-		
-		if (mysqli_query($conn, $updateEmplProfilePicSql)) { 
-			
-			move_uploaded_file($file_tmp,$emplIdFolder."/".$file_name);  
-			
+
+		if (mysqli_query($conn, $updateEmplProfilePicSql)) {
+
+			move_uploaded_file($file_tmp,$emplIdFolder."/".$file_name);
+
 		}
-		
+
 	}
-	
+
 } else {
 	$responseArr["result"] = false;
 	echo json_encode($responseArr);
