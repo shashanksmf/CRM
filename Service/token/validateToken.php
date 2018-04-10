@@ -1,6 +1,8 @@
 <?php
 
 header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Headers: Origin, token, Host');
+
 include_once('.../../../vendor/autoload.php');
 
 use ReallySimpleJWT\TokenValidator;
