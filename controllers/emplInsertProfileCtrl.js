@@ -55,30 +55,27 @@ inspinia.controller('emplInsertProfileCtrl', ['$scope', '$rootScope', '$http',
 				$scope.emplProfile.append("data", JSON.stringify($scope.emplProfileInfo));
 
 				API.insertEmplProfile($scope.emplProfile).then(function(response) {
-					//console.log("response empl Insert",response);
 					if (response.data.result) {
-						if (response.data.result) {
-							//alert("data uploaded");
-							$scope.imgsrc = 'img/default-avatar.png';
-							$scope.errorMsg = "data uploaded";
-							$scope.hasError = false;
-							$scope.emplProfileInfo = {};
-						} else {
-							$scope.hasError = true;
-							$timeout(function() {
-									$scope.errorMsg = response.data.details;
-								}, 100)
-								//alert(response.data.details);
-						}
-					} else if (response.data.errorType == "token") {
+						//alert("data uploaded");
+						$scope.imgsrc = 'img/default-avatar.png';
+						$scope.errorMsg = "data uploaded";
+						$scope.hasError = false;
+						$scope.emplProfileInfo = {};
+					} else if ("errorType" in response.data && response.data.errorType ==
+						"token") {
 						$('#tokenErrorModalLabel').html(response.data.details);
 						$('#tokenErrorModal').modal("show");
 						$('#tokenErrorModalBtn').click(function() {
 							$('#tokenErrorModal').modal("hide");
 						})
+					} else {
+						$scope.hasError = true;
+						$timeout(function() {
+								$scope.errorMsg = response.data.details;
+							}, 100)
+							//alert(response.data.details);
 					}
 					$scope.hidespinner = true;
-
 				})
 
 			}
