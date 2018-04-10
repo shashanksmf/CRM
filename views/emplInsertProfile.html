@@ -6,7 +6,7 @@
 
                 <div ibox-tools></div>
             </div>
-            
+
             <div class="row userImageContainer" style="padding-left: 20px;">
                 <div class="col-lg-2">
                     <div style="margin-bottom: 20px;" class="userPicContainer">
@@ -17,7 +17,7 @@
                         </div>
                     </div>
                     <input type="file" class="emplInsertProfilePic" name="image" custom-on-change="attachEmplProfilePic" ng-show="false"   />
-                 
+
                     <div class="changeUserPhotoBtn" style="width: 99px; text-align: center;position: absolute; bottom: 15px;" ng-click="browseEmplProfilePicAttach()"><i class="fa fa-camera"></i>Change Pic</div>
                     <!-- <button class="btn btn-default" ng-click="browseEmplProfilePicAttach()">Upload File</button>  -->
                 </div>
@@ -25,16 +25,16 @@
 
             <div class="ibox-content col-lg-6" style="clear: none;">
                 <form class="form-horizontal">
-                    
+
                     <div class="form-group"><label class="col-lg-2 control-label">Name <i class="fa fa-asterisk fs8px"></i></label>
                         <div class="col-lg-10">
-                            <input type="text" placeholder="Name" class="form-control" ng-model="emplProfileInfo.name"> 
+                            <input type="text" placeholder="Name" class="form-control" ng-model="emplProfileInfo.name">
                         </div>
                     </div>
 
                     <div class="form-group"><label class="col-lg-2 control-label">Email <i class="fa fa-asterisk fs8px"></i></label>
                         <div class="col-lg-10">
-                            <input type="text" placeholder="Email" class="form-control" ng-model="emplProfileInfo.email"> 
+                            <input type="text" placeholder="Email" class="form-control" ng-model="emplProfileInfo.email">
                         </div>
                     </div>
 
@@ -49,7 +49,7 @@
                             <input type="text" placeholder="Industry" class="form-control" ng-model="emplProfileInfo.industry">
                         </div>
                     </div>
-                
+
                     <div class="form-group"><label class="col-lg-2 control-label">Location</label>
                         <div class="col-lg-10">
                             <input type="text" placeholder="Location" class="form-control" ng-model="emplProfileInfo.location">
@@ -72,20 +72,20 @@
                         <div class="col-lg-10">
                             <input type="text" placeholder="Phone No" class="form-control" ng-model="emplProfileInfo.phone">
                         </div>
-                    </div> 
+                    </div>
 
                     <div class="form-group"><label class="col-lg-2 control-label">skype</label>
                         <div class="col-lg-10">
                             <input type="text" placeholder="Twitter" class="form-control" ng-model="emplProfileInfo.skype">
                         </div>
-                    </div>                   
+                    </div>
                 </form>
             </div>
 
              <div class="ibox-content col-lg-6" style="clear: none;">
                 <form class="form-horizontal">
-                    
-                    <div class="form-group"><label class="col-lg-2 control-label" style="white-space: nowrap">Company <i class="fa fa-asterisk fs8px"></i></label>
+
+                    <div class="form-group"><label class="col-lg-2 control-label" style="white-space: nowrap">Company </label>
                         <div class="col-lg-10">
                             <select class="form-control" ng-model="emplProfileInfo.company">
                                 <option ng-repeat="company in companies" value="{{company.id}}">{{company.name}}</option>
@@ -138,14 +138,14 @@
                             <textarea type="text" cols="4" placeholder="Notes" class="form-control" ng-model="emplProfileInfo.notes"></textarea>
                         </div>
                     </div>
-                    
+
                 </form>
             </div>
 
         </div>
 
 
-            
+
     </div>
 
 <style>
@@ -166,7 +166,7 @@
   <!-- Modal -->
   <div class="modal fade" id="emplLoadingModal" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -191,7 +191,6 @@
           <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
         </div>
       </div>
-      
+
     </div>
   </div>
-
