@@ -40,6 +40,7 @@ inspinia.controller('emplInsertProfileCtrl', ['$scope', '$rootScope', '$http',
 
 		$scope.saveEmpl = function() {
 			$scope.errorMsg = "";
+			$scope.userProfileInfo.company = $scope.userProfileInfo.company || "";
 			isValid = checkEmplFields($scope.emplProfileInfo);
 			if (isValid) {
 				$("#emplLoadingModal").modal('show');
