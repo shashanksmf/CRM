@@ -537,7 +537,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	    	
 	    	withCredentials: false,
 	        transformRequest: angular.identity,  
-	        headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')}  
+	        headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')},  
 	    
 	    });
 
