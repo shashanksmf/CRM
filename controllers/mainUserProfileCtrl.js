@@ -10,7 +10,7 @@ var userId = $rootScope.userId || localStorage.getItem("userId");
              $scope.mainUserInfo = response.data.details;
              $scope.getUserMailChimpDetails();
          }
-         else if("errorType" in response.data && response.data.errorType && response.data.errorType == "token"){
+         else if(response.data.errorType && response.data.errorType == "token"){
                 $('#tokenErrorModalLabel').html(response.data.details);
                 $('#tokenErrorModal').modal("show");
                 $('#tokenErrorModalBtn').click(function(){
@@ -49,7 +49,7 @@ $scope.saveMailChimpDetails = function(index, dt){
                     $('#tokenErrorModal').modal("hide");
                 })
          }
-         else if("errorType" in response.data && response.data.errorType == "listId"){
+         else if(response.data.errorType && response.data.errorType == "listId"){
             alert("List Id is invalid");
          }
          else {
@@ -98,7 +98,7 @@ $scope.addMailChimpIdBtn= function(){
                     $('#tokenErrorModal').modal("hide");
                 })
          }
-         else if("errorType" in response.data && response.data.errorType == "apiKey"){
+         else if(response.data.errorType && response.data.errorType == "apiKey"){
             alert("API Key is invalid");
          }
          else {
@@ -124,7 +124,7 @@ $scope.addListBtn = function(){
                     $('#tokenErrorModal').modal("hide");
                 })
          }
-         else if("errorType" in response.data && response.data.errorType == "listId"){
+         else if(response.data.errorType && response.data.errorType == "listId"){
             alert("Invalid List Details");
          }
          else {

@@ -10,7 +10,7 @@ inspinia.controller("companiesCtrl", ['$scope','$rootScope','$http','$q','API','
 		if(response.data.result){
 			$scope.companies = response.data.Users;;
 		}
-		else{
+		else if("errorType" in response.data && response.data.errorType == "token"){
             $('#tokenErrorModalLabel').html(response.data.details);
             $('#tokenErrorModal').modal("show");
             $('#tokenErrorModalBtn').click(function(){
