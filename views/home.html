@@ -50,8 +50,7 @@
           ng-show="tagSearchedItems.length==0">
     
         <td class="userImg">
-            <div class="userAvatar"><img ng-src={{crmconfig.serverDomainName+"/"+empl.imgUrl}} 
-               onerror="this.onerror=null;this.src='img/default-avatar.png';">
+            <div class="userAvatar"><img ng-src={{crmconfig.serverDomainName+"/"+empl.imgUrl}} alt="">
              </div>
             <span class="pointer" ng-click='showUserDetail(empl.id)'> {{empl.name}}</span>
             <!-- ng-click="showUserDetail(empl.id)" -->
@@ -73,8 +72,8 @@
       <tr ng-show="tagSearchedItems.length>0" ng-repeat="empl in tagSearchedDetails  | unique:'id'|  orderBy:propertyName:reverse" ng-if="emplId.length>0 ? emplId.indexOf(empl.id): true">
 
         <td class="userImg">
-            <div class="userAvatar"><img ng-src={{crmconfig.serverDomainName+"/"+empl.imgUrl}} 
-               onerror="this.onerror=null;this.src='img/default-avatar.png';"></div>
+            <div class="userAvatar"><img ng-src={{crmconfig.serverDomainName+"/"+empl.imgUrl}} alt="">
+            </div>
             <span class="pointer" ng-click="showUserDetail(empl.id)" > {{empl.name}}</span>
         </td>
       
