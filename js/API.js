@@ -260,7 +260,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	    	
 	    	withCredentials: false,
 	        transformRequest: angular.identity,  
-	        headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')}  
+	        headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')},
 	    
 	    });
 
@@ -378,7 +378,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	    	
 	    	withCredentials: false,
 	        transformRequest: angular.identity,  
-	        headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')}  
+	        headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')}, 
 	    
 	    });
 
@@ -456,7 +456,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	    	
 	    	withCredentials: false,
 	        transformRequest: angular.identity,  
-	        headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')}  
+	        headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')},  
 	    
 	    });
 
@@ -600,7 +600,8 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
                 method: 'GET',
                 headers: {'token': localStorage.getItem('token')},
 	        	dataType: "jsonp",
-                url: baseHttpUrl + '/addMailChimpId.php?userId='+apiKeyData.userId+'&apiKey='+apiKeyData.apiKey       })
+                url: baseHttpUrl + '/addMailChimpId.php?userId='+apiKeyData.userId+'&apiKey='+apiKeyData.apiKey
+        })
     	
     }
 
