@@ -5,7 +5,7 @@ inspinia.controller("groupCtrl", ['$scope','$rootScope','$http','$q','API','$sta
 		if(response.data.result){
 			$scope.groups = response.data;
 		}
-		else if(response.data.errorType == "token"){
+		else if(response.data.errorType && response.data.errorType == "token"){
 			$('#tokenErrorModalLabel').html(response.data.details);
 			$('#tokenErrorModal').modal("show");
 			$('#tokenErrorModalBtn').click(function(){
@@ -20,7 +20,7 @@ inspinia.controller("groupCtrl", ['$scope','$rootScope','$http','$q','API','$sta
 			if(response.data.result){
 				$scope.emplNames =  response.data.Employees;
 			}
-			else if(response.data.errorType == "token"){
+			else if(response.data.errorType && response.data.errorType == "token"){
 				$('#tokenErrorModalLabel').html(response.data.details);
 				$('#tokenErrorModal').modal("show");
 				$('#tokenErrorModalBtn').click(function(){
@@ -50,25 +50,24 @@ inspinia.controller("groupCtrl", ['$scope','$rootScope','$http','$q','API','$sta
 
 			API.createGroup(createGroupObj).then(function(response){
 				//check if group already exists
-				if(response.data.result){
 					if(response.data.responce){
 						if(responce.data.responce.hasOwnProperty("groupid") && responce.data.responce.length > 0) {
 							createGroupObj.id = responce.data.responce.groupid;
 						}
 						$scope.groups.Groups.push(createGroupObj)
 					}
-					else if(!response.data.responce)
-						{
-							alert(response.data.message)
-						}
-					}
-					else if(response.data.errorType == "token"){
+					else if(response.data.errorType && response.data.errorType == "token"){
 						$('#tokenErrorModalLabel').html(response.data.details);
 						$('#tokenErrorModal').modal("show");
 						$('#tokenErrorModalBtn').click(function(){
 							$('#tokenErrorModal').modal("hide");
 						})
 					}
+					else if(!response.data.responce)
+						{
+							alert(response.data.message)
+						}
+					
 				});
 
 			
@@ -156,23 +155,22 @@ inspinia.controller("groupCtrl", ['$scope','$rootScope','$http','$q','API','$sta
 		if(memberIds.length > 0) {
 
 			API.updateMembersInGroup({ id:groupId , members:memberIds}).then(function(response){
-				if(response.data.result){
-					if(response.data.responce){
-						alert("Group Successfully Saved");
-					}
-					else {
-						alert("Something Went Wrong !");	
-					}
-
-					$("#addEmplmModal").modal("hide");
+				if(response.data.responce){
+					alert("Group Successfully Saved");
 				}
-				else if(response.data.errorType == "token"){
+				else if(response.data.errorType && response.data.errorType == "token"){
 					$('#tokenErrorModalLabel').html(response.data.details);
 					$('#tokenErrorModal').modal("show");
 					$('#tokenErrorModalBtn').click(function(){
 						$('#tokenErrorModal').modal("hide");
 					})
 				}
+				else {
+					alert("Something Went Wrong !");	
+				}
+
+				$("#addEmplmModal").modal("hide");
+				
 			})
 
 		}
@@ -188,30 +186,27 @@ inspinia.controller("groupCtrl", ['$scope','$rootScope','$http','$q','API','$sta
 		}
 
 		API.deleteGroup({ id: groupId }).then(function(response){
-			if(response.data.result){
-				if(response.data.hasOwnProperty("result") && response.data.result) {
-					for(var i=0 ; i < $scope.groups.Groups.length;i++) {
-						if(groupId == $scope.groups.Groups[i].id) {
-							$scope.groups.Groups.splice(i,1);
-							alert("group Deleted Successfully");
-						}
+			if(response.data.hasOwnProperty("result") && response.data.result) {
+				for(var i=0 ; i < $scope.groups.Groups.length;i++) {
+					if(groupId == $scope.groups.Groups[i].id) {
+						$scope.groups.Groups.splice(i,1);
+						alert("group Deleted Successfully");
 					}
 				}
-				else if(response.data.hasOwnProperty("details")) {
-					alert(response.data.details);
-				}
-				else {
-					alert("Something Wrong with the server");
-				}
 			}
-			else if(response.data.errorType == "token"){
+			else if(response.data.errorType && response.data.errorType == "token"){
 				$('#tokenErrorModalLabel').html(response.data.details);
 				$('#tokenErrorModal').modal("show");
 				$('#tokenErrorModalBtn').click(function(){
 					$('#tokenErrorModal').modal("hide");
 				})
 			}
-
+			else if(response.data.hasOwnProperty("details")) {
+				alert(response.data.details);
+			}
+			else {
+				alert("Something Wrong with the server");
+			}
 		})
 	}
 

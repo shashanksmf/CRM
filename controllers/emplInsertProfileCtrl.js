@@ -11,7 +11,7 @@ inspinia.controller('emplInsertProfileCtrl', ['$scope', '$rootScope', '$http',
 		API.getAllComapnies().then(function(response) {
 			if (response.data.result) {
 				$scope.companies = response.data.details;
-			} else if (response.data.errorType == "token") {
+			} else if (response.data.errorType && response.data.errorType == "token") {
 				$('#tokenErrorModalLabel').html(response.data.details);
 				$('#tokenErrorModal').modal("show");
 				$('#tokenErrorModalBtn').click(function() {

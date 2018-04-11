@@ -76,7 +76,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
               $rootScope.chats[chatArrIndex].chatDetail.push({id:response.data.msgId,message:msg,fromId:sendMsgObj.from,toId:toUserId,readed:false});  
               $rootScope.chats[chatArrIndex].sending = false;  
             }
-            else if(response.data.errorType == "token"){
+            else if(response.data.errorType && response.data.errorType == "token"){
                 $('#tokenErrorModalLabel').html(response.data.details);
                 $('#tokenErrorModal').modal("show");
                 $('#tokenErrorModalBtn').click(function(){
@@ -119,7 +119,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
                 if(response.data.result){
                     $rootScope.chats[i].chatDetail = response.data.Messages;
                 }
-                else if(response.data.errorType == "token"){
+                else if(response.data.errorType && response.data.errorType == "token"){
                     $('#tokenErrorModalLabel').html(response.data.details);
                     $('#tokenErrorModal').modal("show");
                     $('#tokenErrorModalBtn').click(function(){
@@ -148,7 +148,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
 
                         });  
                 }
-                else if(response.data.errorType == "token"){
+                else if(response.data.errorType && response.data.errorType == "token"){
                     $('#tokenErrorModalLabel').html(response.data.details);
                     $('#tokenErrorModal').modal("show");
                     $('#tokenErrorModalBtn').click(function(){
@@ -218,7 +218,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
                     }
                     
                 }
-                else if(response.data.errorType == "token"){
+                else if(response.data.errorType && response.data.errorType == "token"){
                     $('#tokenErrorModalLabel').html(response.data.details);
                     $('#tokenErrorModal').modal("show");
                     $('#tokenErrorModalBtn').click(function(){
@@ -240,12 +240,12 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
            
             if(userId) {
                 API.getAllNewChatDetails(userId).then(function(response){
-                        if(response.data.result) {
-                            if(response.data.chatDetails.length > 0) {
-                               pushNewMsgInActiveChatBox(response.data.chatDetails);
+                    if(response.data.result) {
+                        if(response.data.chatDetails.length > 0) {
+                           pushNewMsgInActiveChatBox(response.data.chatDetails);
                         }
-                     }
-                     else if(response.data.errorType == "token"){
+                    }
+                    else if(response.data.errorType && response.data.errorType == "token"){
                         $('#tokenErrorModalLabel').html(response.data.details);
                         $('#tokenErrorModal').modal("show");
                         $('#tokenErrorModalBtn').click(function(){
@@ -275,7 +275,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
                 $rootScope.userEmail = response.data.details.email;
                 $rootScope.userProfilePic = crmconfig.serverDomainName +"/"+ response.data.details.profilePic;
             }
-            else if(response.data.errorType == "token"){
+            else if(response.data.errorType && response.data.errorType == "token"){
                 $('#tokenErrorModalLabel').html(response.data.details);
                 $('#tokenErrorModal').modal("show");
                 $('#tokenErrorModalBtn').click(function(){

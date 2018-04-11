@@ -41,7 +41,11 @@
     <tbody>
       <tr ng-repeat="comp in companies |  orderBy:propertyName:reverse ">
     
-        <td ng-click="showCompanyDetail(comp.id)">{{comp.name}}</td>
+        <td class="companyImg">
+            <div class="companyAvatar"><img alt="" ng-src={{crmconfig.serverDomainName+"/"+comp.logo}}>
+            </div>
+            <span class="pointer" ng-click="showCompanyDetail(comp.id)"> {{comp.name}}</span>
+        </td>
 
         <td>{{comp.ofcAddress}}</td>
         
@@ -64,7 +68,7 @@
 
 
 <style>
-  #companyTable {
+#companyTable {
     padding: 20px 30px;
 
     background-color: white;
@@ -106,5 +110,22 @@
 #companyTable table > tbody > tr td {
     border: 1px solid #e7e7e7;
     border-bottom: 1px solid #ddd;
+}
+
+.companyImg {
+    display: flex;
+
+    border-bottom: none !important;
+}
+
+.companyImg > .companyAvatar {
+    display: inline-block;
+}
+
+.companyImg > .companyAvatar > img {
+    width: 25px;
+    margin-right: 10px;
+
+    border-radius: 10px;
 }
 </style>

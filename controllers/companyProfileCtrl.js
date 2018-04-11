@@ -16,7 +16,7 @@ inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','A
             $scope.companyData = response.data.Users[0];
             $scope.companyData.id = companyId;
         }
-        else if(response.data.errorType == "token"){
+        else if(response.data.errorType && response.data.errorType == "token"){
             $('#tokenErrorModalLabel').html(response.data.details);
             $('#tokenErrorModal').modal("show");
             $('#tokenErrorModalBtn').click(function(){
@@ -36,7 +36,7 @@ inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','A
                 console.log($scope.files)
             }
         }
-        else if(response.data.errorType == "token"){
+        else if(response.data.errorType && response.data.errorType == "token"){
             $('#tokenErrorModalLabel').html(response.data.details);
             $('#tokenErrorModal').modal("show");
             $('#tokenErrorModalBtn').click(function(){
@@ -63,14 +63,14 @@ inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','A
             if(response.data.result){
              // alert("Picture successFully Uploaded")
              return;    
-         }
-         else if(response.data.errorType == "token"){
-            $('#tokenErrorModalLabel').html(response.data.details);
-            $('#tokenErrorModal').modal("show");
-            $('#tokenErrorModalBtn').click(function(){
-                $('#tokenErrorModal').modal("hide");
-            })
-        } 
+            }
+            else if(response.data.errorType && response.data.errorType == "token"){
+                $('#tokenErrorModalLabel').html(response.data.details);
+                $('#tokenErrorModal').modal("show");
+                $('#tokenErrorModalBtn').click(function(){
+                    $('#tokenErrorModal').modal("hide");
+                })
+            } 
 
         alert("server is down please try again");
 
@@ -96,10 +96,10 @@ inspinia.controller('companyProfileCtrl', ['$scope','$rootScope','$http','$q','A
             $scope.companyData.id = companyId;
             API.updateCompanyDetails($scope.companyData).then(function(response){
                 //console.log("response API", response.data.responce);
-                if(response.data.responce){
-                  //  alert("company data saved successfully");
-                  $scope.profileEdit = false;
-              }else if(response.data.errorType == "token"){
+            if(response.data.responce){
+              //  alert("company data saved successfully");
+              $scope.profileEdit = false;
+            }else if(response.data.errorType && response.data.errorType == "token"){
                 $('#tokenErrorModalLabel').html(response.data.details);
                 $('#tokenErrorModal').modal("show");
                 $('#tokenErrorModalBtn').click(function(){

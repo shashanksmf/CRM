@@ -1,6 +1,11 @@
 var inspinia = angular.module('inspinia');
-inspinia.controller("companiesCtrl", ['$scope','$rootScope','$http','$q','API','$state','$timeout', function ($scope,$rootScope,$http,$q,API,$state,$timeout) {
+inspinia.controller("companiesCtrl", ['$scope','$rootScope','$http','$q','API','$state','$timeout','crmconfig', function ($scope,$rootScope,$http,$q,API,$state,$timeout,crmconfig) {
 	
+	$scope.crmconfig = { "serverDomainName" : crmconfig.serverDomainName };
+    //var baseHttpUrl = '/angularphp/template/Angular_Full_Version/Service';
+    //var baseHttpUrl = 'http://jaiswaldevelopers.com/CRMV1/Service';    
+    var baseHttpUrl = crmconfig.serverDomainName +'/Service';
+
 	API.getAllCompanies().then(function(response){
 		if(response.data.result){
 			$scope.companies = response.data.Users;;
@@ -33,7 +38,6 @@ inspinia.controller("companiesCtrl", ['$scope','$rootScope','$http','$q','API','
 		}
 
 		API.deleteCompany({ id: companyId }).then(function(response){
-			if(response.data.result){
 				if(response.data.hasOwnProperty("result") && response.data.result) {
 					for(var i=0 ; i < $scope.companies.length;i++) {
 						if(companyId == $scope.companies[i].id) {
@@ -42,21 +46,19 @@ inspinia.controller("companiesCtrl", ['$scope','$rootScope','$http','$q','API','
 						}
 					}
 				}
+				else if("errorType" in response.data && response.data.errorType == "token"){
+						$('#tokenErrorModalLabel').html(response.data.details);
+						$('#tokenErrorModal').modal("show");
+						$('#tokenErrorModalBtn').click(function(){
+							$('#tokenErrorModal').modal("hide");
+						})
+				}
 				else if(response.data.hasOwnProperty("details")) {
 					alert(response.data.details);
 				}
 				else {
 					alert("Something Wrong with the server");
 				}
-			}
-			else if(response.data.errorType == "token"){
-					$('#tokenErrorModalLabel').html(response.data.details);
-					$('#tokenErrorModal').modal("show");
-					$('#tokenErrorModalBtn').click(function(){
-						$('#tokenErrorModal').modal("hide");
-					})
-			}
-
 		})
 	}
 

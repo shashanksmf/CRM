@@ -8,8 +8,9 @@ var userId = $rootScope.userId || localStorage.getItem("userId");
      API.getUserInfo(userId).then(function(response) {
          if(response.data.result) {
              $scope.mainUserInfo = response.data.details;
+             $scope.getUserMailChimpDetails();
          }
-         else if(response.data.errorType == "token"){
+         else if("errorType" in response.data && response.data.errorType && response.data.errorType == "token"){
                 $('#tokenErrorModalLabel').html(response.data.details);
                 $('#tokenErrorModal').modal("show");
                 $('#tokenErrorModalBtn').click(function(){
@@ -18,12 +19,13 @@ var userId = $rootScope.userId || localStorage.getItem("userId");
          }
     });
 
+$scope.getUserMailChimpDetails = function(){
      API.getUserMailChimpDetails(userId).then(function(response) {
         console.log("DATA",response.data.details);
          if(response.data.result) {
              $scope.mailChimpDetails = response.data.details;
          }
-         else if(response.data.errorType == "token"){
+         else if(response.data.errorType && response.data.errorType == "token"){
                 $('#tokenErrorModalLabel').html(response.data.details);
                 $('#tokenErrorModal').modal("show");
                 $('#tokenErrorModalBtn').click(function(){
@@ -31,6 +33,7 @@ var userId = $rootScope.userId || localStorage.getItem("userId");
                 })
          }
     });
+}
 
 $scope.saveMailChimpDetails = function(index, dt){
     $scope.editRow = false;
@@ -39,14 +42,14 @@ $scope.saveMailChimpDetails = function(index, dt){
         if(response.data.result) {
             alert("MailChimp Details Saved Successfully");
          }
-         else if(response.data.errorType == "token"){
+         else if(response.data.errorType && response.data.errorType == "token"){
                 $('#tokenErrorModalLabel').html(response.data.details);
                 $('#tokenErrorModal').modal("show");
                 $('#tokenErrorModalBtn').click(function(){
                     $('#tokenErrorModal').modal("hide");
                 })
          }
-         else if(response.data.errorType == "listId"){
+         else if("errorType" in response.data && response.data.errorType == "listId"){
             alert("List Id is invalid");
          }
          else {
@@ -63,7 +66,7 @@ $scope.saveMainUserProfile = function() {
         if(response.data.result) {
             
          }
-         else if(response.data.errorType == "token"){
+         else if(response.data.errorType && response.data.errorType == "token"){
                 $('#tokenErrorModalLabel').html(response.data.details);
                 $('#tokenErrorModal').modal("show");
                 $('#tokenErrorModalBtn').click(function(){
@@ -88,14 +91,14 @@ $scope.addMailChimpIdBtn= function(){
          if(response.data.result) {
             alert("API Key Addedd Successfully");
          }
-         else if(response.data.errorType == "token"){
+         else if(response.data.errorType && response.data.errorType == "token"){
                 $('#tokenErrorModalLabel').html(response.data.details);
                 $('#tokenErrorModal').modal("show");
                 $('#tokenErrorModalBtn').click(function(){
                     $('#tokenErrorModal').modal("hide");
                 })
          }
-         else if(response.data.errorType == "apiKey"){
+         else if("errorType" in response.data && response.data.errorType == "apiKey"){
             alert("API Key is invalid");
          }
          else {
@@ -114,14 +117,14 @@ $scope.addListBtn = function(){
         if(response.data.result) {
             alert("List Addedd Successfully");
          }
-         else if(response.data.errorType == "token"){
+         else if(response.data.errorType && response.data.errorType == "token"){
                 $('#tokenErrorModalLabel').html(response.data.details);
                 $('#tokenErrorModal').modal("show");
                 $('#tokenErrorModalBtn').click(function(){
                     $('#tokenErrorModal').modal("hide");
                 })
          }
-         else if(response.data.errorType == "listId"){
+         else if("errorType" in response.data && response.data.errorType == "listId"){
             alert("Invalid List Details");
          }
          else {
@@ -139,7 +142,7 @@ $scope.createListBtn = function(){
         if(response.data.result) {
              alert("List Created Successfully");
          }
-         else if(response.data.errorType == "token"){
+         else if(response.data.errorType && response.data.errorType == "token"){
                 $('#tokenErrorModalLabel').html(response.data.details);
                 $('#tokenErrorModal').modal("show");
                 $('#tokenErrorModalBtn').click(function(){

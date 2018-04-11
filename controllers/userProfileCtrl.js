@@ -16,7 +16,7 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 		if(response.data.result){
 			$scope.companies = response.data.details;
 		}
-		else if(response.data.errorType == "token"){
+		else if(response.data.errorType && response.data.errorType == "token"){
 			$('#tokenErrorModalLabel').html(response.data.details);
 			$('#tokenErrorModal').modal("show");
 			$('#tokenErrorModalBtn').click(function(){
@@ -46,21 +46,19 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 
 		API.updateUserProfile($scope.userProfileInfo).then(function(response){
 			if(response.data.result){
-				if(response.data.responce){
 					//alert("profileUpdated");
 					$scope.profileEdit = !$scope.profileEdit;
-				}
-				else{
-					alert("Network Problem Please Try Again");	
-				}
 			}
-			else if(response.data.errorType == "token"){
+			else if(response.data.errorType && response.data.errorType == "token"){
 				$('#tokenErrorModalLabel').html(response.data.details);
 				$('#tokenErrorModal').modal("show");
 				$('#tokenErrorModalBtn').click(function(){
 					$('#tokenErrorModal').modal("hide");
 				})
 			} 
+			else{
+				alert("Network Problem Please Try Again");	
+			}
 
 		})
 
@@ -85,7 +83,7 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 				console.log(ex);
 			}
 		}
-		else if(response.data.errorType == "token"){
+		else if(response.data.errorType && response.data.errorType == "token"){
 			$('#tokenErrorModalLabel').html(response.data.details);
 			$('#tokenErrorModal').modal("show");
 			$('#tokenErrorModalBtn').click(function(){
@@ -168,7 +166,7 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 				console.log($scope.files)
 			}
 		} 
-		else if(response.data.errorType == "token"){
+		else if(response.data.errorType && response.data.errorType == "token"){
 			$('#tokenErrorModalLabel').html(response.data.details);
 			$('#tokenErrorModal').modal("show");
 			$('#tokenErrorModalBtn').click(function(){
@@ -226,7 +224,7 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 				if(response.data.result){
 					$scope.files[index].isactive = 0;	
 				}
-				else if(response.data.errorType == "token"){
+				else if(response.data.errorType && response.data.errorType == "token"){
 					$('#tokenErrorModalLabel').html(response.data.details);
 					$('#tokenErrorModal').modal("show");
 					$('#tokenErrorModalBtn').click(function(){
@@ -264,7 +262,7 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 					//alert("Picture successFully Uploaded");
 					$scope.profilePicUploadedResUrl = response.data.details.imageUrl;
 				}
-				else if(response.data.errorType == "token"){
+				else if(response.data.errorType && response.data.errorType == "token"){
 					$('#tokenErrorModalLabel').html(response.data.details);
 					$('#tokenErrorModal').modal("show");
 					$('#tokenErrorModalBtn').click(function(){

@@ -10,7 +10,7 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 		if(response.data.result){
 			$scope.campaigns = response.data.camp;
 		}
-		else if(response.data.errorType == "token"){
+		else if(response.data.errorType && response.data.errorType == "token"){
 			$('#tokenErrorModalLabel').html(response.data.details);
 			$('#tokenErrorModal').modal("show");
 			$('#tokenErrorModalBtn').click(function(){
@@ -23,7 +23,7 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 		if(response.data.result){
 			$scope.groups = response.data;
 		}
-		else if(response.data.errorType == "token"){
+		else if(response.data.errorType && response.data.errorType == "token"){
 			$('#tokenErrorModalLabel').html(response.data.details);
 			$('#tokenErrorModal').modal("show");
 			$('#tokenErrorModalBtn').click(function(){
@@ -40,30 +40,27 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
         }
 
         API.deleteCampaign({ id: campaignId }).then(function(response){
-        	if(response.data.result){
-	            if(response.data.hasOwnProperty("result") && response.data.result) {
-	                for(var i=0 ; i < $scope.campaigns.length;i++) {
-	                    if(campaignId == $scope.campaigns[i].id) {
-	                        $scope.campaigns.splice(i,1);
-	                        alert("Campaign Deleted Successfully");
-	                    }
-	                }
-	            }
-	            else if(response.data.hasOwnProperty("details")) {
-	                alert(response.data.details);
-	            }
-	            else {
-	                alert("Something Wrong with the server");
-	            }
-        	}
-        	else if(response.data.errorType == "token"){
+    		if(response.data.hasOwnProperty("result") && response.data.result) {
+                for(var i=0 ; i < $scope.campaigns.length;i++) {
+                    if(campaignId == $scope.campaigns[i].id) {
+                        $scope.campaigns.splice(i,1);
+                        alert("Campaign Deleted Successfully");
+                    }
+                }
+            }
+            else if(response.data.hasOwnProperty("details")) {
+                alert(response.data.details);
+            }
+            else if(response.data.errorType && response.data.errorType == "token"){
 				$('#tokenErrorModalLabel').html(response.data.details);
 				$('#tokenErrorModal').modal("show");
 				$('#tokenErrorModalBtn').click(function(){
 					$('#tokenErrorModal').modal("hide");
 				})
 			}
-
+            else {
+                alert("Something Wrong with the server");
+            }
         })
     }
 
@@ -192,7 +189,7 @@ xhr.send(data);
 			var str = ((JSON.parse(templateStr)).replace(/\r?\n|\r/g,''));
 			$scope.templateObj =JSON.parse(str);
 		}
-		else if(response.data.errorType == "token"){
+		else if(response.data.errorType && response.data.errorType == "token"){
 			$('#tokenErrorModalLabel').html(response.data.details);
 			$('#tokenErrorModal').modal("show");
 			$('#tokenErrorModalBtn').click(function(){
@@ -276,7 +273,7 @@ xhr.send(data);
 						alert("campaign Successfully started");
 						// location.reload();
 					}
-					else if(response.data.errorType == "token"){
+					else if(response.data.errorType && response.data.errorType == "token"){
 						$('#tokenErrorModalLabel').html(response.data.details);
 						$('#tokenErrorModal').modal("show");
 						$('#tokenErrorModalBtn').click(function(){
@@ -290,7 +287,7 @@ xhr.send(data);
 				  		// location.reload();
 				    })
 			}
-			else if(response.data.errorType == "token"){
+			else if(response.data.errorType && response.data.errorType == "token"){
 				$('#tokenErrorModalLabel').html(response.data.details);
 				$('#tokenErrorModal').modal("show");
 				$('#tokenErrorModalBtn').click(function(){

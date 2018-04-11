@@ -7,7 +7,7 @@ inspinia.controller('personalMsgCtrl', ['$scope','$rootScope','$http','$q','API'
 		 if(response.data.result) {
              $scope.UsersList = response.data.details;
          }
-         else if(response.data.errorType == "token"){
+         else if(response.data.errorType && response.data.errorType == "token"){
                 $('#tokenErrorModalLabel').html(response.data.details);
                 $('#tokenErrorModal').modal("show");
                 $('#tokenErrorModalBtn').click(function(){
@@ -39,20 +39,18 @@ inspinia.controller('personalMsgCtrl', ['$scope','$rootScope','$http','$q','API'
 			API.sendMessage(chat).then(function(response){
 				//console.log("response",response.data.responce);
 				if(response.data.responce){
-					if(response.data.responce){
-						alert("message successfully send");
-						$scope.personalMessageTxt = '';
-					}else{
-						alert("please try again");
-					}
+					alert("message successfully send");
+					$scope.personalMessageTxt = '';
 				}
-				else if(response.data.errorType == "token"){
+				else if(response.data.errorType && response.data.errorType == "token"){
 	                $('#tokenErrorModalLabel').html(response.data.details);
 	                $('#tokenErrorModal').modal("show");
 	                $('#tokenErrorModalBtn').click(function(){
 	                    $('#tokenErrorModal').modal("hide");
 	                })
-	         	}
+         		}else{
+					alert("please try again");
+				}
 			});
 
 		}

@@ -59,7 +59,7 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','
             };
 
         }
-        else if(response.data.errorType == "token"){
+        else if(response.data.errorType && response.data.errorType == "token"){
             $('#tokenErrorModalLabel').html(response.data.details);
             $('#tokenErrorModal').modal("show");
             $('#tokenErrorModalBtn').click(function(){
@@ -280,7 +280,6 @@ $scope.deleteContact = function(emplId, emplName, emplEmail) {
 
     API.deleteContact({ id: emplId, name: emplName, email: emplEmail }).then(function(response){
         console.log(response);
-        if(response.data.result){
             if(response.data.hasOwnProperty("result") && response.data.result) {
                 for(var i=0 ; i < $scope.employees.length;i++) {
                     if(emplId == $scope.employees[i].id) {
@@ -289,21 +288,19 @@ $scope.deleteContact = function(emplId, emplName, emplEmail) {
                     }
                 }
             }
+            else if(response.data.errorType && response.data.errorType == "token"){
+                $('#tokenErrorModalLabel').html(response.data.details);
+                $('#tokenErrorModal').modal("show");
+                $('#tokenErrorModalBtn').click(function(){
+                    $('#tokenErrorModal').modal("hide");
+                })
+            }  
             else if(response.data.hasOwnProperty("details")) {
                 alert(response.data.details);
             }
             else {
                 alert("Something Wrong with the server");
             }
-        }
-        else if(response.data.errorType == "token"){
-            $('#tokenErrorModalLabel').html(response.data.details);
-            $('#tokenErrorModal').modal("show");
-            $('#tokenErrorModalBtn').click(function(){
-                $('#tokenErrorModal').modal("hide");
-            })
-        }  
-
     })
 }
 
@@ -379,45 +376,45 @@ inspinia.controller('insertEmplBulkDataCtrl', ['$scope','$rootScope','$http','$q
                 };
                 if(rABS) reader.readAsBinaryString(f);
                     else reader.readAsArrayBuffer(f);
-                }
+        }
+    }
+
+    function process_wb(wb) {
+        global_wb = wb;
+        var output = "";
+        switch(get_radio_value("format")) {
+            case "json":
+                output = JSON.stringify(to_json(wb), 2, 2);
+                break;
+            case "form":
+                output = to_formulae(wb);
+                break;
+                case "html": return to_html(wb);
+                default:
+                output = to_csv(wb);
+        }
+        output = JSON.parse(output);
+        output = (output.Sheet1);
+        //console.log("output",output);
+
+        $.ajax({
+             type: "POST",
+             url: "http://jaiswaldevelopers.com/CRMV1/Service/sampleService.php",
+             data: {"data":output},
+             // //  contentType: "application/json; charset=utf-8",
+             success: function(response){
+                 // console.log(response);
+                 $scope.dataResult.push(JSON.parse(response));
+             }
+        });
+
+    // API.insertEmplBulkData(output).then(function(response){
+        //     console.log("response",response);
+        // })
+
+        if(OUT.innerText === undefined) OUT.textContent = output;
+            else OUT.innerText = output;
+            if(typeof console !== 'undefined') console.log("output", new Date());
             }
 
-            function process_wb(wb) {
-                global_wb = wb;
-                var output = "";
-                switch(get_radio_value("format")) {
-                    case "json":
-                        output = JSON.stringify(to_json(wb), 2, 2);
-                        break;
-                        case "form":
-                            output = to_formulae(wb);
-                            break;
-                            case "html": return to_html(wb);
-                            default:
-                                output = to_csv(wb);
-                            }
-                            output = JSON.parse(output);
-                            output = (output.Sheet1);
-                            //console.log("output",output);
-
-                            $.ajax({
-                             type: "POST",
-                             url: "http://jaiswaldevelopers.com/CRMV1/Service/sampleService.php",
-                             data: {"data":output},
-                             // //  contentType: "application/json; charset=utf-8",
-                             success: function(response){
-                                 // console.log(response);
-                                 $scope.dataResult.push(JSON.parse(response));
-                             }
-                         });
-
-                            // API.insertEmplBulkData(output).then(function(response){
-                                //     console.log("response",response);
-                                // })
-
-                                if(OUT.innerText === undefined) OUT.textContent = output;
-                                    else OUT.innerText = output;
-                                    if(typeof console !== 'undefined') console.log("output", new Date());
-                                    }
-
-                                }]);
+        }]);
