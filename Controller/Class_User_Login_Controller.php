@@ -16,7 +16,7 @@ class UserLoginController{
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
-        $sql = "SELECT * FROM user where email='".$userName."' and password='".$password."' limit 1;";
+        $sql = "SELECT * FROM user where email='".$userName."' and password='".md5($password)."' limit 1;";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
            $userId = '';
@@ -89,7 +89,7 @@ if ($result->num_rows > 0) {
 } else {
 
     $sql = "INSERT INTO user (name, department, hireDate, dob, gender, homeAddress, email, phone, profilePic, password)
-    VALUES ('".$name."','".$department."','".$hireDate."','".$dob."','".$gender."','".$homeAddress."','".$email."','".$phone."','".$profilePic."','".$password."')";
+    VALUES ('".$name."','".$department."','".$hireDate."','".$dob."','".$gender."','".$homeAddress."','".$email."','".$phone."','".$profilePic."','".md5($password)."')";
                 //echo 'Query : '.$sql;
     if ($conn->query($sql) === TRUE) {
         $usr->isSignedUp = TRUE;
