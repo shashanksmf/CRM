@@ -1,7 +1,5 @@
 <?php
     header("Access-Control-Allow-Origin: *");
-    
-    require_once("../.././phpHeader/getHeader.php");
 
 class checkAPIKey {
 

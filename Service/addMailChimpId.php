@@ -6,7 +6,6 @@ header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Headers: Origin, token, Host');
 
 
-
 require_once("./phpHeader/getHeader.php");
 
 $headers = apache_request_headers();
@@ -25,23 +24,22 @@ $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
 $checkAPIKey = new checkAPIKey();
 $result = $checkAPIKey->key($apiKey,$mailChimpSubDomainInit);
 echo "echoResult".$result;
-print_r($result);
 
 $result = json_decode($result, true);
+echo "res".$result;
 $resultArr = array();
 $resultArr = $result;
-echo "echoResultArr".$resultArr;
-echo "account_id".$resultArr['account_id'];
+echo $resultArr;
 
-// if ($resultArr['account_id'] != "") {
-//     // $resultArr['result'] = true;
-//     // echo $resultArr;
-// } 
-// else {
-//     $resultArr['result'] = false;
-//     $resultArr['errorType'] = "apiKey";
-//     exit $resultArr['result'];
-// }
+if ($resultArr['account_id']) {
+    // $resultArr['result'] = true;
+    // exit $resultArr;
+} 
+else {
+    $resultArr['result'] = false;
+    $resultArr['errorType'] = "apiKey";
+    exit $resultArr;
+}
 
 // require_once("../Controller/StaticDBCon.php");
 // $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
