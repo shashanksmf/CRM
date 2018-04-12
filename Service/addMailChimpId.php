@@ -5,7 +5,7 @@ ini_set('display_errors', '1');
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Headers: Origin, token, Host');
 
-
+exit();
 
 require_once("./phpHeader/getHeader.php");
 
