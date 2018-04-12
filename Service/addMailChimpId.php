@@ -9,29 +9,29 @@ header('Access-Control-Allow-Headers: Origin, token, Host');
 
 require_once("./phpHeader/getHeader.php");
 
-// $headers = apache_request_headers();
-// require_once("./token/validateToken.php");
+$headers = apache_request_headers();
+require_once("./token/validateToken.php");
 
-exit();
-// $userId = @$_GET['userId'];
-// $apiKey = @$_GET['apiKey'];
 
-// require_once("./mailChimp/list/checkAPIKey.php");
-// require_once(".../../../Controller/mailChimpConfig.php");
-// require_once(".../../../Controller/mailChimpService.php");
+$userId = @$_GET['userId'];
+$apiKey = @$_GET['apiKey'];
 
-// $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
+require_once("./mailChimp/list/checkAPIKey.php");
+require_once(".../../../Controller/mailChimpConfig.php");
+require_once(".../../../Controller/mailChimpService.php");
 
-// $checkAPIKey = new checkAPIKey();
-// $result = $checkAPIKey->key($apiKey,$mailChimpSubDomainInit);
-// echo "echoResult".$result;
-// print_r($result);
+$mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
 
-// $result = json_decode($result, true);
-// $resultArr = array();
-// $resultArr = $result;
-// echo "echoResultArr".$resultArr;
-// echo "account_id".$resultArr['account_id'];
+$checkAPIKey = new checkAPIKey();
+$result = $checkAPIKey->key($apiKey,$mailChimpSubDomainInit);
+echo "echoResult".$result;
+print_r($result);
+
+$result = json_decode($result, true);
+$resultArr = array();
+$resultArr = $result;
+echo "echoResultArr".$resultArr;
+echo "account_id".$resultArr['account_id'];
 
 // if ($resultArr['account_id'] != "") {
 //     // $resultArr['result'] = true;
