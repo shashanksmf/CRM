@@ -20,7 +20,7 @@
                 }
 
                 $result = $conn->query($sql);
-                if (mysqli_num_rows($result) > 0) {
+                if (@mysqli_num_rows($result) > 0) {
                     $i = 0;
                     while($row = $result->fetch_assoc()) {
                         //$comp = new Company($row["company.companyId"],$row["areaOfWork"],$row["establised"],$row["employees"],$row["revenue"],$row["ofcAddress"],$row["email"],$row["phone"],$row["logo"]);
@@ -357,7 +357,7 @@
                 }
 
                 $result = $conn->query($sql);
-                if (mysqli_num_rows($result) > 0) {
+                if (@mysqli_num_rows($result) > 0) {
                     $i = 0;
                     while($row = $result->fetch_assoc()) {
                         //$comp = new Company($row["company.companyId"],$row["areaOfWork"],$row["establised"],$row["employees"],$row["revenue"],$row["ofcAddress"],$row["email"],$row["phone"],$row["logo"]);
@@ -414,7 +414,7 @@
                 
 
                 $result = $conn->query($sql);
-                if (mysqli_num_rows($result) > 0) {
+                if (@mysqli_num_rows($result) > 0) {
                     $i = 0;
                     while($row = $result->fetch_assoc()) {
                         //$comp = new Company($row["company.companyId"],$row["areaOfWork"],$row["establised"],$row["employees"],$row["revenue"],$row["ofcAddress"],$row["email"],$row["phone"],$row["logo"]);
@@ -472,7 +472,7 @@
                 } 
                 $sql = "SELECT * FROM employee where name LIKE '%".$name."%';";
                 $result = $conn->query($sql);
-                if (mysqli_num_rows($result) > 0) {
+                if (@mysqli_num_rows($result) > 0) {
                     $i = 0;
                     while($row = $result->fetch_assoc()) {
                         $empl = new Employee($row["id"],$row["companyId"],$row["name"],$row["title"],$row["industry"],$row["location"],$row["ratings"],"");
@@ -524,7 +524,7 @@
                 } 
                 $sql = "select * from employee where employee.id like '".$term."%' employee.companyName like '".$term."%' or employee.name like '".$term."%' or employee.title like '".$term."%' or employee.location like '".$term."%' or employee.industry like '".$term."%' LIMIT 10";
                 $result = $conn->query($sql);
-                if (mysqli_num_rows($result) > 0) {
+                if (@mysqli_num_rows($result) > 0) {
                     $i = 0;
                     while($row = $result->fetch_assoc()) {
                         $arr = array();
@@ -582,7 +582,7 @@
                 $sql = "select * from employee where employee.companyName like '%".$term."%' or employee.name like '%".$term."%' or employee.title like '%".$term."%' or employee.location like '%".$term."%' or employee.industry like '%".$term."%'";
              //   echo 'Query : '.$sql;
                 $result = $conn->query($sql);
-                if (mysqli_num_rows($result) > 0) {
+                if (@mysqli_num_rows($result) > 0) {
                     $i = 0;
                     while($row = $result->fetch_assoc()) {
                         $aa = count($var_db);
@@ -628,7 +628,7 @@
                 $sql = $sql." ".$ds2;
                 //echo 'Sql : '.$sql;
                 $result = $conn->query($sql);
-                if (mysqli_num_rows($result) > 0) {
+                if (@mysqli_num_rows($result) > 0) {
                     $i = 0;
                     while($row = $result->fetch_assoc()) {
                         $arr = array();

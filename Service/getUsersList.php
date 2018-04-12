@@ -24,7 +24,7 @@ $sql = "SELECT name , email ,id from user WHERE id <> ".$userId;
 mysqli_set_charset($conn,"utf8");
 $result = mysqli_query($conn, $sql);
 
-if (mysqli_num_rows($result) > 0) {
+if (@mysqli_num_rows($result) > 0) {
 	    // output data of each row
 	  //  print_r($result);
 	$responseArr = array();

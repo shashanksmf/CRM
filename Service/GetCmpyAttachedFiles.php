@@ -28,7 +28,7 @@ if(isset($emplId) && !empty($emplId)){
 	$getAllFileSql = "SELECT * from cmpyFiles WHERE companyId=".$emplId." AND isactive=1";
 	$result = mysqli_query($conn, $getAllFileSql);
 	
-	if (mysqli_num_rows($result) > 0) {
+	if (@mysqli_num_rows($result) > 0) {
 		$responseArr["details"] = array();	
 		$responseArr["result"] = true;	
 		

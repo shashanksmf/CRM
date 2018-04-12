@@ -87,7 +87,7 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 		//echo $sql."</br>";
 		$result = mysqli_query($conn, $sql);
 		$companyFound = false;
-		if (mysqli_num_rows($result) > 0) {
+		if (@mysqli_num_rows($result) > 0) {
 			// output data of each row
 		//	echo "no of row";
 			$foundCompnayId = null;

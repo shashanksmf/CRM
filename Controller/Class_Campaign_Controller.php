@@ -25,7 +25,7 @@ class CampaignController{
                 }
                 $result = $conn->query($sql);
                 //echo $sql.' id : '.$id;
-                if (mysqli_num_rows($result) > 0) {
+                if (@mysqli_num_rows($result) > 0) {
                         $i = 0;
                         while($row = $result->fetch_assoc()) {
                             //echo $row['name'];

@@ -20,7 +20,7 @@ class EmployeeController{
             }
 
             $result = $conn->query($sql);
-            if (mysqli_num_rows($result) > 0) {
+            if (@mysqli_num_rows($result) > 0) {
                 $i = 0;
                 while($row = $result->fetch_assoc()) {
                     //$comp = new Company($row["company.companyId"],$row["areaOfWork"],$row["establised"],$row["employees"],$row["revenue"],$row["ofcAddress"],$row["email"],$row["phone"],$row["logo"]);
@@ -70,7 +70,7 @@ class EmployeeController{
             } 
             $sql = "SELECT * FROM employee where name LIKE '%".$name."%';";
             $result = $conn->query($sql);
-            if (mysqli_num_rows($result) > 0) {
+            if (@mysqli_num_rows($result) > 0) {
                 $i = 0;
                 while($row = $result->fetch_assoc()) {
                     $empl = new Employee($row["id"],$row["companyId"],$row["name"],$row["title"],$row["industry"],$row["location"],$row["ratings"],"");
@@ -122,7 +122,7 @@ class EmployeeController{
             } 
             $sql = "select * from employee where employee.id like '".$term."%' or employee.name like '".$term."%' or employee.title like '".$term."%' or employee.location like '".$term."%' or employee.industry like '".$term."%'";
             $result = $conn->query($sql);
-            if (mysqli_num_rows($result) > 0) {
+            if (@mysqli_num_rows($result) > 0) {
                 $i = 0;
                 while($row = $result->fetch_assoc()) {
                     $arr = array();
@@ -180,7 +180,7 @@ class EmployeeController{
             $sql = "select * from employee where employee.id like '%".$term."%' or employee.name like '%".$term."%' or employee.title like '%".$term."%' or employee.location like '%".$term."%' or employee.industry like '%".$term."%'";
             //echo 'Query : '.$sql;
             $result = $conn->query($sql);
-            if (mysqli_num_rows($result) > 0) {
+            if (@mysqli_num_rows($result) > 0) {
                 $i = 0;
                 while($row = $result->fetch_assoc()) {
                     $aa = count($var_db);
@@ -226,7 +226,7 @@ class EmployeeController{
             $sql = $sql." ".$ds2;
             //echo 'Sql : '.$sql;
             $result = $conn->query($sql);
-            if (mysqli_num_rows($result) > 0) {
+            if (@mysqli_num_rows($result) > 0) {
                 $i = 0;
                 while($row = $result->fetch_assoc()) {
                     $arr = array();
