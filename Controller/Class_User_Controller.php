@@ -21,7 +21,7 @@ class UserController{
 		}
 		
 		$result = $conn->query($sql);
-		if ($result->num_rows > 0) {
+		if (mysqli_num_rows($result) > 0) {
 			$i = 0;
 			while($row = $result->fetch_assoc()) {
 				$usr = new User($row["id"],$row["name"],$row["department"],$row["hireDate"],$row["dob"],$row["gender"],$row["homeAddress"],$row["email"],$row["phone"],$row["profilePic"]);
@@ -79,7 +79,7 @@ class UserController{
 		}
 		
 		$result = $conn->query($sql);
-		if ($result->num_rows > 0) {
+		if (mysqli_num_rows($result) > 0) {
 			$i = 0;
 			while($row = $result->fetch_assoc()) {
 				$usr = new User($row["id"],$row["name"],$row["department"],$row["hireDate"],$row["dob"],$row["gender"],$row["homeAddress"],$row["email"],$row["phone"],$row["profilePic"]);

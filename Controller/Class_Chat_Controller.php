@@ -38,7 +38,7 @@ class MessageController{
 		}
 		$result = $conn->query($sql);
 		//echo $sql.' id : '.$id;
-		if ($result->num_rows > 0) {
+		if (mysqli_num_rows($result) > 0) {
 			$i = 0;
 			while($row = $result->fetch_assoc()) {
 				$row["fromUserName"] = $fromUserInfoArr["from_userName"];

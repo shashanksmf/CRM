@@ -82,7 +82,7 @@ public function addUser($name, $department, $hireDate, $dob, $gender, $homeAddre
 $sql = "SELECT * FROM user where email='".$email."' limit 1;";
 
 $result = $conn->query($sql);
-if ($result->num_rows > 0) {
+if (mysqli_num_rows($result) > 0) {
     $usr->isSignedUp = FALSE;
     $usr->message=$email." is already used!";
 

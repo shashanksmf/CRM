@@ -29,7 +29,7 @@ class GroupController{
             }
             $result = $conn->query($sql);
             //echo $sql.' id : '.$id;
-            if ($result->num_rows > 0) {
+            if (mysqli_num_rows($result) > 0) {
                 $i = 0;
                 while($row = $result->fetch_assoc()) {
                     $group = new Group($row["id"], $row["name"], $row["details"], $row["admin"], $row["members"], $row["membersCount"], $row["createdOn"],$row["segId"]);
@@ -85,7 +85,7 @@ class GroupController{
             ob_start();
             $result = $conn->query($sql);
 
-            if ($result->num_rows > 0) {
+            if (mysqli_num_rows($result) > 0) {
                 ob_clean();
                 $i = 0;
                 while($row = $result->fetch_assoc()) {
@@ -141,7 +141,7 @@ class GroupController{
             }
             $sql = "SELECT * FROM ".StaticDBCon::$dbname.".group where admin='".$admin."' AND name='".$name."' limit 1;";
             $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
+            if (mysqli_num_rows($result) > 0) {
                 $grp->isGroupAdded = FALSE;
                 $grp->message=$name." is already present with the same admin!";
             } else {
@@ -383,7 +383,7 @@ class GroupController{
 
             $result = $conn->query($sql);
             //echo $sql.' id : '.$id;
-            if ($result->num_rows > 0) {
+            if (mysqli_num_rows($result) > 0) {
                 $i = 0;
                 while($row = $result->fetch_assoc()) {
                     //$group = new Group($row["id"], $row["name"], $row["details"], $row["admin"], $row["members"], $row["membersCount"], $row["createdOn"]);

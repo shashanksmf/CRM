@@ -20,7 +20,7 @@ class EmailController{
 		}
 		$result = $conn->query($sql);
 		//echo $sql.' id : '.$id;
-		if ($result->num_rows > 0) {
+		if (mysqli_num_rows($result) > 0) {
 			$i = 0;
 			while($row = $result->fetch_assoc()) {
 				$mail = new Email($row['id'], $row['sender'], $row['reciever'], $row['subject'], $row['body'], $row['name'], $row['mailKey']);
