@@ -20,11 +20,14 @@ $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
 
 $checkAPIKey = new checkAPIKey();
 $result = $checkAPIKey->key($apiKey,$mailChimpSubDomainInit);
-// echo $result;
+echo "echoResult".$result;
+print_r($result);
 
 $result = json_decode($result, true);
 $resultArr = array();
 $resultArr = $result;
+echo "echoResultArr".$resultArr;
+echo "account_id".$resultArr['account_id'];
 
 if ($resultArr['account_id'] != "") {
     // $resultArr['result'] = true;
