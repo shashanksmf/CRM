@@ -23,21 +23,20 @@ $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
 
 $checkAPIKey = new checkAPIKey();
 $result = $checkAPIKey->key($apiKey,$mailChimpSubDomainInit);
-echo "echoResult".$result;
+// echo "echoResult".$result;
 
-// $result = json_decode($result, true);
+$result = json_decode($result, true);
 $resultArr = array();
 $resultArr = $result;
 print_r($resultArr);
+
 if ($resultArr['account_id']) {
     // $resultArr['result'] = true;
-    echo $resultArr;
 } 
 else {
     $resultArr['result'] = false;
     $resultArr['errorType'] = "apiKey";
-    echo $resultArr;
-    exit();
+    exit $resultArr;
 }
 
 // require_once("../Controller/StaticDBCon.php");
