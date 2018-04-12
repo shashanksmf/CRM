@@ -557,14 +557,14 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
     }
 
     callAPI.saveMailChimpDetails = function(mailchimpDetails){
-    	console.log("list",mailchimpDetails);
+    	console.log("list",mailchimpDetails.dt);
         
         return $http({
            
                 method: 'GET',
                 headers: {'token': localStorage.getItem('token')},
 	        	dataType: "jsonp",
-                url: baseHttpUrl +'/saveMailChimpDetails.php?id='+mailchimpDetails.id+'&userId='+mailchimpDetails.userId+'&apiKey='+mailchimpDetails.apiKey+'&listId='+mailchimpDetails.listId+'&listName='+mailchimpDetails.listName
+                url: baseHttpUrl +'/saveMailChimpDetails.php?id='+mailchimpDetails.dt.id+'&userId='+mailchimpDetails.dt.userId+'&apiKey='+mailchimpDetails.dt.apiKey+'&listId='+mailchimpDetails.dt.listId+'&listName='+mailchimpDetails.dt.listName
         })
         
     }

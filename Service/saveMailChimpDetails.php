@@ -9,6 +9,7 @@ require_once("./phpHeader/getHeader.php");
 
 $headers = apache_request_headers();
 require_once("./token/validateToken.php");
+
 $id = @$_GET['id'];
 $userId = @$_GET['userId'];
 $apiKey = @$_GET['apiKey'];
@@ -29,14 +30,14 @@ $result = json_decode($result, true);
 $resultArr = array();
 $resultArr = $result;
 
-if ($resultArr['id'] != "") {
-    $resultArr['result'] = true;
+if (array_key_exists('id', $resultArr)) {
+    // $resultArr['result'] = true;
     // echo $resultArr;
 } 
 else {
     $resultArr['result'] = false;
     $resultArr['errorType'] = "listId";
-    exit $resultArr;
+    exit(json_encode($resultArr,true));
 }
 
 require_once("../Controller/StaticDBCon.php");

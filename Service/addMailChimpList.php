@@ -29,14 +29,14 @@ $result = json_decode($result, true);
 $resultArr = array();
 $resultArr = $result;
 
-if ($resultArr['id'] != "") {
-    $resultArr['result'] = true;
+if (array_key_exists('id', $resultArr)) {
+    // $resultArr['result'] = true;
     // echo $resultArr;
 } 
 else {
     $resultArr['result'] = false;
     $resultArr['errorType'] = "listId";
-    exit $resultArr;
+    exit(json_encode($resultArr,true));
 }
 
 require_once("../Controller/StaticDBCon.php");
@@ -51,8 +51,8 @@ if (!$conn) {
     die($responseArr);
 }
 mysqli_set_charset($conn,"utf8");
-$sql = "INSERT INTO .mailchimpdetails (userId,apiKey,listId,listName)
-VALUES ('".$userId."','".$apiKey."','".$listId."','".$listName."')";
+$sql = "INSERT INTO .mailchimpdetails (userId,apiKey,listId,listName,isvalid)
+VALUES ('".$userId."','".$apiKey."','".$listId."','".$listName."',0)";
 
 if (mysqli_query($conn, $sql)) {
 
@@ -64,8 +64,15 @@ if (mysqli_query($conn, $sql)) {
    // echo "Error updating record: " . mysqli_error($conn);
 }
 
+$id = $resultArr['id'];
+$web_id = $resultArr['web_id'];
+$name = $resultArr['name'];
+$date_created = $resultArr['date_created'];
+$subscribe_url_long = $resultArr['subscribe_url_long'];
+
+
 mysqli_set_charset($conn,"utf8");
-$sql = "INSERT INTO .mailchimp_list_id_details(id, userId, apiKey, listId, web_id, name, date_created, subscribe_url_long) VALUES ('".$userId."','".$apiKey."','".$resultArr['id']."','".$resultArr['web_id']."','".$resultArr['name']."','".$resultArr['date_created']."','".$resultArr['subscribe_url_long']."')";
+$sql = "INSERT INTO .mailchimp_list_id_details(userId, apiKey, listId, web_id, name, date_created, subscribe_url_long) VALUES ('".$userId."','".$apiKey."','".$id."','".$web_id."','".$name."','".$date_created."','".$subscribe_url_long."')";
 
 if (mysqli_query($conn, $sql)) {
     $responseArr["result"] = true;

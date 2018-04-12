@@ -30,8 +30,9 @@ $resultArr = array();
 $resultArr = $result;
 // print_r($resultArr);
 
-if (isset($resultArr->account_id)) {
+if (array_key_exists('account_id', $resultArr)) {
     // $resultArr['result'] = true;
+    // echo json_encode($resultArr,true);
 } 
 else {
     $resultArr['result'] = false;
@@ -64,9 +65,28 @@ if (mysqli_query($conn, $sql)) {
    // echo "Error updating record: " . mysqli_error($conn);
 }
 
+$account_id = $resultArr['account_id'];
+$login_id = $resultArr['login_id'];
+$account_name = $resultArr['account_name'];
+$email = $resultArr['email'];
+$first_name = $resultArr['first_name'];
+$last_name = $resultArr['last_name'];
+$username = $resultArr['username'];
+$avatar_url = $resultArr['avatar_url'];
+$role = $resultArr['role'];
+$member_since = $resultArr['member_since'];
+$pricing_plan_type = $resultArr['pricing_plan_type'];
+$first_payment = $resultArr['first_payment'];
+$account_timezone = $resultArr['account_timezone'];
+$account_industry = $resultArr['account_industry'];
+$last_login = $resultArr['last_login'];
+$total_subscribers = $resultArr['total_subscribers'];
+$industry_stats = json_encode($resultArr['industry_stats']);
+// echo $industry_stats;
+
 mysqli_set_charset($conn,"utf8");
 $sql = "INSERT INTO .mailchimpapikeydetails (userId,apiKey,account_id,login_id,account_name,email,first_name,last_name,username,avatar_url,role,member_since,pricing_plan_type,first_payment,account_timezone,account_industry,last_login,total_subscribers,industry_stats)
-VALUES ('".$userId."','".$apiKey."','".$resultArr['account_id']."','".$resultArr['login_id']."','".$resultArr['account_name']."','".$resultArr['email']."','".$resultArr['first_name']."','".$resultArr['last_name']."','".$resultArr['username']."','".$resultArr['avatar_url']."','".$resultArr['role']."','".$resultArr['member_since']."','".$resultArr['pricing_plan_type']."','".$resultArr['first_payment']."','".$resultArr['account_timezone']."','".$resultArr['account_industry']."','".$resultArr['last_login']."','".$resultArr['total_subscribers']."','".$resultArr['industry_stats']."')";
+VALUES ('".$userId."','".$apiKey."','".$account_id."','".$login_id."','".$account_name."','".$email."','".$first_name."','".$last_name."','".$username."','".$avatar_url."','".$role."','".$member_since."','".$pricing_plan_type."','".$first_payment."','".$account_timezone."','".$account_industry."','".$last_login."','".$total_subscribers."','".$industry_stats."')";
 
 if (mysqli_query($conn, $sql)) {
 
@@ -80,8 +100,18 @@ if (mysqli_query($conn, $sql)) {
 
 $contactArr = array();
 $contactArr = $resultArr['contact'];
+
+$company = $contactArr['company'];
+$addr1 = $contactArr['addr1'];
+$addr2 = $contactArr['addr2'];
+$city = $contactArr['city'];
+$state = $contactArr['state'];
+$zip = $contactArr['zip'];
+$country = $contactArr['country'];
+
+
 mysqli_set_charset($conn,"utf8");
-$sql = "INSERT INTO .mailchimp_apikey_contact_details(id, userId, apiKey, account_id, company, addr1, addr2, city, state, zip, country) VALUES ('".$userId."','".$apiKey."','".$resultArr['account_id']."','".$contactArr['company']."','".$contactArr['addr1']."','".$contactArr['addr2']."','".$contactArr['city']."','".$contactArr['state']."','".$contactArr['zip']."','".$contactArr['country']."')";
+$sql = "INSERT INTO .mailchimp_apikey_contact_details(userId, apiKey, account_id, company, addr1, addr2, city, state, zip, country) VALUES ('".$userId."','".$apiKey."','".$account_id."','".$company."','".$addr1."','".$addr2."','".$city."','".$state."','".$zip."','".$country."')";
 
 if (mysqli_query($conn, $sql)) {
     $responseArr["result"] = true;
