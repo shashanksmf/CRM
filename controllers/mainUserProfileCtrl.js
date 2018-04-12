@@ -86,13 +86,14 @@ $scope.allowEditMailChimpDetails = function(index){
 
 $scope.addMailChimpIdBtn= function(){
     var apiKey = $scope.addMailChimpIdApiKey;
-    if(typeof(apiKey) != undefined){
-        alert("Please Enter API Key");
-        return;
-    }
-    else{
-        apiKey = apiKey.trim();
-    }
+    // console.log(apiKey);
+    // if(typeof apiKey != undefined){
+    //     alert("Please Enter API Key");
+    //     return;
+    // }
+    // else{
+    //     apiKey = apiKey.trim();
+    // }
     API.addMailChimpId({userId: userId, apiKey: apiKey}).then(function(response){
         console.log(response);
          if(response.data.result) {
@@ -119,15 +120,15 @@ $scope.addListBtn = function(){
     var apiKey = $scope.addListApiKey;
     var listId = $scope.addListId;
     var listName = $scope.addListName;
-    if(typeof(apiKey) && typeof(listId) && typeof(listName) != undefined){
-        alert("Blank fields are not allowed");
-        return;
-    }
-    else{
-        apiKey = apiKey.trim();
-        listId = listId.trim();
-        listName = listName.trim();
-    }
+    // if(typeof(apiKey) && typeof(listId) && typeof(listName) != undefined){
+    //     alert("Blank fields are not allowed");
+    //     return;
+    // }
+    // else{
+    //     apiKey = apiKey.trim();
+    //     listId = listId.trim();
+    //     listName = listName.trim();
+    // }
     API.addMailChimpList({userId: userId, apiKey: apiKey, listId: listId, listName: listName}).then(function(response){
         console.log(response);
         if(response.data.result) {
@@ -153,14 +154,14 @@ $scope.addListBtn = function(){
 $scope.createListBtn = function(){
     var apiKey = $scope.createListApiKey;
     var listName = $scope.createListName;
-    if(typeof(apiKey) && typeof(listName) != undefined){
-        alert("Blank fields are not allowed");
-        return;
-    }
-    else{
-        apiKey = apiKey.trim();
-        listName = listName.trim();
-    }
+    // if(typeof(apiKey) && typeof(listName) != undefined){
+    //     alert("Blank fields are not allowed");
+    //     return;
+    // }
+    // else{
+    //     apiKey = apiKey.trim();
+    //     listName = listName.trim();
+    // }
     API.creatMailChimpList({userId: userId, apiKey: apiKey, listName: listName}).then(function(response){
         console.log(response);
         if(response.data.result) {
