@@ -8,7 +8,7 @@ inspinia.controller("companiesCtrl", ['$scope','$rootScope','$http','$q','API','
 
 	API.getAllCompanies().then(function(response){
 		if(response.data.result){
-			$scope.companies = response.data.Users;;
+			$scope.companies = response.data.Users;
 		}
 		else if("errorType" in response.data && response.data.errorType == "token"){
             $('#tokenErrorModalLabel').html(response.data.details);
