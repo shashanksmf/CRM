@@ -19,7 +19,7 @@ require_once(".../../../Controller/mailChimpService.php");
 $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
 
 $checkAPIKey = new checkAPIKey();
-$result = $checkAPIKey->key($mailChimpApiKey,$mailChimpSubDomainInit);
+$result = $checkAPIKey->key($apiKey,$mailChimpSubDomainInit);
 // echo $result;
 
 $result = json_decode($result, true);
