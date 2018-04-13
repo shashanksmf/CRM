@@ -97,6 +97,7 @@
                             <th>List Id</th>
                             <th>List Name</th>
                             <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -111,6 +112,9 @@
                             <td>
                               <span class="fa fa-pencil" style="cursor: pointer;" ng-click="allowEditMailChimpDetails($index+1)" ng-if="editRow != $index+1"></span>
                               <span class="fa fa-check" style="cursor: pointer;" ng-if="editRow == $index+1" ng-click="saveMailChimpDetails($index+1, dt)"></span>
+                            </td>
+                            <td>
+                              <span class="glyphicon glyphicon-trash" style="cursor: pointer;" ng-click="deleteMailChimpDetails(dt)"></span>
                             </td>
                         </tr>
                     </tbody>

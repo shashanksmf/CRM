@@ -41,6 +41,7 @@ $scope.saveMailChimpDetails = function(index, dt){
         console.log("saveMailChimpDetails",response);
         if(response.data.result) {
             alert("MailChimp Details Saved Successfully");
+            $scope.getUserMailChimpDetails();
          }
          else if(response.data.errorType && response.data.errorType == "token"){
                 $('#tokenErrorModalLabel').html(response.data.details);
@@ -51,6 +52,26 @@ $scope.saveMailChimpDetails = function(index, dt){
          }
          else if(response.data.errorType && response.data.errorType == "listId"){
             alert("List Id is invalid");
+         }
+         else {
+            alert("Something Wrong with the server");
+         }
+    });
+}
+
+$scope.deleteMailChimpDetails = function(dt){
+    API.deleteMailChimpDetails({dt}).then(function(response){
+        console.log("deleteMailChimpDetails",response);
+        if(response.data.result) {
+            alert("Record Deleted Successfully");
+            $scope.getUserMailChimpDetails();
+         }
+         else if(response.data.errorType && response.data.errorType == "token"){
+                $('#tokenErrorModalLabel').html(response.data.details);
+                $('#tokenErrorModal').modal("show");
+                $('#tokenErrorModalBtn').click(function(){
+                    $('#tokenErrorModal').modal("hide");
+                })
          }
          else {
             alert("Something Wrong with the server");

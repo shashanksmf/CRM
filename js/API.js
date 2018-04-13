@@ -569,6 +569,19 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
         
     }
 
+    callAPI.deleteMailChimpDetails = function(mailchimpDetails){
+    	console.log("list",mailchimpDetails.dt);
+        
+        return $http({
+           
+                method: 'GET',
+                headers: {'token': localStorage.getItem('token')},
+	        	dataType: "jsonp",
+                url: baseHttpUrl +'/deleteMailChimpDetails.php?id='+mailchimpDetails.dt.id+'&userId='+mailchimpDetails.dt.userId+'&apiKey='+mailchimpDetails.dt.apiKey+'&listId='+mailchimpDetails.dt.listId+'&listName='+mailchimpDetails.dt.listName
+        })
+        
+    }
+
     callAPI.insertEmplProfile = function(file) {
 
 	 	return $http.post(baseHttpUrl + '/insertUserProfile.php', file,  {   

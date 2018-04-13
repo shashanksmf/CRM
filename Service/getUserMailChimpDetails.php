@@ -20,7 +20,7 @@ if($conn->connect_error) {
 	exit(json_encode($responseArr));
 }
 
-$sql = "SELECT * FROM mailchimpdetails WHERE userId=".$userId;
+$sql = "SELECT * FROM mailchimpdetails WHERE userId='".$userId."' AND isactive = 1;";
 
 @mysqli_set_charset($conn,"utf8");
 $result = mysqli_query($conn, $sql);
