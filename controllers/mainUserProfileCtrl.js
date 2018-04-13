@@ -90,6 +90,7 @@ $scope.addMailChimpIdBtn= function(){
         console.log(response);
          if(response.data.result) {
             alert("API Key Addedd Successfully");
+            $scope.getUserMailChimpDetails();
          }
          else if(response.data.errorType && response.data.errorType == "token"){
                 $('#tokenErrorModalLabel').html(response.data.details);
@@ -116,6 +117,7 @@ $scope.addListBtn = function(){
         console.log(response);
         if(response.data.result) {
             alert("List Addedd Successfully");
+            $scope.getUserMailChimpDetails();
          }
          else if(response.data.errorType && response.data.errorType == "token"){
                 $('#tokenErrorModalLabel').html(response.data.details);
@@ -141,6 +143,7 @@ $scope.createListBtn = function(){
         console.log(response);
         if(response.data.result) {
              alert("List Created Successfully");
+             $scope.getUserMailChimpDetails();
          }
          else if(response.data.errorType && response.data.errorType == "token"){
                 $('#tokenErrorModalLabel').html(response.data.details);
