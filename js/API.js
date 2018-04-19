@@ -71,6 +71,19 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	
 	}
 
+	callAPI.getTransactionDetails = function(tId) {
+		
+		return $http({
+
+	        method: 'GET',
+	        headers: {'token': localStorage.getItem('token')},
+	        dataType: "jsonp",
+	        url: baseHttpUrl+'/GetTransactionDetails.php?tId'+tId 
+
+	    })
+	
+	}
+
 
 	callAPI.getGroupById = function(id) {
 		
@@ -415,6 +428,24 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	        method: 'POST',
 	        data: {"data":output},
 	        url: "http://jaiswaldevelopers.com/CRMV1/sampleService.php",
+
+    	})
+
+	}
+
+	callAPI.insertBulkData = function(userId, bulkData) {
+	var bulkData = bulkData;
+	var userId = userId;
+		return $http({
+
+	        method: 'POST',
+	        data: {'bulkData':bulkData, 'userId' :userId},
+	        url: baseHttpUrl + '/insertBulkData.php',
+	        headers: {'content-type': 'application/json',
+		       'accept': 'application/json',
+			   'token': localStorage.getItem('token'),
+			},
+
 
     	})
 

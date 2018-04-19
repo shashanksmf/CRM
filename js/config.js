@@ -96,6 +96,18 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider,
     controller: "insertEmplBulkDataCtrl"
   })
 
+  .state('dashboards.insertBulkData', {
+    url: "/insertBulkData", 
+    templateUrl: "views/insertBulkData.html",
+    controller: "insertBulkDataCtrl"
+  })
+
+  .state('dashboards.transactionDetails', {
+    url: "/transactionDetails", 
+    templateUrl: "views/transactionDetails.html",
+    controller: "transactionDetailsCtrl"
+  })
+
   .state('dashboards.dashboard_1', {
       url: "/dashboard_1",
       templateUrl: "views/dashboard_1.html",
