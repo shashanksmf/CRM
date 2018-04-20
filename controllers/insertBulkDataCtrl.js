@@ -1,38 +1,48 @@
 var inspinia = angular.module('inspinia');
 
-inspinia.controller("insertBulkDataCtrl", ['$scope','$rootScope','$http','$q','API','$state','$timeout','crmconfig', function ($scope,$rootScope,$http,$q,API,$state,$timeout,crmconfig) {
+inspinia.controller("insertBulkDataCtrl", ['$scope','$rootScope','$http','$q','API','$state','$stateParams','$timeout','crmconfig', function ($scope,$rootScope,$http,$q,API,$state,$stateParams,$timeout,crmconfig) {
 	
 	var userId = $rootScope.userId || localStorage.getItem("userId");
 	$scope.IsVisible = false;
 	$scope.LinkVisible = false;
 
 	$scope.read = function (workbook) {
-		$scope.IsVisible = true;
+		$scope.LinkVisible = false;
 
 		var headerNames = XLSX.utils.sheet_to_json( workbook.Sheets[workbook.SheetNames[0]], { header: 1 })[0];
 		var data = XLSX.utils.sheet_to_json( workbook.Sheets[workbook.SheetNames[0]]);
 
-		// console.log(headerNames);
+		console.log(headerNames);
 		// console.log(data);
-		API.insertBulkData(userId,data).then(function(response){
-			console.log("insertBulkData",response);
-			$tId = response.data.tId;
-			if(response.data.result) {
-	            alert("Records inserted");
-	            $scope.IsVisible = false;
-	            $scope.LinkVisible = true;
-	        }
-	        else if(response.data.errorType && response.data.errorType == "token"){
-                $('#tokenErrorModalLabel').html(response.data.details);
-                $('#tokenErrorModal').modal("show");
-                $('#tokenErrorModalBtn').click(function(){
-                    $('#tokenErrorModal').modal("hide");
-            	})
-         	}
-			
-		});
-
-
+		if(headerNames.indexOf("Firstname" && "Surname" && "E-mail address" && "Company" 
+			&& "Job Role" && "Office Address" && "Company Website" 
+			&& "Industry" && "Country") !== -1){
+			console.log("true");
+			$scope.IsVisible = true;
+			API.insertBulkData(userId,data).then(function(response){
+				console.log("insertBulkData",response);
+				$tId = response.data.tId;
+				if(response.data.result) {
+		            alert("Records inserted");
+		            $scope.IsVisible = false;
+		            $scope.LinkVisible = true;
+		        }
+		        else if(response.data.errorType && response.data.errorType == "token"){
+	                $('#tokenErrorModalLabel').html(response.data.details);
+	                $('#tokenErrorModal').modal("show");
+	                $('#tokenErrorModalBtn').click(function(){
+	                    $('#tokenErrorModal').modal("hide");
+	            	})
+	         	}
+				
+			});
+		}
+		else {
+			$scope.LinkVisible = false;
+			console.log("false");
+			alert("Please add data in file in following column format: Firstname, Surname, E-mail address, Company, Job Role, Office Address, Company Website, Industry, Country.");
+		}
+		
 		// for (var row in data)
 		// 	{
 				// console.log(data[row]);
@@ -46,18 +56,11 @@ inspinia.controller("insertBulkDataCtrl", ['$scope','$rootScope','$http','$q','A
 
 	$scope.error = function (e) {
 		console.log(e);
+		alert("Unsupported file please choose excel file");
 	}
 
 	$scope.trDetails = function() {
-		console.log("tid",$tId);
 		$state.go('dashboards.transactionDetails', {tId: $tId});
-		// $stateProvider.state('dashboards.transactionDetails', {
-		//     url: '/dashboards/transactionDetails',
-		//     controller: 'transactionDetailsCtrl',
-		//     params: {
-		//         tId: $tId
-		//     }
-		// })
 	}
 
 }])

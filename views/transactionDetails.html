@@ -17,7 +17,7 @@
     
     <thead>
       <tr>
-        <th ng-click="sortBy('email')">Email
+        <th class="emailData" ng-click="sortBy('email')">Email
             <span class="arrowDown fs10px" ng-show="propertyName == 'email'  && reverse == false">&#9660;</span>
             <span class="arrowUp fs10px" ng-show="(propertyName == 'email'   && reverse == true) || propertyName !== 'email' ">&#9650;</span>
           </th>
@@ -85,6 +85,10 @@
 
 #transactionTable table {
     table-layout: fixed;
+}
+
+.emailData{
+  width: 30%;
 }
 
 #transactionTable table > thead > tr {

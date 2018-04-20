@@ -22,8 +22,7 @@ if($conn->connect_error) {
 	exit(json_encode($responseArr));
 }
 
-$sql = "SELECT * FROM transactiondetails WHERE tId='".$tId;
-
+$sql = "SELECT * FROM transactiondetails WHERE tId=".$tId;
 @mysqli_set_charset($conn,"utf8");
 $result = mysqli_query($conn, $sql);
 if (@mysqli_num_rows($result) > 0) {

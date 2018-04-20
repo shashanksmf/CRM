@@ -6,7 +6,7 @@
 	<button class="buttonload" ng-show="IsVisible">
 		L<i class="fa fa-spinner fa-spin loadingIcon"></i>ading
 	</button>
-	<a class="trDetails" ng-show="LinkVisible" ng-click="trDetails()">Click here to see transaction details..</a>
+	<span class="trDetails" ng-show="LinkVisible" ng-click="trDetails()">Click here to see transaction details..</span>
 </div>
 
 <style>
@@ -37,9 +37,13 @@
 .trDetails{
 	z-index: 999;
 	display: flex;
+	cursor: pointer;
 	height: 56px;
 	line-height: 4;
 	margin: auto;
+}
+.trDetails:hover{
+	color: black;
 }
 .form-control-file {
 	position: relative;

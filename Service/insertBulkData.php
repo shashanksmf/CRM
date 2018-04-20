@@ -81,7 +81,7 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 	$jobRole = @mysqli_real_escape_string($conn,($properData["Job Role"]));
 	$ofcAddress =  @mysqli_real_escape_string($conn,($properData["Office Address"]));
 	$website =  @mysqli_real_escape_string($conn,($properData["Company Website"]));
-	$industry =  @mysqli_real_escape_string($conn,($properData["Industry "]));
+	$industry =  @mysqli_real_escape_string($conn,($properData["Industry"]));
 	$country  = @mysqli_real_escape_string($conn,($properData["Country"]));
 	//echo $name."-".$companyName."-".$jobRole."-".$ofcAddress."-".$website."-".$industry."-".$country;
 	//echo "<br/>";		

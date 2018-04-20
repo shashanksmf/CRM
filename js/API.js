@@ -78,7 +78,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	        method: 'GET',
 	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
-	        url: baseHttpUrl+'/GetTransactionDetails.php?tId'+tId 
+	        url: baseHttpUrl+'/GetTransactionDetails.php?tId='+tId 
 
 	    })
 	

@@ -103,7 +103,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider,
   })
 
   .state('dashboards.transactionDetails', {
-    url: "/transactionDetails", 
+    url: "/transactionDetails/:tId", 
     templateUrl: "views/transactionDetails.html",
     controller: "transactionDetailsCtrl"
   })
