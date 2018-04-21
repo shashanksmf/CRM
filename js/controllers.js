@@ -54,7 +54,7 @@
  *
  */
 function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
-  
+
     /**
      * daterange - Used as initial model for data range picker in Advanced form view
      */
@@ -73,8 +73,8 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
         API.sendMessage(sendMsgObj).then(function(response){
             //console.log("response msg",response);
             if(response.data.responce){
-              $rootScope.chats[chatArrIndex].chatDetail.push({id:response.data.msgId,message:msg,fromId:sendMsgObj.from,toId:toUserId,readed:false});  
-              $rootScope.chats[chatArrIndex].sending = false;  
+              $rootScope.chats[chatArrIndex].chatDetail.push({id:response.data.msgId,message:msg,fromId:sendMsgObj.from,toId:toUserId,readed:false});
+              $rootScope.chats[chatArrIndex].sending = false;
             }
             else if(response.data.errorType && response.data.errorType == "token"){
                 $('#tokenErrorModalLabel').html(response.data.details);
@@ -82,19 +82,19 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
                 $('#tokenErrorModalBtn').click(function(){
                     $('#tokenErrorModal').modal("hide");
                 })
-            } 
+            }
             else{
-                $rootScope.chats[chatArrIndex].chatDetail.push({message:msg,from:sendMsgObj.fromId,toId:toUserId,readed:false,isError:true,errorMsg:'MessageCould not be send..'});   
+                $rootScope.chats[chatArrIndex].chatDetail.push({message:msg,from:sendMsgObj.fromId,toId:toUserId,readed:false,isError:true,errorMsg:'MessageCould not be send..'});
             }
         })
 
-    
+
     }
 
 
 
     $scope.openChatBox = function(fromUserId,messageId,fromUserName) {
-        
+
         var chatObj = { from : fromUserId , to: userId ,id:1};
         var isFromIdFound = null, fromIdInChatArr=null;
 
@@ -108,14 +108,14 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
                     $rootScope.chats[i].active = true;
                     break;
 
-                }      
+                }
             }
         }
 
         if(isFromIdFound) {
 
-            $rootScope.chats[fromIdInChatArr].active = true;   
-            API.getChatDetails(chatObj).then(function(response){ 
+            $rootScope.chats[fromIdInChatArr].active = true;
+            API.getChatDetails(chatObj).then(function(response){
                 if(response.data.result){
                     $rootScope.chats[i].chatDetail = response.data.Messages;
                 }
@@ -125,7 +125,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
                     $('#tokenErrorModalBtn').click(function(){
                         $('#tokenErrorModal').modal("hide");
                     })
-                } 
+                }
             })
 
         }
@@ -146,7 +146,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
                             "active":true,
                             "chatDetail":response.data.Messages
 
-                        });  
+                        });
                 }
                 else if(response.data.errorType && response.data.errorType == "token"){
                     $('#tokenErrorModalLabel').html(response.data.details);
@@ -154,7 +154,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
                     $('#tokenErrorModalBtn').click(function(){
                         $('#tokenErrorModal').modal("hide");
                     })
-                } 
+                }
             })
         }
 
@@ -168,9 +168,9 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
     $scope.closechatwindow = function(chatIndex){
         $rootScope.chats[chatIndex].active = false;
     }
-    
+
     //setInterval to check from server if new message has recieved
- 
+
     function pushNewMsgInActiveChatBox(newMsgDataArr){
 
         for(var i=0; i < newMsgDataArr.length; i++) {
@@ -184,7 +184,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
                                 console.log("response : ",response);
                             });
                         }
-                    }    
+                    }
                 }
             }
         }
@@ -201,8 +201,8 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
             }
        }
        if(!isMsgIdFound){
-        return false; 
-       } 
+        return false;
+       }
     }
 
     function initChat() {
@@ -216,7 +216,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
                         $scope.latestMsgCount = countUnreadMsg(response.data.chatDetails);
 
                     }
-                    
+
                 }
                 else if(response.data.errorType && response.data.errorType == "token"){
                     $('#tokenErrorModalLabel').html(response.data.details);
@@ -224,20 +224,20 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
                     $('#tokenErrorModalBtn').click(function(){
                         $('#tokenErrorModal').modal("hide");
                     })
-                } 
-                
+                }
+
             if(response.data.usersList && response.data.usersList.length > 0){
                 $timeout(function(){
-                    $rootScope.friendList = response.data.usersList;   
+                    $rootScope.friendList = response.data.usersList;
                 },100)
-                 
+
              }
-            })    
+            })
         }
 
 
         $scope.interval = $interval(function(){
-           
+
             if(userId) {
                 API.getAllNewChatDetails(userId).then(function(response){
                     if(response.data.result) {
@@ -251,15 +251,15 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
                         $('#tokenErrorModalBtn').click(function(){
                             $('#tokenErrorModal').modal("hide");
                         })
-                    } 
-                    
+                    }
+
                  if(response.data.usersList && response.data.usersList.length > 0){
                      $rootScope.friendList = response.data.usersList;
                  }
-                     
-                })   
+
+                })
             }
-        },5000);   
+        },5000);
 
     }
 
@@ -280,7 +280,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
                 $('#tokenErrorModalBtn').click(function(){
                     $('#tokenErrorModal').modal("hide");
                 })
-            }  
+            }
         });
     }
 
@@ -298,6 +298,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
         localStorage.removeItem("userId");
         localStorage.removeItem("userName");
         localStorage.removeItem("userEmail");
+        localStorage.removeItem("Token");
         $rootScope.friendList = null;
         $rootScope.chats = null;
         userId = null;
@@ -313,13 +314,13 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
         if(!$scope.notificationBox || $scope.notificationBox.length==0){
             $scope.notificationBox = newMsg;
             $timeout(function(){
-                $scope.latestMsgCount = countUnreadMsg($scope.notificationBox);   
+                $scope.latestMsgCount = countUnreadMsg($scope.notificationBox);
             },10)
             return;
         }
 
         for(var j =0; j < newMsg.length; j++) {
-            
+
             var isGreaterMsgIdFound = false ,isFromIdFound = false;
             for(var i=0; i < $scope.notificationBox.length ;i++) {
                 if($scope.notificationBox[i].fromId == newMsg[j].fromId){
@@ -329,21 +330,21 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
                     $scope.notificationBox.splice(i,1);
                     $scope.notificationBox.push(newMsg[j]);
                     $timeout(function(){
-                        $scope.latestMsgCount = countUnreadMsg($scope.notificationBox);   
+                        $scope.latestMsgCount = countUnreadMsg($scope.notificationBox);
                     },10)
                   //  return;
                     }
                 }
             }
-            
+
             if(!isGreaterMsgIdFound && !isFromIdFound) {
                 $scope.notificationBox.push(newMsg[j]);
                 $timeout(function(){
-                    $scope.latestMsgCount = countUnreadMsg($scope.notificationBox);   
+                    $scope.latestMsgCount = countUnreadMsg($scope.notificationBox);
                 },10)
             }
 
-        }    
+        }
 
     }
 
@@ -360,7 +361,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
         }
     }
 
-    
+
 
     $scope.getChatboxUserProfilePic = function(profilepic){
         if(profilepic && profilepic.length > 0) {
@@ -396,9 +397,9 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
         file.append("image", files[0]);
         file.append("fileName",files[0].name);
         file.append("id", $scope.userId);
-        
+
         var reader = new FileReader();
-        reader.onload = $scope.imageIsLoaded; 
+        reader.onload = $scope.imageIsLoaded;
         reader.readAsDataURL(files[0]);
 
         var url = "http://jaiswaldevelopers.com/CRMV1/files/index.php";
@@ -416,10 +417,10 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
      }
 
     function countUnreadMsg(messages) {
-        
+
         var count = 0;
         messages.forEach(function(msg){
-            
+
             count = count + (msg.readed == "0" ? 1 : 0);
         });
 
@@ -448,7 +449,7 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
       var strTime = hours + ':' + minutes + ' ' + ampm;
       return strTime;
     }
-    // if login 
+    // if login
 
     this.daterange = {startDate: null, endDate: null};
 
@@ -3773,4 +3774,3 @@ angular
     .controller('touchspinCtrl', touchspinCtrl)
     .controller('tourCtrl', tourCtrl)
     .controller('jstreeCtrl', jstreeCtrl);
-
