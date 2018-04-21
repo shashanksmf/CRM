@@ -110,12 +110,16 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 			if($emailFound["result"] == false) {
 				//insert query
 				$comNameSql = "INSERT INTO employee (name,companyName,jobRole,industry,location,website,companyId,email) VALUES('".$name."','".$companyName."','".$jobRole."','".$industry."','".$country."','".$website."','".$foundCompnayId."','".$email."')";
-				$operationPerform = "Insert";
+				$operationPerform = "Inserted";
+				$reason = '';
+				$compReason = '';
 			}
 			else {
 				// update query
 				$comNameSql = 'UPDATE employee SET name = "'.$name.'" , companyName = "'.$companyName.'" , jobRole = "'.$jobRole.'" ,industry = "'.$industry.'" , location = "'.$country.'" , website = "'.$website.'" , companyId = "'.$foundCompnayId.'" WHERE email = "'.$email.'" ';
-				$operationPerform = "Update";
+				$operationPerform = "Updated";
+				$reason = 'Email already exists';
+				$compReason = 'Company already exists';
 			}
 			
 			$responseArr["details"][$i]["loopNo"] = $i;
@@ -124,7 +128,6 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 				$responseArr["details"][$i]["listResponse"] = json_encode($c2);
 				$responseArr["details"][$i]["inserted"] = true;
 				$responseArr["details"][$i]["name"] = $name;
-				$reason = '';
 				$totalinserted++;
 				//echo "if New record with found company Inserted successfully".$i."</br>";
 			} else {
@@ -138,14 +141,14 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 
 			$insertStatus = $responseArr["details"][$i]["inserted"];
 			
-			$resultInTrDetails = $transactionDetails->insert($conn, $tId, $email, '', $companyName, $insertStatus, $operationPerform, $reason,'');
+			$resultInTrDetails = $transactionDetails->insert($conn, $tId, $email, '', $companyName, $insertStatus, $operationPerform, $reason, $compReason);
 			// print_r($resultInTrDetails);
 
 			
 		} else {
 			
 			$insertNewCmpySql = "INSERT INTO company(name,ofcAddress) VALUES('".trim($companyName)."','".$ofcAddress."')";
-			$operationPerform = "Insert";
+			$operationPerform = "Inserted";
 			if (mysqli_query($conn, $insertNewCmpySql)) {
 				$companyId = mysqli_insert_id($conn);
 				
@@ -154,12 +157,16 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 				if($emailFound["result"] == false) {
 					//insert query
 					$newCompSql = "INSERT INTO employee (name,companyName,jobRole,industry,location,website,companyId,email) VALUES('".$name."','".$companyName."','".$jobRole."','".$industry."','".$country."','".$website."','".$companyId."','".$email."')";
-					$operationPerform = "Insert";
+					$operationPerform = "Inserted";
+					$reason = '';
+					$compReason = '';
 				}
 				else {
 					// update query
 					$newCompSql = 'UPDATE employee SET name = "'.$name.'" , companyName = "'.$companyName.'" , jobRole = "'.$jobRole.'" ,industry = "'.$industry.'" , location = "'.$country.'" , website = "'.$website.'" , companyId = "'.$foundCompnayId.'" WHERE email = "'.$email.'" ';
-					$operationPerform = "Update";
+					$operationPerform = "Updated";
+					$reason = 'Email already exists';
+					$compReason = 'Company already exists';
 				}
 				
 				
@@ -169,7 +176,6 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 					$responseArr["details"][$i]["inserted"] = true;
 					$responseArr["details"][$i]["name"] = $name;
 					$responseArr["details"][$i]["listResponse"] = json_encode($c2);
-					$reason = '';
 					$totalinserted++;
 					//echo "else if New Empl with new inserted company name Inserted successfully".$i."</br>";
 				} else {
@@ -183,7 +189,7 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 
 				$insertStatus = $responseArr["details"][$i]["inserted"];
 			
-				$resultInTrDetails = $transactionDetails->insert($conn, $tId, $email, $companyId, $companyName, $insertStatus, $operationPerform, $reason, '');
+				$resultInTrDetails = $transactionDetails->insert($conn, $tId, $email, $companyId, $companyName, $insertStatus, $operationPerform, $reason, $compReason);
 				// echo "insert_resultInTrDetails".$resultInTrDetails;
 
 				
@@ -206,17 +212,21 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 	else {
 		
 		$insertEmplSql = "INSERT INTO employee (name,companyName,jobRole,industry,location,website,email) VALUES('".$name."','".$companyName."','".$jobRole."','".$industry."','".$country."','".$website."','".$email."')";
-		$operationPerform = "Insert";
+		$operationPerform = "Inserted";
 		$emailFound = $checkDupEmail->check($conn, $email);
 		if($emailFound["result"] == false) {
 			//insert query
 			$insertEmplSql = "INSERT INTO employee (name,companyName,jobRole,industry,location,website,email) VALUES('".$name."','".$companyName."','".$jobRole."','".$industry."','".$country."','".$website."','".$email."')";
-			$operationPerform = "Insert";
+			$operationPerform = "Inserted";
+			$reason = '';
+			$compReason = '';
 		}
 		else {
 			// update query
 			$insertEmplSql = 'UPDATE employee SET name = "'.$name.'" , companyName = "'.$companyName.'" , jobRole = "'.$jobRole.'" ,industry = "'.$industry.'" , location = "'.$country.'" , website = "'.$website.'" WHERE email = "'.$email.'" ';
-			$operationPerform = "Update";
+			$operationPerform = "Updated";
+			$reason = 'Email already exists';
+			$compReason = 'Company already exists';
 		}
 		
 		$responseArr["details"][$i]["loopNo"] = $i;
@@ -225,7 +235,6 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 			$responseArr["details"][$i]["listResponse"] = json_encode($c2);
 			$responseArr["details"][$i]["inserted"] = true;
 			$responseArr["details"][$i]["name"] = $name;
-			$reason = '';
 			$totalinserted++;
 			//echo "outer New Empl with new inserted company name Inserted successfully".$i."</br>";
 		} else {
@@ -239,7 +248,7 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 
 		$insertStatus = $responseArr["details"][$i]["inserted"];
 			
-		$resultInTrDetails = $transactionDetails->insert($conn, $tId, $email, '', $companyName, $insertStatus, $operationPerform, $reason, '');
+		$resultInTrDetails = $transactionDetails->insert($conn, $tId, $email, '', $companyName, $insertStatus, $operationPerform, $reason, $compReason);
 		// echo "insert_resultInTrDetails".$resultInTrDetails;
 
 	}
