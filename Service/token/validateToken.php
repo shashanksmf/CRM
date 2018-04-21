@@ -55,7 +55,7 @@ class validateToken {
     }
   }
   else {
-    $result['errorType'] = 'token';
+    $result['errorType'] = 'tokenExp';
     exit(json_encode($result));
   }
 
