@@ -10,7 +10,7 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http', '$q'
 		$scope.LinkVisible = false;
 
 		var headerNames = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], {
-			header: 1
+			headerNames: 1
 		})[0];
 		var data = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
 
