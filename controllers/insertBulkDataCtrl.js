@@ -21,7 +21,7 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http', '$q'
 
 		for (var i = headerNames.length - 1; i >= 0; i--) {
 			for (var j = 0; j < tempArr.length; j++) {
-				if(headerNames[i]==tempArr[j]){
+				if(headerNames[i]==tempArr[j].trim()){
 					tempArr.splice(j,1);
 					break;
 				}
