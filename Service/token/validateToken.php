@@ -3,14 +3,18 @@
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Headers: Origin, token, Host');
 
-// if (array_key_exists('TOKEN', $headers)){
-if(isset($headers['TOKEN']) && !empty($headers['TOKEN']) && !is_null($headers['TOKEN'])){
-	echo $headers['TOKEN'];
-	$validateToken = new validateToken();
-	$result = $validateToken->validate($headers['TOKEN']);
-    // echo json_encode($result);
-	if (strlen($result['details']) > 0 && $result['result'] == false) {
+if(isset($headers['TOKEN']) && !empty($headers['TOKEN'])){
+	if (is_null($headers['TOKEN'])) {
+		$result['errorType'] = 'token';
 		exit(json_encode($result));
+	}
+	else{
+		$validateToken = new validateToken();
+		$result = $validateToken->validate($headers['TOKEN']);
+	    // echo json_encode($result);
+		if (strlen($result['details']) > 0 && $result['result'] == false) {
+			exit(json_encode($result));
+		}
 	}
 }
 else {
