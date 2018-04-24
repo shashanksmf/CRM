@@ -136,6 +136,7 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 				$responseArr["details"][$i]["reason"] = mysqli_error($conn);
 				$reason = mysqli_error($conn);
 				$totalfailed++;
+				$operationPerform = "Failed";
 				//echo "</br>Error: ".$sql."<br>" . mysqli_error($conn);
 			}
 
@@ -185,6 +186,7 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 					$responseArr["details"][$i]["reason"] = mysqli_error($conn);
 					$reason = mysqli_error($conn);
 					$totalfailed++;
+					$operationPerform = "Failed";
 				}
 
 				$insertStatus = $responseArr["details"][$i]["inserted"];
@@ -201,6 +203,7 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 				$compReason = mysqli_error($conn);
 				//echo "</br>Error: " . $sql . "<br>" . mysqli_error($conn);
 				$totalfailed++;
+				$operationPerform = "Failed";
 				$insertStatus = $responseArr["details"][$i]["inserted"];
 				
 				$resultInTrDetails = $transactionDetails->insert($conn, $tId, '', '', $companyName, $insertStatus, $operationPerform, '',$compReason);
@@ -243,6 +246,7 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 			$responseArr["details"][$i]["reason"] = mysqli_error($conn);
 			$reason = mysqli_error($conn);
 			$totalfailed++;
+			$operationPerform = "Failed";
 			//echo "</br>Error: " . $sql . "<br>" . mysqli_error($conn);
 		}
 
