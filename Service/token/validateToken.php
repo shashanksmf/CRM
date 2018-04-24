@@ -14,7 +14,7 @@ class validateToken {
 
 	public function validate($token) {
 		echo $token;
-		if (is_null($token)) {
+		if ($token=='null') {
 			echo "hii";
 			$result['result'] = false;
 			$result['errorType'] = 'token';
@@ -53,7 +53,7 @@ class validateToken {
 	}
 }
 
-if(isset($headers['TOKEN']) && !empty($headers['TOKEN']) && !is_null($headers['TOKEN'])){
+if(isset($headers['TOKEN']) && !empty($headers['TOKEN']) && $headers['TOKEN'] != 'null'){
 	$validateToken = new validateToken();
 	$result = $validateToken->validate($headers['TOKEN']);
 	// echo json_encode($result);
