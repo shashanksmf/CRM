@@ -5,7 +5,8 @@ header('Access-Control-Allow-Headers: Origin, token, Host');
 
 // if (array_key_exists('TOKEN', $headers)){
 if(isset($headers['TOKEN']) && !empty($headers['TOKEN'])){
-	if($headers['TOKEN'] != null){
+	echo $headers['TOKEN'];
+	if($headers['TOKEN'] != null && $headers['TOKEN'] != ""){
 		$validateToken = new validateToken();
 		$result = $validateToken->validate($headers['TOKEN']);
 	    // echo json_encode($result);
