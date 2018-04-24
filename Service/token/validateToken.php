@@ -14,10 +14,12 @@ class validateToken {
 
 	public function validate($token) {
 		if (is_null($token)) {
+			echo "hii";
 			$result['result'] = false;
 			$result['errorType'] = 'token';
-			return $result;
+			exit(json_encode($result));
 		}
+		echo "bye";
 		$validator = new TokenValidator;
 		$secret =  'SecretSuperstar@99';
 			// $token = $_POST['token'];
