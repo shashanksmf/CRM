@@ -3,6 +3,20 @@
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Headers: Origin, token, Host');
 
+// if (array_key_exists('TOKEN', $headers)){
+if(isset($headers['TOKEN']) && !empty($headers['TOKEN'])){
+	$validateToken = new validateToken();
+	$result = $validateToken->validate($headers['TOKEN']);
+    // echo json_encode($result);
+	if (strlen($result['details']) > 0 && $result['result'] == false) {
+		exit(json_encode($result));
+	}
+}
+else {
+	$result['errorType'] = 'token';
+	exit(json_encode($result));
+}
+
 include_once('.../../../vendor/autoload.php');
 
 use ReallySimpleJWT\TokenValidator;
@@ -43,20 +57,6 @@ class validateToken {
 			// $responseArr['getPayload'] = json_decode($getPayload);
 			// echo json_encode($responseArr);
 	}
-}
-
-// if (array_key_exists('TOKEN', $headers)){
-if(isset($headers['TOKEN']) && !empty($headers['TOKEN'])){
-	$validateToken = new validateToken();
-	$result = $validateToken->validate($headers['TOKEN']);
-    // echo json_encode($result);
-	if (strlen($result['details']) > 0 && $result['result'] == false) {
-		exit(json_encode($result));
-	}
-}
-else {
-	$result['errorType'] = 'token';
-	exit(json_encode($result));
 }
 
 ?>
