@@ -56,7 +56,7 @@ if(isset($headers['TOKEN']) && !empty($headers['TOKEN']) && $headers['TOKEN'] !=
 else {
 	$result['result'] = false;
 	$result['errorType'] = 'token';
-	$result['details'] = 'Invalid Token';
+	$result['details'] = 'This token has expired!';
 	exit(json_encode($result));
 }
 
