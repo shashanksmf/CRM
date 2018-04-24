@@ -56,6 +56,7 @@ if(isset($headers['TOKEN']) && !empty($headers['TOKEN']) && $headers['TOKEN'] !=
 else {
 	$result['result'] = false;
 	$result['errorType'] = 'token';
+	$responseArr["details"] = 'Invalid Token';
 	exit(json_encode($result));
 }
 
