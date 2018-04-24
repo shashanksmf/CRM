@@ -4,20 +4,15 @@ header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Headers: Origin, token, Host');
 
 if(isset($headers['TOKEN']) && !empty($headers['TOKEN'])){
-	if (is_null($headers['TOKEN'])) {
-		$result['errorType'] = 'token';
+	$validateToken = new validateToken();
+	$result = $validateToken->validate($headers['TOKEN']);
+	// echo json_encode($result);
+	if (strlen($result['details']) > 0 && $result['result'] == false) {
 		exit(json_encode($result));
-	}
-	else{
-		$validateToken = new validateToken();
-		$result = $validateToken->validate($headers['TOKEN']);
-	    // echo json_encode($result);
-		if (strlen($result['details']) > 0 && $result['result'] == false) {
-			exit(json_encode($result));
-		}
 	}
 }
 else {
+	$result['result'] = false;
 	$result['errorType'] = 'token';
 	exit(json_encode($result));
 }
@@ -32,6 +27,11 @@ use ReallySimpleJWT\TokenBuilder;
 class validateToken {
 
 	public function validate($token) {
+		if (is_null($token)) {
+			$result['result'] = false;
+			$result['errorType'] = 'token';
+			return $result;
+		}
 		$validator = new TokenValidator;
 		$secret =  'SecretSuperstar@99';
 			// $token = $_POST['token'];
