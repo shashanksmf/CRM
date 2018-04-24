@@ -13,6 +13,7 @@ use ReallySimpleJWT\TokenBuilder;
 class validateToken {
 
 	public function validate($token) {
+		echo $token;
 		if (is_null($token)) {
 			echo "hii";
 			$result['result'] = false;
@@ -52,7 +53,7 @@ class validateToken {
 	}
 }
 
-if(isset($headers['TOKEN']) && !empty($headers['TOKEN'])){
+if(isset($headers['TOKEN']) && !empty($headers['TOKEN']) && !is_null($headers['TOKEN'])){
 	$validateToken = new validateToken();
 	$result = $validateToken->validate($headers['TOKEN']);
 	// echo json_encode($result);
