@@ -5,10 +5,12 @@ header('Access-Control-Allow-Headers: Origin, token, Host');
 
 // if (array_key_exists('TOKEN', $headers)){
 if(isset($headers['TOKEN']) && !empty($headers['TOKEN'])){
-	echo $headers['TOKEN'];
-	if($headers['TOKEN'] != null && $headers['TOKEN'] != ""){
+	$validToken = $headers['TOKEN'];
+	echo $validToken;
+	if($validToken != null && $validToken != ""){
+		echo $validToken;
 		$validateToken = new validateToken();
-		$result = $validateToken->validate($headers['TOKEN']);
+		$result = $validateToken->validate($validToken);
 	    // echo json_encode($result);
 		if (strlen($result['details']) > 0 && $result['result'] == false) {
 			exit(json_encode($result));
