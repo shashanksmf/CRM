@@ -13,14 +13,6 @@ use ReallySimpleJWT\TokenBuilder;
 class validateToken {
 
 	public function validate($token) {
-		echo $token;
-		if ($token=='null') {
-			echo "hii";
-			$result['result'] = false;
-			$result['errorType'] = 'token';
-			exit(json_encode($result));
-		}
-		echo "bye";
 		$validator = new TokenValidator;
 		$secret =  'SecretSuperstar@99';
 			// $token = $_POST['token'];
