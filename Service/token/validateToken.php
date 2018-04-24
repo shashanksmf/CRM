@@ -45,19 +45,19 @@ class validateToken {
 	}
 }
 
-if(isset($headers['TOKEN']) && !empty($headers['TOKEN']) && $headers['TOKEN'] != 'null'){
-	$validateToken = new validateToken();
-	$result = $validateToken->validate($headers['TOKEN']);
-	// echo json_encode($result);
-	if (strlen($result['details']) > 0 && $result['result'] == false) {
-		exit(json_encode($result));
-	}
-}
-else {
-	$result['result'] = false;
-	$result['errorType'] = 'token';
-	$result['details'] = 'Invalid Token';
-	exit(json_encode($result));
-}
+// if(isset($headers['TOKEN']) && !empty($headers['TOKEN']) && $headers['TOKEN'] != 'null'){
+// 	$validateToken = new validateToken();
+// 	$result = $validateToken->validate($headers['TOKEN']);
+// 	// echo json_encode($result);
+// 	if (strlen($result['details']) > 0 && $result['result'] == false) {
+// 		exit(json_encode($result));
+// 	}
+// }
+// else {
+// 	$result['result'] = false;
+// 	$result['errorType'] = 'token';
+// 	$result['details'] = 'Invalid Token';
+// 	exit(json_encode($result));
+// }
 
 ?>
