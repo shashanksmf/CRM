@@ -44,8 +44,7 @@ class validateToken {
 			$responseArr['getPayload'] = json_decode($getPayload);
 			$getPayloadArr = $responseArr['getPayload'];
 			echo "get".$getPayloadArr;
-			echo "get".json_encode($getPayloadArr['userId']);
-			$res = $getPayloadArr['userId'];
+			$res = json_encode($getPayloadArr['userId']);
 			echo "res".$res;
 			// echo json_encode($responseArr);
 	}
