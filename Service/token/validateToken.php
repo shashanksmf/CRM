@@ -17,6 +17,7 @@ class validateToken {
 		$secret =  'SecretSuperstar@99';
 			// $token = $_POST['token'];
 		$responseArr = array();
+		$getPayloadArr = array();
 		$tokenExp = '';
 
 			// print_r($validator->splitToken($token));
@@ -34,6 +35,8 @@ class validateToken {
 			$responseArr['errorType'] = 'token';
 			$responseArr["details"] = $e->getMessage();
 			$responseArr['getPayload'] = json_decode($getPayload);
+			$getPayloadArr = $responseArr['getPayload'];
+			$responseArr['userId'] = $getPayloadArr['userId'];
 			   // exit(json_encode($responseArr));
 			return $responseArr;
 		}
@@ -41,7 +44,8 @@ class validateToken {
 			$responseArr['result'] = $result;
 			$responseArr['exp'] = $tokenExp;
 			$responseArr['getPayload'] = json_decode($getPayload);
-			$responseArr['userId'] = json_decode($getPayload['userId']);
+			$getPayloadArr = $responseArr['getPayload'];
+			$responseArr['userId'] = $getPayloadArr['userId'];
 			echo json_encode($responseArr);
 	}
 }
