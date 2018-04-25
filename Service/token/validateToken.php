@@ -26,11 +26,8 @@ class validateToken {
 
 		$getPayload = Token::getPayload($token);
 		$getPayloadArr = json_encode($getPayload, TRUE);
-		$getPayloadArr1 = json_decode($getPayload, TRUE);
 		echo "get".$getPayloadArr;
-		echo "get1".$getPayloadArr1;
-
-		$res = $getPayloadArr.userId;
+		$res = $getPayloadArr['userId'];
 		echo "res".$res;
 		
 		try {
