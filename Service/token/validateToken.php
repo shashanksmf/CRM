@@ -25,7 +25,7 @@ class validateToken {
 
 		$getPayload = Token::getPayload($token);
 		print_r($getPayload);
-		echo $getPayload['userId'];
+		echo json_decode($getPayload['userId']);
 
 		try {
 			$result = Token::validate($token, $secret);
