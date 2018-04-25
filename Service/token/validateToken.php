@@ -35,8 +35,6 @@ class validateToken {
 			$responseArr['errorType'] = 'token';
 			$responseArr["details"] = $e->getMessage();
 			$responseArr['getPayload'] = json_decode($getPayload);
-			$getPayloadArr = $responseArr['getPayload'];
-			$responseArr['userId'] = $getPayloadArr['userId'];
 			   // exit(json_encode($responseArr));
 			return $responseArr;
 		}
@@ -44,7 +42,7 @@ class validateToken {
 			$responseArr['result'] = $result;
 			$responseArr['exp'] = $tokenExp;
 			$responseArr['getPayload'] = json_decode($getPayload);
-			$getPayloadArr = $responseArr['getPayload'];
+			$getPayloadArr = json_encode($responseArr['getPayload']);
 			$responseArr['userId'] = $getPayloadArr['userId'];
 			echo json_encode($responseArr);
 	}
