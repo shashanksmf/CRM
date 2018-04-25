@@ -24,10 +24,7 @@ class validateToken {
 			// print_r($getPayload = Token::getPayload($token));
 
 		$getPayload = Token::getPayload($token);
-		echo json_decode($getPayload);
-		echo json_encode($getPayload);
-		print_r(json_decode($getPayload['userId']));
-
+		
 		try {
 			$result = Token::validate($token, $secret);
 			$tokenExp = $validator->splitToken($token)->validateExpiration()->validateSignature($secret);
@@ -43,7 +40,8 @@ class validateToken {
 
 			$responseArr['result'] = $result;
 			$responseArr['exp'] = $tokenExp;
-			$responseArr['getPayload'] = json_decode($getPayload['userId']);
+			$responseArr['getPayload'] = json_decode($getPayload);
+			$responseArr['userId'] = json_decode($getPayload['userId']);
 			echo json_encode($responseArr);
 	}
 }
