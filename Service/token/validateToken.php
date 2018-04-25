@@ -21,7 +21,7 @@ class validateToken {
 
 			// print_r($validator->splitToken($token));
 			// echo Carbon::now()->addMinutes(0)->toDateTimeString();
-			// print_r($getPayload = Token::getPayload($token));
+			print_r($getPayload = Token::getPayload($token));
 
 		$getPayload = Token::getPayload($token);
 
