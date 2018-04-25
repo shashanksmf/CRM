@@ -24,6 +24,7 @@ class validateToken {
 			// print_r($getPayload = Token::getPayload($token));
 
 		$getPayload = Token::getPayload($token);
+		print_r($getPayload);
 		echo $getPayload['userId'];
 
 		try {
