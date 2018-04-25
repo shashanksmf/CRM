@@ -43,7 +43,7 @@ class validateToken {
 		}
 
 			$responseArr['result'] = $result;
-			$responseArr['detail'] = '';
+			$responseArr['details'] = '';
 			$responseArr['exp'] = $tokenExp;
 			$responseArr['getPayload'] = json_decode($getPayload);
 			$responseArr['userId'] = $userId;
