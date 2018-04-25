@@ -42,9 +42,9 @@ class validateToken {
 			$responseArr['result'] = $result;
 			$responseArr['exp'] = $tokenExp;
 			$responseArr['getPayload'] = json_decode($getPayload);
-			$getPayloadArr = json_encode($responseArr['getPayload']);
+			$getPayloadArr = $responseArr['getPayload'];
 			echo "get".$getPayloadArr;
-			echo "get".$getPayloadArr.userId;
+			echo "get".json_encode($getPayloadArr['userId'];
 			$res = $getPayloadArr['userId'];
 			echo "res".$res;
 			// echo json_encode($responseArr);
