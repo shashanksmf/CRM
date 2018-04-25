@@ -26,9 +26,7 @@ class validateToken {
 
 		$getPayload = Token::getPayload($token);
 		$getPayloadArr = json_decode($getPayload, TRUE);
-		echo "get".$getPayloadArr;
-		$res = $getPayloadArr['userId'];
-		echo "res".$res;
+		$userId = $getPayloadArr['userId'];
 		
 		try {
 			$result = Token::validate($token, $secret);
@@ -39,14 +37,17 @@ class validateToken {
 			$responseArr['errorType'] = 'token';
 			$responseArr["details"] = $e->getMessage();
 			$responseArr['getPayload'] = json_decode($getPayload);
+			$responseArr['userId'] = $userId;
 			   // exit(json_encode($responseArr));
 			return $responseArr;
 		}
 
-			$responseArr['result'] = $result;
-			$responseArr['exp'] = $tokenExp;
-			$responseArr['getPayload'] = json_decode($getPayload);
+			// $responseArr['result'] = $result;
+			// $responseArr['exp'] = $tokenExp;
+			// $responseArr['getPayload'] = json_decode($getPayload);
+			// $responseArr['userId'] = $userId;
 			// echo json_encode($responseArr);
+			// return $responseArr;
 	}
 }
 
