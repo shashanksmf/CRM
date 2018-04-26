@@ -95,7 +95,6 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 	$scope.sendSMS = function(groupObj){
 		//console.log(groupObj);
 		
-
 		if(!groupObj || !groupObj.id) {
 			alert("Please select group");
 			return;
@@ -112,33 +111,43 @@ inspinia.controller('mailCtrl', ['$scope','$rootScope','$http','$q','API','$stat
 						msgObj.messages.push({ "from" : $scope.smsSenderName , "to" : item.phone.charAt(0) !== "+" ? "+" + item.phone : item.phone  , "text" : $scope.smsText });
 					}
 				});
-
 				if(msgObj.messages.length <= 0) {
 					alert("No Phone Numbers attached to Members");
 					return;
 				}
+				console.log(msgObj);
 			//	console.log(phNoArr);
-				
-				//var encoded = "VVBTQUlMMTpVMjQyODk3bA==";
-				var encoded = "VVBTQUlsMTpVMjQyODk3bA==";
-				$.ajax({
-	  			type:"POST",
-	  			//url:"https://api.infobip.com/sms/1/text/single",
-	  			url:"https://api.infobip.com/sms/1/text/multi",
-	  			headers:{
-	  				"Authorization": "Basic "+encoded,
-	  				"Content-Type":"application/json",
-	  				"Accept":"application/json"			
-	  			},
-	  			data:JSON.stringify(msgObj),
-	  			success:function(response){
-	  				console.log("response",response);
-	  				API.saveSmsCampaign({ data : response, groupid: groupObj.id, name: groupObj.name || "SMS" }).then(function(res){
-	  					console.log("sms db save res",res);
-	  				})
-	  			}
+				var smsResObj = {"res" : []};
+				for (var i = 0; i < msgObj.messages.length; i++) {
+					API.sendSMS(msgObj.messages[i]).then(function(res){
+						console.log("sms response",res);
+						msgObj.messages.push(res);
+					});
+				}
+				if(smsResObj.res.length > 0) {
+					$('#sendSMSModal').modal('hide');
+				}
 
-	  		})
+				//var encoded = "VVBTQUlMMTpVMjQyODk3bA==";
+				// var encoded = "VVBTQUlsMTpVMjQyODk3bA==";
+				// $.ajax({
+		  // 			type:"POST",
+		  // 			//url:"https://api.infobip.com/sms/1/text/single",
+		  // 			url:"https://api.infobip.com/sms/1/text/multi",
+		  // 			headers:{
+		  // 				"Authorization": "Basic "+encoded,
+		  // 				"Content-Type":"application/json",
+		  // 				"Accept":"application/json"			
+		  // 			},
+		  // 			data:JSON.stringify(msgObj),
+		  // 			success:function(response){
+		  // 				console.log("response",response);
+		  // 				API.saveSmsCampaign({ data : response, groupid: groupObj.id, name: groupObj.name || "SMS" }).then(function(res){
+		  // 					console.log("sms db save res",res);
+		  // 				})
+		  // 			}
+
+		  // 		})
 				
 		}
 
