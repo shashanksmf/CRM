@@ -16,14 +16,14 @@ $auth_token = '213c7b2c415da489eac89130e4d180b8';
 // $auth_token = 'cacfde23096e6d8beadf02e63c1592e0';
 $client = new Client($account_sid, $auth_token);
 
-$noArr = array('+919511762987', '+919822097124');
+$noArr = array('+919511762987', '+919822097124', '+32483517537');
 $arrlength = count($noArr);
 for ($i=0; $i < $arrlength; $i++) { 
 	$client->messages->create($noArr[$i],
 	    array(
 	        'from' => '+15128588607',
 	        // 'from' => '+14014097255',
-	        'body' => 'Hey! Good luck!'
+	        'body' => 'Hi! This message is from Techinvento.'
 	    )
 	);
 }
