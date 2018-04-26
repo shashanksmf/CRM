@@ -53,6 +53,7 @@ inspinia.controller("groupCtrl", ['$scope','$rootScope','$http','$q','API','$sta
 					if(response.data.responce){
 						if(responce.data.responce.hasOwnProperty("groupid") && responce.data.responce.length > 0) {
 							createGroupObj.id = responce.data.responce.groupid;
+							alert("Group Added Successfully!");
 						}
 						$scope.groups.Groups.push(createGroupObj)
 					}

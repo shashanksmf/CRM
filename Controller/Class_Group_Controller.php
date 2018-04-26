@@ -135,7 +135,7 @@ class GroupController{
         public function addNewGroup($name,$details,$admin,$members,$createdOn){
             $membersCount="";
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
-            $grp = new Group("","","","","","","");
+            $grp = new Group("","","","","","","","");
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }

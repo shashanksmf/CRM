@@ -1,4 +1,4 @@
-<?php 
+<?php
 ob_start();
 
 
@@ -20,10 +20,6 @@ $admin= @$_GET['admin'];
 $members= @$_GET['members'];
 $membersCount= @$_GET['membersCount'];
 $createdOn= @$_GET['createdOn'];
-
-$headers = apache_request_headers();
-// $headers = $headers['token'];
-// require_once("./token/validateToken.php");	
 
 require_once("../Controller/Class_Group_Controller.php");
 $controller = new GroupController();
