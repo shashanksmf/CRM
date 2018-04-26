@@ -405,7 +405,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	        method: 'GET',
 	        headers: {'token': localStorage.getItem('token')},
 	        dataType: "jsonp",
-	        url: baseHttpUrl + '/sendSMSTwilio.php?to='+data.to+'&msg='+data.msg
+	        url: baseHttpUrl + '/TwilioSMS/sendSMSTwilio.php?to='+data.to+'&text='+data.text
 
 	    })
 
