@@ -10,7 +10,8 @@ include_once('../../vendor/autoload.php');
 use Twilio\Rest\Client;
 
 $to = @$_GET['to'];
-$msg = @$_GET['msg'];
+$to = "+".$to;
+$text = @$_GET['text'];
 
 $account_sid = 'ACd6174cef3f620aee42f1c89fc9d6a7fe';
 $auth_token = '213c7b2c415da489eac89130e4d180b8';
@@ -23,7 +24,7 @@ $result = $client->messages->create($to,
 	        // 'from' => $from,
 	        'from' => '+15128588607',
 	        // 'from' => '+14014097255',
-	        'body' => $msg
+	        'body' => $text
 	    )
 	);
 echo json_encode($result);
