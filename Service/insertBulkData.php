@@ -9,6 +9,9 @@ require_once("./phpHeader/getHeader.php");
 $headers = apache_request_headers();
 require_once("./token/validateToken.php");
 
+$userId = $tokenUserId;
+// echo $userId;
+
 require_once("../Controller/EmailMgr.php");
 $c2 = new EmailMgr();
 
@@ -26,8 +29,6 @@ $postData = file_get_contents('php://input');
 $postDataArr = array();
 $postDataArr = json_decode($postData, true);
 // echo $postDataArr;
-$userId = $postDataArr['userId'];
-// echo $userId;
 
 $data = $postDataArr['bulkData'];
 // print_r($data);

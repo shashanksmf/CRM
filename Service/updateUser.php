@@ -10,7 +10,7 @@ require_once("./phpHeader/getHeader.php");
 $headers = apache_request_headers();
 require_once("./token/validateToken.php");
 
-$userId = @$_GET['id'];
+$userId = $tokenUserId;
 $name = @$_GET['name'];
 $department = @$_GET['department'];
 $dob = @$_GET['dob'];

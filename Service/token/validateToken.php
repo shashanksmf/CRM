@@ -55,7 +55,7 @@ class validateToken {
 if(isset($headers['TOKEN']) && !empty($headers['TOKEN']) && $headers['TOKEN'] != 'null'){
 	$validateToken = new validateToken();
 	$result = $validateToken->validate($headers['TOKEN']);
-	$userId = $result['userId'];
+	$tokenUserId = $result['userId'];
 	// echo json_encode($result);
 	if (strlen($result['details']) > 0 && $result['result'] == false) {
 		exit(json_encode($result));

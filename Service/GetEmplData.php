@@ -8,8 +8,8 @@ require_once("./phpHeader/getHeader.php");
 
 $headers = apache_request_headers();
 require_once("./token/validateToken.php");
-$ud = $userId;
-echo $ud; 
+// $userId = $tokenUserId;
+// echo $userId;
 // print_r($headers);
 // $headers = $headers['token'];
 // echo $headers['TOKEN'];

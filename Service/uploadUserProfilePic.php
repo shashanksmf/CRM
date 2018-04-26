@@ -12,10 +12,10 @@ require_once("./phpHeader/getHeader.php");
 
 $headers = apache_request_headers();
 require_once("./token/validateToken.php");
+$userId = $tokenUserId;
 
 $responseArr = array();
 $dats = '';
-$userId = @$_POST['id'];
 require_once("../Controller/StaticDBCon.php");
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 

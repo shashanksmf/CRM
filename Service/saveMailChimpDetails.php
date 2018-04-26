@@ -10,8 +10,8 @@ require_once("./phpHeader/getHeader.php");
 $headers = apache_request_headers();
 require_once("./token/validateToken.php");
 
+$userId = $tokenUserId;
 $id = @$_GET['id'];
-$userId = @$_GET['userId'];
 $apiKey = @$_GET['apiKey'];
 $listId = @$_GET['listId'];
 $listName = @$_GET['listName'];
