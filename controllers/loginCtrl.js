@@ -39,4 +39,19 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 	}
 
 
+	$scope.googleLogIn = function(){
+		console.log("googleLogIn");
+		API.googleLogIn().then(function(response){
+
+		});
+	}
+
+	$scope.facebookLogIn = function(){
+		console.log("facebookLogIn");
+		API.facebookLogIn().then(function(response){
+
+		});
+	}
+
+
 }])
