@@ -90,5 +90,3 @@ final class Twig_Extension_Staging extends Twig_Extension
         return $this->tests;
     }
 }
-
-class_alias('Twig_Extension_Staging', 'Twig\Extension\StagingExtension', false);

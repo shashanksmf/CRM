@@ -10,12 +10,8 @@
  */
 
 /**
- * For Twig 1.x compatibility.
+ * Empty class for Twig 1.x compatibility.
  */
-class_exists('Twig_Filter');
-
-if (false) {
-    final class Twig_SimpleFilter extends Twig_Filter
-    {
-    }
+final class Twig_SimpleFilter extends Twig_Filter
+{
 }

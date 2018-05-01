@@ -203,5 +203,3 @@ final class Twig_NodeVisitor_Optimizer extends Twig_BaseNodeVisitor
         return 255;
     }
 }
-
-class_alias('Twig_NodeVisitor_Optimizer', 'Twig\NodeVisitor\OptimizerNodeVisitor', false);

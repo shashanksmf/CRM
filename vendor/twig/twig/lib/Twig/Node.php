@@ -147,7 +147,7 @@ class Twig_Node implements Countable, IteratorAggregate
         return $this->nodes[$name];
     }
 
-    public function setNode($name, self $node)
+    public function setNode($name, Twig_Node $node)
     {
         $this->nodes[$name] = $node;
     }
@@ -180,6 +180,3 @@ class Twig_Node implements Countable, IteratorAggregate
         return $this->name;
     }
 }
-
-class_alias('Twig_Node', 'Twig\Node\Node', false);
-class_exists('Twig_Compiler');

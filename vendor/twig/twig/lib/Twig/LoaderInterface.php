@@ -60,5 +60,3 @@ interface Twig_LoaderInterface
      */
     public function exists($name);
 }
-
-class_alias('Twig_LoaderInterface', 'Twig\Loader\LoaderInterface', false);

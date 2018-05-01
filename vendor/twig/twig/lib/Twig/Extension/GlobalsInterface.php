@@ -26,5 +26,3 @@ interface Twig_Extension_GlobalsInterface
      */
     public function getGlobals();
 }
-
-class_alias('Twig_Extension_GlobalsInterface', 'Twig\Extension\GlobalsInterface', false);

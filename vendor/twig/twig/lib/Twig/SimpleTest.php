@@ -10,12 +10,8 @@
  */
 
 /**
- * For Twig 1.x compatibility.
+ * Empty class for Twig 1.x compatibility.
  */
-class_exists('Twig_Test');
-
-if (false) {
-    final class Twig_SimpleTest extends Twig_Test
-    {
-    }
+final class Twig_SimpleTest extends Twig_Test
+{
 }

@@ -87,5 +87,3 @@ function twig_raw_filter($string)
 {
     return $string;
 }
-
-class_alias('Twig_Extension_Escaper', 'Twig\Extension\EscaperExtension', false);

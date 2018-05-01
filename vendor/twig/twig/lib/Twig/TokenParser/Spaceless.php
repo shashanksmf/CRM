@@ -28,9 +28,9 @@ final class Twig_TokenParser_Spaceless extends Twig_TokenParser
     {
         $lineno = $token->getLine();
 
-        $this->parser->getStream()->expect(/* Twig_Token::BLOCK_END_TYPE */ 3);
+        $this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);
         $body = $this->parser->subparse(array($this, 'decideSpacelessEnd'), true);
-        $this->parser->getStream()->expect(/* Twig_Token::BLOCK_END_TYPE */ 3);
+        $this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);
 
         return new Twig_Node_Spaceless($body, $lineno, $this->getTag());
     }
@@ -45,5 +45,3 @@ final class Twig_TokenParser_Spaceless extends Twig_TokenParser
         return 'spaceless';
     }
 }
-
-class_alias('Twig_TokenParser_Spaceless', 'Twig\TokenParser\SpacelessTokenParser', false);

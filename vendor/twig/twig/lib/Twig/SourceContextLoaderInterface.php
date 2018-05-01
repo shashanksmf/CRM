@@ -15,5 +15,3 @@
 interface Twig_SourceContextLoaderInterface extends Twig_LoaderInterface
 {
 }
-
-class_alias('Twig_SourceContextLoaderInterface', 'Twig\Loader\SourceContextLoaderInterface', false);

@@ -16,11 +16,11 @@
  */
 class Twig_Environment
 {
-    const VERSION = '2.4.8';
-    const VERSION_ID = 20408;
+    const VERSION = '2.3.0';
+    const VERSION_ID = 20300;
     const MAJOR_VERSION = 2;
-    const MINOR_VERSION = 4;
-    const RELEASE_VERSION = 8;
+    const MINOR_VERSION = 3;
+    const RELEASE_VERSION = 0;
     const EXTRA_VERSION = '';
 
     private $charset;
@@ -42,7 +42,6 @@ class Twig_Environment
     private $runtimeLoaders = array();
     private $runtimes = array();
     private $optionsHash;
-    private $loading = array();
 
     /**
      * Constructor.
@@ -309,10 +308,6 @@ class Twig_Environment
      *
      * @param string|Twig_TemplateWrapper|Twig_Template $name The template name
      *
-     * @throws Twig_Error_Loader  When the template cannot be found
-     * @throws Twig_Error_Runtime When a previously generated cache is corrupted
-     * @throws Twig_Error_Syntax  When an error occurred during compilation
-     *
      * @return Twig_TemplateWrapper
      */
     public function load($name)
@@ -387,19 +382,7 @@ class Twig_Environment
         // to be removed in 3.0
         $this->extensionSet->initRuntime($this);
 
-        if (isset($this->loading[$cls])) {
-            throw new Twig_Error_Runtime(sprintf('Circular reference detected for Twig template "%s", path: %s.', $name, implode(' -> ', array_merge($this->loading, array($name)))));
-        }
-
-        $this->loading[$cls] = $name;
-
-        try {
-            $this->loadedTemplates[$cls] = new $cls($this);
-        } finally {
-            unset($this->loading[$cls]);
-        }
-
-        return $this->loadedTemplates[$cls];
+        return $this->loadedTemplates[$cls] = new $cls($this);
     }
 
     /**
@@ -416,7 +399,7 @@ class Twig_Environment
      */
     public function createTemplate($template)
     {
-        $name = sprintf('__string_template__%s', hash('sha256', $template, false));
+        $name = sprintf('__string_template__%s', hash('sha256', uniqid(mt_rand(), true), false));
 
         $loader = new Twig_Loader_Chain(array(
             new Twig_Loader_Array(array($name => $template)),
@@ -453,12 +436,12 @@ class Twig_Environment
     /**
      * Tries to load a template consecutively from an array.
      *
-     * Similar to loadTemplate() but it also accepts instances of Twig_Template and
-     * Twig_TemplateWrapper, and an array of templates where each is tried to be loaded.
+     * Similar to loadTemplate() but it also accepts Twig_Template instances and an array
+     * of templates where each is tried to be loaded.
      *
-     * @param string|Twig_Template|Twig_TemplateWrapper|array $names A template or an array of templates to try consecutively
+     * @param string|Twig_Template|array $names A template or an array of templates to try consecutively
      *
-     * @return Twig_Template|Twig_TemplateWrapper
+     * @return Twig_Template
      *
      * @throws Twig_Error_Loader When none of the templates can be found
      * @throws Twig_Error_Syntax When an error occurred during compilation
@@ -471,10 +454,6 @@ class Twig_Environment
 
         foreach ($names as $name) {
             if ($name instanceof Twig_Template) {
-                return $name;
-            }
-
-            if ($name instanceof Twig_TemplateWrapper) {
                 return $name;
             }
 
@@ -681,7 +660,6 @@ class Twig_Environment
     public function setExtensions(array $extensions)
     {
         $this->extensionSet->setExtensions($extensions);
-        $this->updateOptionsHash();
     }
 
     /**
@@ -966,5 +944,3 @@ class Twig_Environment
         ));
     }
 }
-
-class_alias('Twig_Environment', 'Twig\Environment', false);

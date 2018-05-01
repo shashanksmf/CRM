@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 abstract class Twig_Extension implements Twig_ExtensionInterface
 {
     public function getTokenParsers()
@@ -41,6 +40,3 @@ abstract class Twig_Extension implements Twig_ExtensionInterface
         return array();
     }
 }
-
-class_alias('Twig_Extension', 'Twig\Extension\AbstractExtension', false);
-class_exists('Twig_Environment');

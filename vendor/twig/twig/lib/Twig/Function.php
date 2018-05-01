@@ -34,10 +34,6 @@ class Twig_Function
      */
     public function __construct(string $name, $callable = null, array $options = array())
     {
-        if (__CLASS__ !== get_class($this)) {
-            @trigger_error('Overriding '.__CLASS__.' is deprecated since version 2.4.0 and the class will be final in 3.0.', E_USER_DEPRECATED);
-        }
-
         $this->name = $name;
         $this->callable = $callable;
         $this->options = array_merge(array(
@@ -125,8 +121,3 @@ class Twig_Function
         return $this->options['alternative'];
     }
 }
-
-// For Twig 1.x compatibility
-class_alias('Twig_Function', 'Twig_SimpleFunction', false);
-
-class_alias('Twig_Function', 'Twig\TwigFunction', false);

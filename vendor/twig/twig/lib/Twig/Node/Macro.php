@@ -102,5 +102,3 @@ class Twig_Node_Macro extends Twig_Node
         ;
     }
 }
-
-class_alias('Twig_Node_Macro', 'Twig\Node\MacroNode', false);
