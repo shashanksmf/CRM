@@ -24,7 +24,7 @@ use Facebook\HttpClients\FacebookHttpable;
 // init app with app id and secret
 FacebookSession::setDefaultApplication( '1827896904180275','e0407be9cc41abcb26207d8d46328118' );
 // login helper with redirect_uri
-    $helper = new FacebookRedirectLoginHelper('https://' . $_SERVER['HTTP_HOST'] . '/');
+    $helper = new FacebookRedirectLoginHelper('https://' . $_SERVER['HTTP_HOST']);
 try {
   $session = $helper->getSessionFromRedirect();
 } catch( FacebookRequestException $ex ) {
@@ -47,7 +47,7 @@ if ( isset( $session ) ) {
         $_SESSION['FULLNAME'] = $fbfullname;
 	    $_SESSION['EMAIL'] =  $femail;
     /* ---- header location after session ----*/
-  header("Location: index.php");
+  header("Location: ".'https://' . $_SERVER['HTTP_HOST']);
 } else {
   $loginUrl = $helper->getLoginUrl();
  header("Location: ".$loginUrl);
