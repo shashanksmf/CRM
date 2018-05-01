@@ -2,7 +2,7 @@ var inspinia = angular.module('inspinia');
 inspinia.factory('API', ['$http','$q',function($http,$q){
 
 	var callAPI = {};
-    // var baseHttpUrl = "/CRM.git/trunk/Service";
+	// var baseHttpUrl = "/CRM.git/trunk/Service";
 	var baseHttpUrl = 'https://upsailgroup.herokuapp.com/Service';
 
 	callAPI.getAllEmpl = function(){
@@ -35,6 +35,29 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	        method: 'GET',
 	        dataType: "jsonp",
 	        url: baseHttpUrl+'/Login.php?userName='+ user.userName + '&password='+ user.userPassword
+
+	    })
+
+	}
+
+	callAPI.googleLogIn = function() {
+		console.log("googleLogIn");
+		return $http({
+
+	        method: 'GET',
+	        url: baseHttpUrl+'/googleLogIn.php'
+
+	    })
+
+	}
+
+	callAPI.facebookLogIn = function() {
+		console.log("facebookLogIn");
+		return $http({
+
+	        method: 'GET',
+	        dataType: "jsonp",
+	        url: baseHttpUrl+'/fbAuth/fbconfig.php'
 
 	    })
 
@@ -400,14 +423,14 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	callAPI.sendSMS = function (data) {
 		console.log("smsData", data);
 
-	return $http({
+	// return $http({
 
-	        method: 'GET',
-	        headers: {'token': localStorage.getItem('token')},
-	        dataType: "jsonp",
-	        url: baseHttpUrl + '/TwilioSMS/sendSMSTwilio.php?to='+data.to+'&text='+data.text
+	//         method: 'GET',
+	//         headers: {'token': localStorage.getItem('token')},
+	//         dataType: "jsonp",
+	//         url: baseHttpUrl + '/TwilioSMS/sendSMSTwilio.php?to='+data.to+'&text='+data.text
 
-	    })
+	//     })
 
 	}
 
