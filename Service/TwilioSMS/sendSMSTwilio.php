@@ -27,5 +27,17 @@ $result = $client->messages->create($to,
 	        'body' => $text
 	    )
 	);
-echo json_encode($result);
+// $result=json_encode($result[0]);
+// print_r($result);
+echo "Result=".$result['content'];
 ?>
+
+
+<!-- $client->messages->create(
+    '+15558675310',
+    array(
+        'from' => '+15017122661',
+        'body' => "McAvoy or Stewart? These timelines can get so confusing.",
+        'statusCallback' => "http://requestb.in/1234abcd"
+    )
+); -->
