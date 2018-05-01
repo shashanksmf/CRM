@@ -33,14 +33,14 @@ class SecurityServiceProviderTest extends WebTestCase
     public function testWrongAuthenticationType()
     {
         $app = new Application();
-        $app->register(new SecurityServiceProvider(), [
-            'security.firewalls' => [
-                'wrong' => [
+        $app->register(new SecurityServiceProvider(), array(
+            'security.firewalls' => array(
+                'wrong' => array(
                     'foobar' => true,
-                    'users' => [],
-                ],
-            ],
-        ]);
+                    'users' => array(),
+                ),
+            ),
+        ));
         $app->get('/', function () {});
         $app->handle(Request::create('/'));
     }
@@ -54,12 +54,12 @@ class SecurityServiceProviderTest extends WebTestCase
         $client->request('get', '/');
         $this->assertEquals('ANONYMOUS', $client->getResponse()->getContent());
 
-        $client->request('post', '/login_check', ['_username' => 'fabien', '_password' => 'bar']);
+        $client->request('post', '/login_check', array('_username' => 'fabien', '_password' => 'bar'));
         $this->assertContains('Bad credentials', $app['security.last_error']($client->getRequest()));
         // hack to re-close the session as the previous assertions re-opens it
         $client->getRequest()->getSession()->save();
 
-        $client->request('post', '/login_check', ['_username' => 'fabien', '_password' => 'foo']);
+        $client->request('post', '/login_check', array('_username' => 'fabien', '_password' => 'foo'));
         $this->assertEquals('', $app['security.last_error']($client->getRequest()));
         $client->getRequest()->getSession()->save();
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
@@ -81,7 +81,7 @@ class SecurityServiceProviderTest extends WebTestCase
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
         $this->assertEquals('http://localhost/login', $client->getResponse()->getTargetUrl());
 
-        $client->request('post', '/login_check', ['_username' => 'admin', '_password' => 'foo']);
+        $client->request('post', '/login_check', array('_username' => 'admin', '_password' => 'foo'));
         $this->assertEquals('', $app['security.last_error']($client->getRequest()));
         $client->getRequest()->getSession()->save();
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
@@ -103,7 +103,7 @@ class SecurityServiceProviderTest extends WebTestCase
         $this->assertEquals(401, $client->getResponse()->getStatusCode());
         $this->assertEquals('Basic realm="Secured"', $client->getResponse()->headers->get('www-authenticate'));
 
-        $client->request('get', '/', [], [], ['PHP_AUTH_USER' => 'dennis', 'PHP_AUTH_PW' => 'foo']);
+        $client->request('get', '/', array(), array(), array('PHP_AUTH_USER' => 'dennis', 'PHP_AUTH_PW' => 'foo'));
         $this->assertEquals('dennisAUTHENTICATED', $client->getResponse()->getContent());
         $client->request('get', '/admin');
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
@@ -114,7 +114,7 @@ class SecurityServiceProviderTest extends WebTestCase
         $this->assertEquals(401, $client->getResponse()->getStatusCode());
         $this->assertEquals('Basic realm="Secured"', $client->getResponse()->headers->get('www-authenticate'));
 
-        $client->request('get', '/', [], [], ['PHP_AUTH_USER' => 'admin', 'PHP_AUTH_PW' => 'foo']);
+        $client->request('get', '/', array(), array(), array('PHP_AUTH_USER' => 'admin', 'PHP_AUTH_PW' => 'foo'));
         $this->assertEquals('adminAUTHENTICATEDADMIN', $client->getResponse()->getContent());
         $client->request('get', '/admin');
         $this->assertEquals('admin', $client->getResponse()->getContent());
@@ -130,15 +130,15 @@ class SecurityServiceProviderTest extends WebTestCase
         $this->assertEquals(401, $client->getResponse()->getStatusCode(), 'The entry point is configured');
         $this->assertEquals('{"message":"Authentication Required"}', $client->getResponse()->getContent());
 
-        $client->request('get', '/', [], [], ['HTTP_X_AUTH_TOKEN' => 'lili:not the secret']);
+        $client->request('get', '/', array(), array(), array('HTTP_X_AUTH_TOKEN' => 'lili:not the secret'));
         $this->assertEquals(403, $client->getResponse()->getStatusCode(), 'User not found');
         $this->assertEquals('{"message":"Username could not be found."}', $client->getResponse()->getContent());
 
-        $client->request('get', '/', [], [], ['HTTP_X_AUTH_TOKEN' => 'victoria:not the secret']);
+        $client->request('get', '/', array(), array(), array('HTTP_X_AUTH_TOKEN' => 'victoria:not the secret'));
         $this->assertEquals(403, $client->getResponse()->getStatusCode(), 'Invalid credentials');
         $this->assertEquals('{"message":"Invalid credentials."}', $client->getResponse()->getContent());
 
-        $client->request('get', '/', [], [], ['HTTP_X_AUTH_TOKEN' => 'victoria:victoriasecret']);
+        $client->request('get', '/', array(), array(), array('HTTP_X_AUTH_TOKEN' => 'victoria:victoriasecret'));
         $this->assertEquals('victoria', $client->getResponse()->getContent());
     }
 
@@ -146,18 +146,18 @@ class SecurityServiceProviderTest extends WebTestCase
     {
         $app = new Application();
 
-        $app->register(new SecurityServiceProvider(), [
-            'security.firewalls' => [
-                'admin' => [
+        $app->register(new ValidatorServiceProvider());
+        $app->register(new SecurityServiceProvider(), array(
+            'security.firewalls' => array(
+                'admin' => array(
                     'pattern' => '^/admin',
                     'http' => true,
-                    'users' => [
-                        'admin' => ['ROLE_ADMIN', '513aeb0121909'],
-                    ],
-                ],
-            ],
-        ]);
-        $app->register(new ValidatorServiceProvider());
+                    'users' => array(
+                        'admin' => array('ROLE_ADMIN', '513aeb0121909'),
+                    ),
+                ),
+            ),
+        ));
 
         $app->boot();
 
@@ -174,11 +174,11 @@ class SecurityServiceProviderTest extends WebTestCase
         $client->request('get', '/');
         $this->assertEquals('ANONYMOUS', $client->getResponse()->getContent());
 
-        $client->request('post', '/login_check', ['_username' => 'fabien', '_password' => 'bar']);
+        $client->request('post', '/login_check', array('_username' => 'fabien', '_password' => 'bar'));
         $this->assertEquals('The presented password is invalid.', $app['security.last_error']($client->getRequest()));
         $client->getRequest()->getSession()->save();
 
-        $client->request('post', '/login_check', ['_username' => 'unknown', '_password' => 'bar']);
+        $client->request('post', '/login_check', array('_username' => 'unknown', '_password' => 'bar'));
         $this->assertEquals('Username "unknown" does not exist.', $app['security.last_error']($client->getRequest()));
         $client->getRequest()->getSession()->save();
     }
@@ -187,13 +187,13 @@ class SecurityServiceProviderTest extends WebTestCase
     {
         $app = new Application();
 
-        $app->register(new SecurityServiceProvider(), [
-            'security.firewalls' => [
-                'admin' => [
+        $app->register(new SecurityServiceProvider(), array(
+            'security.firewalls' => array(
+                'admin' => array(
                     'logout' => true,
-                ],
-            ],
-        ]);
+                ),
+            ),
+        ));
 
         $app->boot();
         $app->flush();
@@ -201,70 +201,19 @@ class SecurityServiceProviderTest extends WebTestCase
         $this->assertCount(1, unserialize(serialize($app['routes'])));
     }
 
-    public function testFirewallWithMethod()
-    {
-        $app = new Application();
-        $app->register(new SecurityServiceProvider(), [
-            'security.firewalls' => [
-                'default' => [
-                    'pattern' => '/',
-                    'http' => true,
-                    'methods' => ['POST'],
-                ],
-            ],
-        ]);
-        $app->match('/', function () { return 'foo'; })
-        ->method('POST|GET');
-
-        $request = Request::create('/', 'GET');
-        $response = $app->handle($request);
-        $this->assertEquals(200, $response->getStatusCode());
-
-        $request = Request::create('/', 'POST');
-        $response = $app->handle($request);
-        $this->assertEquals(401, $response->getStatusCode());
-    }
-
-    public function testFirewallWithHost()
-    {
-        $app = new Application();
-        $app->register(new SecurityServiceProvider(), [
-            'security.firewalls' => [
-                'default' => [
-                    'pattern' => '/',
-                    'http' => true,
-                    'hosts' => 'localhost2',
-                ],
-            ],
-        ]);
-        $app->get('/', function () { return 'foo'; })
-        ->host('localhost2');
-
-        $app->get('/', function () { return 'foo'; })
-        ->host('localhost1');
-
-        $request = Request::create('http://localhost2/');
-        $response = $app->handle($request);
-        $this->assertEquals(401, $response->getStatusCode());
-
-        $request = Request::create('http://localhost1/');
-        $response = $app->handle($request);
-        $this->assertEquals(200, $response->getStatusCode());
-    }
-
     public function testUser()
     {
         $app = new Application();
-        $app->register(new SecurityServiceProvider(), [
-            'security.firewalls' => [
-                'default' => [
+        $app->register(new SecurityServiceProvider(), array(
+            'security.firewalls' => array(
+                'default' => array(
                     'http' => true,
-                    'users' => [
-                        'fabien' => ['ROLE_ADMIN', '$2y$15$lzUNsTegNXvZW3qtfucV0erYBcEqWVeyOmjolB7R1uodsAVJ95vvu'],
-                    ],
-                ],
-            ],
-        ]);
+                    'users' => array(
+                        'fabien' => array('ROLE_ADMIN', '$2y$15$lzUNsTegNXvZW3qtfucV0erYBcEqWVeyOmjolB7R1uodsAVJ95vvu'),
+                    ),
+                ),
+            ),
+        ));
         $app->get('/', function () { return 'foo'; });
 
         $request = Request::create('/');
@@ -281,13 +230,13 @@ class SecurityServiceProviderTest extends WebTestCase
     public function testUserWithNoToken()
     {
         $app = new Application();
-        $app->register(new SecurityServiceProvider(), [
-            'security.firewalls' => [
-                'default' => [
+        $app->register(new SecurityServiceProvider(), array(
+            'security.firewalls' => array(
+                'default' => array(
                     'http' => true,
-                ],
-            ],
-        ]);
+                ),
+            ),
+        ));
 
         $request = Request::create('/');
 
@@ -299,13 +248,13 @@ class SecurityServiceProviderTest extends WebTestCase
     public function testUserWithInvalidUser()
     {
         $app = new Application();
-        $app->register(new SecurityServiceProvider(), [
-            'security.firewalls' => [
-                'default' => [
+        $app->register(new SecurityServiceProvider(), array(
+            'security.firewalls' => array(
+                'default' => array(
                     'http' => true,
-                ],
-            ],
-        ]);
+                ),
+            ),
+        ));
 
         $request = Request::create('/');
         $app->boot();
@@ -319,26 +268,26 @@ class SecurityServiceProviderTest extends WebTestCase
     public function testAccessRulePathArray()
     {
         $app = new Application();
-        $app->register(new SecurityServiceProvider(), [
-            'security.firewalls' => [
-                'default' => [
+        $app->register(new SecurityServiceProvider(), array(
+            'security.firewalls' => array(
+                'default' => array(
                     'http' => true,
-                ],
-            ],
-            'security.access_rules' => [
-                [[
+                ),
+            ),
+            'security.access_rules' => array(
+                array(array(
                     'path' => '^/admin',
-                ], 'ROLE_ADMIN'],
-            ],
-        ]);
+                ), 'ROLE_ADMIN'),
+            ),
+        ));
 
         $request = Request::create('/admin');
         $app->boot();
         $accessMap = $app['security.access_map'];
-        $this->assertEquals($accessMap->getPatterns($request), [
-            ['ROLE_ADMIN'],
+        $this->assertEquals($accessMap->getPatterns($request), array(
+            array('ROLE_ADMIN'),
             '',
-        ]);
+        ));
     }
 
     public function createApplication($authenticationMethod = 'form')
@@ -346,7 +295,7 @@ class SecurityServiceProviderTest extends WebTestCase
         $app = new Application();
         $app->register(new SessionServiceProvider());
 
-        $app = call_user_func([$this, 'add'.ucfirst($authenticationMethod).'Authentication'], $app);
+        $app = call_user_func(array($this, 'add'.ucfirst($authenticationMethod).'Authentication'), $app);
 
         $app['session.test'] = true;
 
@@ -355,32 +304,32 @@ class SecurityServiceProviderTest extends WebTestCase
 
     private function addFormAuthentication($app)
     {
-        $app->register(new SecurityServiceProvider(), [
-            'security.firewalls' => [
-                'login' => [
+        $app->register(new SecurityServiceProvider(), array(
+            'security.firewalls' => array(
+                'login' => array(
                     'pattern' => '^/login$',
-                ],
-                'default' => [
+                ),
+                'default' => array(
                     'pattern' => '^.*$',
                     'anonymous' => true,
-                    'form' => [
+                    'form' => array(
                         'require_previous_session' => false,
-                    ],
+                    ),
                     'logout' => true,
-                    'users' => [
+                    'users' => array(
                         // password is foo
-                        'fabien' => ['ROLE_USER', '$2y$15$lzUNsTegNXvZW3qtfucV0erYBcEqWVeyOmjolB7R1uodsAVJ95vvu'],
-                        'admin' => ['ROLE_ADMIN', '$2y$15$lzUNsTegNXvZW3qtfucV0erYBcEqWVeyOmjolB7R1uodsAVJ95vvu'],
-                    ],
-                ],
-            ],
-            'security.access_rules' => [
-                ['^/admin', 'ROLE_ADMIN'],
-            ],
-            'security.role_hierarchy' => [
-                'ROLE_ADMIN' => ['ROLE_USER'],
-            ],
-        ]);
+                        'fabien' => array('ROLE_USER', '$2y$15$lzUNsTegNXvZW3qtfucV0erYBcEqWVeyOmjolB7R1uodsAVJ95vvu'),
+                        'admin' => array('ROLE_ADMIN', '$2y$15$lzUNsTegNXvZW3qtfucV0erYBcEqWVeyOmjolB7R1uodsAVJ95vvu'),
+                    ),
+                ),
+            ),
+            'security.access_rules' => array(
+                array('^/admin', 'ROLE_ADMIN'),
+            ),
+            'security.role_hierarchy' => array(
+                'ROLE_ADMIN' => array('ROLE_USER'),
+            ),
+        ));
 
         $app->get('/login', function (Request $request) use ($app) {
             $app['session']->start();
@@ -413,25 +362,25 @@ class SecurityServiceProviderTest extends WebTestCase
 
     private function addHttpAuthentication($app)
     {
-        $app->register(new SecurityServiceProvider(), [
-            'security.firewalls' => [
-                'http-auth' => [
+        $app->register(new SecurityServiceProvider(), array(
+            'security.firewalls' => array(
+                'http-auth' => array(
                     'pattern' => '^.*$',
                     'http' => true,
-                    'users' => [
+                    'users' => array(
                         // password is foo
-                        'dennis' => ['ROLE_USER', '$2y$15$lzUNsTegNXvZW3qtfucV0erYBcEqWVeyOmjolB7R1uodsAVJ95vvu'],
-                        'admin' => ['ROLE_ADMIN', '$2y$15$lzUNsTegNXvZW3qtfucV0erYBcEqWVeyOmjolB7R1uodsAVJ95vvu'],
-                    ],
-                ],
-            ],
-            'security.access_rules' => [
-                ['^/admin', 'ROLE_ADMIN'],
-            ],
-            'security.role_hierarchy' => [
-                'ROLE_ADMIN' => ['ROLE_USER'],
-            ],
-        ]);
+                        'dennis' => array('ROLE_USER', '$2y$15$lzUNsTegNXvZW3qtfucV0erYBcEqWVeyOmjolB7R1uodsAVJ95vvu'),
+                        'admin' => array('ROLE_ADMIN', '$2y$15$lzUNsTegNXvZW3qtfucV0erYBcEqWVeyOmjolB7R1uodsAVJ95vvu'),
+                    ),
+                ),
+            ),
+            'security.access_rules' => array(
+                array('^/admin', 'ROLE_ADMIN'),
+            ),
+            'security.role_hierarchy' => array(
+                'ROLE_ADMIN' => array('ROLE_USER'),
+            ),
+        ));
 
         $app->get('/', function () use ($app) {
             $user = $app['security.token_storage']->getToken()->getUser();
@@ -461,22 +410,22 @@ class SecurityServiceProviderTest extends WebTestCase
             return new SecurityServiceProviderTest\TokenAuthenticator($app);
         };
 
-        $app->register(new SecurityServiceProvider(), [
-            'security.firewalls' => [
-                'guard' => [
+        $app->register(new SecurityServiceProvider(), array(
+            'security.firewalls' => array(
+                'guard' => array(
                     'pattern' => '^.*$',
                     'form' => true,
-                    'guard' => [
-                        'authenticators' => [
+                    'guard' => array(
+                        'authenticators' => array(
                             'app.authenticator.token',
-                        ],
-                    ],
-                    'users' => [
-                        'victoria' => ['ROLE_USER', 'victoriasecret'],
-                    ],
-                ],
-            ],
-        ]);
+                        ),
+                    ),
+                    'users' => array(
+                        'victoria' => array('ROLE_USER', 'victoriasecret'),
+                    ),
+                ),
+            ),
+        ));
 
         $app->get('/', function () use ($app) {
             $user = $app['security.token_storage']->getToken()->getUser();

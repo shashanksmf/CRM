@@ -11,7 +11,6 @@
 
 namespace Silex\Tests\Application;
 
-use PHPUnit\Framework\TestCase;
 use Silex\Provider\SwiftmailerServiceProvider;
 
 /**
@@ -19,7 +18,7 @@ use Silex\Provider\SwiftmailerServiceProvider;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class SwiftmailerTraitTest extends TestCase
+class SwiftmailerTraitTest extends \PHPUnit_Framework_TestCase
 {
     public function testMail()
     {

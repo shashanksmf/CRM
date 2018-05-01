@@ -16,8 +16,7 @@ use Pimple\ServiceProviderInterface;
 use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
 use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationExtension;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension as FormValidatorExtension;
-use Symfony\Component\Form\FormFactory;
-use Symfony\Component\Form\FormRegistry;
+use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\ResolvedFormTypeFactory;
 
 /**
@@ -34,15 +33,15 @@ class FormServiceProvider implements ServiceProviderInterface
         }
 
         $app['form.types'] = function ($app) {
-            return [];
+            return array();
         };
 
         $app['form.type.extensions'] = function ($app) {
-            return [];
+            return array();
         };
 
         $app['form.type.guessers'] = function ($app) {
-            return [];
+            return array();
         };
 
         $app['form.extension.csrf'] = function ($app) {
@@ -58,9 +57,9 @@ class FormServiceProvider implements ServiceProviderInterface
         };
 
         $app['form.extensions'] = function ($app) {
-            $extensions = [
+            $extensions = array(
                 new HttpFoundationExtension(),
-            ];
+            );
 
             if (isset($app['csrf.token_manager'])) {
                 $extensions[] = $app['form.extension.csrf'];
@@ -75,11 +74,11 @@ class FormServiceProvider implements ServiceProviderInterface
         };
 
         $app['form.factory'] = function ($app) {
-            return new FormFactory($app['form.registry'], $app['form.resolved_type_factory']);
-        };
-
-        $app['form.registry'] = function ($app) {
-            return new FormRegistry($app['form.extensions'], $app['form.resolved_type_factory']);
+            return Forms::createFormFactoryBuilder()
+                ->addExtensions($app['form.extensions'])
+                ->setResolvedTypeFactory($app['form.resolved_type_factory'])
+                ->getFormFactory()
+            ;
         };
 
         $app['form.resolved_type_factory'] = function ($app) {

@@ -11,28 +11,22 @@
 
 namespace Silex\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Silex\ControllerResolver;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * ControllerResolver test cases.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ControllerResolverTest extends TestCase
+class ControllerResolverTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @group legacy
      */
     public function testGetArguments()
     {
-        if (Kernel::VERSION_ID >= 30100) {
-            self::markTestSkipped('HttpKernel < 3.1.0 is required');
-        }
-
         $app = new Application();
         $resolver = new ControllerResolver($app);
 

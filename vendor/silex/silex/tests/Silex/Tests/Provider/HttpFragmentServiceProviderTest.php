@@ -11,14 +11,13 @@
 
 namespace Silex\Tests\Provider;
 
-use PHPUnit\Framework\TestCase;
 use Silex\Application;
 use Silex\Provider\HttpCacheServiceProvider;
 use Silex\Provider\HttpFragmentServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
 
-class HttpFragmentServiceProviderTest extends TestCase
+class HttpFragmentServiceProviderTest extends \PHPUnit_Framework_TestCase
 {
     public function testRenderFunction()
     {
@@ -26,13 +25,13 @@ class HttpFragmentServiceProviderTest extends TestCase
         unset($app['exception_handler']);
 
         $app->register(new HttpFragmentServiceProvider());
-        $app->register(new HttpCacheServiceProvider(), ['http_cache.cache_dir' => sys_get_temp_dir()]);
-        $app->register(new TwigServiceProvider(), [
-            'twig.templates' => [
+        $app->register(new HttpCacheServiceProvider(), array('http_cache.cache_dir' => sys_get_temp_dir()));
+        $app->register(new TwigServiceProvider(), array(
+            'twig.templates' => array(
                 'hello' => '{{ render("/foo") }}{{ render_esi("/foo") }}{{ render_hinclude("/foo") }}',
                 'foo' => 'foo',
-            ],
-        ]);
+            ),
+        ));
 
         $app->get('/hello', function () use ($app) {
             return $app['twig']->render('hello');

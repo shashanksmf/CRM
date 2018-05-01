@@ -54,9 +54,9 @@ class ValidatorServiceProvider implements ServiceProviderInterface
         };
 
         $app['validator.object_initializers'] = function ($app) {
-            return [];
+            return array();
         };
 
-        $app['validator.validator_service_ids'] = [];
+        $app['validator.validator_service_ids'] = array();
     }
 }

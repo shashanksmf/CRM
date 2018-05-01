@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 /**
  * Enables name_of_service:method_name syntax for declaring controllers.
  *
- * @see http://silex.sensiolabs.org/doc/providers/service_controller.html
+ * @link http://silex.sensiolabs.org/doc/providers/service_controller.html
  */
 class ServiceControllerResolver implements ControllerResolverInterface
 {

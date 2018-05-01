@@ -29,7 +29,7 @@ class RedirectableUrlMatcher extends BaseRedirectableUrlMatcher
         $url = $this->context->getBaseUrl().$path;
         $query = $this->context->getQueryString() ?: '';
 
-        if ('' !== $query) {
+        if ($query !== '') {
             $url .= '?'.$query;
         }
 
@@ -46,10 +46,9 @@ class RedirectableUrlMatcher extends BaseRedirectableUrlMatcher
             }
         }
 
-        return [
+        return array(
             '_controller' => function ($url) { return new RedirectResponse($url, 301); },
-            '_route' => $route,
             'url' => $url,
-        ];
+        );
     }
 }

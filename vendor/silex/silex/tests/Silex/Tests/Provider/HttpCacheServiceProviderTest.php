@@ -11,7 +11,6 @@
 
 namespace Silex\Tests\Provider;
 
-use PHPUnit\Framework\TestCase;
 use Silex\Application;
 use Silex\Provider\HttpCacheServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,15 +21,15 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @author Igor Wiedler <igor@wiedler.ch>
  */
-class HttpCacheServiceProviderTest extends TestCase
+class HttpCacheServiceProviderTest extends \PHPUnit_Framework_TestCase
 {
     public function testRegister()
     {
         $app = new Application();
 
-        $app->register(new HttpCacheServiceProvider(), [
+        $app->register(new HttpCacheServiceProvider(), array(
             'http_cache.cache_dir' => sys_get_temp_dir().'/silex_http_cache_'.uniqid(),
-        ]);
+        ));
 
         $this->assertInstanceOf('Silex\Provider\HttpCache\HttpCache', $app['http_cache']);
 
@@ -62,9 +61,9 @@ class HttpCacheServiceProviderTest extends TestCase
     {
         $app = new Application();
 
-        $app->register(new HttpCacheServiceProvider(), [
+        $app->register(new HttpCacheServiceProvider(), array(
             'http_cache.cache_dir' => sys_get_temp_dir().'/silex_http_cache_'.uniqid(),
-        ]);
+        ));
 
         $app['debug'] = true;
         $app['http_cache'];

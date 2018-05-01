@@ -11,7 +11,6 @@
 
 namespace Silex\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Silex\Controller;
 use Silex\Route;
 
@@ -20,7 +19,7 @@ use Silex\Route;
  *
  * @author Igor Wiedler <igor@wiedler.ch>
  */
-class ControllerTest extends TestCase
+class ControllerTest extends \PHPUnit_Framework_TestCase
 {
     public function testBind()
     {
@@ -48,7 +47,7 @@ class ControllerTest extends TestCase
         $ret = $controller->assert('bar', '\d+');
 
         $this->assertSame($ret, $controller);
-        $this->assertEquals(['bar' => '\d+'], $controller->getRoute()->getRequirements());
+        $this->assertEquals(array('bar' => '\d+'), $controller->getRoute()->getRequirements());
     }
 
     public function testValue()
@@ -57,7 +56,7 @@ class ControllerTest extends TestCase
         $ret = $controller->value('bar', 'foo');
 
         $this->assertSame($ret, $controller);
-        $this->assertEquals(['bar' => 'foo'], $controller->getRoute()->getDefaults());
+        $this->assertEquals(array('bar' => 'foo'), $controller->getRoute()->getDefaults());
     }
 
     public function testConvert()
@@ -66,7 +65,7 @@ class ControllerTest extends TestCase
         $ret = $controller->convert('bar', $func = function ($bar) { return $bar; });
 
         $this->assertSame($ret, $controller);
-        $this->assertEquals(['bar' => $func], $controller->getRoute()->getOption('_converters'));
+        $this->assertEquals(array('bar' => $func), $controller->getRoute()->getOption('_converters'));
     }
 
     public function testRun()
@@ -91,13 +90,13 @@ class ControllerTest extends TestCase
 
     public function provideRouteAndExpectedRouteName()
     {
-        return [
-            [new Route('/Invalid%Symbols#Stripped', [], [], [], '', [], ['POST']), '', 'POST_InvalidSymbolsStripped'],
-            [new Route('/post/{id}', [], [], [], '', [], ['GET']), '', 'GET_post_id'],
-            [new Route('/colon:pipe|dashes-escaped'), '', '_colon_pipe_dashes_escaped'],
-            [new Route('/underscores_and.periods'), '', '_underscores_and.periods'],
-            [new Route('/post/{id}', [], [], [], '', [], ['GET']), 'prefix', 'GET_prefix_post_id'],
-        ];
+        return array(
+            array(new Route('/Invalid%Symbols#Stripped', array(), array(), array(), '', array(), array('POST')), '', 'POST_InvalidSymbolsStripped'),
+            array(new Route('/post/{id}', array(), array(), array(), '', array(), array('GET')), '', 'GET_post_id'),
+            array(new Route('/colon:pipe|dashes-escaped'), '', '_colon_pipe_dashes_escaped'),
+            array(new Route('/underscores_and.periods'), '', '_underscores_and.periods'),
+            array(new Route('/post/{id}', array(), array(), array(), '', array(), array('GET')), 'prefix', 'GET_prefix_post_id'),
+        );
     }
 
     public function testRouteExtension()

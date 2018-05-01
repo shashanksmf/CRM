@@ -11,7 +11,6 @@
 
 namespace Silex\Tests\Application;
 
-use PHPUnit\Framework\TestCase;
 use Silex\Provider\TwigServiceProvider;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -21,7 +20,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class TwigTraitTest extends TestCase
+class TwigTraitTest extends \PHPUnit_Framework_TestCase
 {
     public function testRender()
     {
@@ -42,7 +41,7 @@ class TwigTraitTest extends TestCase
         $app['twig'] = $mailer = $this->getMockBuilder('Twig_Environment')->disableOriginalConstructor()->getMock();
         $mailer->expects($this->once())->method('render')->will($this->returnValue('foo'));
 
-        $response = $app->render('view', [], new Response('', 404));
+        $response = $app->render('view', array(), new Response('', 404));
         $this->assertEquals(404, $response->getStatusCode());
     }
 
@@ -53,7 +52,7 @@ class TwigTraitTest extends TestCase
         $app['twig'] = $mailer = $this->getMockBuilder('Twig_Environment')->disableOriginalConstructor()->getMock();
         $mailer->expects($this->once())->method('display')->will($this->returnCallback(function () { echo 'foo'; }));
 
-        $response = $app->render('view', [], new StreamedResponse());
+        $response = $app->render('view', array(), new StreamedResponse());
         $this->assertEquals('Symfony\Component\HttpFoundation\StreamedResponse', get_class($response));
 
         ob_start();

@@ -41,12 +41,12 @@ use Silex\Provider\HttpKernelServiceProvider;
  */
 class Application extends Container implements HttpKernelInterface, TerminableInterface
 {
-    const VERSION = '2.2.3';
+    const VERSION = '2.0.4';
 
     const EARLY_EVENT = 512;
     const LATE_EVENT = -512;
 
-    protected $providers = [];
+    protected $providers = array();
     protected $booted = false;
 
     /**
@@ -54,9 +54,9 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
      *
      * Objects and parameters can be passed as argument to the constructor.
      *
-     * @param array $values the parameters or objects
+     * @param array $values The parameters or objects.
      */
-    public function __construct(array $values = [])
+    public function __construct(array $values = array())
     {
         parent::__construct();
 
@@ -83,7 +83,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
      *
      * @return Application
      */
-    public function register(ServiceProviderInterface $provider, array $values = [])
+    public function register(ServiceProviderInterface $provider, array $values = array())
     {
         $this->providers[] = $provider;
 
@@ -311,7 +311,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
      * @param string $message    The status message
      * @param array  $headers    An array of HTTP headers
      */
-    public function abort($statusCode, $message = '', array $headers = [])
+    public function abort($statusCode, $message = '', array $headers = array())
     {
         throw new HttpException($statusCode, $message, null, $headers);
     }
@@ -385,7 +385,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
      *
      * @return StreamedResponse
      */
-    public function stream($callback = null, $status = 200, array $headers = [])
+    public function stream($callback = null, $status = 200, array $headers = array())
     {
         return new StreamedResponse($callback, $status, $headers);
     }
@@ -414,7 +414,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
      *
      * @return JsonResponse
      */
-    public function json($data = [], $status = 200, array $headers = [])
+    public function json($data = array(), $status = 200, array $headers = array())
     {
         return new JsonResponse($data, $status, $headers);
     }
@@ -429,7 +429,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
      *
      * @return BinaryFileResponse
      */
-    public function sendFile($file, $status = 200, array $headers = [], $contentDisposition = null)
+    public function sendFile($file, $status = 200, array $headers = array(), $contentDisposition = null)
     {
         return new BinaryFileResponse($file, $status, $headers, true, $contentDisposition);
     }

@@ -11,7 +11,6 @@
 
 namespace Silex\Tests\Provider;
 
-use PHPUnit\Framework\TestCase;
 use Silex\Application;
 use Silex\Provider\SerializerServiceProvider;
 
@@ -20,7 +19,7 @@ use Silex\Provider\SerializerServiceProvider;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class SerializerServiceProviderTest extends TestCase
+class SerializerServiceProviderTest extends \PHPUnit_Framework_TestCase
 {
     public function testRegister()
     {

@@ -39,7 +39,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ControllerCollection
 {
-    protected $controllers = [];
+    protected $controllers = array();
     protected $defaultRoute;
     protected $defaultController;
     protected $prefix;
@@ -68,7 +68,6 @@ class ControllerCollection
     {
         if (is_callable($controllers)) {
             $collection = $this->controllersFactory ? call_user_func($this->controllersFactory) : new static(new Route(), new RouteCollection());
-            $collection->defaultRoute = clone $this->defaultRoute;
             call_user_func($controllers, $collection);
             $controllers = $collection;
         } elseif (!$controllers instanceof self) {
@@ -184,10 +183,10 @@ class ControllerCollection
             throw new \BadMethodCallException(sprintf('Method "%s::%s" does not exist.', get_class($this->defaultRoute), $method));
         }
 
-        call_user_func_array([$this->defaultRoute, $method], $arguments);
+        call_user_func_array(array($this->defaultRoute, $method), $arguments);
 
         foreach ($this->controllers as $controller) {
-            call_user_func_array([$controller, $method], $arguments);
+            call_user_func_array(array($controller, $method), $arguments);
         }
 
         return $this;
@@ -211,7 +210,7 @@ class ControllerCollection
 
     private function doFlush($prefix, RouteCollection $routes)
     {
-        if ('' !== $prefix) {
+        if ($prefix !== '') {
             $prefix = '/'.trim(trim($prefix), '/');
         }
 
@@ -233,7 +232,7 @@ class ControllerCollection
             }
         }
 
-        $this->controllers = [];
+        $this->controllers = array();
 
         return $routes;
     }

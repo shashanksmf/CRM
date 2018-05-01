@@ -11,7 +11,6 @@
 
 namespace Silex\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -20,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @author Igor Wiedler <igor@wiedler.ch>
  */
-class StreamTest extends TestCase
+class StreamTest extends \PHPUnit_Framework_TestCase
 {
     public function testStreamReturnsStreamingResponse()
     {
@@ -28,7 +27,7 @@ class StreamTest extends TestCase
 
         $response = $app->stream();
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\StreamedResponse', $response);
-        $this->assertFalse($response->getContent());
+        $this->assertSame(false, $response->getContent());
     }
 
     public function testStreamActuallyStreams()

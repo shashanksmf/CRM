@@ -11,11 +11,10 @@
 
 namespace Silex\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Pimple\Container;
 use Silex\CallbackResolver;
 
-class CallbackResolverTest extends Testcase
+class CallbackResolverTest extends \PHPUnit_Framework_Testcase
 {
     private $app;
     private $resolver;
@@ -37,7 +36,7 @@ class CallbackResolverTest extends Testcase
         $this->assertTrue($this->resolver->isValid('some_service:methodName'));
         $this->assertTrue($this->resolver->isValid('callable_service'));
         $this->assertEquals(
-            [$this->app['some_service'], 'append'],
+            array($this->app['some_service'], 'append'),
             $this->resolver->convertCallback('some_service:append')
         );
         $this->assertSame($callable, $this->resolver->convertCallback('callable_service'));
@@ -53,11 +52,11 @@ class CallbackResolverTest extends Testcase
 
     public function nonStringsAreNotValidProvider()
     {
-        return [
-            [null],
-            ['some_service::methodName'],
-            ['missing_service'],
-        ];
+        return array(
+            array(null),
+            array('some_service::methodName'),
+            array('missing_service'),
+        );
     }
 
     /**
@@ -68,15 +67,15 @@ class CallbackResolverTest extends Testcase
     public function testShouldThrowAnExceptionIfServiceIsNotCallable($name)
     {
         $this->app['non_callable_obj'] = function () { return new \stdClass(); };
-        $this->app['non_callable'] = function () { return []; };
+        $this->app['non_callable'] = function () { return array(); };
         $this->resolver->convertCallback($name);
     }
 
     public function shouldThrowAnExceptionIfServiceIsNotCallableProvider()
     {
-        return [
-            ['non_callable_obj:methodA'],
-            ['non_callable'],
-        ];
+        return array(
+            array('non_callable_obj:methodA'),
+            array('non_callable'),
+        );
     }
 }

@@ -11,28 +11,18 @@
 
 namespace Silex\Tests\Application;
 
-use PHPUnit\Framework\TestCase;
 use Silex\Provider\FormServiceProvider;
-use Symfony\Component\Form\FormBuilder;
 
 /**
  * FormTrait test cases.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class FormTraitTest extends TestCase
+class FormTraitTest extends \PHPUnit_Framework_TestCase
 {
     public function testForm()
     {
-        $this->assertInstanceOf(FormBuilder::class, $this->createApplication()->form());
-    }
-
-    public function testNamedForm()
-    {
-        $builder = $this->createApplication()->namedForm('foo');
-
-        $this->assertInstanceOf(FormBuilder::class, $builder);
-        $this->assertSame('foo', $builder->getName());
+        $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->createApplication()->form());
     }
 
     public function createApplication()
