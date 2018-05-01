@@ -11,9 +11,7 @@
 
 namespace Symfony\Bridge\Twig\Tests\Extension\Fixtures;
 
-use Twig\Loader\FilesystemLoader;
-
-class StubFilesystemLoader extends FilesystemLoader
+class StubFilesystemLoader extends \Twig_Loader_Filesystem
 {
     protected function findTemplate($name, $throw = true)
     {

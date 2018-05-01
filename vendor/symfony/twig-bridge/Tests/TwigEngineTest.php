@@ -14,8 +14,6 @@ namespace Symfony\Bridge\Twig\Tests;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Twig\TwigEngine;
 use Symfony\Component\Templating\TemplateReference;
-use Twig\Environment;
-use Twig\Loader\ArrayLoader;
 
 class TwigEngineTest extends TestCase
 {
@@ -23,7 +21,7 @@ class TwigEngineTest extends TestCase
     {
         $engine = $this->getTwig();
 
-        $this->assertTrue($engine->exists($this->getMockForAbstractClass('Twig\Template', array(), '', false)));
+        $this->assertTrue($engine->exists($this->getMockForAbstractClass('Twig_Template', array(), '', false)));
     }
 
     public function testExistsWithNonExistentTemplates()
@@ -59,7 +57,7 @@ class TwigEngineTest extends TestCase
     }
 
     /**
-     * @expectedException \Twig\Error\SyntaxError
+     * @expectedException \Twig_Error_Syntax
      */
     public function testRenderWithError()
     {
@@ -70,7 +68,7 @@ class TwigEngineTest extends TestCase
 
     protected function getTwig()
     {
-        $twig = new Environment(new ArrayLoader(array(
+        $twig = new \Twig_Environment(new \Twig_Loader_Array(array(
             'index' => 'foo',
             'error' => '{{ foo }',
         )));

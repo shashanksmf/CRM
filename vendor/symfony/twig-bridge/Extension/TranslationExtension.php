@@ -17,23 +17,23 @@ use Symfony\Bridge\Twig\TokenParser\TransDefaultDomainTokenParser;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Bridge\Twig\NodeVisitor\TranslationNodeVisitor;
 use Symfony\Bridge\Twig\NodeVisitor\TranslationDefaultDomainNodeVisitor;
-use Twig\Extension\AbstractExtension;
-use Twig\NodeVisitor\NodeVisitorInterface;
-use Twig\TokenParser\AbstractTokenParser;
-use Twig\TwigFilter;
 
 /**
  * Provides integration of the Translation component with Twig.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class TranslationExtension extends AbstractExtension
+class TranslationExtension extends \Twig_Extension
 {
     private $translator;
     private $translationNodeVisitor;
 
-    public function __construct(TranslatorInterface $translator = null, NodeVisitorInterface $translationNodeVisitor = null)
+    public function __construct(TranslatorInterface $translator, \Twig_NodeVisitorInterface $translationNodeVisitor = null)
     {
+        if (!$translationNodeVisitor) {
+            $translationNodeVisitor = new TranslationNodeVisitor();
+        }
+
         $this->translator = $translator;
         $this->translationNodeVisitor = $translationNodeVisitor;
     }
@@ -49,15 +49,15 @@ class TranslationExtension extends AbstractExtension
     public function getFilters()
     {
         return array(
-            new TwigFilter('trans', array($this, 'trans')),
-            new TwigFilter('transchoice', array($this, 'transchoice')),
+            new \Twig_SimpleFilter('trans', array($this, 'trans')),
+            new \Twig_SimpleFilter('transchoice', array($this, 'transchoice')),
         );
     }
 
     /**
      * Returns the token parser instance to add to the existing list.
      *
-     * @return AbstractTokenParser[]
+     * @return array An array of Twig_TokenParser instances
      */
     public function getTokenParsers()
     {
@@ -80,29 +80,21 @@ class TranslationExtension extends AbstractExtension
      */
     public function getNodeVisitors()
     {
-        return array($this->getTranslationNodeVisitor(), new TranslationDefaultDomainNodeVisitor());
+        return array($this->translationNodeVisitor, new TranslationDefaultDomainNodeVisitor());
     }
 
     public function getTranslationNodeVisitor()
     {
-        return $this->translationNodeVisitor ?: $this->translationNodeVisitor = new TranslationNodeVisitor();
+        return $this->translationNodeVisitor;
     }
 
     public function trans($message, array $arguments = array(), $domain = null, $locale = null)
     {
-        if (null === $this->translator) {
-            return strtr($message, $arguments);
-        }
-
         return $this->translator->trans($message, $arguments, $domain, $locale);
     }
 
     public function transchoice($message, $count, array $arguments = array(), $domain = null, $locale = null)
     {
-        if (null === $this->translator) {
-            return strtr($message, $arguments);
-        }
-
         return $this->translator->transChoice($message, $count, array_merge(array('%count%' => $count), $arguments), $domain, $locale);
     }
 

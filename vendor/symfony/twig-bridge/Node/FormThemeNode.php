@@ -11,41 +11,29 @@
 
 namespace Symfony\Bridge\Twig\Node;
 
-use Symfony\Bridge\Twig\Form\TwigRenderer;
-use Symfony\Component\Form\FormRenderer;
-use Twig\Compiler;
-use Twig\Error\RuntimeError;
-use Twig\Node\Node;
-
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class FormThemeNode extends Node
+class FormThemeNode extends \Twig_Node
 {
-    public function __construct(Node $form, Node $resources, $lineno, $tag = null, $only = false)
+    public function __construct(\Twig_Node $form, \Twig_Node $resources, $lineno, $tag = null)
     {
-        parent::__construct(array('form' => $form, 'resources' => $resources), array('only' => (bool) $only), $lineno, $tag);
+        parent::__construct(array('form' => $form, 'resources' => $resources), array(), $lineno, $tag);
     }
 
-    public function compile(Compiler $compiler)
+    /**
+     * Compiles the node to PHP.
+     *
+     * @param \Twig_Compiler $compiler A Twig_Compiler instance
+     */
+    public function compile(\Twig_Compiler $compiler)
     {
-        try {
-            $compiler->getEnvironment()->getRuntime(FormRenderer::class);
-            $renderer = FormRenderer::class;
-        } catch (RuntimeError $e) {
-            $renderer = TwigRenderer::class;
-        }
-
         $compiler
             ->addDebugInfo($this)
-            ->write('$this->env->getRuntime(')
-            ->string($renderer)
-            ->raw(')->setTheme(')
+            ->write('$this->env->getRuntime(\'Symfony\Bridge\Twig\Form\TwigRenderer\')->setTheme(')
             ->subcompile($this->getNode('form'))
             ->raw(', ')
             ->subcompile($this->getNode('resources'))
-            ->raw(', ')
-            ->raw(false === $this->getAttribute('only') ? 'true' : 'false')
             ->raw(");\n");
     }
 }

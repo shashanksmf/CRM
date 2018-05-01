@@ -15,13 +15,6 @@ use Symfony\Bridge\Twig\TokenParser\FormThemeTokenParser;
 use Symfony\Bridge\Twig\Form\TwigRendererInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\ChoiceList\View\ChoiceView;
-use Symfony\Component\Form\FormView;
-use Twig\Environment;
-use Twig\Extension\AbstractExtension;
-use Twig\Extension\InitRuntimeInterface;
-use Twig\TwigFilter;
-use Twig\TwigFunction;
-use Twig\TwigTest;
 
 /**
  * FormExtension extends Twig with form capabilities.
@@ -29,7 +22,7 @@ use Twig\TwigTest;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class FormExtension extends AbstractExtension implements InitRuntimeInterface
+class FormExtension extends \Twig_Extension implements \Twig_Extension_InitRuntimeInterface
 {
     /**
      * @deprecated since version 3.2, to be removed in 4.0 alongside with magic methods below
@@ -39,7 +32,7 @@ class FormExtension extends AbstractExtension implements InitRuntimeInterface
     public function __construct($renderer = null)
     {
         if ($renderer instanceof TwigRendererInterface) {
-            @trigger_error(sprintf('Passing a Twig Form Renderer to the "%s" constructor is deprecated since Symfony 3.2 and won\'t be possible in 4.0. Pass the Twig\Environment to the TwigRendererEngine constructor instead.', static::class), E_USER_DEPRECATED);
+            @trigger_error(sprintf('Passing a Twig Form Renderer to the "%s" constructor is deprecated since version 3.2 and won\'t be possible in 4.0. Pass the Twig_Environment to the TwigRendererEngine constructor instead.', static::class), E_USER_DEPRECATED);
         } elseif (null !== $renderer && !(is_array($renderer) && isset($renderer[0], $renderer[1]) && $renderer[0] instanceof ContainerInterface)) {
             throw new \InvalidArgumentException(sprintf('Passing any arguments the constructor of %s is reserved for internal use.', __CLASS__));
         }
@@ -51,11 +44,11 @@ class FormExtension extends AbstractExtension implements InitRuntimeInterface
      *
      * To be removed in 4.0
      */
-    public function initRuntime(Environment $environment)
+    public function initRuntime(\Twig_Environment $environment)
     {
         if ($this->renderer instanceof TwigRendererInterface) {
             $this->renderer->setEnvironment($environment);
-        } elseif (is_array($this->renderer)) {
+        } elseif (null !== $this->renderer) {
             $this->renderer[2] = $environment;
         }
     }
@@ -77,15 +70,15 @@ class FormExtension extends AbstractExtension implements InitRuntimeInterface
     public function getFunctions()
     {
         return array(
-            new TwigFunction('form_widget', null, array('node_class' => 'Symfony\Bridge\Twig\Node\SearchAndRenderBlockNode', 'is_safe' => array('html'))),
-            new TwigFunction('form_errors', null, array('node_class' => 'Symfony\Bridge\Twig\Node\SearchAndRenderBlockNode', 'is_safe' => array('html'))),
-            new TwigFunction('form_label', null, array('node_class' => 'Symfony\Bridge\Twig\Node\SearchAndRenderBlockNode', 'is_safe' => array('html'))),
-            new TwigFunction('form_row', null, array('node_class' => 'Symfony\Bridge\Twig\Node\SearchAndRenderBlockNode', 'is_safe' => array('html'))),
-            new TwigFunction('form_rest', null, array('node_class' => 'Symfony\Bridge\Twig\Node\SearchAndRenderBlockNode', 'is_safe' => array('html'))),
-            new TwigFunction('form', null, array('node_class' => 'Symfony\Bridge\Twig\Node\RenderBlockNode', 'is_safe' => array('html'))),
-            new TwigFunction('form_start', null, array('node_class' => 'Symfony\Bridge\Twig\Node\RenderBlockNode', 'is_safe' => array('html'))),
-            new TwigFunction('form_end', null, array('node_class' => 'Symfony\Bridge\Twig\Node\RenderBlockNode', 'is_safe' => array('html'))),
-            new TwigFunction('csrf_token', array('Symfony\Component\Form\FormRenderer', 'renderCsrfToken')),
+            new \Twig_SimpleFunction('form_widget', null, array('node_class' => 'Symfony\Bridge\Twig\Node\SearchAndRenderBlockNode', 'is_safe' => array('html'))),
+            new \Twig_SimpleFunction('form_errors', null, array('node_class' => 'Symfony\Bridge\Twig\Node\SearchAndRenderBlockNode', 'is_safe' => array('html'))),
+            new \Twig_SimpleFunction('form_label', null, array('node_class' => 'Symfony\Bridge\Twig\Node\SearchAndRenderBlockNode', 'is_safe' => array('html'))),
+            new \Twig_SimpleFunction('form_row', null, array('node_class' => 'Symfony\Bridge\Twig\Node\SearchAndRenderBlockNode', 'is_safe' => array('html'))),
+            new \Twig_SimpleFunction('form_rest', null, array('node_class' => 'Symfony\Bridge\Twig\Node\SearchAndRenderBlockNode', 'is_safe' => array('html'))),
+            new \Twig_SimpleFunction('form', null, array('node_class' => 'Symfony\Bridge\Twig\Node\RenderBlockNode', 'is_safe' => array('html'))),
+            new \Twig_SimpleFunction('form_start', null, array('node_class' => 'Symfony\Bridge\Twig\Node\RenderBlockNode', 'is_safe' => array('html'))),
+            new \Twig_SimpleFunction('form_end', null, array('node_class' => 'Symfony\Bridge\Twig\Node\RenderBlockNode', 'is_safe' => array('html'))),
+            new \Twig_SimpleFunction('csrf_token', array('Symfony\Bridge\Twig\Form\TwigRenderer', 'renderCsrfToken')),
         );
     }
 
@@ -95,8 +88,7 @@ class FormExtension extends AbstractExtension implements InitRuntimeInterface
     public function getFilters()
     {
         return array(
-            new TwigFilter('humanize', array('Symfony\Component\Form\FormRenderer', 'humanize')),
-            new TwigFilter('form_encode_currency', array('Symfony\Component\Form\FormRenderer', 'encodeCurrency'), array('is_safe' => array('html'), 'needs_environment' => true)),
+            new \Twig_SimpleFilter('humanize', array('Symfony\Bridge\Twig\Form\TwigRenderer', 'humanize')),
         );
     }
 
@@ -106,8 +98,7 @@ class FormExtension extends AbstractExtension implements InitRuntimeInterface
     public function getTests()
     {
         return array(
-            new TwigTest('selectedchoice', 'Symfony\Bridge\Twig\Extension\twig_is_selected_choice'),
-            new TwigTest('rootform', 'Symfony\Bridge\Twig\Extension\twig_is_root_form'),
+            new \Twig_SimpleTest('selectedchoice', 'Symfony\Bridge\Twig\Extension\twig_is_selected_choice'),
         );
     }
 
@@ -117,11 +108,11 @@ class FormExtension extends AbstractExtension implements InitRuntimeInterface
     public function __get($name)
     {
         if ('renderer' === $name) {
-            @trigger_error(sprintf('Using the "%s::$renderer" property is deprecated since Symfony 3.2 as it will be removed in 4.0.', __CLASS__), E_USER_DEPRECATED);
+            @trigger_error(sprintf('Using the "%s::$renderer" property is deprecated since version 3.2 as it will be removed in 4.0.', __CLASS__), E_USER_DEPRECATED);
 
             if (is_array($this->renderer)) {
                 $renderer = $this->renderer[0]->get($this->renderer[1]);
-                if (isset($this->renderer[2]) && $renderer instanceof TwigRendererInterface) {
+                if (isset($this->renderer[2])) {
                     $renderer->setEnvironment($this->renderer[2]);
                 }
                 $this->renderer = $renderer;
@@ -137,7 +128,7 @@ class FormExtension extends AbstractExtension implements InitRuntimeInterface
     public function __set($name, $value)
     {
         if ('renderer' === $name) {
-            @trigger_error(sprintf('Using the "%s::$renderer" property is deprecated since Symfony 3.2 as it will be removed in 4.0.', __CLASS__), E_USER_DEPRECATED);
+            @trigger_error(sprintf('Using the "%s::$renderer" property is deprecated since version 3.2 as it will be removed in 4.0.', __CLASS__), E_USER_DEPRECATED);
         }
 
         $this->$name = $value;
@@ -149,7 +140,7 @@ class FormExtension extends AbstractExtension implements InitRuntimeInterface
     public function __isset($name)
     {
         if ('renderer' === $name) {
-            @trigger_error(sprintf('Using the "%s::$renderer" property is deprecated since Symfony 3.2 as it will be removed in 4.0.', __CLASS__), E_USER_DEPRECATED);
+            @trigger_error(sprintf('Using the "%s::$renderer" property is deprecated since version 3.2 as it will be removed in 4.0.', __CLASS__), E_USER_DEPRECATED);
         }
 
         return isset($this->$name);
@@ -161,7 +152,7 @@ class FormExtension extends AbstractExtension implements InitRuntimeInterface
     public function __unset($name)
     {
         if ('renderer' === $name) {
-            @trigger_error(sprintf('Using the "%s::$renderer" property is deprecated since Symfony 3.2 as it will be removed in 4.0.', __CLASS__), E_USER_DEPRECATED);
+            @trigger_error(sprintf('Using the "%s::$renderer" property is deprecated since version 3.2 as it will be removed in 4.0.', __CLASS__), E_USER_DEPRECATED);
         }
 
         unset($this->$name);
@@ -194,12 +185,4 @@ function twig_is_selected_choice(ChoiceView $choice, $selectedValue)
     }
 
     return $choice->value === $selectedValue;
-}
-
-/**
- * @internal
- */
-function twig_is_root_form(FormView $formView)
-{
-    return null === $formView->parent;
 }

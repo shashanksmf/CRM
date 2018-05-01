@@ -13,26 +13,19 @@ namespace Symfony\Bridge\Twig\Tests\NodeVisitor;
 
 use Symfony\Bridge\Twig\Node\TransDefaultDomainNode;
 use Symfony\Bridge\Twig\Node\TransNode;
-use Twig\Node\BodyNode;
-use Twig\Node\Expression\ArrayExpression;
-use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Expression\FilterExpression;
-use Twig\Node\ModuleNode;
-use Twig\Node\Node;
-use Twig\Source;
 
 class TwigNodeProvider
 {
     public static function getModule($content)
     {
-        return new ModuleNode(
-            new ConstantExpression($content, 0),
+        return new \Twig_Node_Module(
+            new \Twig_Node_Expression_Constant($content, 0),
             null,
-            new ArrayExpression(array(), 0),
-            new ArrayExpression(array(), 0),
-            new ArrayExpression(array(), 0),
+            new \Twig_Node_Expression_Array(array(), 0),
+            new \Twig_Node_Expression_Array(array(), 0),
+            new \Twig_Node_Expression_Array(array(), 0),
             null,
-            new Source('', '')
+            new \Twig_Source('', '')
         );
     }
 
@@ -40,15 +33,15 @@ class TwigNodeProvider
     {
         if (!$arguments) {
             $arguments = $domain ? array(
-                new ArrayExpression(array(), 0),
-                new ConstantExpression($domain, 0),
+                new \Twig_Node_Expression_Array(array(), 0),
+                new \Twig_Node_Expression_Constant($domain, 0),
             ) : array();
         }
 
-        return new FilterExpression(
-            new ConstantExpression($message, 0),
-            new ConstantExpression('trans', 0),
-            new Node($arguments),
+        return new \Twig_Node_Expression_Filter(
+            new \Twig_Node_Expression_Constant($message, 0),
+            new \Twig_Node_Expression_Constant('trans', 0),
+            new \Twig_Node($arguments),
             0
         );
     }
@@ -57,16 +50,16 @@ class TwigNodeProvider
     {
         if (!$arguments) {
             $arguments = $domain ? array(
-                new ConstantExpression(0, 0),
-                new ArrayExpression(array(), 0),
-                new ConstantExpression($domain, 0),
+                new \Twig_Node_Expression_Constant(0, 0),
+                new \Twig_Node_Expression_Array(array(), 0),
+                new \Twig_Node_Expression_Constant($domain, 0),
             ) : array();
         }
 
-        return new FilterExpression(
-            new ConstantExpression($message, 0),
-            new ConstantExpression('transchoice', 0),
-            new Node($arguments),
+        return new \Twig_Node_Expression_Filter(
+            new \Twig_Node_Expression_Constant($message, 0),
+            new \Twig_Node_Expression_Constant('transchoice', 0),
+            new \Twig_Node($arguments),
             0
         );
     }
@@ -74,15 +67,15 @@ class TwigNodeProvider
     public static function getTransTag($message, $domain = null)
     {
         return new TransNode(
-            new BodyNode(array(), array('data' => $message)),
-            $domain ? new ConstantExpression($domain, 0) : null
+            new \Twig_Node_Body(array(), array('data' => $message)),
+            $domain ? new \Twig_Node_Expression_Constant($domain, 0) : null
         );
     }
 
     public static function getTransDefaultDomainTag($domain)
     {
         return new TransDefaultDomainNode(
-            new ConstantExpression($domain, 0)
+            new \Twig_Node_Expression_Constant($domain, 0)
         );
     }
 }

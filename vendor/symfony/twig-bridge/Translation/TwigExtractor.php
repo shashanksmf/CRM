@@ -16,9 +16,6 @@ use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Translation\Extractor\AbstractFileExtractor;
 use Symfony\Component\Translation\Extractor\ExtractorInterface;
 use Symfony\Component\Translation\MessageCatalogue;
-use Twig\Environment;
-use Twig\Error\Error;
-use Twig\Source;
 
 /**
  * TwigExtractor extracts translation messages from a twig template.
@@ -42,9 +39,14 @@ class TwigExtractor extends AbstractFileExtractor implements ExtractorInterface
      */
     private $prefix = '';
 
+    /**
+     * The twig environment.
+     *
+     * @var \Twig_Environment
+     */
     private $twig;
 
-    public function __construct(Environment $twig)
+    public function __construct(\Twig_Environment $twig)
     {
         $this->twig = $twig;
     }
@@ -54,15 +56,16 @@ class TwigExtractor extends AbstractFileExtractor implements ExtractorInterface
      */
     public function extract($resource, MessageCatalogue $catalogue)
     {
-        foreach ($this->extractFiles($resource) as $file) {
+        $files = $this->extractFiles($resource);
+        foreach ($files as $file) {
             try {
                 $this->extractTemplate(file_get_contents($file->getPathname()), $catalogue);
-            } catch (Error $e) {
+            } catch (\Twig_Error $e) {
                 if ($file instanceof \SplFileInfo) {
                     $path = $file->getRealPath() ?: $file->getPathname();
                     $name = $file instanceof SplFileInfo ? $file->getRelativePathname() : $path;
                     if (method_exists($e, 'setSourceContext')) {
-                        $e->setSourceContext(new Source('', $name, $path));
+                        $e->setSourceContext(new \Twig_Source('', $name, $path));
                     } else {
                         $e->setTemplateName($name);
                     }
@@ -86,7 +89,7 @@ class TwigExtractor extends AbstractFileExtractor implements ExtractorInterface
         $visitor = $this->twig->getExtension('Symfony\Bridge\Twig\Extension\TranslationExtension')->getTranslationNodeVisitor();
         $visitor->enable();
 
-        $this->twig->parse($this->twig->tokenize(new Source($template, '')));
+        $this->twig->parse($this->twig->tokenize(new \Twig_Source($template, '')));
 
         foreach ($visitor->getMessages() as $message) {
             $catalogue->set(trim($message[0]), $this->prefix.trim($message[0]), $message[1] ?: $this->defaultDomain);

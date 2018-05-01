@@ -11,16 +11,15 @@
 
 namespace Symfony\Bridge\Twig\Tests\Extension;
 
-use Symfony\Component\Form\FormRenderer;
-use Twig\Environment;
+use Symfony\Bridge\Twig\Form\TwigRenderer;
 
 trait RuntimeLoaderProvider
 {
-    protected function registerTwigRuntimeLoader(Environment $environment, FormRenderer $renderer)
+    protected function registerTwigRuntimeLoader(\Twig_Environment $environment, TwigRenderer $renderer)
     {
-        $loader = $this->getMockBuilder('Twig\RuntimeLoader\RuntimeLoaderInterface')->getMock();
+        $loader = $this->getMockBuilder('Twig_RuntimeLoaderInterface')->getMock();
         $loader->expects($this->any())->method('load')->will($this->returnValueMap(array(
-            array('Symfony\Component\Form\FormRenderer', $renderer),
+            array('Symfony\Bridge\Twig\Form\TwigRenderer', $renderer),
         )));
         $environment->addRuntimeLoader($loader);
     }

@@ -11,17 +11,14 @@
 
 namespace Symfony\Bridge\Twig\Node;
 
-use Twig\Compiler;
-use Twig\Node\Node;
-
 /**
  * @author Julien Galenski <julien.galenski@gmail.com>
  */
-class DumpNode extends Node
+class DumpNode extends \Twig_Node
 {
     private $varPrefix;
 
-    public function __construct($varPrefix, Node $values = null, $lineno, $tag = null)
+    public function __construct($varPrefix, \Twig_Node $values = null, $lineno, $tag = null)
     {
         $nodes = array();
         if (null !== $values) {
@@ -35,7 +32,7 @@ class DumpNode extends Node
     /**
      * {@inheritdoc}
      */
-    public function compile(Compiler $compiler)
+    public function compile(\Twig_Compiler $compiler)
     {
         $compiler
             ->write("if (\$this->env->isDebug()) {\n")
@@ -47,7 +44,7 @@ class DumpNode extends Node
                 ->write(sprintf('$%svars = array();'."\n", $this->varPrefix))
                 ->write(sprintf('foreach ($context as $%1$skey => $%1$sval) {'."\n", $this->varPrefix))
                 ->indent()
-                ->write(sprintf('if (!$%sval instanceof \Twig\Template) {'."\n", $this->varPrefix))
+                ->write(sprintf('if (!$%sval instanceof \Twig_Template) {'."\n", $this->varPrefix))
                 ->indent()
                 ->write(sprintf('$%1$svars[$%1$skey] = $%1$sval;'."\n", $this->varPrefix))
                 ->outdent()
