@@ -24,14 +24,18 @@ use Facebook\HttpClients\FacebookHttpable;
 // init app with app id and secret
 FacebookSession::setDefaultApplication( '1827896904180275','e0407be9cc41abcb26207d8d46328118' );
 // login helper with redirect_uri
-    $helper = new FacebookRedirectLoginHelper('https://' . $_SERVER['HTTP_HOST']);
+$helper = new FacebookRedirectLoginHelper('https://' . $_SERVER['HTTP_HOST']);
 try {
   $session = $helper->getSessionFromRedirect();
 } catch( FacebookRequestException $ex ) {
   // When Facebook returns an error
+  echo "<br> FaceExpexption => " . $ex;
 } catch( Exception $ex ) {
   // When validation fails or other local issues
+  echo "<br> Expexption => " . $ex;
 }
+
+$responseArr = array();
 // see if we have a session
 if ( isset( $session ) ) {
   // graph api request for user data
@@ -42,14 +46,19 @@ if ( isset( $session ) ) {
      	$fbid = $graphObject->getProperty('id');              // To Get Facebook ID
  	    $fbfullname = $graphObject->getProperty('name'); // To Get Facebook full name
 	    $femail = $graphObject->getProperty('email');    // To Get Facebook email ID
-	/* ---- Session Variables -----*/
-	    $_SESSION['FBID'] = $fbid;           
-        $_SESSION['FULLNAME'] = $fbfullname;
-	    $_SESSION['EMAIL'] =  $femail;
-    /* ---- header location after session ----*/
-  header("Location: ".'https://' . $_SERVER['HTTP_HOST']);
-} else {
-  $loginUrl = $helper->getLoginUrl();
- header("Location: ".$loginUrl);
-}
-?>
+     /* ---- Session Variables -----*/
+     $_SESSION['FBID'] = $fbid;           
+     $_SESSION['FULLNAME'] = $fbfullname;
+     $_SESSION['EMAIL'] =  $femail;
+     
+     $responseArr['fbid'] = $fbid;
+     $responseArr['fbfullname'] = $fbfullname;
+     $responseArr["femail"] = $femail;
+     /* ---- header location after session ----*/
+     header("Location: ".'https://' . $_SERVER['HTTP_HOST']);
+     echo json_encode($responseArr);
+   } else {
+    $loginUrl = $helper->getLoginUrl();
+    header("Location: ".$loginUrl);
+  }
+  ?>
