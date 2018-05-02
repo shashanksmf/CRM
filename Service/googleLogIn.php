@@ -2,10 +2,6 @@
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Headers: Origin, token, Host');
 header('Access-Control-Allow-Methods: POST, GET');
-header('Access-Control-Allow-Headers: Authorization');
-header('Access-Control-Max-Age: 1');  //1728000
-header("Content-Length: 0");
-header("Content-Type: text/plain charset=UTF-8");
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
