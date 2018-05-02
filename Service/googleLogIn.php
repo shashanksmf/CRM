@@ -1,7 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Headers: Origin, token, Host');
-header('Access-Control-Allow-Methods: GET');
+// header('Access-Control-Allow-Methods: GET');
 // header("Access-Control-Request-Method: *");
 
 error_reporting(E_ALL);
@@ -15,7 +15,9 @@ $client = new Google_Client();
 $client->setAuthConfigFile('../credentials.json');
 $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST']);
 $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
+echo $client;
 if (! isset($_GET['code'])) {
+  echo $_GET['code'];
   $auth_url = $client->createAuthUrl();
   echo $auth_url;
   header('Location:' . filter_var($auth_url, FILTER_SANITIZE_URL));
