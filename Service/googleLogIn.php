@@ -15,7 +15,8 @@ $client = new Google_Client();
 $client->setAuthConfigFile('../credentials.json');
 $client->addScope(Google_Service_Plus::PLUS_ME);
 $httpClient = $client->authorize();
-$client->setRedirectUri('https://' . $_SERVER['HTTP_HOST']);
+$client->setRedirectUri('https://upsailgroup.herokuapp.com');
+// $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST']);
 $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
 if (! isset($_GET['code'])) {
   echo $_GET['code'];
@@ -26,7 +27,8 @@ if (! isset($_GET['code'])) {
   $client->authenticate($_GET['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
   echo $_SESSION['access_token'];
-  $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'];
+  $redirect_uri = 'https://upsailgroup.herokuapp.com';
+  // $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'];
   header('Location:' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
 }
 $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
