@@ -47,22 +47,22 @@ if ( isset( $session ) ) {
       $fbid = $graphObject->getProperty('id');              // To Get Facebook ID
       $fbfullname = $graphObject->getProperty('name'); // To Get Facebook full name
       $femail = $graphObject->getProperty('email');    // To Get Facebook email ID
-     /* ---- Session Variables -----*/
-     $_SESSION['FBID'] = $fbid;           
-     $_SESSION['FULLNAME'] = $fbfullname;
-     $_SESSION['EMAIL'] =  $femail;
-     
-     $responseArr['fbid'] = $fbid;
-     $responseArr['fbfullname'] = $fbfullname;
-     $responseArr["femail"] = $femail;
-     /* ---- header location after session ----*/
-     echo json_encode($responseArr);
-     exit;
-     header("Location: ".'https://' . $_SERVER['HTTP_HOST']);
-   } else {
-    $loginUrl = $helper->getLoginUrl();
-    echo "$loginUrl".$loginUrl;
-    exit;
-    header("Location: ".$loginUrl);
-  }
-?>
+      /* ---- Session Variables -----*/
+      $_SESSION['FBID'] = $fbid;           
+      $_SESSION['FULLNAME'] = $fbfullname;
+      $_SESSION['EMAIL'] =  $femail;
+
+      $responseArr['fbid'] = $fbid;
+      $responseArr['fbfullname'] = $fbfullname;
+      $responseArr["femail"] = $femail;
+      /* ---- header location after session ----*/
+      echo "responseArr".json_encode($responseArr);
+      exit;
+      header("Location: ".'https://' . $_SERVER['HTTP_HOST']);
+    } else {
+      $loginUrl = $helper->getLoginUrl();
+      echo "$loginUrl".$loginUrl;
+      exit;
+      header("Location: ".$loginUrl);
+    }
+    ?>
