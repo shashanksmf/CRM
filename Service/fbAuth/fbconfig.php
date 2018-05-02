@@ -27,7 +27,6 @@ FacebookSession::setDefaultApplication( '1827896904180275','e0407be9cc41abcb2620
 // $redirect_url = "https://upsailgroup.herokuapp.com/";
 $redirect_url = 'https://' . $_SERVER['HTTP_HOST'];
 $helper = new FacebookRedirectLoginHelper($redirect_url);
-exit;
 try {
   $session = $helper->getSessionFromRedirect();
 } catch( FacebookRequestException $ex ) {
@@ -37,7 +36,7 @@ try {
   // When validation fails or other local issues
   echo "<br> Expexption => " . $ex;
 }
-
+exit;
 $responseArr = array();
 // see if we have a session
 if ( isset( $session ) ) {

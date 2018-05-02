@@ -19,6 +19,7 @@ $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST']);
 $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
 if (! isset($_GET['code'])) {
   echo $_GET['code'];
+  exit;
   $auth_url = $client->createAuthUrl();
   echo $auth_url;
   header('Location:' . filter_var($auth_url, FILTER_SANITIZE_URL));
@@ -26,6 +27,7 @@ if (! isset($_GET['code'])) {
   $client->authenticate($_GET['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
   echo $_SESSION['access_token'];
+  exit;
   // $redirect_uri = 'https://upsailgroup.herokuapp.com';
   $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'];
   header('Location:' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
