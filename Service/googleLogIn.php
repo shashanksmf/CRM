@@ -18,10 +18,9 @@ $httpClient = $client->authorize();
 $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST']);
 $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
 if (! isset($_GET['code'])) {
-  echo $_GET['code'];
-  exit;
   $auth_url = $client->createAuthUrl();
   echo $auth_url;
+  exit;
   header('Location:' . filter_var($auth_url, FILTER_SANITIZE_URL));
 } else {
   $client->authenticate($_GET['code']);

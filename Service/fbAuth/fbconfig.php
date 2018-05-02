@@ -36,7 +36,6 @@ try {
   // When validation fails or other local issues
   echo "<br> Expexption => " . $ex;
 }
-exit;
 $responseArr = array();
 // see if we have a session
 if ( isset( $session ) ) {
@@ -45,9 +44,9 @@ if ( isset( $session ) ) {
   $response = $request->execute();
   // get response
   $graphObject = $response->getGraphObject();
-     	$fbid = $graphObject->getProperty('id');              // To Get Facebook ID
- 	    $fbfullname = $graphObject->getProperty('name'); // To Get Facebook full name
-	    $femail = $graphObject->getProperty('email');    // To Get Facebook email ID
+      $fbid = $graphObject->getProperty('id');              // To Get Facebook ID
+      $fbfullname = $graphObject->getProperty('name'); // To Get Facebook full name
+      $femail = $graphObject->getProperty('email');    // To Get Facebook email ID
      /* ---- Session Variables -----*/
      $_SESSION['FBID'] = $fbid;           
      $_SESSION['FULLNAME'] = $fbfullname;
@@ -57,6 +56,7 @@ if ( isset( $session ) ) {
      $responseArr['fbfullname'] = $fbfullname;
      $responseArr["femail"] = $femail;
      /* ---- header location after session ----*/
+exit;
      header("Location: ".'https://' . $_SERVER['HTTP_HOST']);
      echo json_encode($responseArr);
    } else {
