@@ -13,6 +13,12 @@ session_start();
 
 $client = new Google_Client();
 $client->setAuthConfigFile('../credentials.json');
+$client->addScope(Google_Service_Plus::PLUS_ME);
+// returns a Guzzle HTTP Client
+$httpClient = $client->authorize();
+// make an HTTP request
+$response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
+echo $response;
 $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST']);
 $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
 if (! isset($_GET['code'])) {
@@ -27,5 +33,10 @@ if (! isset($_GET['code'])) {
   $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'];
   header('Location:' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
 }
+
+// require_once("../Controller/Class_User_Login_Controller.php");
+// $controller = new UserLoginController();
+// header('Content-Type: application/json');
+// echo $controller->checkUserEmail($email);
 
 ?>
