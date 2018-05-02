@@ -32,7 +32,7 @@ if (! isset($_GET['code'])) {
   header('Location:' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
 }
 $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
-echo $response;
+print_r($response);
 
 // require_once("../Controller/Class_User_Login_Controller.php");
 // $controller = new UserLoginController();
