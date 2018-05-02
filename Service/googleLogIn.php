@@ -15,7 +15,6 @@ $client = new Google_Client();
 $client->setAuthConfigFile('../credentials.json');
 $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST']);
 $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
-echo $client;
 if (! isset($_GET['code'])) {
   echo $_GET['code'];
   $auth_url = $client->createAuthUrl();
