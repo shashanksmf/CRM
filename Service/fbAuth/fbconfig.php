@@ -61,6 +61,8 @@ if ( isset( $session ) ) {
      header("Location: ".'https://' . $_SERVER['HTTP_HOST']);
    } else {
     $loginUrl = $helper->getLoginUrl();
+    echo "$loginUrl".$loginUrl;
+    exit;
     header("Location: ".$loginUrl);
   }
 ?>
