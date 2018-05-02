@@ -45,6 +45,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 	        method: 'GET',
+	        dataType: "jsonp",
 	        url: baseHttpUrl+'/googleLogIn.php'
 
 	    })
