@@ -19,16 +19,15 @@ $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST']);
 $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
 if (! isset($_GET['code'])) {
   $auth_url = $client->createAuthUrl();
-  echo "auth_url".$auth_url;
-  // header('Location:' . filter_var($auth_url, FILTER_SANITIZE_URL));
+  // echo "auth_url".$auth_url;
+  header('Location:' . filter_var($auth_url, FILTER_SANITIZE_URL));
 } else {
   $client->authenticate($_GET['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
   echo "access_token".$_SESSION['access_token'];
   // $redirect_uri = 'https://upsailgroup.herokuapp.com';
   $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'];
-  echo "$redirect_uri".$redirect_uri;
-  exit;
+  // echo "$redirect_uri".$redirect_uri;
   header('Location:' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
 }
 $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
