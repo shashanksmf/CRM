@@ -56,9 +56,9 @@ if ( isset( $session ) ) {
      $responseArr['fbfullname'] = $fbfullname;
      $responseArr["femail"] = $femail;
      /* ---- header location after session ----*/
-exit;
-     header("Location: ".'https://' . $_SERVER['HTTP_HOST']);
      echo json_encode($responseArr);
+     exit;
+     header("Location: ".'https://' . $_SERVER['HTTP_HOST']);
    } else {
     $loginUrl = $helper->getLoginUrl();
     header("Location: ".$loginUrl);
