@@ -17,7 +17,6 @@ $httpClient = $client->authorize();
 // $client->setRedirectUri('https://upsailgroup.herokuapp.com');
 $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST']);
 $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
-exit;
 if (! isset($_GET['code'])) {
   echo $_GET['code'];
   $auth_url = $client->createAuthUrl();
