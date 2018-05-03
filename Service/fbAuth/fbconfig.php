@@ -57,10 +57,13 @@ if ( isset( $session ) ) {
       $responseArr["femail"] = $femail;
       /* ---- header location after session ----*/
       echo "responseArr".json_encode($responseArr);
-      header("Location: ".'https://' . $_SERVER['HTTP_HOST'] , 'Access-Control-Allow-Methods: POST, GET');
+      header("Location: ".'https://' . $_SERVER['HTTP_HOST']);
     } else {
       $loginUrl = $helper->getLoginUrl();
-      echo "$loginUrl".$loginUrl;
-      header("Location: ".$loginUrl, 'Access-Control-Allow-Methods: POST, GET');
+      // echo "$loginUrl".$loginUrl;
+      // header("Location: ".$loginUrl);
+      echo '<script type="text/javascript">top.location.href = "'.$loginUrl.'";</script>';
+      exit;
+      // echo '<script language="javascript">window.location.href ="'.$url.'"</script>';
     }
     ?>
