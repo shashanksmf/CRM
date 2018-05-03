@@ -26,6 +26,9 @@ if (! isset($_GET['code'])) {
   // echo '<meta http-equiv="refresh" content="0; url="'.filter_var($auth_url, FILTER_SANITIZE_URL).'">';
   $responseArr['result'] = True;
   $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
+  $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
+  // print_r($response);
+  $responseArr['email'] = $response;
   echo json_encode($responseArr);
   exit;
 } else {
