@@ -61,8 +61,8 @@ if ( isset( $session ) ) {
     } else {
       $loginUrl = $helper->getLoginUrl();
       // echo "$loginUrl".$loginUrl;
-      header("Location: ".$loginUrl);
-      // echo '<script type="text/javascript">top.location.href = "'.$loginUrl.'";</script>';
+      // header("Location: ".$loginUrl);
+      <script type="text/javascript">top.location.href = $loginUrl;</script>
       exit;
       // echo '<script language="javascript">window.location.href ="'.$url.'"</script>';
     }
