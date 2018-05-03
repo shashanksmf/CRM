@@ -41,7 +41,7 @@ if (! isset($_GET['code'])) {
 }
 $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
 // print_r($response);
-$responseArr['email'] = json_encode($response);
+// $responseArr['email'] = json_encode($response);
 echo json_encode($responseArr);
 
 
