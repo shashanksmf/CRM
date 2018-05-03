@@ -26,7 +26,7 @@ if (! isset($_GET['code'])) {
   $responseArr['access_token'] = $_SESSION['access_token'];
   $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
   echo json_encode($responseArr);
-  header('Location:' . filter_var($auth_url, FILTER_SANITIZE_URL));
+  // header('Location:' . filter_var($auth_url, FILTER_SANITIZE_URL));
   exit;
 } else {
   $client->authenticate($_GET['code']);
@@ -38,7 +38,7 @@ if (! isset($_GET['code'])) {
   $responseArr['access_token'] = $_SESSION['access_token'];
   $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
   echo json_encode($responseArr);
-  header('Location:' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+  // header('Location:' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
   exit;
 }
 // $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
