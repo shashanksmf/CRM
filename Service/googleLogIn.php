@@ -26,10 +26,10 @@ if (! isset($_GET['code'])) {
   // echo '<meta http-equiv="refresh" content="0; url="'.filter_var($auth_url, FILTER_SANITIZE_URL).'">';
   $responseArr['result'] = True;
   $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
+  $response = array();
   $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
   // print_r($response);
-  $responseArr['email1'] = json_encode($response, true);
-  $responseArr['email2'] = json_decode($response, true);
+  $responseArr['email1'] = json_encode($response);
   echo json_encode($responseArr);
   exit;
 } else {
@@ -44,10 +44,10 @@ if (! isset($_GET['code'])) {
   // echo '<meta http-equiv="refresh" content="0; url="'.filter_var($redirect_uri, FILTER_SANITIZE_URL).'">';
   $responseArr['result'] = False;
   $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
+  $response = array();
   $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
   // print_r($response);
-  $responseArr['email1'] = json_encode($response, true);
-  $responseArr['email2'] = json_decode($response, true);
+  $responseArr['email1'] = json_encode($response);
   echo json_encode($responseArr);
   exit;
 }
