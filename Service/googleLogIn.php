@@ -40,11 +40,12 @@ if (! isset($_GET['code'])) {
   // echo '<meta http-equiv="refresh" content="0; url="'.filter_var($redirect_uri, FILTER_SANITIZE_URL).'">';
   $responseArr['result'] = False;
   $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
+  $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
+  // print_r($response);
+  $responseArr['email'] = $response;
   echo json_encode($responseArr);
   exit;
 }
-// $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
-// print_r($response);
 
 // require_once("../Controller/Class_User_Login_Controller.php");
 // $controller = new UserLoginController();
