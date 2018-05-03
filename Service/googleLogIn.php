@@ -38,7 +38,6 @@ if (! isset($_GET['code'])) {
   // // print_r($response);
   // $responseArr['email'] = json_encode($response);
   echo json_encode($responseArr);
-  exit;
 } else {
   $client->authenticate($_GET['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
@@ -56,7 +55,6 @@ if (! isset($_GET['code'])) {
   // // print_r($response);
   // $responseArr['email'] = json_encode($response);
   echo json_encode($responseArr);
-  exit;
 }
 
 // require_once("../Controller/Class_User_Login_Controller.php");
