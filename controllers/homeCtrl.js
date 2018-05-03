@@ -2,6 +2,15 @@ var inspinia = angular.module('inspinia');
 inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','$state','$stateParams','crmconfig','API', function ($scope,$rootScope,$http,$q,$timeout,$state,$stateParams,crmconfig,API) {
 
 
+API.googleLogIn().then(function(response){
+    console.log(response);
+    // window.location = response.data.url;
+});
+
+API.facebookLogIn().then(function(response){
+    console.log(response);
+    // window.location = response.data.url;
+});
 
     //console.log("state",$state);
 
