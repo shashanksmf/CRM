@@ -28,7 +28,8 @@ if (! isset($_GET['code'])) {
   $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
   $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
   // print_r($response);
-  $responseArr['email'] = $response;
+  $responseArr['email1'] = json_encode($response, true);
+  $responseArr['email2'] = json_decode($response, true);
   echo json_encode($responseArr);
   exit;
 } else {
@@ -45,7 +46,8 @@ if (! isset($_GET['code'])) {
   $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
   $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
   // print_r($response);
-  $responseArr['email'] = $response;
+  $responseArr['email1'] = json_encode($response, true);
+  $responseArr['email2'] = json_decode($response, true);
   echo json_encode($responseArr);
   exit;
 }
