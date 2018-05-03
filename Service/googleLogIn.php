@@ -22,24 +22,24 @@ if (! isset($_GET['code'])) {
   $auth_url = $client->createAuthUrl();
   $_SESSION['access_token'] = $client->getAccessToken();
   // echo '<script type="text/javascript">top.location.href = "'.filter_var($auth_url, FILTER_SANITIZE_URL).'";</script>';
-  $responseArr['result1'] = True;
-  $responseArr['access_token1'] = $_SESSION['access_token'];
-  $responseArr["url1"] = filter_var($auth_url, FILTER_SANITIZE_URL);
+  $responseArr['result'] = True;
+  $responseArr['access_token'] = $_SESSION['access_token'];
+  $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
   echo json_encode($responseArr);
   // header('Location:' . filter_var($auth_url, FILTER_SANITIZE_URL));
-  // exit;
+  
 } else {
   $client->authenticate($_GET['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
   echo "access_token".$_SESSION['access_token'];
   $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'];
   // echo '<script type="text/javascript">top.location.href = "'.filter_var($redirect_uri, FILTER_SANITIZE_URL).'";</script>';
-  $responseArr['result2'] = False;
-  $responseArr['access_token2'] = $_SESSION['access_token'];
-  $responseArr["url2"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
+  $responseArr['result'] = False;
+  $responseArr['access_token'] = $_SESSION['access_token'];
+  $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
   echo json_encode($responseArr);
   // header('Location:' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
-  exit;
+  
 }
 // $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
 // print_r($response);
