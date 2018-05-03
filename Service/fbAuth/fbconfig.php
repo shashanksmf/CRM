@@ -63,8 +63,8 @@ if ( isset( $session ) ) {
       // echo "$loginUrl".$loginUrl;
       // header("Location: ".$loginUrl);
       // echo '<script type="text/javascript">top.location.href = "'.$loginUrl.'";</script>';
-      echo '<meta http-equiv="refresh" content="0; url="'.$loginUrl.'">';
+      // echo '<meta http-equiv="refresh" content="0; url="'.$loginUrl.'">';
+      echo '<script language="javascript">window.location ="'.$loginUrl.'"</script>';
       exit;
-      // echo '<script language="javascript">window.location.href ="'.$url.'"</script>';
     }
     ?>
