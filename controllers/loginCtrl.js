@@ -68,7 +68,7 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 			// 		$scope.error.responce = true;
 			// 	},10000)
 			// }
-			window.location = response.data.url;
+			// window.location = response.data.url;
 			console.log("access_token=", response.data.access_token);
 		});
 	}
