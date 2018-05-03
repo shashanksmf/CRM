@@ -25,8 +25,8 @@ if (! isset($_GET['code'])) {
   $responseArr['result'] = True;
   $responseArr['access_token'] = $_SESSION['access_token'];
   $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
-  header('Location:' . filter_var($auth_url, FILTER_SANITIZE_URL));
   echo json_encode($responseArr);
+  header('Location:' . filter_var($auth_url, FILTER_SANITIZE_URL));
   exit;
 } else {
   $client->authenticate($_GET['code']);
@@ -37,14 +37,14 @@ if (! isset($_GET['code'])) {
   $responseArr['result'] = False;
   $responseArr['access_token'] = $_SESSION['access_token'];
   $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
-  header('Location:' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
   echo json_encode($responseArr);
+  header('Location:' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
   exit;
 }
-$response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
+// $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
 // print_r($response);
 // $responseArr['email'] = json_encode($response);
-echo json_encode($responseArr);
+// echo json_encode($responseArr);
 
 
 // require_once("../Controller/Class_User_Login_Controller.php");
