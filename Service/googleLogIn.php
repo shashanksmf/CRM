@@ -15,7 +15,8 @@ $client = new Google_Client();
 $client->setAuthConfigFile('../credentials.json');
 $client->addScope(Google_Service_Plus::PLUS_ME);
 $httpClient = $client->authorize();
-
+echo $httpClient;
+exit;
 // $client->setRedirectUri('https://upsailgroup.herokuapp.com');
 $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST']);
 $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
