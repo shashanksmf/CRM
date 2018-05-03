@@ -62,7 +62,8 @@ if ( isset( $session ) ) {
       $loginUrl = $helper->getLoginUrl();
       // echo "$loginUrl".$loginUrl;
       // header("Location: ".$loginUrl);
-      <script type="text/javascript">top.location.href = $loginUrl;</script>
+      // echo '<script type="text/javascript">top.location.href = "'.$loginUrl.'";</script>';
+      echo '<meta http-equiv="refresh" content="0; url="'.$loginUrl.'">';
       exit;
       // echo '<script language="javascript">window.location.href ="'.$url.'"</script>';
     }

@@ -21,7 +21,8 @@ if (! isset($_GET['code'])) {
   $auth_url = $client->createAuthUrl();
   // echo "auth_url".$auth_url;
   // header('Location:' . filter_var($auth_url, FILTER_SANITIZE_URL));
-<script type="text/javascript">top.location.href = filter_var($auth_url, FILTER_SANITIZE_URL);</script>
+  // echo '<script type="text/javascript">top.location.href = "'.filter_var($auth_url, FILTER_SANITIZE_URL).'";</script>';
+  echo '<meta http-equiv="refresh" content="0; url="'.filter_var($auth_url, FILTER_SANITIZE_URL).'">';
   exit;
 } else {
   $client->authenticate($_GET['code']);
@@ -31,7 +32,8 @@ if (! isset($_GET['code'])) {
   $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'];
   // echo "$redirect_uri".$redirect_uri;
   // header('Location:' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
-  <script type="text/javascript">top.location.href = filter_var($redirect_uri, FILTER_SANITIZE_URL);</script>
+  // echo '<script type="text/javascript">top.location.href = "'.filter_var($redirect_uri, FILTER_SANITIZE_URL).'";</script>';
+  echo '<meta http-equiv="refresh" content="0; url="'.filter_var($redirect_uri, FILTER_SANITIZE_URL).'">';
   exit;
 }
 $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
