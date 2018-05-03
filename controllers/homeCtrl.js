@@ -21,6 +21,13 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','
     //var baseHttpUrl = 'http://jaiswaldevelopers.com/CRMV1/Service';    
     var baseHttpUrl = crmconfig.serverDomainName +'/Service';
 
+    $scope.googleLogIn = function(){
+        API.googleLogIn().then(function(response){
+            console.log(response);
+            // window.location = response.data.url;
+        });
+    }
+
     
     // code to load employee tabel
     API.getAllEmpl()
