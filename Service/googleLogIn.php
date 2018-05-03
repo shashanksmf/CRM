@@ -10,6 +10,7 @@ include_once('../vendor/autoload.php');
 
 session_start();
 
+$responseArr = array();
 $client = new Google_Client();
 $client->setAuthConfigFile('../credentials.json');
 $client->addScope(Google_Service_Plus::PLUS_ME);
@@ -22,7 +23,10 @@ if (! isset($_GET['code'])) {
   // echo "auth_url".$auth_url;
   // header('Location:' . filter_var($auth_url, FILTER_SANITIZE_URL));
   // echo '<script type="text/javascript">top.location.href = "'.filter_var($auth_url, FILTER_SANITIZE_URL).'";</script>';
-  echo '<meta http-equiv="refresh" content="0; url="'.filter_var($auth_url, FILTER_SANITIZE_URL).'">';
+  // echo '<meta http-equiv="refresh" content="0; url="'.filter_var($auth_url, FILTER_SANITIZE_URL).'">';
+  $responseArr['result'] = True;
+  $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
+  echo json_encode($responseArr);
   exit;
 } else {
   $client->authenticate($_GET['code']);
@@ -33,11 +37,14 @@ if (! isset($_GET['code'])) {
   // echo "$redirect_uri".$redirect_uri;
   // header('Location:' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
   // echo '<script type="text/javascript">top.location.href = "'.filter_var($redirect_uri, FILTER_SANITIZE_URL).'";</script>';
-  echo '<meta http-equiv="refresh" content="0; url="'.filter_var($redirect_uri, FILTER_SANITIZE_URL).'">';
+  // echo '<meta http-equiv="refresh" content="0; url="'.filter_var($redirect_uri, FILTER_SANITIZE_URL).'">';
+  $responseArr['result'] = False;
+  $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
+  echo json_encode($responseArr);
   exit;
 }
-$response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
-print_r($response);
+// $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
+// print_r($response);
 
 // require_once("../Controller/Class_User_Login_Controller.php");
 // $controller = new UserLoginController();

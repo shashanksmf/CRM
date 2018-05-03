@@ -52,19 +52,26 @@ if ( isset( $session ) ) {
       $_SESSION['FULLNAME'] = $fbfullname;
       $_SESSION['EMAIL'] =  $femail;
 
+      $responseArr['result'] = False;
       $responseArr['fbid'] = $fbid;
       $responseArr['fbfullname'] = $fbfullname;
       $responseArr["femail"] = $femail;
+      $responseArr["url"] = 'https://' . $_SERVER['HTTP_HOST'];
       /* ---- header location after session ----*/
-      echo "responseArr".json_encode($responseArr);
-      header("Location: ".'https://' . $_SERVER['HTTP_HOST']);
+      echo json_encode($responseArr);
+      // header("Location: ".'https://' . $_SERVER['HTTP_HOST']);
+      exit;
     } else {
       $loginUrl = $helper->getLoginUrl();
       // echo "$loginUrl".$loginUrl;
+      $responseArr['result'] = True;
+      $responseArr["url"] = $loginUrl;
+      /* ---- header location after session ----*/
+      echo json_encode($responseArr);
       // header("Location: ".$loginUrl);
       // echo '<script type="text/javascript">top.location.href = "'.$loginUrl.'";</script>';
       // echo '<meta http-equiv="refresh" content="0; url="'.$loginUrl.'">';
-      echo '<script language="javascript">window.location ="'.$loginUrl.'"</script>';
+      // echo '<script language="javascript">window.location ="'.$loginUrl.'"</script>';
       exit;
     }
     ?>
