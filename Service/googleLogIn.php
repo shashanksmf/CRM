@@ -25,7 +25,6 @@ if (! isset($_GET['code'])) {
   $responseArr['result1'] = True;
   $responseArr['access_token1'] = $_SESSION['access_token'];
   $responseArr["url1"] = filter_var($auth_url, FILTER_SANITIZE_URL);
-  $responseArr["revokeToken1"] = $client->revokeToken();
   echo json_encode($responseArr);
   // header('Location:' . filter_var($auth_url, FILTER_SANITIZE_URL));
   // exit;
@@ -38,7 +37,6 @@ if (! isset($_GET['code'])) {
   $responseArr['result2'] = False;
   $responseArr['access_token2'] = $_SESSION['access_token'];
   $responseArr["url2"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
-  $responseArr["revokeToken2"] = $client->revokeToken();
   echo json_encode($responseArr);
   // header('Location:' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
   exit;
