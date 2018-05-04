@@ -5,6 +5,7 @@ header('Access-Control-Allow-Methods: POST, GET');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
+error_reporting(E_ERROR | E_PARSE);
 
 include_once('../vendor/autoload.php');
 
@@ -59,7 +60,7 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
 
 //Get User Data from Google Plus
 //If New, Insert to Database
-if (@$client->getAccessToken()) {
+if ($client->getAccessToken()) {
   $userData = $objOAuthService->userinfo->get();
   $responseArr['userData'] = $userData;
   //userData
