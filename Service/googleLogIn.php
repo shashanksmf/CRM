@@ -11,52 +11,12 @@ include_once('../vendor/autoload.php');
 
 session_start();
 
-// $responseArr = array();
-// $client = new Google_Client();
-// $client->setAuthConfigFile('../credentials.json');
-// $client->addScope(Google_Service_Plus::PLUS_ME);
-// $httpClient = $client->authorize();
-// $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST']);
-// $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
-// if (! isset($_GET['code'])) {
-//   $auth_url = $client->createAuthUrl();
-//   $_SESSION['access_token'] = $client->getAccessToken();
-//   $responseArr['result'] = True;
-//   $responseArr['access_token'] = $_SESSION['access_token'];
-//   $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
-//   echo json_encode($responseArr);
-//   // header('Location:' . filter_var($auth_url, FILTER_SANITIZE_URL));
-  
-// } else {
-//   $client->authenticate($_GET['code']);
-//   $_SESSION['access_token'] = $client->getAccessToken();
-//   echo "access_token".$_SESSION['access_token'];
-//   $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'];
-//   $responseArr['result'] = False;
-//   $responseArr['access_token'] = $_SESSION['access_token'];
-//   $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
-//   echo json_encode($responseArr);
-//   // header('Location:' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
-  
-// }
-// $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
-// print_r($response);
-// $responseArr['email'] = json_encode($response);
-// echo json_encode($responseArr);
-
-
-// require_once("../Controller/Class_User_Login_Controller.php");
-// $controller = new UserLoginController();
-// header('Content-Type: application/json');
-// echo $controller->checkUserEmail($email);
-
-
 $responseArr = array();
- $client_id = '106745707537-lqdq3l9g6l6gkim9fgqn2hqbktpslatf.apps.googleusercontent.com';
- $client_secret = 'oUv4b6yzrPaz_YG2nx9Toy0J';
- $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'];
- $simple_api_key = 'AIzaSyCCBX6FQPBwCCqarnFKHWV9Ls1LzI2AMIU';
- 
+$client_id = '106745707537-lqdq3l9g6l6gkim9fgqn2hqbktpslatf.apps.googleusercontent.com';
+$client_secret = 'oUv4b6yzrPaz_YG2nx9Toy0J';
+$redirect_uri = 'https://' . $_SERVER['HTTP_HOST'];
+$simple_api_key = 'AIzaSyCCBX6FQPBwCCqarnFKHWV9Ls1LzI2AMIU';
+
 //Create Client Request to access Google API
 $client = new Google_Client();
 $client->setApplicationName("CRM.git");
@@ -66,6 +26,9 @@ $client->setRedirectUri($redirect_uri);
 $client->setDeveloperKey($simple_api_key);
 $client->addScope("https://www.googleapis.com/auth/userinfo.email");
 // $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
+// $client->addScope(Google_Service_Plus::PLUS_ME);
+// $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
+// print_r($response);
 
 //Send Client Request
 $objOAuthService = new Google_Service_Oauth2($client);
@@ -91,28 +54,70 @@ if (isset($_GET['code'])) {
 //Set Access Token to make Request
 if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
   $client->setAccessToken($_SESSION['access_token']);
+  $responseArr['access_token'] = $_SESSION['access_token'];
 }
 
 //Get User Data from Google Plus
 //If New, Insert to Database
 if ($client->getAccessToken()) {
   $userData = $objOAuthService->userinfo->get();
+  echo "userData=".$userData;
   $_SESSION['userData'] = $userData;
   $responseArr['userData'] = $userData;
   $responseArr['userData1'] =  $_SESSION['userData'];
-  if(!empty($userData)) {
-    $objDBController = new DBController();
-    $existing_member = $objDBController->getUserByOAuthId($userData->id);
-    if(empty($existing_member)) {
-      $objDBController->insertOAuthUser($userData);
-    }
-  }
+  // if(!empty($userData)) {
+  //   $objDBController = new DBController();
+  //   $existing_member = $objDBController->getUserByOAuthId($userData->id);
+  //   if(empty($existing_member)) {
+  //     $objDBController->insertOAuthUser($userData);
+  //   }
+  // }
   $_SESSION['access_token'] = $client->getAccessToken();
   $responseArr['access_token'] = $_SESSION['access_token'];
 } else {
   $auth_url = $client->createAuthUrl();
   $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
 }
-  echo json_encode($responseArr);
+echo json_encode($responseArr);
+
+
+  // $responseArr = array();
+// $client = new Google_Client();
+// $client->setAuthConfigFile('../credentials.json');
+// $client->addScope(Google_Service_Plus::PLUS_ME);
+// $httpClient = $client->authorize();
+// $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST']);
+// $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
+// if (! isset($_GET['code'])) {
+//   $auth_url = $client->createAuthUrl();
+//   $_SESSION['access_token'] = $client->getAccessToken();
+//   $responseArr['result'] = True;
+//   $responseArr['access_token'] = $_SESSION['access_token'];
+//   $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
+//   echo json_encode($responseArr);
+//   // header('Location:' . filter_var($auth_url, FILTER_SANITIZE_URL));
+
+// } else {
+//   $client->authenticate($_GET['code']);
+//   $_SESSION['access_token'] = $client->getAccessToken();
+//   echo "access_token".$_SESSION['access_token'];
+//   $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'];
+//   $responseArr['result'] = False;
+//   $responseArr['access_token'] = $_SESSION['access_token'];
+//   $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
+//   echo json_encode($responseArr);
+//   // header('Location:' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+
+// }
+// $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
+// print_r($response);
+// $responseArr['email'] = json_encode($response);
+// echo json_encode($responseArr);
+
+
+// require_once("../Controller/Class_User_Login_Controller.php");
+// $controller = new UserLoginController();
+// header('Content-Type: application/json');
+// echo $controller->checkUserEmail($email);
 
 ?>
