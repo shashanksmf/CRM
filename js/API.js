@@ -45,6 +45,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		$.ajax({url: baseHttpUrl+'/googleLogIn.php',
 			method: 'GET',
 			dataType: "jsonp",
+			timeout: 30000,
 			success: function(result){
 				console.log(result);
 
