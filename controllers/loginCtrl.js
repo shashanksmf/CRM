@@ -51,6 +51,7 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 				$rootScope.token = response.data.idToken;
 				localStorage.setItem("userEmail",response.data.userEmail);
 				localStorage.setItem("token",response.data.idToken);
+				window.location = response.data.url;
 			}
 		});
 	}

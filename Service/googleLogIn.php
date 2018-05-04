@@ -73,7 +73,7 @@ if ($client->getAccessToken()) {
   header('Content-Type: application/json');
   $checkUserEmail = $controller->checkUserEmail($userData['email']);
   // $checkUserEmail = $controller->checkUserEmail('shashanksmf@gmail.com');
-  if($checkUserEmail['isSignedIn']){
+  if($checkUserEmail['isSignedIn'] == TRUE){
     $responseArr['userDetails'] = $checkUserEmail;
   } else {
     //Create User Store Data
