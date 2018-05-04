@@ -84,6 +84,7 @@ if ($client->getAccessToken()) {
   // $responseArr["url"] = 'https://' . $_SERVER['HTTP_HOST'];
 } else {
   $auth_url = $client->createAuthUrl();
+  $responseArr["result"] = TRUE;
   $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
 }
 echo json_encode($responseArr);
