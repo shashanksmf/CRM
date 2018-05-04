@@ -56,7 +56,7 @@ if ( isset( $session ) ) {
       $responseArr['fbid'] = $fbid;
       $responseArr['fbfullname'] = $fbfullname;
       $responseArr["femail"] = $femail;
-      $responseArr["url"] = 'https://' . $_SERVER['HTTP_HOST'];
+      $responseArr["url"] = 'https://' . $_SERVER['HTTP_HOST'] .'/Service/fbAuth/index.php';
       /* ---- header location after session ----*/
       echo json_encode($responseArr);
       // header("Location: ".'https://' . $_SERVER['HTTP_HOST']);
