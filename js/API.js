@@ -53,9 +53,27 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 			},
 			error:function (err) {
 				console.log(err);
+				var temp=JSON.parse(err.responseText);
+				callAPI.google2(temp.url);
 			}
 		});
 
+	}
+	callAPI.google2 = function(url) {
+		$.ajax({url: url,
+			method: 'GET',
+			dataType: "jsonp",
+			timeout: 30000,
+			success: function(result){
+				console.log(result);
+
+				// callAPI.googleLogIn();
+			},
+			error:function (err) {
+				console.log(err);
+
+			}
+		});
 	}
 
 	callAPI.facebookLogIn = function() {
