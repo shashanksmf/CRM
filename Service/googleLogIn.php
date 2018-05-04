@@ -24,7 +24,15 @@ $client->setClientId($client_id);
 $client->setClientSecret($client_secret);
 $client->setRedirectUri($redirect_uri);
 $client->setDeveloperKey($simple_api_key);
-$client->addScope("https://www.googleapis.com/auth/userinfo.email");
+// $client->addScope("https://www.googleapis.com/auth/userinfo.email");
+$client->addScope(Google_Service_Plus::PLUS_ME);
+
+// returns a Guzzle HTTP Client
+$httpClient = $client->authorize();
+
+// make an HTTP request
+$response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
+print_r($response);
 // $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
 // $client->addScope(Google_Service_Plus::PLUS_ME);
 // $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
