@@ -12,8 +12,8 @@ include_once('../vendor/autoload.php');
 session_start();
 
 $responseArr = array();
-$userDataArr = array();
-$accessTokenArr = array();
+// $userDataArr = array();
+// $accessTokenArr = array();
 $client_id = '106745707537-lqdq3l9g6l6gkim9fgqn2hqbktpslatf.apps.googleusercontent.com';
 $client_secret = 'oUv4b6yzrPaz_YG2nx9Toy0J';
 $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'] .'/Service/googleLogIn.php';
@@ -60,22 +60,24 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
 //Get User Data from Google Plus
 //If New, Insert to Database
 if ($client->getAccessToken()) {
-  //userData
   $userData = $objOAuthService->userinfo->get();
-  $userDataArr = json_decode($userData, TRUE);
-  $responseArr['user_email'] = $userDataArr['email'];
-  $responseArr['user_id'] = $userDataArr['id'];
-  $responseArr['user_picture'] = $userDataArr['picture'];
-  $responseArr['user_verifiedEmail'] = $userDataArr['verifiedEmail'];
-  $responseArr['user_token'] = $userDataArr['token'];
-  // access_token data
+  $responseArr['userData'] = $userData;
+  //userData
+  // $userDataArr = json_decode($userData, TRUE);
+  // $responseArr['user_email'] = $userDataArr['email'];
+  // $responseArr['user_id'] = $userDataArr['id'];
+  // $responseArr['user_picture'] = $userDataArr['picture'];
+  // $responseArr['user_verifiedEmail'] = $userDataArr['verifiedEmail'];
+  // $responseArr['user_token'] = $userDataArr['token'];
   $_SESSION['access_token'] = $client->getAccessToken();
-  $accessTokenArr = json_decode($_SESSION['access_token'], TRUE);
-  $responseArr['access_token'] = $accessTokenArr['access_token'];
-  $responseArr['token_type'] = $accessTokenArr['token_type'];
-  $responseArr['expires_in'] = $accessTokenArr['expires_in'];
-  $responseArr['id_token'] = $accessTokenArr['id_token'];
-  $responseArr['token_created'] = $accessTokenArr['created'];
+  $responseArr['access_token'] = $_SESSION['access_token'];
+  // access_token data
+  // $accessTokenArr = json_decode($_SESSION['access_token'], TRUE);
+  // $responseArr['access_token'] = $accessTokenArr['access_token'];
+  // $responseArr['token_type'] = $accessTokenArr['token_type'];
+  // $responseArr['expires_in'] = $accessTokenArr['expires_in'];
+  // $responseArr['id_token'] = $accessTokenArr['id_token'];
+  // $responseArr['token_created'] = $accessTokenArr['created'];
   //redirect to server
   $responseArr["url"] = 'https://' . $_SERVER['HTTP_HOST'];
 } else {
