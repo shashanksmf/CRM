@@ -47,7 +47,11 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 			dataType: "jsonp",
 			success: function(result){
 				console.log(result);
+
 				// callAPI.googleLogIn();
+			},
+			error:function (err) {
+				console.log(err);
 			}
 		});
 
