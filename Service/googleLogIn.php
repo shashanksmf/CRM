@@ -52,8 +52,8 @@ session_start();
 
 
 $responseArr = array();
- $client_id = 'oUv4b6yzrPaz_YG2nx9Toy0J';
- $client_secret = '106745707537-lqdq3l9g6l6gkim9fgqn2hqbktpslatf.apps.googleusercontent.com';
+ $client_id = '106745707537-lqdq3l9g6l6gkim9fgqn2hqbktpslatf.apps.googleusercontent.com';
+ $client_secret = 'oUv4b6yzrPaz_YG2nx9Toy0J';
  $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'];
  $simple_api_key = 'AIzaSyCCBX6FQPBwCCqarnFKHWV9Ls1LzI2AMIU';
  
@@ -64,7 +64,8 @@ $client->setClientId($client_id);
 $client->setClientSecret($client_secret);
 $client->setRedirectUri($redirect_uri);
 $client->setDeveloperKey($simple_api_key);
-$client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
+$client->addScope("https://www.googleapis.com/auth/userinfo.email");
+// $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
 
 //Send Client Request
 $objOAuthService = new Google_Service_Oauth2($client);
