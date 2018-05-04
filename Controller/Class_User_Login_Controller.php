@@ -155,6 +155,40 @@ class UserLoginController{
         return $usr;
     }
 
+    public function addSocialUser($name, $gender, $email, $profilePic, $isSocial, $socialType){
+
+       $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
+       $usr = new User("","","","","","","","","","");
+
+       if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "SELECT * FROM user where email='".$email."' limit 1;";
+
+        $result = $conn->query($sql);
+        if (@mysqli_num_rows($result) > 0) {
+            $usr->isSignedUp = FALSE;
+            $usr->message=$email." is already used!";
+
+        } else {
+
+        $sql = "INSERT INTO user (name, department, hireDate, dob, gender, homeAddress, email, phone, profilePic, password, isSocial, socialType)
+        VALUES ('".$name."','','','','".$gender."','','".$email."','','".$profilePic."','','".$isSocial."','".$socialType."')";
+                    //echo 'Query : '.$sql;
+            if ($conn->query($sql) === TRUE) {
+                $usr->isSignedUp = TRUE;
+                $usr->message = "Signin Success!";
+            } else {
+                            //echo "Error: " . $sql . "<br>" . $conn->error;
+                $usr->isSignedUp = FALSE;
+                $usr->message="Signup Failed!";
+            }
+        }
+        $conn->close();
+        return $usr;
+    }
+
 }
 
 

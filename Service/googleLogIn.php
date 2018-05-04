@@ -36,8 +36,7 @@ if (isset($_REQUEST['logout'])) {
   unset($_SESSION['access_token']);
   $client->revokeToken();
   // header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL)); 
-  // $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
-  ?> <script type="text/javascript">location.assign('<?php echo $redirect_uri ?>');</script> <?php
+  $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
 }
 
 //Authenticate code from Google OAuth Flow
@@ -46,8 +45,7 @@ if (isset($_GET['code'])) {
   $client->authenticate($_GET['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
   // header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
-  // $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
-  ?> <script type="text/javascript">location.assign('<?php echo $redirect_uri ?>');</script> <?php
+  $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
 }
 
 //Set Access Token to make Request
@@ -59,12 +57,12 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
 //If New, Insert to Database
 if ($client->getAccessToken()) {
   $userData = $objOAuthService->userinfo->get();
-  // $responseArr['userData'] = $userData;
+  $responseArr['userData'] = $userData;
   $responseArr['userEmail'] = $userData['email'];
   
   $_SESSION['access_token'] = $client->getAccessToken();
   $access_token = $_SESSION['access_token'];
-  // $responseArr['accessToken'] = $access_token;
+  $responseArr['accessToken'] = $access_token;
   $responseArr['idToken'] = $access_token['id_token'];
   
   //redirect to server
@@ -76,17 +74,22 @@ if ($client->getAccessToken()) {
   $checkUserEmail = $controller->checkUserEmail($userData['email']);
   // $checkUserEmail = $controller->checkUserEmail('shashanksmf@gmail.com');
     $responseArr['userDetails'] = $checkUserEmail;
+    
   // if($checkUserEmail['isSignedIn'] == TRUE){
+  //    $responseArr['userDetails'] = $checkUserEmail;
   // } else {
   //   //Create User Store Data
+  //   $isSocial = 'True';
+  //   $socialType = 'Google';
+  //   $addSocialUser = $controller->addSocialUser($userData['givenName'], $userData['email'],$userData['picture'], $isSocial, $socialType);
+  //   $responseArr['userDetails'] = $addSocialUser;
   // }
 } else {
   $auth_url = $client->createAuthUrl();
   $responseArr["result"] = TRUE;
-  // $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
-  ?> <script type="text/javascript">location.assign('<?php echo $auth_url ?>');</script> <?php
+  $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
 }
-// exit(json_encode($responseArr,true));
+exit(json_encode($responseArr,true));
 
 
 ?>
