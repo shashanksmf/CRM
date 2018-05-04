@@ -61,7 +61,7 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
 //If New, Insert to Database
 if ($client->getAccessToken()) {
   $userData = $objOAuthService->userinfo->get();
-  echo "userData=".$userData;
+  print_r($userData);
   $_SESSION['userData'] = $userData;
   $responseArr['userData'] = $userData;
   $responseArr['userData1'] =  $_SESSION['userData'];
