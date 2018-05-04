@@ -15,9 +15,7 @@ session_start();
 $responseArr = array();
 // $userDataArr = array();
 // $accessTokenArr = array();
-$client_id = '106745707537-
-
-lqdq3l9g6l6gkim9fgqn2hqbktpslatf.apps.googleusercontent.com';
+$client_id = '106745707537-lqdq3l9g6l6gkim9fgqn2hqbktpslatf.apps.googleusercontent.com';
 $client_secret = 'oUv4b6yzrPaz_YG2nx9Toy0J';
 // $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'];
 $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'] .'/Service/googleLogIn.php';
