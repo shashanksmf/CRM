@@ -86,7 +86,7 @@ if ($client->getAccessToken()) {
   // $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
   ?> <script type="text/javascript">location.assign('<?php echo $auth_url ?>');</script> <?php
 }
-exit(json_encode($responseArr,true));
+// exit(json_encode($responseArr,true));
 
 
 ?>
