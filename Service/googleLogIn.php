@@ -14,7 +14,7 @@ session_start();
 $responseArr = array();
 $client_id = '106745707537-lqdq3l9g6l6gkim9fgqn2hqbktpslatf.apps.googleusercontent.com';
 $client_secret = 'oUv4b6yzrPaz_YG2nx9Toy0J';
-$redirect_uri = 'https://' . $_SERVER['HTTP_HOST'];
+$redirect_uri = 'https://' . $_SERVER['HTTP_HOST'] .'/Service/googleLogIn.php';
 $simple_api_key = 'AIzaSyCCBX6FQPBwCCqarnFKHWV9Ls1LzI2AMIU';
 
 //Create Client Request to access Google API
@@ -61,19 +61,11 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
 //If New, Insert to Database
 if ($client->getAccessToken()) {
   $userData = $objOAuthService->userinfo->get();
-  print_r($userData);
   $_SESSION['userData'] = $userData;
   $responseArr['userData'] = $userData;
-  $responseArr['userData1'] =  $_SESSION['userData'];
-  // if(!empty($userData)) {
-  //   $objDBController = new DBController();
-  //   $existing_member = $objDBController->getUserByOAuthId($userData->id);
-  //   if(empty($existing_member)) {
-  //     $objDBController->insertOAuthUser($userData);
-  //   }
-  // }
   $_SESSION['access_token'] = $client->getAccessToken();
   $responseArr['access_token'] = $_SESSION['access_token'];
+  $responseArr["url"] = 'https://' . $_SERVER['HTTP_HOST'];
 } else {
   $auth_url = $client->createAuthUrl();
   $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
