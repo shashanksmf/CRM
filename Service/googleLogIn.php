@@ -39,7 +39,7 @@ if (isset($_REQUEST['logout'])) {
   // $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
   ?>
     <script type="text/javascript">
-    window.location = $redirect_uri;
+    window.location = <?php echo $redirect_uri ?>;
     </script>
   <?php
 }
@@ -53,7 +53,7 @@ if (isset($_GET['code'])) {
   // $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
   ?>
     <script type="text/javascript">
-    window.location = $redirect_uri;
+    window.location = <?php echo $redirect_uri ?>;
     </script>
   <?php
 }
@@ -94,7 +94,7 @@ if ($client->getAccessToken()) {
   // $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
   ?>
     <script type="text/javascript">
-    window.location = $auth_url;
+    window.location = <?php echo $auth_url ?>;
     </script>
   <?php
 }
