@@ -64,7 +64,7 @@ $client->setClientId($client_id);
 $client->setClientSecret($client_secret);
 $client->setRedirectUri($redirect_uri);
 $client->setDeveloperKey($simple_api_key);
-// $client->addScope("https://www.googleapis.com/auth/userinfo.email");
+$client->addScope(Google_Service_Plus::PLUS_ME);
 
 //Send Client Request
 $objOAuthService = new Google_Service_Oauth2($client);
