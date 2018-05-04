@@ -81,7 +81,7 @@ if ($client->getAccessToken()) {
   // $responseArr['id_token'] = $accessTokenArr['id_token'];
   // $responseArr['token_created'] = $accessTokenArr['created'];
   //redirect to server
-  $responseArr["url"] = 'https://' . $_SERVER['HTTP_HOST'];
+  // $responseArr["url"] = 'https://' . $_SERVER['HTTP_HOST'];
 } else {
   $auth_url = $client->createAuthUrl();
   $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
