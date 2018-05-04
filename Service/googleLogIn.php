@@ -59,7 +59,7 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
 
 //Get User Data from Google Plus
 //If New, Insert to Database
-if ($client->getAccessToken()) {
+if (@$client->getAccessToken()) {
   $userData = $objOAuthService->userinfo->get();
   $responseArr['userData'] = $userData;
   //userData
