@@ -35,18 +35,9 @@ $objOAuthService = new Google_Service_Oauth2($client);
 if (isset($_REQUEST['logout'])) {
   unset($_SESSION['access_token']);
   $client->revokeToken();
-  // header('Location: ' . $redirect_uri); 
-  // end();
-  ?>
-  <form name='fr' action=' <?php echo $redirect_uri ?> ' method='GET'>
-</form>
-<script type='text/javascript'>
-document.fr.submit();
-</script>
-
-  <?php
+  // header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL)); 
   // $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
- 
+  ?> <script type="text/javascript">location.assign('<?php echo $redirect_uri ?>');</script> <?php
 }
 
 //Authenticate code from Google OAuth Flow
@@ -56,14 +47,7 @@ if (isset($_GET['code'])) {
   $_SESSION['access_token'] = $client->getAccessToken();
   // header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
   // $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
-  ?>
-  <form name='fr' action=' <?php echo $redirect_uri ?> ' method='GET'>
-</form>
-<script type='text/javascript'>
-document.fr.submit();
-</script>
-
-  <?php
+  ?> <script type="text/javascript">location.assign('<?php echo $redirect_uri ?>');</script> <?php
 }
 
 //Set Access Token to make Request
@@ -100,14 +84,7 @@ if ($client->getAccessToken()) {
   $auth_url = $client->createAuthUrl();
   $responseArr["result"] = TRUE;
   // $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
-  ?>
-  <form name='fr' action=' <?php echo $auth_url ?> ' method='GET'>
-</form>
-<script type='text/javascript'>
-document.fr.submit();
-</script>
-
-  <?php
+  ?> <script type="text/javascript">location.assign('<?php echo $auth_url ?>');</script> <?php
 }
 exit(json_encode($responseArr,true));
 
