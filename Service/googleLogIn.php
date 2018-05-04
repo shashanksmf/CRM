@@ -69,13 +69,13 @@ $client->addScope("https://www.googleapis.com/auth/userinfo.email");
 //Send Client Request
 $objOAuthService = new Google_Service_Oauth2($client);
 
-// //Logout
-// if (isset($_REQUEST['logout'])) {
-//   unset($_SESSION['access_token']);
-//   $client->revokeToken();
-//   // header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL)); //redirect user back to page
-//   $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
-// }
+//Logout
+if (isset($_REQUEST['logout'])) {
+  unset($_SESSION['access_token']);
+  $client->revokeToken();
+  // header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL)); //redirect user back to page
+  $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
+}
 
 //Authenticate code from Google OAuth Flow
 //Add Access Token to Session
@@ -109,7 +109,7 @@ if ($client->getAccessToken()) {
   $_SESSION['access_token'] = $client->getAccessToken();
   $responseArr['access_token'] = $_SESSION['access_token'];
 } else {
-  $authUrl = $client->createAuthUrl();
+  $auth_url = $client->createAuthUrl();
   $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
 }
   echo json_encode($responseArr);
