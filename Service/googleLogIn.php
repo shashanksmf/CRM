@@ -61,7 +61,9 @@ if ($client->getAccessToken()) {
   $responseArr['userEmail'] = $userData['email'];
   
   $_SESSION['access_token'] = $client->getAccessToken();
-  $responseArr['accessToken'] = $_SESSION['access_token'];
+  $access_token = $_SESSION['access_token'];
+  $responseArr['accessToken'] = $access_token;
+  $responseArr['idToken'] = $access_token['id_token'];
   
   //redirect to server
   $responseArr["url"] = 'https://' . $_SERVER['HTTP_HOST'];
@@ -69,7 +71,13 @@ if ($client->getAccessToken()) {
   require_once("../Controller/Class_User_Login_Controller.php");
   $controller = new UserLoginController();
   header('Content-Type: application/json');
-  $responseArr['userDetails'] = $controller->checkUserEmail($userData['email']);
+  $checkUserEmail = $controller->checkUserEmail($userData['email']);
+  // $checkUserEmail = $controller->checkUserEmail('shashanksmf@gmail.com');
+  if($checkUserEmail['isSignedIn']){
+    $responseArr['userDetails'] = $checkUserEmail;
+  } else {
+    //Create User Store Data
+  }
 } else {
   $auth_url = $client->createAuthUrl();
   $responseArr["result"] = TRUE;
