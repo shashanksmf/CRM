@@ -13,8 +13,6 @@ include_once('../vendor/autoload.php');
 session_start();
 
 $responseArr = array();
-// $userDataArr = array();
-// $accessTokenArr = array();
 $client_id = '106745707537-lqdq3l9g6l6gkim9fgqn2hqbktpslatf.apps.googleusercontent.com';
 $client_secret = 'oUv4b6yzrPaz_YG2nx9Toy0J';
 // $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'];
@@ -29,10 +27,6 @@ $client->setClientSecret($client_secret);
 $client->setRedirectUri($redirect_uri);
 $client->setDeveloperKey($simple_api_key);
 $client->addScope("https://www.googleapis.com/auth/userinfo.email");
-// $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
-// $client->addScope(Google_Service_Plus::PLUS_ME);
-// $response = $httpClient->get('https://www.googleapis.com/plus/v1/people/me');
-// print_r($response);
 
 //Send Client Request
 $objOAuthService = new Google_Service_Oauth2($client);
@@ -64,35 +58,24 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
 if ($client->getAccessToken()) {
   $userData = $objOAuthService->userinfo->get();
   $responseArr['userData'] = $userData;
-  $responseArr['user_email'] = $userData['email'];
-  //userData
-  // $userDataArr = json_decode($userData, TRUE);
-  // $responseArr['user_email'] = $userDataArr['email'];
-  // $responseArr['user_id'] = $userDataArr['id'];
-  // $responseArr['user_picture'] = $userDataArr['picture'];
-  // $responseArr['user_verifiedEmail'] = $userDataArr['verifiedEmail'];
-  // $responseArr['user_token'] = $userDataArr['token'];
+  $responseArr['userEmail'] = $userData['email'];
+  
   $_SESSION['access_token'] = $client->getAccessToken();
-  $responseArr['access_token'] = $_SESSION['access_token'];
-  // access_token data
-  // $accessTokenArr = json_decode($_SESSION['access_token'], TRUE);
-  // $responseArr['access_token'] = $accessTokenArr['access_token'];
-  // $responseArr['token_type'] = $accessTokenArr['token_type'];
-  // $responseArr['expires_in'] = $accessTokenArr['expires_in'];
-  // $responseArr['id_token'] = $accessTokenArr['id_token'];
-  // $responseArr['token_created'] = $accessTokenArr['created'];
+  $responseArr['accessToken'] = $_SESSION['access_token'];
+  
   //redirect to server
-  // $responseArr["url"] = 'https://' . $_SERVER['HTTP_HOST'];
+  $responseArr["url"] = 'https://' . $_SERVER['HTTP_HOST'];
+
+  require_once("../Controller/Class_User_Login_Controller.php");
+  $controller = new UserLoginController();
+  header('Content-Type: application/json');
+  $responseArr['userDetails'] = $controller->checkUserEmail($userData['email']);
 } else {
   $auth_url = $client->createAuthUrl();
   $responseArr["result"] = TRUE;
   $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
 }
-echo json_encode($responseArr);
+exit(json_encode($responseArr,true));
 
-// require_once("../Controller/Class_User_Login_Controller.php");
-// $controller = new UserLoginController();
-// header('Content-Type: application/json');
-// echo $controller->checkUserEmail($email);
 
 ?>
