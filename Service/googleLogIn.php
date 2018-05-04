@@ -36,7 +36,12 @@ if (isset($_REQUEST['logout'])) {
   unset($_SESSION['access_token']);
   $client->revokeToken();
   // header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL)); 
-  $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
+  // $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
+  ?>
+    <script type="text/javascript">
+    window.location = $redirect_uri;
+    </script>
+  <?php
 }
 
 //Authenticate code from Google OAuth Flow
@@ -45,7 +50,12 @@ if (isset($_GET['code'])) {
   $client->authenticate($_GET['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
   // header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
-  $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
+  // $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
+  ?>
+    <script type="text/javascript">
+    window.location = $redirect_uri;
+    </script>
+  <?php
 }
 
 //Set Access Token to make Request
@@ -57,12 +67,12 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
 //If New, Insert to Database
 if ($client->getAccessToken()) {
   $userData = $objOAuthService->userinfo->get();
-  $responseArr['userData'] = $userData;
+  // $responseArr['userData'] = $userData;
   $responseArr['userEmail'] = $userData['email'];
   
   $_SESSION['access_token'] = $client->getAccessToken();
   $access_token = $_SESSION['access_token'];
-  $responseArr['accessToken'] = $access_token;
+  // $responseArr['accessToken'] = $access_token;
   $responseArr['idToken'] = $access_token['id_token'];
   
   //redirect to server
@@ -81,7 +91,12 @@ if ($client->getAccessToken()) {
 } else {
   $auth_url = $client->createAuthUrl();
   $responseArr["result"] = TRUE;
-  $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
+  // $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
+  ?>
+    <script type="text/javascript">
+    window.location = $auth_url;
+    </script>
+  <?php
 }
 exit(json_encode($responseArr,true));
 
