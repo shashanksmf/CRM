@@ -44,15 +44,26 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 			console.log(response);
 			if (response.data.result) {
 				window.location = response.data.url;
+				API.googleLogIn().then(function(response){
+					console.log(response);
+					if(response.data.idToken){
+			            localStorage.clear();
+						$rootScope.userEmail = response.data.userEmail;
+						$rootScope.token = response.data.idToken;
+						localStorage.setItem("userEmail",response.data.userEmail);
+						localStorage.setItem("token",response.data.idToken);
+						window.location = response.data.url;
+					}
+				});
 			}
-			else if(response.data.idToken){
-	            localStorage.clear();
-				$rootScope.userEmail = response.data.userEmail;
-				$rootScope.token = response.data.idToken;
-				localStorage.setItem("userEmail",response.data.userEmail);
-				localStorage.setItem("token",response.data.idToken);
-				window.location = response.data.url;
-			}
+			// else if(response.data.idToken){
+	  //           localStorage.clear();
+			// 	$rootScope.userEmail = response.data.userEmail;
+			// 	$rootScope.token = response.data.idToken;
+			// 	localStorage.setItem("userEmail",response.data.userEmail);
+			// 	localStorage.setItem("token",response.data.idToken);
+			// 	window.location = response.data.url;
+			// }
 		});
 	}
 
