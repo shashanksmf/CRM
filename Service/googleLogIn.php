@@ -64,6 +64,7 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
 if ($client->getAccessToken()) {
   $userData = $objOAuthService->userinfo->get();
   $responseArr['userData'] = $userData;
+  $responseArr['user_email'] = $userData['email'];
   //userData
   // $userDataArr = json_decode($userData, TRUE);
   // $responseArr['user_email'] = $userDataArr['email'];

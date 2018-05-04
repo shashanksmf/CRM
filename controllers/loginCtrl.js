@@ -42,7 +42,7 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 	$scope.googleLogIn = function(){
 		API.googleLogIn().then(function(response){
 			console.log(response);
-			if (response.result) {
+			if (response.data.result) {
 				window.location = response.data.url;
 			}
 		});
