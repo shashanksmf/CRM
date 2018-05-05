@@ -57,7 +57,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 
 			method: 'GET',
 			dataType: "jsonp",
-			url: baseHttpUrl+'/fbAuth/fbconfig.php'
+			url: baseHttpUrl+'/facebookLogIn.php'
 
 		})
 
