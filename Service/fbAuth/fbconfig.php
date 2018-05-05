@@ -27,7 +27,7 @@ FacebookSession::setDefaultApplication( '1827896904180275','e0407be9cc41abcb2620
 $redirect_url = 'https://' . $_SERVER['HTTP_HOST'] .'/Service/fbAuth/fbconfig.php';
 $helper = new FacebookRedirectLoginHelper($redirect_url);
 try {
-    $session = $helper->getSessionFromRedirect();
+    // $session = $helper->getSessionFromRedirect();
 } catch( FacebookRequestException $ex ) {
   // When Facebook returns an error
   echo "<br> FaceExpexption => " . $ex;
