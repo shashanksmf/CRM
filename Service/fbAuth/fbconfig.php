@@ -32,7 +32,7 @@ try {
     }else{
           $accessToken = $helper->getAccessToken();
     }
-  $session = $helper->getSessionFromRedirect();
+  // $session = $helper->getSessionFromRedirect();
 } catch( FacebookRequestException $ex ) {
   // When Facebook returns an error
   echo "<br> FaceExpexption => " . $ex;
@@ -62,7 +62,7 @@ if ( isset($accessToken) {
       $responseArr['fbid'] = $fbid;
       $responseArr['fbfullname'] = $fbfullname;
       $responseArr["femail"] = $femail;
-      $responseArr["url"] = 'https://' . $_SERVER['HTTP_HOST'] .'/Service/fbAuth/index.php';
+      $responseArr["url"] = 'https://' . $_SERVER['HTTP_HOST'];
       /* ---- header location after session ----*/
       // header("Location: ".'https://' . $_SERVER['HTTP_HOST']);
       
