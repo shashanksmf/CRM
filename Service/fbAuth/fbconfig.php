@@ -27,12 +27,8 @@ FacebookSession::setDefaultApplication( '1827896904180275','e0407be9cc41abcb2620
 $redirect_url = 'https://' . $_SERVER['HTTP_HOST'] .'/Service/fbAuth/fbconfig.php';
 $helper = new FacebookRedirectLoginHelper($redirect_url);
 try {
-    if(isset($session)){
-        $accessToken = $session;
-    }else{
-      $session = $helper->getSessionFromRedirect();
-      $accessToken = $session;
-    }
+    $session = $helper->getSessionFromRedirect();
+    echo $session;
 } catch( FacebookRequestException $ex ) {
   // When Facebook returns an error
   echo "<br> FaceExpexption => " . $ex;
@@ -42,10 +38,10 @@ try {
 }
 $responseArr = array();
 // see if we have a session
-if ( isset($accessToken)) {
+if ( isset($session)) {
   // graph api request for user data
-  $responseArr['accessToken'] = $accessToken;
-  $request = new FacebookRequest( $accessToken, 'GET', '/me' );
+  $responseArr['session'] = $session;
+  $request = new FacebookRequest( $session, 'GET', '/me' );
   $response = $request->execute();
   // get response
   $graphObject = $response->getGraphObject();
