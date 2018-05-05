@@ -38,7 +38,7 @@ try {
 }
 $responseArr = array();
 // see if we have a session
-if ( isset($session) {
+if (isset($session)) {
   // graph api request for user data
   $responseArr['session'] = $session;
   $request = new FacebookRequest( $session, 'GET', '/me' );
@@ -73,5 +73,5 @@ if ( isset($session) {
       // echo '<meta http-equiv="refresh" content="0; url="'.$loginUrl.'">';
       // echo '<script language="javascript">window.location ="'.$loginUrl.'"</script>';
     }
-      exit(json_encode($responseArr));
-?>
+    exit(json_encode($responseArr, true));
+    ?>
