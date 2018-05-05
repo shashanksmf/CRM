@@ -79,12 +79,11 @@ if ($client->getAccessToken()) {
   $checkUserEmailArr = $checkUserEmail;
   $message = $checkUserEmailArr['message'];
   echo "message".$message;
-  $checkUserEmail =  json_decode($checkUserEmail, true);
     // $responseArr['userDetails'] = $checkUserEmail;
   $email = "shashanksmf@gmail.com";
   $checkUserEmail = $controller->checkUserEmail($email);
-  $checkUserEmail =  json_decode($checkUserEmail, true);
-  echo $checkUserEmail;
+  $checkUserEmail =  json_decode(json_encode($checkUserEmail),true);
+  print_r($checkUserEmail);
   $checkUserEmailArr = array();
   $checkUserEmailArr = $checkUserEmail;
   $message = $checkUserEmailArr['message'];
