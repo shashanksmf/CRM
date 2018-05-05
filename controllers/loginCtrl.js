@@ -48,8 +48,12 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 			else if(response.data.idToken){
 	            localStorage.clear();
 				$rootScope.userEmail = response.data.userEmail;
+				$rootScope.userName = response.data.userName;
+				$rootScope.userId = response.data.userId;
 				$rootScope.token = response.data.idToken;
 				localStorage.setItem("userEmail",response.data.userEmail);
+				localStorage.setItem("userName",response.data.userName);
+				localStorage.setItem("userId",response.data.userId);
 				localStorage.setItem("token",response.data.idToken);
 				window.location = response.data.url;
 			}

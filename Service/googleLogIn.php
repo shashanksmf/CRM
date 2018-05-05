@@ -57,12 +57,11 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
 //If New, Insert to Database
 if ($client->getAccessToken()) {
   $userData = $objOAuthService->userinfo->get();
-  $responseArr['userData'] = $userData;
-  $responseArr['userEmail'] = $userData['email'];
+  // $responseArr['userData'] = $userData;
   
   $_SESSION['access_token'] = $client->getAccessToken();
   $access_token = $_SESSION['access_token'];
-  $responseArr['accessToken'] = $access_token;
+  // $responseArr['accessToken'] = $access_token;
   $responseArr['idToken'] = $access_token['id_token'];
   
   //redirect to server
@@ -72,25 +71,27 @@ if ($client->getAccessToken()) {
   $controller = new UserLoginController();
   header('Content-Type: application/json');
   $checkUserEmail = $controller->checkUserEmail($userData['email']);
-  $email = "shashanksmf@gmail.com";
-  $checkUserEmail = $controller->checkUserEmail($email);
   $checkUserEmail = json_decode($checkUserEmail, true);
-  echo "result".$checkUserEmail['result'];
-  $userDetailsArr = array();
-  $userDetailsArr = $checkUserEmail['details'];
-  echo $userDetailsArr['name'];
+  // echo "result".$checkUserEmail['result'];
     
   if($checkUserEmail['result'] == true){
-    echo "true";
-     $responseArr['userDetails'] = $checkUserEmail;
+    // $responseArr['userDetails'] = $checkUserEmail;
+    $userDetailsArr = array();
+    $userDetailsArr = $checkUserEmail['details'];
+    // echo $userDetailsArr['name'];
+    $responseArr['userId'] = $userDetailsArr['id'];
+    $responseArr['userName'] = $userDetailsArr['name'];
+    $responseArr['userEmail'] = $userDetailsArr['email'];
   } 
-  // else {
-  //   //Create User Store Data
-  //   $isSocial = 'True';
-  //   $socialType = 'Google';
-  //   $addSocialUser = $controller->addSocialUser($userData['givenName'], $userData['email'],$userData['picture'], $isSocial, $socialType);
-  //   $responseArr['userDetails'] = $addSocialUser;
-  // }
+  else {
+    //Create User Store Data
+    $responseArr['userId'] = $userData['id'];
+    $responseArr['userName'] = $userData['givenName'];
+    $responseArr['userEmail'] = $userData['email'];
+    // $isSocial = 'True';
+    // $socialType = 'Google';
+    // $addSocialUser = $controller->addSocialUser($userData['givenName'], $userData['email'],$userData['picture'], $isSocial, $socialType);
+  }
 } else {
   $auth_url = $client->createAuthUrl();
   $responseArr["result"] = TRUE;
