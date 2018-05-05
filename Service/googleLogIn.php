@@ -72,20 +72,18 @@ if ($client->getAccessToken()) {
   $controller = new UserLoginController();
   header('Content-Type: application/json');
   $checkUserEmail = $controller->checkUserEmail($userData['email']);
-  $checkUserEmail =  json_decode($checkUserEmail,true);
-      // $responseArr['userDetails'] = $checkUserEmail;
   $email = "shashanksmf@gmail.com";
   $checkUserEmail = $controller->checkUserEmail($email);
-  print_r($checkUserEmail);
-  $checkUserEmail =  json_decode($checkUserEmail,true);
-  print_r($checkUserEmail);
-  $checkUserEmailArr = array();
-  $checkUserEmailArr = $checkUserEmail;
-  print_r($checkUserEmailArr);
+  echo "result".$checkUserEmail['result'];
+  $userDetailsArr = array();
+  $userDetailsArr = $checkUserEmail['details'];
+  echo $userDetailsArr['name'];
     
-  // if($message == "Signin Failed!"){
-  //    $responseArr['userDetails'] = $checkUserEmail;
-  // } else {
+  if($checkUserEmail['result'] == true){
+    echo "true";
+     $responseArr['userDetails'] = $checkUserEmail;
+  } 
+  // else {
   //   //Create User Store Data
   //   $isSocial = 'True';
   //   $socialType = 'Google';
