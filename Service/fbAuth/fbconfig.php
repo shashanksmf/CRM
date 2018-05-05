@@ -27,7 +27,12 @@ $redirect_url = 'https://' . $_SERVER['HTTP_HOST'] .'/Service/fbAuth/fbconfig.ph
 // $redirect_url = 'https://' . $_SERVER['HTTP_HOST'];
 $helper = new FacebookRedirectLoginHelper($redirect_url);
 try {
-    $session = $helper->getSessionFromRedirect();
+    if(isset($_SESSION['access_token'])){
+        $accessToken = $_SESSION['access_token'];
+    }else{
+          $accessToken = $helper->getSessionFromRedirect();
+    }
+    // $session = $helper->getSessionFromRedirect();
 } catch( FacebookRequestException $ex ) {
   // When Facebook returns an error
   echo "<br> FaceExpexption => " . $ex;
@@ -36,12 +41,12 @@ try {
   echo "<br> Expexption => " . $ex;
 }
 $responseArr = array();
-// see if we have a session
-if ( isset($session)) {
+// see if we have a accessToken
+if ( isset($accessToken)) {
   // graph api request for user data
-  echo "session".$session;
-  $responseArr['session'] = $session;
-  $request = new FacebookRequest( $session, 'GET', '/me' );
+  echo "accessToken".$accessToken;
+  $responseArr['accessToken'] = $accessToken;
+  $request = new FacebookRequest( $accessToken, 'GET', '/me' );
   $response = $request->execute();
   // get response
   $graphObject = $response->getGraphObject();
