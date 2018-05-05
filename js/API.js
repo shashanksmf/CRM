@@ -41,7 +41,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	}
 
 	callAPI.googleLogIn = function() {
-		console.log("googleLogIn");
+		console.log("google");
 		return $http({
 
 			method: 'GET',
@@ -52,7 +52,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	}
 	
 	callAPI.facebookLogIn = function() {
-		console.log("facebookLogIn");
+		console.log("facebook");
 		return $http({
 
 			method: 'GET',
