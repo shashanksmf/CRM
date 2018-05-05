@@ -93,7 +93,7 @@ if(isset($accessToken)){
     }
     
     // Initialize User class
-    $user = $fbUserProfile->getGraphUser();
+    $user = $profileRequest->getGraphUser();
     // $user = new User();
     
     // Insert or update user data to the database
