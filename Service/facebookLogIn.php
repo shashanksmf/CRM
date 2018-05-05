@@ -113,14 +113,14 @@ if(isset($accessToken)){
     $responseArr['fbUserProfile'] = $fbUserProfile;
 
 
-        echo $fbUserProfile['id'],
-        echo $fbUserProfile['first_name'] . ' ' . $fbUserProfile['last_name'],
-        echo $fbUserProfile['email'],
-        echo $fbUserProfile['gender'],
-        echo $fbUserProfile['locale'],
-        echo $fbUserProfile['cover']['source'],
-        echo $fbUserProfile['picture']['url'],
-        echo $fbUserProfile['link']
+        echo $fbUserProfile['id'];
+        echo $fbUserProfile['first_name'] . ' ' . $fbUserProfile['last_name'];
+        echo $fbUserProfile['email'];
+        echo $fbUserProfile['gender'];
+        echo $fbUserProfile['locale'];
+        echo $fbUserProfile['cover']['source'];
+        echo $fbUserProfile['picture']['url'];
+        echo $fbUserProfile['link'];
 
   require_once("../Controller/Class_User_Login_Controller.php");
   $controller = new UserLoginController();
