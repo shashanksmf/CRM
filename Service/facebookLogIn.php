@@ -15,6 +15,7 @@ if(!session_id()){
 
 // Include the autoloader provided in the SDK
 include_once('../vendor/autoload.php');
+include_once('./token/getNewtoken.php');
 
 // Include required libraries
 use Facebook\Facebook;
@@ -97,29 +98,66 @@ if(isset($accessToken)){
     // $user = new User();
     
     // Insert or update user data to the database
-    // $fbUserData = array(
-    //     'oauth_provider'=> 'facebook',
-    //     'oauth_uid'     => $fbUserProfile['id'],
-    //     'first_name'    => $fbUserProfile['first_name'],
-    //     'last_name'     => $fbUserProfile['last_name'],
-    //     'email'         => $fbUserProfile['email'],
-    //     'gender'        => $fbUserProfile['gender'],
-    //     'locale'        => $fbUserProfile['locale'],
-    //     'cover'         => $fbUserProfile['cover']['source'],
-    //     'picture'       => $fbUserProfile['picture']['url'],
-    //     'link'          => $fbUserProfile['link']
-    // );
+    $fbUserData = array(
+        'oauth_provider'=> 'facebook',
+        'oauth_uid'     => $fbUserProfile['id'],
+        'name'          => $fbUserProfile['first_name'] . ' ' . $fbUserProfile['last_name'],
+        'email'         => $fbUserProfile['email'],
+        'gender'        => $fbUserProfile['gender'],
+        'locale'        => $fbUserProfile['locale'],
+        'cover'         => $fbUserProfile['cover']['source'],
+        'picture'       => $fbUserProfile['picture']['url'],
+        'link'          => $fbUserProfile['link']
+    );
     $responseArr['fbUserData'] = $fbUserData;
-    // $userData = $user->checkUser($fbUserData);
-    
-    // Put user data into session
-    // $_SESSION['userData'] = $userData;
-    // $responseArr['userData'] = $userData;
-    
-    // Get logout url
-    // $logoutURL = $helper->getLogoutUrl($accessToken, $redirect_url.'logout.php');
-    
-    
+    $responseArr['fbUserProfile'] = $fbUserProfile;
+
+
+        echo $fbUserProfile['id'],
+        echo $fbUserProfile['first_name'] . ' ' . $fbUserProfile['last_name'],
+        echo $fbUserProfile['email'],
+        echo $fbUserProfile['gender'],
+        echo $fbUserProfile['locale'],
+        echo $fbUserProfile['cover']['source'],
+        echo $fbUserProfile['picture']['url'],
+        echo $fbUserProfile['link']
+
+  require_once("../Controller/Class_User_Login_Controller.php");
+  $controller = new UserLoginController();
+  header('Content-Type: application/json');
+  $checkUserEmail = $controller->checkUserEmail($fbUserProfile['email']);
+  $checkUserEmail = json_decode($checkUserEmail, true);
+  // echo "result".$checkUserEmail['result'];
+  
+  //For get new token  
+  $getNewtoken = new getNewtoken();
+
+  if($checkUserEmail['result'] == true){
+    // $responseArr['userDetails'] = $checkUserEmail;
+    $userDetailsArr = array();
+    $userDetailsArr = $checkUserEmail['details'];
+    // echo $userDetailsArr['name'];
+    $responseArr['userId'] = $userDetailsArr['id'];
+    $responseArr['userName'] = $userDetailsArr['name'];
+    $responseArr['userEmail'] = $userDetailsArr['email'];
+    $token = $getNewtoken->getToken($userDetailsArr['id']);
+    $responseArr['token'] = $token['token'];
+  } 
+  else {
+    //Create User Store Data
+    // $responseArr['userId'] = $userData['id'];
+    $fbUName = $fbUserProfile['first_name'] . ' ' . $fbUserProfile['last_name'];
+    $responseArr['userName'] = $fbUName;
+    $responseArr['userEmail'] = $fbUserProfile['email'];
+    $isSocial = 'True';
+    $socialType = 'Facebook';
+    $addSocialUser = $controller->addSocialUser($fbUName, $fbUserProfile['gender'], $fbUserProfile['email'],$fbUserProfile['picture']['url'], $isSocial, $socialType);
+    $addSocialUser = json_decode($addSocialUser, true);
+    // $responseArr['userDetails'] = $addSocialUser;
+    $responseArr['userId'] = $addSocialUser['lastId'];
+    $token = $getNewtoken->getToken($addSocialUser['lastId']);
+    $responseArr['token'] = $token['token'];
+  }
     
 }else {
       // $loginUrl = $helper->getLoginUrl();
