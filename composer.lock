@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a76ddb4eb5bcf337eb55206c17ba820",
+    "content-hash": "dbc215b2e0774aa88893602d2f96d828",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -1608,6 +1608,8 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "ext-mbstring": "^7.1"
+    },
     "platform-dev": []
 }

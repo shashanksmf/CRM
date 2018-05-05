@@ -6,7 +6,8 @@
     "symfony/twig-bridge": "^3",
     "rbdwllr/reallysimplejwt": "^1.0",
     "nesbot/carbon": "1.22",
-    "twilio/sdk": "^5.16", "google/apiclient": "2.0"
+    "twilio/sdk": "^5.16", "google/apiclient": "2.0",
+    "ext-mbstring": "^7.1"
   },
   "require-dev": {
     "heroku/heroku-buildpack-php": "*"
