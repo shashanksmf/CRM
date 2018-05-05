@@ -45,16 +45,16 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 			if (response.data.result) {
 				window.location = response.data.url;
 			}
-			else if(response.data.idToken){
+			else if(response.data.token){
 	            localStorage.clear();
 				$rootScope.userEmail = response.data.userEmail;
 				$rootScope.userName = response.data.userName;
 				$rootScope.userId = response.data.userId;
-				$rootScope.token = response.data.idToken;
+				$rootScope.token = response.data.token;
 				localStorage.setItem("userEmail",response.data.userEmail);
 				localStorage.setItem("userName",response.data.userName);
 				localStorage.setItem("userId",response.data.userId);
-				localStorage.setItem("token",response.data.idToken);
+				localStorage.setItem("token",response.data.token);
 				window.location = response.data.url;
 			}
 		});

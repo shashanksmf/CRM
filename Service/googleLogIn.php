@@ -8,6 +8,7 @@ ini_set('display_errors', '1');
 error_reporting(E_ERROR | E_PARSE);
 
 include_once('../vendor/autoload.php');
+include_once('./token/getNewtoken.php');
 
 
 session_start();
@@ -60,9 +61,9 @@ if ($client->getAccessToken()) {
   // $responseArr['userData'] = $userData;
   
   $_SESSION['access_token'] = $client->getAccessToken();
-  $access_token = $_SESSION['access_token'];
+  // $access_token = $_SESSION['access_token'];
   // $responseArr['accessToken'] = $access_token;
-  $responseArr['idToken'] = $access_token['id_token'];
+  // $responseArr['idToken'] = $access_token['id_token'];
   
   //redirect to server
   $responseArr["url"] = 'https://' . $_SERVER['HTTP_HOST'];
@@ -82,6 +83,9 @@ if ($client->getAccessToken()) {
     $responseArr['userId'] = $userDetailsArr['id'];
     $responseArr['userName'] = $userDetailsArr['name'];
     $responseArr['userEmail'] = $userDetailsArr['email'];
+    $getNewtoken = new getNewtoken();
+    $token = $getNewtoken->getToken($userDetailsArr['id']);
+    $responseArr['token'] = $token['token'];
   } 
   else {
     //Create User Store Data
@@ -94,6 +98,9 @@ if ($client->getAccessToken()) {
     $addSocialUser = json_decode($addSocialUser, true);
     // $responseArr['userDetails'] = $addSocialUser;
     $responseArr['userId'] = $addSocialUser['lastId'];
+    $getNewtoken = new getNewtoken();
+    $token = $getNewtoken->getToken($addSocialUser['lastId']);
+    $responseArr['token'] = $token['token'];
   }
 } else {
   $auth_url = $client->createAuthUrl();
