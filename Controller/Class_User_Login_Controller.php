@@ -124,7 +124,7 @@ class UserLoginController{
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
-        $sql = "SELECT * FROM user where email="$email;
+        $sql = "SELECT * FROM user where email='".$email."' limit 1;";
         $result = $conn->query($sql);
         // $resultArr = array();
         if (@mysqli_num_rows($result) > 0) {

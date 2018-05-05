@@ -75,7 +75,8 @@ if ($client->getAccessToken()) {
   // $checkUserEmail = $controller->checkUserEmail('shashanksmf@gmail.com');
   print_r($checkUserEmail);
     // $responseArr['userDetails'] = $checkUserEmail;
-  $checkUserEmail = $controller->checkUserEmail('shashanksmf@gmail.com');
+  $email = "shashanksmf@gmail.com";
+  $checkUserEmail = $controller->checkUserEmail($email);
   print_r($checkUserEmail);
     
   // if($checkUserEmail['isSignedIn'] == TRUE){
