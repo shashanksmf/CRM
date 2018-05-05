@@ -49,44 +49,8 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 			url: baseHttpUrl+'/googleLogIn.php'
 
 		})
-		// $.ajax({url: baseHttpUrl+'/googleLogIn.php',
-		// 	method: 'GET',
-		// 	dataType: "jsonp",
-		// 	timeout: 30000,
-		// 	success: function(result){
-		// 		console.log(result);
-
-		// 		// callAPI.googleLogIn();
-		// 	},
-		// 	error:function (err) {
-		// 		console.log(err);
-
-		// 		var temp=JSON.parse(err.responseText);
-		// 		return temp;
-		// 		callAPI.google2(temp.url);
-		// 	}
-		// });
-
 	}
-	// callAPI.google2 = function(url1) {
-	// 	$.ajax({url: url1,
-	// 		method: 'GET',
-	// 		timeout: 30000,
-	// 		success: function(result){
-	// 			console.log(result);
-	// 			return result;
-	// 			// localStorage.clear();
-	// 		// 	$rootScope.userEmail = response.data.userEmail;
-	// 		// 	$rootScope.token = response.data.idToken;
-	// 			// callAPI.googleLogIn();
-	// 		},
-	// 		error:function (err) {
-	// 			console.log(err);
-
-	// 		}
-	// 	});
-	// }
-
+	
 	callAPI.facebookLogIn = function() {
 		console.log("facebookLogIn");
 		return $http({
