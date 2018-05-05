@@ -85,12 +85,14 @@ if ($client->getAccessToken()) {
   } 
   else {
     //Create User Store Data
-    $responseArr['userId'] = $userData['id'];
+    // $responseArr['userId'] = $userData['id'];
     $responseArr['userName'] = $userData['givenName'];
     $responseArr['userEmail'] = $userData['email'];
-    // $isSocial = 'True';
-    // $socialType = 'Google';
-    // $addSocialUser = $controller->addSocialUser($userData['givenName'], $userData['email'],$userData['picture'], $isSocial, $socialType);
+    $isSocial = 'True';
+    $socialType = 'Google';
+    $addSocialUser = $controller->addSocialUser($userData['givenName'], $userData['email'],$userData['picture'], $isSocial, $socialType);
+    $responseArr['userDetails'] = $addSocialUser;
+    $responseArr['userId'] = $addSocialUser['lastId'];
   }
 } else {
   $auth_url = $client->createAuthUrl();

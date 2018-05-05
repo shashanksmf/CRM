@@ -170,8 +170,8 @@ class UserLoginController{
                     //echo 'Query : '.$sql;
             if (mysqli_query($conn, $sql)) {
                 $responseArr["result"] = true;
-                // $last_id = mysqli_insert_id($conn);
-                // $responseArr["lastId"] = $last_id;
+                $last_id = mysqli_insert_id($conn);
+                $responseArr["lastId"] = $last_id;
                 return json_encode($responseArr);
             } else {
             //echo "else".mysqli_error($conn);
