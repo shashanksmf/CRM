@@ -82,6 +82,7 @@ if ($client->getAccessToken()) {
     // $responseArr['userDetails'] = $checkUserEmail;
   $email = "shashanksmf@gmail.com";
   $checkUserEmail = $controller->checkUserEmail($email);
+  print_r($checkUserEmail);
   $checkUserEmail =  json_decode(json_encode($checkUserEmail),true);
   print_r($checkUserEmail);
   $checkUserEmailArr = array();
@@ -89,7 +90,7 @@ if ($client->getAccessToken()) {
   $message = $checkUserEmailArr['message'];
   echo "message".$message;
     
-  // if($checkUserEmail['isSignedIn'] == TRUE){
+  // if($message == "Signin Failed!"){
   //    $responseArr['userDetails'] = $checkUserEmail;
   // } else {
   //   //Create User Store Data
