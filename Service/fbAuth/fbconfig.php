@@ -25,10 +25,14 @@ FacebookSession::setDefaultApplication( '1827896904180275','e0407be9cc41abcb2620
 // login helper with redirect_uri
 // $redirect_url = "https://upsailgroup.herokuapp.com/";
 $redirect_url = 'https://' . $_SERVER['HTTP_HOST'] .'/Service/fbAuth/fbconfig.php';
-echo $redirect_url;
 $helper = new FacebookRedirectLoginHelper($redirect_url);
 try {
-  $session = $helper->getSessionFromRedirect();
+    if(isset($_SESSION['facebook_access_token'])){
+        $accessToken = $_SESSION['facebook_access_token'];
+    }else{
+          $accessToken = $helper->getAccessToken();
+    }
+  // $session = $helper->getSessionFromRedirect();
 } catch( FacebookRequestException $ex ) {
   // When Facebook returns an error
   echo "<br> FaceExpexption => " . $ex;
@@ -38,10 +42,10 @@ try {
 }
 $responseArr = array();
 // see if we have a session
-if (isset($session)) {
+if ( isset($accessToken)) {
   // graph api request for user data
-  $responseArr['session'] = $session;
-  $request = new FacebookRequest( $session, 'GET', '/me' );
+  $responseArr['accessToken'] = $accessToken;
+  $request = new FacebookRequest( $accessToken, 'GET', '/me' );
   $response = $request->execute();
   // get response
   $graphObject = $response->getGraphObject();
@@ -73,5 +77,5 @@ if (isset($session)) {
       // echo '<meta http-equiv="refresh" content="0; url="'.$loginUrl.'">';
       // echo '<script language="javascript">window.location ="'.$loginUrl.'"</script>';
     }
-    exit(json_encode($responseArr, true));
-    ?>
+      exit(json_encode($responseArr, true));
+?>
