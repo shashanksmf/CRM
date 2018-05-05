@@ -93,7 +93,7 @@ if(isset($accessToken)){
     }
     
     // Initialize User class
-    $user = $profileRequest->getGraphUser();
+    // $user = $profileRequest->getGraphUser();
     // $user = new User();
     
     // Insert or update user data to the database
@@ -109,11 +109,12 @@ if(isset($accessToken)){
         'picture'       => $fbUserProfile['picture']['url'],
         'link'          => $fbUserProfile['link']
     );
-    $userData = $user->checkUser($fbUserData);
+    $responseArr['fbUserData'] = $fbUserData;
+    // $userData = $user->checkUser($fbUserData);
     
     // Put user data into session
-    $_SESSION['userData'] = $userData;
-    $responseArr['userData'] = $userData;
+    // $_SESSION['userData'] = $userData;
+    // $responseArr['userData'] = $userData;
     
     // Get logout url
     // $logoutURL = $helper->getLogoutUrl($accessToken, $redirect_url.'logout.php');
