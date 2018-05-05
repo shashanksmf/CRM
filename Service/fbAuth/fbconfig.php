@@ -15,9 +15,17 @@ if(!session_id()){
 require_once 'autoload.php';
 
 // Include required libraries
-use Facebook\Facebook;
-use Facebook\Exceptions\FacebookResponseException;
-use Facebook\Exceptions\FacebookSDKException;
+use Facebook\FacebookSession;
+use Facebook\FacebookRedirectLoginHelper;
+use Facebook\FacebookRequest;
+use Facebook\FacebookResponse;
+use Facebook\FacebookSDKException;
+use Facebook\FacebookRequestException;
+use Facebook\FacebookAuthorizationException;
+use Facebook\GraphObject;
+use Facebook\Entities\AccessToken;
+use Facebook\HttpClients\FacebookCurlHttpClient;
+use Facebook\HttpClients\FacebookHttpable;
 
 /*
  * Configuration and setup Facebook SDK
