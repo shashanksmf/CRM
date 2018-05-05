@@ -27,12 +27,12 @@ FacebookSession::setDefaultApplication( '1827896904180275','e0407be9cc41abcb2620
 $redirect_url = 'https://' . $_SERVER['HTTP_HOST'] .'/Service/fbAuth/fbconfig.php';
 $helper = new FacebookRedirectLoginHelper($redirect_url);
 try {
-    if(isset($_SESSION['facebook_access_token'])){
-        $accessToken = $_SESSION['facebook_access_token'];
+    if(isset($session)){
+        $accessToken = $session;
     }else{
-          $accessToken = $helper->getAccessToken();
+      $session = $helper->getSessionFromRedirect();
+      $accessToken = $session;
     }
-  // $session = $helper->getSessionFromRedirect();
 } catch( FacebookRequestException $ex ) {
   // When Facebook returns an error
   echo "<br> FaceExpexption => " . $ex;
@@ -78,4 +78,4 @@ if ( isset($accessToken)) {
       // echo '<script language="javascript">window.location ="'.$loginUrl.'"</script>';
     }
       exit(json_encode($responseArr, true));
-?>
+?>  
