@@ -74,9 +74,6 @@ if ($client->getAccessToken()) {
   $checkUserEmail = $controller->checkUserEmail($userData['email']);
   // $checkUserEmail = $controller->checkUserEmail('shashanksmf@gmail.com');
   print_r($checkUserEmail);
-  echo $checkUserEmail['isSignedUp'];
-  echo $checkUserEmail['isSignedIn'];
-  echo $checkUserEmail['message'];
     // $responseArr['userDetails'] = $checkUserEmail;
   $checkUserEmail = $controller->checkUserEmail('shashanksmf@gmail.com');
   print_r($checkUserEmail);
