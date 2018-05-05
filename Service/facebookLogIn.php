@@ -79,7 +79,7 @@ if(isset($accessToken)){
     
     // Getting user facebook profile info
     try {
-        $profileRequest = $fb->get('/me?fields=name,first_name,last_name,email,link,gender,locale,cover,picture');
+        $profileRequest = $fb->get('/me?fields=name,first_name,last_name,email,link,gender,locale,cover,picture', $accessToken);
         $fbUserProfile = $profileRequest->getGraphNode()->asArray();
     } catch(FacebookResponseException $e) {
         echo 'Graph returned an error: ' . $e->getMessage();
