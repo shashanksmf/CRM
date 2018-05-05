@@ -93,34 +93,8 @@ if(isset($accessToken)){
         exit;
     }
     
-    // Initialize User class
-    // $user = $profileRequest->getGraphUser();
-    // $user = new User();
-    
     // Insert or update user data to the database
-    $fbUserData = array(
-        'oauth_provider'=> 'facebook',
-        'oauth_uid'     => $fbUserProfile['id'],
-        'name'          => $fbUserProfile['first_name'] . ' ' . $fbUserProfile['last_name'],
-        'email'         => $fbUserProfile['email'],
-        'gender'        => $fbUserProfile['gender'],
-        'locale'        => $fbUserProfile['locale'],
-        'cover'         => $fbUserProfile['cover']['source'],
-        'picture'       => $fbUserProfile['picture']['url'],
-        'link'          => $fbUserProfile['link']
-    );
-    $responseArr['fbUserData'] = $fbUserData;
-    $responseArr['fbUserProfile'] = $fbUserProfile;
-
-
-        echo $fbUserProfile['id'];
-        echo $fbUserProfile['first_name'] . ' ' . $fbUserProfile['last_name'];
-        echo $fbUserProfile['email'];
-        echo $fbUserProfile['gender'];
-        echo $fbUserProfile['locale'];
-        echo $fbUserProfile['cover']['source'];
-        echo $fbUserProfile['picture']['url'];
-        echo $fbUserProfile['link'];
+    // $responseArr['fbUserProfile'] = $fbUserProfile;
 
   require_once("../Controller/Class_User_Login_Controller.php");
   $controller = new UserLoginController();
@@ -140,18 +114,19 @@ if(isset($accessToken)){
     $responseArr['userId'] = $userDetailsArr['id'];
     $responseArr['userName'] = $userDetailsArr['name'];
     $responseArr['userEmail'] = $userDetailsArr['email'];
+    $responseArr['profilePic'] = $userDetailsArr['profilePic'];
     $token = $getNewtoken->getToken($userDetailsArr['id']);
     $responseArr['token'] = $token['token'];
   } 
   else {
     //Create User Store Data
     // $responseArr['userId'] = $userData['id'];
-    $fbUName = $fbUserProfile['first_name'] . ' ' . $fbUserProfile['last_name'];
-    $responseArr['userName'] = $fbUName;
+    $responseArr['userName'] = $fbUserProfile['name'];
     $responseArr['userEmail'] = $fbUserProfile['email'];
+    $responseArr['profilePic'] = $fbUserProfile['picture']['url'];
     $isSocial = 'True';
     $socialType = 'Facebook';
-    $addSocialUser = $controller->addSocialUser($fbUName, $fbUserProfile['gender'], $fbUserProfile['email'],$fbUserProfile['picture']['url'], $isSocial, $socialType);
+    $addSocialUser = $controller->addSocialUser($fbUserProfile['name'], $fbUserProfile['gender'], $fbUserProfile['email'],$fbUserProfile['picture']['url'], $isSocial, $socialType);
     $addSocialUser = json_decode($addSocialUser, true);
     // $responseArr['userDetails'] = $addSocialUser;
     $responseArr['userId'] = $addSocialUser['lastId'];

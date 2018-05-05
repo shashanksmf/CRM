@@ -55,7 +55,20 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 				localStorage.setItem("userName",response.data.userName);
 				localStorage.setItem("userId",response.data.userId);
 				localStorage.setItem("token",response.data.token);
-				window.location = response.data.url;
+				//localStorage.setItem("userUUID",response.data.responce);
+				$rootScope.userProfilePic = crmconfig.serverDomainName +"/"+ response.data.profilePic;
+				$scope.$emit('initialiseChat', { initChat : true });
+				
+
+				API.setAuth(response.data);
+				$state.go("dashboards.home");
+				// window.location = response.data.url;
+			}
+			else{
+				$scope.error = response.data;
+				$timeout(function(){
+					$scope.error.responce = true;
+				},10000)
 			}
 		});
 	}
@@ -63,7 +76,34 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 	$scope.facebookLogIn = function(){
 		API.facebookLogIn().then(function(response){
 			console.log(response);
-			// window.location = response.data.url;
+			if (response.data.result) {
+				window.location = response.data.url;
+			}
+			else if(response.data.token){
+	            localStorage.clear();
+				$rootScope.userEmail = response.data.userEmail;
+				$rootScope.userName = response.data.userName;
+				$rootScope.userId = response.data.userId;
+				$rootScope.token = response.data.token;
+				localStorage.setItem("userEmail",response.data.userEmail);
+				localStorage.setItem("userName",response.data.userName);
+				localStorage.setItem("userId",response.data.userId);
+				localStorage.setItem("token",response.data.token);
+				//localStorage.setItem("userUUID",response.data.responce);
+				$rootScope.userProfilePic = crmconfig.serverDomainName +"/"+ response.data.profilePic;
+				$scope.$emit('initialiseChat', { initChat : true });
+				
+
+				API.setAuth(response.data);
+				$state.go("dashboards.home");
+				// window.location = response.data.url;
+			}
+			else{
+				$scope.error = response.data;
+				$timeout(function(){
+					$scope.error.responce = true;
+				},10000)
+			}
 		});
 	}
 

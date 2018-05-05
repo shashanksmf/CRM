@@ -86,6 +86,7 @@ if ($client->getAccessToken()) {
     $responseArr['userId'] = $userDetailsArr['id'];
     $responseArr['userName'] = $userDetailsArr['name'];
     $responseArr['userEmail'] = $userDetailsArr['email'];
+    $responseArr['profilePic'] = $userDetailsArr['profilePic'];
     $token = $getNewtoken->getToken($userDetailsArr['id']);
     $responseArr['token'] = $token['token'];
   } 
@@ -94,6 +95,7 @@ if ($client->getAccessToken()) {
     // $responseArr['userId'] = $userData['id'];
     $responseArr['userName'] = $userData['givenName'];
     $responseArr['userEmail'] = $userData['email'];
+    $responseArr['profilePic'] = $userData['picture'];
     $isSocial = 'True';
     $socialType = 'Google';
     $addSocialUser = $controller->addSocialUser($userData['givenName'], $userData['gender'], $userData['email'],$userData['picture'], $isSocial, $socialType);
