@@ -23,11 +23,11 @@ use Facebook\HttpClients\FacebookHttpable;
 // init app with app id and secret
 FacebookSession::setDefaultApplication( '1827896904180275','e0407be9cc41abcb26207d8d46328118' );
 // login helper with redirect_uri
-// $redirect_url = "https://upsailgroup.herokuapp.com/";
-$redirect_url = 'https://' . $_SERVER['HTTP_HOST'] .'/Service/fbAuth/fbconfig.php';
+// $redirect_url = 'https://' . $_SERVER['HTTP_HOST'] .'/Service/fbAuth/fbconfig.php';
+$redirect_url = 'https://' . $_SERVER['HTTP_HOST'];
 $helper = new FacebookRedirectLoginHelper($redirect_url);
 try {
-    // $session = $helper->getSessionFromRedirect();
+    $session = $helper->getSessionFromRedirect();
 } catch( FacebookRequestException $ex ) {
   // When Facebook returns an error
   echo "<br> FaceExpexption => " . $ex;
