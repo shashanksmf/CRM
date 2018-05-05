@@ -24,7 +24,7 @@ use Facebook\Exceptions\FacebookSDKException;
  */
 $appId         = '1827896904180275'; //Facebook App ID
 $appSecret     = 'e0407be9cc41abcb26207d8d46328118'; //Facebook App Secret
-$redirectURL   = 'https://' . $_SERVER['HTTP_HOST'] .'/fbAuth/fbconfig.php'; //Callback URL
+$redirectURL   = 'https://' . $_SERVER['HTTP_HOST'] .'/Service/fbAuth/fbconfig.php'; //Callback URL
 $fbPermissions = array('email');  //Optional permissions
 
 $fb = new Facebook(array(
@@ -118,7 +118,8 @@ if(isset($accessToken)){
     
     
 }else {
-      $loginUrl = $helper->getLoginUrl();
+      // $loginUrl = $helper->getLoginUrl();
+      $loginUrl = $helper->getLoginUrl($redirectURL, $fbPermissions);
       $responseArr['result'] = True;
       $responseArr["url"] = $loginUrl;
       // header("Location: ".$loginUrl);

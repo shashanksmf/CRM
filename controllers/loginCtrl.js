@@ -59,7 +59,7 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 	$scope.facebookLogIn = function(){
 		API.facebookLogIn().then(function(response){
 			console.log(response);
-			window.location = response.data.url;
+			// window.location = response.data.url;
 		});
 	}
 
