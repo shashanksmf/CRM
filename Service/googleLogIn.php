@@ -74,7 +74,10 @@ if ($client->getAccessToken()) {
   $checkUserEmail = $controller->checkUserEmail($userData['email']);
   $checkUserEmail = json_decode($checkUserEmail, true);
   // echo "result".$checkUserEmail['result'];
-    
+  
+  //For get new token  
+  $getNewtoken = new getNewtoken();
+
   if($checkUserEmail['result'] == true){
     // $responseArr['userDetails'] = $checkUserEmail;
     $userDetailsArr = array();
@@ -83,7 +86,6 @@ if ($client->getAccessToken()) {
     $responseArr['userId'] = $userDetailsArr['id'];
     $responseArr['userName'] = $userDetailsArr['name'];
     $responseArr['userEmail'] = $userDetailsArr['email'];
-    $getNewtoken = new getNewtoken();
     $token = $getNewtoken->getToken($userDetailsArr['id']);
     $responseArr['token'] = $token['token'];
   } 
@@ -98,7 +100,6 @@ if ($client->getAccessToken()) {
     $addSocialUser = json_decode($addSocialUser, true);
     // $responseArr['userDetails'] = $addSocialUser;
     $responseArr['userId'] = $addSocialUser['lastId'];
-    $getNewtoken = new getNewtoken();
     $token = $getNewtoken->getToken($addSocialUser['lastId']);
     $responseArr['token'] = $token['token'];
   }
