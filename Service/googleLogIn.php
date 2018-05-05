@@ -72,14 +72,8 @@ if ($client->getAccessToken()) {
   $controller = new UserLoginController();
   header('Content-Type: application/json');
   $checkUserEmail = $controller->checkUserEmail($userData['email']);
-  // $checkUserEmail = $controller->checkUserEmail('shashanksmf@gmail.com');
   $checkUserEmail =  json_decode($checkUserEmail,true);
-  print_r($checkUserEmail);
-  $checkUserEmailArr = array();
-  $checkUserEmailArr = $checkUserEmail;
-  print_r($checkUserEmailArr);
-  
-    // $responseArr['userDetails'] = $checkUserEmail;
+      // $responseArr['userDetails'] = $checkUserEmail;
   $email = "shashanksmf@gmail.com";
   $checkUserEmail = $controller->checkUserEmail($email);
   print_r($checkUserEmail);

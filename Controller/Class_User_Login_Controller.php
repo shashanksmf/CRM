@@ -119,11 +119,11 @@ class UserLoginController{
 
     public function checkUserEmail($email){
         $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
-
+        $responseArr = array();
         if($conn->connect_error) {
             $responseArr["result"] = false;
             $responseArr["details"] = $conn->connect_error;
-            exit(json_encode($responseArr));
+            return json_encode($responseArr);
         }
 
         $sql = "SELECT * FROM user where email='".$email."' limit 1;";
@@ -139,46 +139,49 @@ class UserLoginController{
         //  print_r($row);
                 $responseArr["details"] = $row;
             }
-            exit(json_encode($responseArr));
+            return json_encode($responseArr);
         } else {
             $responseArr["result"] = false;
             $responseArr["details"] = "user email Not found";
-            exit(json_encode($responseArr));
+            return json_encode($responseArr);
         }
+        $conn->close();
     }
 
     public function addSocialUser($name, $gender, $email, $profilePic, $isSocial, $socialType){
 
        $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
-       $usr = new User("","","","","","","","","","");
-
+       $responseArr = array();
        if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
         $sql = "SELECT * FROM user where email='".$email."' limit 1;";
 
-        $result = $conn->query($sql);
+        $result = mysqli_query($conn, $sql);
         if (@mysqli_num_rows($result) > 0) {
-            $usr->isSignedUp = FALSE;
-            $usr->message=$email." is already used!";
-
+            $responseArr["result"] = false;
+            $responseArr["details"] = $email." is already used!";
+            return json_encode($responseArr);
         } else {
 
         $sql = "INSERT INTO user (name, department, hireDate, dob, gender, homeAddress, email, phone, profilePic, password, isSocial, socialType)
         VALUES ('".$name."','','','','".$gender."','','".$email."','','".$profilePic."','','".$isSocial."','".$socialType."')";
                     //echo 'Query : '.$sql;
-            if ($conn->query($sql) === TRUE) {
-                $usr->isSignedUp = TRUE;
-                $usr->message = "Signin Success!";
+            if (mysqli_query($conn, $sql)) {
+                $responseArr["result"] = true;
+                // $last_id = mysqli_insert_id($conn);
+                // $responseArr["lastId"] = $last_id;
+                return json_encode($responseArr);
             } else {
-                            //echo "Error: " . $sql . "<br>" . $conn->error;
-                $usr->isSignedUp = FALSE;
-                $usr->message="Signup Failed!";
+            //echo "else".mysqli_error($conn);
+                $responseArr["result"] = false;
+                $responseArr["details"] = mysqli_error($conn);
+               // echo "Error updating record: " . mysqli_error($conn);
+                return json_encode($responseArr);
             }
         }
         $conn->close();
-        return $usr;
     }
 
 }
