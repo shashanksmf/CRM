@@ -73,15 +73,21 @@ if ($client->getAccessToken()) {
   header('Content-Type: application/json');
   $checkUserEmail = $controller->checkUserEmail($userData['email']);
   // $checkUserEmail = $controller->checkUserEmail('shashanksmf@gmail.com');
-  $checkUserEmail =  print_r($checkUserEmail, true);
+  $checkUserEmail =  json_decode($checkUserEmail, true);
   echo $checkUserEmail;
-  echo $checkUserEmail['message'];
+  $checkUserEmailArr = array();
+  $checkUserEmailArr = $checkUserEmail;
+  $message = $checkUserEmailArr['message'];
+  echo "message".$message;
     // $responseArr['userDetails'] = $checkUserEmail;
   $email = "shashanksmf@gmail.com";
   $checkUserEmail = $controller->checkUserEmail($email);
-  $checkUserEmail =  print_r($checkUserEmail, true);
+  $checkUserEmail =  json_decode($checkUserEmail, true);
   echo $checkUserEmail;
-  echo $checkUserEmail['message'];
+  $checkUserEmailArr = array();
+  $checkUserEmailArr = $checkUserEmail;
+  $message = $checkUserEmailArr['message'];
+  echo "message".$message;
     
   // if($checkUserEmail['isSignedIn'] == TRUE){
   //    $responseArr['userDetails'] = $checkUserEmail;
