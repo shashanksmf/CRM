@@ -90,7 +90,7 @@ if ($client->getAccessToken()) {
     $responseArr['userEmail'] = $userData['email'];
     $isSocial = 'True';
     $socialType = 'Google';
-    $addSocialUser = $controller->addSocialUser($userData['givenName'], $userData['email'],$userData['picture'], $isSocial, $socialType);
+    $addSocialUser = $controller->addSocialUser($userData['givenName'], $userData['gender'], $userData['email'],$userData['picture'], $isSocial, $socialType);
     $responseArr['userDetails'] = $addSocialUser;
     $responseArr['userId'] = $addSocialUser['lastId'];
   }
