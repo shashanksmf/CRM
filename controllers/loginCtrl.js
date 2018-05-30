@@ -1,10 +1,10 @@
 var inspinia = angular.module('inspinia');
 inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$state','$timeout','crmconfig', function ($scope,$rootScope,$http,$q,API,$state,$timeout,crmconfig) {
 
-	//console.log("crmConfig ",crmconfig);	
+	//console.log("crmConfig ",crmconfig);
 	$scope.loginUser = function(){
 		var user = { userName: $scope.userEmail ,  userPassword : $scope.userPassword };
-		
+
 		API.loginUser(user).then(function(response){
 			//console.log("registerUser",response);
 			if(response.data.responce){
@@ -20,12 +20,12 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 				//localStorage.setItem("userUUID",response.data.responce);
 				$rootScope.userProfilePic = crmconfig.serverDomainName +"/"+ response.data.profilePic;
 				$scope.$emit('initialiseChat', { initChat : true });
-				
+
 
 				API.setAuth(response.data);
 				$state.go("dashboards.home");
 
-		
+
 			}
 			else{
 				$scope.error = response.data;
@@ -34,7 +34,7 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 				},10000)
 			}
 		})
-		
+
 
 	}
 
@@ -58,9 +58,9 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 				//localStorage.setItem("userUUID",response.data.responce);
 				$rootScope.userProfilePic = crmconfig.serverDomainName +"/"+ response.data.profilePic;
 				$scope.$emit('initialiseChat', { initChat : true });
-				
 
-				API.setAuth(response.data);
+
+				// API.setAuth(response.data);
 				$state.go("dashboards.home");
 				// window.location = response.data.url;
 			}
@@ -92,9 +92,9 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 				//localStorage.setItem("userUUID",response.data.responce);
 				$rootScope.userProfilePic = crmconfig.serverDomainName +"/"+ response.data.profilePic;
 				$scope.$emit('initialiseChat', { initChat : true });
-				
 
-				API.setAuth(response.data);
+
+				// API.setAuth(response.data);
 				$state.go("dashboards.home");
 				// window.location = response.data.url;
 			}
