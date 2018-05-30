@@ -64,11 +64,9 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		console.log("googleLogInReturnRes");
 		console.log("dataUrl", dataUrl);
 		return $http({
-
 			method: 'GET',
 			dataType: "jsonp",
-			url: dataUrl
-
+			url: baseHttpUrl+'/googleLogIn.php'
 		})
 	}
 
