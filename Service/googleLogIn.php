@@ -111,7 +111,7 @@ if ($client->getAccessToken()) {
   $responseArr["result"] = TRUE;
   $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
 }
-ob_clean();
+ob_end_clean();
 exit(json_encode($responseArr,true));
 
 
