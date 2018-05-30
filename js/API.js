@@ -42,42 +42,42 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 
 	callAPI.googleLogIn = function() {
 		console.log("google");
-		// return $http({
-		//
-		// 	method: 'GET',
-		// 	dataType: "jsonp",
-		// 	url: baseHttpUrl+'/googleLogIn.php'
-		//
-		// })
-		$http({
-        method : "GET",
-				dataType: "jsonp",
-				url: baseHttpUrl+'/googleLogIn.php'
-    }).success(function(response) {
-			console.log("url===>",response.data.url);
-			window.location = response.data.url;
-			return googleLogInReturnRes();
-		})
-		.error(function(response, status) {
-		  console.error('Repos error', status, response);
-		})
-	}
-	function googleLogInReturnRes() {
-		console.log("googleLogInReturnRes");
-		$http({
+		return $http({
+
 			method: 'GET',
 			dataType: "jsonp",
 			url: baseHttpUrl+'/googleLogIn.php'
-		}).success(function(response) {
-			// if(!response.data.token){
-			// 	googleLogInReturnRes();
-			// }
-			return response;
+
 		})
-		.error(function(response, status) {
-		  console.error('Repos error', status, response);
-		})
+		// $http({
+    //     method : "GET",
+		// 		dataType: "jsonp",
+		// 		url: baseHttpUrl+'/googleLogIn.php'
+    // }).success(function(response) {
+		// 	console.log("url===>",response.url);
+		// 	window.location = response.url;
+		// 	return googleLogInReturnRes();
+		// })
+		// .error(function(response, status) {
+		//   console.error('Repos error', status, response);
+		// })
 	}
+	// function googleLogInReturnRes() {
+	// 	console.log("googleLogInReturnRes");
+	// 	$http({
+	// 		method: 'GET',
+	// 		dataType: "jsonp",
+	// 		url: baseHttpUrl+'/googleLogIn.php'
+	// 	}).success(function(response) {
+	// 		// if(!response.data.token){
+	// 		// 	googleLogInReturnRes();
+	// 		// }
+	// 		return response;
+	// 	})
+	// 	.error(function(response, status) {
+	// 	  console.error('Repos error', status, response);
+	// 	})
+	// }
 
 	callAPI.facebookLogIn = function() {
 		console.log("facebook");
