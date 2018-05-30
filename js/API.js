@@ -42,34 +42,40 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 
 	callAPI.googleLogIn = function() {
 		console.log("google");
-		// return $http({
-		//
-		// 	method: 'GET',
-		// 	dataType: "jsonp",
-		// 	url: baseHttpUrl+'/googleLogIn.php'
-		//
-		// })
-		$http({
-        method : "GET",
-				dataType: "jsonp",
-				url: baseHttpUrl+'/googleLogIn.php'
-    }).then(function mySuccess(response) {
-			console.log("url===>",response.data.url);
-			return googleLogInReturnRes(response.data.url);
-    }, function myError(response) {
-        console.log("error", response);
-    });
-		
-	}
-	function googleLogInReturnRes(dataUrl) {
-		console.log("googleLogInReturnRes");
-		console.log("dataUrl", dataUrl);
 		return $http({
+
 			method: 'GET',
 			dataType: "jsonp",
 			url: baseHttpUrl+'/googleLogIn.php'
+
 		})
+		// $http({
+    //     method : "GET",
+		// 		dataType: "jsonp",
+		// 		url: baseHttpUrl+'/googleLogIn.php'
+    // }).then(function mySuccess(response) {
+		// 	console.log("url===>",response.data.url);
+		// 	window.location = response.data.url;
+		// 	return googleLogInReturnRes(response.data.url);
+    // }, function myError(response) {
+    //     console.log("error", response);
+    // });
+
 	}
+	// function googleLogInReturnRes(dataUrl) {
+	// 	console.log("googleLogInReturnRes");
+	// 	console.log("dataUrl", dataUrl);
+	// 	return $http({
+	// 		method: 'GET',
+	// 		dataType: "jsonp",
+	// 		url: baseHttpUrl+'/googleLogIn.php'
+	// 	}).success(function(response) {
+	//
+	// 	})
+	// 	.error(function(response, status) {
+	// 	  console.error('Repos error', status, response);
+	// 	})
+	// }
 
 	callAPI.facebookLogIn = function() {
 		console.log("facebook");
