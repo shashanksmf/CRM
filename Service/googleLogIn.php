@@ -6,6 +6,7 @@ header('Access-Control-Allow-Methods: POST, GET');
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 error_reporting(E_ERROR | E_PARSE);
+ob_start();
 
 include_once('../vendor/autoload.php');
 include_once('./token/getNewtoken.php');
@@ -36,7 +37,7 @@ $objOAuthService = new Google_Service_Oauth2($client);
 if (isset($_REQUEST['logout'])) {
   unset($_SESSION['access_token']);
   $client->revokeToken();
-  // header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL)); 
+  // header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
   $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
 }
 
@@ -59,12 +60,12 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
 if ($client->getAccessToken()) {
   $userData = $objOAuthService->userinfo->get();
   // $responseArr['userData'] = $userData;
-  
+
   $_SESSION['access_token'] = $client->getAccessToken();
   // $access_token = $_SESSION['access_token'];
   // $responseArr['accessToken'] = $access_token;
   // $responseArr['idToken'] = $access_token['id_token'];
-  
+
   //redirect to server
   $responseArr["url"] = 'https://' . $_SERVER['HTTP_HOST'];
 
@@ -74,8 +75,8 @@ if ($client->getAccessToken()) {
   $checkUserEmail = $controller->checkUserEmail($userData['email']);
   $checkUserEmail = json_decode($checkUserEmail, true);
   // echo "result".$checkUserEmail['result'];
-  
-  //For get new token  
+
+  //For get new token
   $getNewtoken = new getNewtoken();
 
   if($checkUserEmail['result'] == true){
@@ -89,7 +90,7 @@ if ($client->getAccessToken()) {
     $responseArr['profilePic'] = $userDetailsArr['profilePic'];
     $token = $getNewtoken->getToken($userDetailsArr['id']);
     $responseArr['token'] = $token['token'];
-  } 
+  }
   else {
     //Create User Store Data
     // $responseArr['userId'] = $userData['id'];
@@ -110,6 +111,7 @@ if ($client->getAccessToken()) {
   $responseArr["result"] = TRUE;
   $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
 }
+ob_clean();
 exit(json_encode($responseArr,true));
 
 
