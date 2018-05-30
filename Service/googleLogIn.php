@@ -6,7 +6,7 @@ header('Access-Control-Allow-Methods: POST, GET');
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 error_reporting(E_ERROR | E_PARSE);
-ob_start();
+// ob_start();
 
 include_once('../vendor/autoload.php');
 include_once('./token/getNewtoken.php');
@@ -111,7 +111,8 @@ if ($client->getAccessToken()) {
   $responseArr["result"] = TRUE;
   $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
 }
-ob_end_clean();
+// ob_end_clean();
+ncurses_clear();
 exit(json_encode($responseArr,true));
 
 
