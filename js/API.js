@@ -53,13 +53,13 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
         method : "GET",
 				dataType: "jsonp",
 				url: baseHttpUrl+'/googleLogIn.php'
-    }).success(function(response) {
+    }).then(function mySuccess(response) {
 			console.log("url===>",response.data.url);
 			return googleLogInReturnRes(response.data.url);
-		})
-		.error(function(response, status) {
-		  console.error('Response error', status, response);
-		})
+    }, function myError(response) {
+        console.log("error", response);
+    });
+		
 	}
 	function googleLogInReturnRes(dataUrl) {
 		console.log("googleLogInReturnRes");
