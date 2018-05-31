@@ -46,8 +46,8 @@ if (isset($_REQUEST['logout'])) {
 if (isset($_GET['code'])) {
   $client->authenticate($_GET['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
-  // header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
-  $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
+  header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+  // $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
 }
 
 //Set Access Token to make Request
@@ -108,13 +108,10 @@ if ($client->getAccessToken()) {
   }
 } else {
   $auth_url = $client->createAuthUrl();
-  ?>
-<script type="text/javascript">
-window.location.href = $auth_url;
-</script>
-<?php
-  $responseArr["result"] = TRUE;
-  $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
+  header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
+  exit;
+  // $responseArr["result"] = TRUE;
+  // $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
 }
 ob_end_clean();
 exit(json_encode($responseArr,true));
