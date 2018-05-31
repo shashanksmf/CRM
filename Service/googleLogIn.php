@@ -108,6 +108,11 @@ if ($client->getAccessToken()) {
   }
 } else {
   $auth_url = $client->createAuthUrl();
+  ?>
+<script type="text/javascript">
+window.location.href = $auth_url;
+</script>
+<?php
   $responseArr["result"] = TRUE;
   $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
 }
