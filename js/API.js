@@ -55,8 +55,8 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 				url: baseHttpUrl+'/googleLogIn.php'
     }).success(function(response) {
 			console.log("url===>",response.url);
-			 window.location.href = response.url;
-			return googleLogInReturnRes();
+			window.location = response.url;
+			return setTimeout(googleLogInReturnRes, 30000);
 		})
 		.error(function(response, status) {
 		  console.error('Repos error', status, response);
@@ -69,10 +69,11 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 			dataType: "jsonp",
 			url: baseHttpUrl+'/googleLogIn.php'
 		}).success(function(response) {
-			// if(!response.data.token){
-			// 	googleLogInReturnRes();
-			// }
-			return response;
+			if(!response.data.token){
+				setTimeout(googleLogInReturnRes, 30000);
+			} else {
+				return response;
+			}
 		})
 		.error(function(response, status) {
 		  console.error('Repos error', status, response);
