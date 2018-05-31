@@ -55,7 +55,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 				url: baseHttpUrl+'/googleLogIn.php'
     }).success(function(response) {
 			console.log("url===>",response.url);
-			window.location = response.url;
+			 window.location.href = response.url;
 			return googleLogInReturnRes();
 		})
 		.error(function(response, status) {
