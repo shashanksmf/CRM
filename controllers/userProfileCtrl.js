@@ -181,7 +181,6 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 
 		var xhttp = new XMLHttpRequest();
 		var promise = $q.defer();
-		xhttp.setRequestHeader("token", localStorage.getItem("token"));
 		xhttp.upload.addEventListener("progress",function (e) {
 			//    console.log("progress ",e);
 			var progress = Math.ceil(((e.loaded) / e.total) * 100);
@@ -211,8 +210,7 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 			});
 
 			xhttp.open("POST",baseHttpUrl + '/uploadEmplFiles.php',true);
-			//xhttp.setRequestHeader("Content-Type", undefined);
-
+			xhttp.setRequestHeader("token", localStorage.getItem("token"));
 			xhttp.send(file);
 
 			return promise.promise;
