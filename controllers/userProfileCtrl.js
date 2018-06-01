@@ -10,7 +10,7 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 
 	//console.log("$stateParams",$stateParams)
 	$scope.emplId = $stateParams.id;
-	
+
 	//emplProPicSeleted
 	API.getAllComapnies().then(function(response){
 		if(response.data.result){
@@ -22,15 +22,15 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 			$('#tokenErrorModalBtn').click(function(){
 				$('#tokenErrorModal').modal("hide");
 			})
-		} 
+		}
 	})
 
 	$scope.changeProfileEdit = function (){
-		
+
 		console.log("$scope.userProfileInfo",$scope.userProfileInfo)
 		$scope.profileEdit = !$scope.profileEdit;
 	}
-	
+
 	$scope.submit = function() {
 		$scope.userProfileInfo.imgUrl = $scope.profilePicUploadedResUrl || $scope.userProfileInfo.imgUrl;
 
@@ -55,9 +55,9 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 				$('#tokenErrorModalBtn').click(function(){
 					$('#tokenErrorModal').modal("hide");
 				})
-			} 
+			}
 			else{
-				alert("Network Problem Please Try Again");	
+				alert("Network Problem Please Try Again");
 			}
 
 		})
@@ -66,7 +66,7 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 	};
 
 
-	
+
 
 	var userObj = { userId : $scope.emplId };
 	API.getUserProfile(userObj).then(function(response){
@@ -89,7 +89,7 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 			$('#tokenErrorModalBtn').click(function(){
 				$('#tokenErrorModal').modal("hide");
 			})
-		} 
+		}
 	})
 
 
@@ -112,7 +112,7 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 		$scope.fileAttach.append("image", files[0]);
 		$scope.fileAttach.append("id", $scope.emplId);
 		$scope.fileAttach.append("fileName", $scope.newFileName);
-		
+
 		$("#fileNameModal").modal("show");
 
 
@@ -130,7 +130,7 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 		}
 
 		$scope.fileAttach.append("fileName",fileName);
-		
+
 		uploadEmplFile($scope.fileAttach).then(function(response) {
 
 			//alert("file successFully Uploaded")
@@ -149,41 +149,41 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 			$timeout(function() {
 				$scope.files.push({checked:false,"name":response.details.fileName,"date":response.details.date,id:response.details.id,filesize:response.details.filesize,isactive:'1'})
 				//console.log($scope.files);
-			}, 500);	
+			}, 500);
 
 		})
 
 
-	} 
+	}
 
 
 	$scope.files = [];
 	API.getAttachedFiles({userId: $scope.emplId}).then(function(response){
 
-		if(response.data.result){ 
+		if(response.data.result){
 			if(response.data.details.length > 0) {
-				$scope.files = response.data.details;	
+				$scope.files = response.data.details;
 				console.log($scope.files)
 			}
-		} 
+		}
 		else if(response.data.errorType && response.data.errorType == "token"){
 			$('#tokenErrorModalLabel').html(response.data.details);
 			$('#tokenErrorModal').modal("show");
 			$('#tokenErrorModalBtn').click(function(){
 				$('#tokenErrorModal').modal("hide");
 			})
-		} 
+		}
 
 	});
-	
+
 
 	function uploadEmplFile (file){
 
 		var xhttp = new XMLHttpRequest();
 		var promise = $q.defer();
-
+		xhttp.setRequestHeader("token", localStorage.getItem("token"));
 		xhttp.upload.addEventListener("progress",function (e) {
-			//    console.log("progress ",e); 
+			//    console.log("progress ",e);
 			var progress = Math.ceil(((e.loaded) / e.total) * 100);
 			$timeout(function(){
 				$scope.progressbar = progress;
@@ -222,7 +222,7 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 			var fileObj = { emplId : $scope.emplId , fileId : fileId };
 			API.deleteEmplFile(fileObj).then(function(response){
 				if(response.data.result){
-					$scope.files[index].isactive = 0;	
+					$scope.files[index].isactive = 0;
 				}
 				else if(response.data.errorType && response.data.errorType == "token"){
 					$('#tokenErrorModalLabel').html(response.data.details);
@@ -230,7 +230,7 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 					$('#tokenErrorModalBtn').click(function(){
 						$('#tokenErrorModal').modal("hide");
 					})
-				} 
+				}
 			})
 		}
 
@@ -247,7 +247,7 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 			file.append("id", $scope.emplId);
 
 			var reader = new FileReader();
-			reader.onload = $scope.imageIsLoaded; 
+			reader.onload = $scope.imageIsLoaded;
 			reader.readAsDataURL(files[0]);
 			try{
 				document.getElementsByClassName("emplpropicfileinput")[0].value = '';
@@ -268,8 +268,8 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 					$('#tokenErrorModalBtn').click(function(){
 						$('#tokenErrorModal').modal("hide");
 					})
-				} 
-			})	
+				}
+			})
 
 		}
 
@@ -280,7 +280,7 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 		}
 
 		$scope.clickUserChangePicture = function(){
-			document.getElementsByClassName("emplpropicfileinput")[0].value = ''; 
+			document.getElementsByClassName("emplpropicfileinput")[0].value = '';
 			document.getElementsByClassName("emplpropicfileinput")[0].click();
 		}
 
@@ -310,7 +310,7 @@ inspinia.controller('userProfileCtrl', ['$scope','$rootScope','$http','$q','API'
 					// ]
 
 
-				}]);	
+				}]);
 
 
 
