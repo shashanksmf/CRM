@@ -18,7 +18,7 @@ $responseArr = array();
 $client_id = '106745707537-lqdq3l9g6l6gkim9fgqn2hqbktpslatf.apps.googleusercontent.com';
 $client_secret = 'oUv4b6yzrPaz_YG2nx9Toy0J';
 // $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'];
-$redirect_uri = 'https://' . $_SERVER['HTTP_HOST'] .'/Service/afterGoogleLogIn.php';
+$redirect_uri = 'https://' . $_SERVER['HTTP_HOST'] .'/Service/googleLogIn.php';
 $simple_api_key = 'AIzaSyCCBX6FQPBwCCqarnFKHWV9Ls1LzI2AMIU';
 
 //Create Client Request to access Google API
@@ -118,7 +118,9 @@ if ($client->getAccessToken()) {
   // $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
 }
 ob_end_clean();
-exit(json_encode($responseArr,true));
+// exit(json_encode($responseArr,true));
+header('Location: https://upsailgroup.herokuapp.com/?login=true&accessToken='.$responseArr['token']);
+
 ob_clean();
 
 
