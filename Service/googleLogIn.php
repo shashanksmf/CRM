@@ -37,8 +37,8 @@ $objOAuthService = new Google_Service_Oauth2($client);
 if (isset($_REQUEST['logout'])) {
   unset($_SESSION['access_token']);
   $client->revokeToken();
-  // header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
-  $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
+  header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+  // $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
 }
 
 //Authenticate code from Google OAuth Flow
@@ -46,8 +46,9 @@ if (isset($_REQUEST['logout'])) {
 if (isset($_GET['code'])) {
   $client->authenticate($_GET['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
-  // header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
-  $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
+  header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+  exit();
+  // $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
 }
 
 //Set Access Token to make Request
