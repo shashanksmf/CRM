@@ -40,7 +40,7 @@ inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$sta
 
 
 	$scope.googleLogIn = function(){
-		window.location= baseHttpUrl+'/googleLogIn.php';
+		window.location= 'https://upsailgroup.herokuapp.com/Service/googleLogIn.php';
 		// API.googleLogIn().then(function(response){
 		// 	console.log(response);
 		// 	if (response.data.result) {
