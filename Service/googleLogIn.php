@@ -112,7 +112,7 @@ if ($client->getAccessToken()) {
   $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
 }
 ob_end_clean();
-exit(json_encode($responseArr,true));
+return json_encode($responseArr,true);
 ob_clean();
 
 
