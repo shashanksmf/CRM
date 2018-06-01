@@ -38,6 +38,8 @@ if (isset($_REQUEST['logout'])) {
   unset($_SESSION['access_token']);
   $client->revokeToken();
   header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+  exit();
+  
   // $responseArr["url"] = filter_var($redirect_uri, FILTER_SANITIZE_URL);
 }
 
@@ -54,6 +56,7 @@ if (isset($_GET['code'])) {
 //Set Access Token to make Request
 if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
   $client->setAccessToken($_SESSION['access_token']);
+
 }
 
 //Get User Data from Google Plus
@@ -109,8 +112,10 @@ if ($client->getAccessToken()) {
   }
 } else {
   $auth_url = $client->createAuthUrl();
-  $responseArr["result"] = TRUE;
-  $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
+  header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
+
+  // $responseArr["result"] = TRUE;
+  // $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
 }
 ob_end_clean();
 exit(json_encode($responseArr,true));
