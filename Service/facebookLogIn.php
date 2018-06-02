@@ -5,7 +5,7 @@ header('Access-Control-Allow-Methods: POST, GET');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-// error_reporting(E_ERROR | E_PARSE);
+error_reporting(E_ERROR | E_PARSE);
 
 if(!session_id()){
     session_start();
