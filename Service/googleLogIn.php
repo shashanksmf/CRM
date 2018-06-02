@@ -108,7 +108,7 @@ if ($client->getAccessToken()) {
     $addSocialUser = $controller->addSocialUser($userData['givenName'], $userData['gender'], $userData['email'],$userData['picture'], $isSocial, $socialType);
     $addSocialUser = json_decode($addSocialUser, true);
     // $responseArr['userDetails'] = $addSocialUser;
-    echo $addSocialUser;
+    print_r($addSocialUser);
     $responseArr['userId'] = $addSocialUser['lastId'];
     $token = $getNewtoken->getToken($addSocialUser['lastId']);
     $responseArr['token'] = $token['token'];
