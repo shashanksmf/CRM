@@ -1,5 +1,4 @@
 <?php
-ob_start();
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Headers: Origin, token, Host');
 header('Access-Control-Allow-Methods: POST, GET');
@@ -70,8 +69,10 @@ if ($client->getAccessToken()) {
   // $responseArr['accessToken'] = $access_token;
   // $responseArr['idToken'] = $access_token['id_token'];
 
-  //redirect to server
-  $responseArr["url"] = 'https://' . $_SERVER['HTTP_HOST'];
+  //redirect to home page
+  // $responseArr["url"] = 'https://' . $_SERVER['HTTP_HOST'];
+  header('Location: https://upsailgroup.herokuapp.com/?login=true&accessToken='.$_SESSION['access_token']);
+
 
   require_once("../Controller/Class_User_Login_Controller.php");
   $controller = new UserLoginController();
@@ -117,11 +118,8 @@ if ($client->getAccessToken()) {
   // $responseArr["result"] = TRUE;
   // $responseArr["url"] = filter_var($auth_url, FILTER_SANITIZE_URL);
 }
-ob_end_clean();
 // exit(json_encode($responseArr,true));
-header('Location: https://upsailgroup.herokuapp.com/?login=true&accessToken='.$responseArr['token']);
 
-ob_clean();
 
 
 ?>
