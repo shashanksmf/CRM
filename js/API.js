@@ -458,8 +458,7 @@ callAPI.insertBulkData = function(userId, bulkData) {
 		data: {'bulkData':bulkData, 'userId' :userId},
 		url: baseHttpUrl + '/insertBulkData.php',
 		headers: {'content-type': 'application/json',
-		'accept': 'application/json',
-		'token': localStorage.getItem('token'),
+		'accept': 'application/json'),
 	},
 
 
