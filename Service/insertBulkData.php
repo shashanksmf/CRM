@@ -7,10 +7,10 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 require_once("./phpHeader/getHeader.php");
 
-// $headers = apache_request_headers();
-// require_once("./token/validateToken.php");
+$headers = apache_request_headers();
+require_once("./token/validateToken.php");
 
-// $userId = $tokenUserId;
+$userId = $tokenUserId;
 // echo $userId;
 
 require_once("../Controller/EmailMgr.php");
