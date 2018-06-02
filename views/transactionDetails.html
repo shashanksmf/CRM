@@ -1,30 +1,30 @@
 
 <div class="container-fluid" >
-    
+
   <div class="row">
-        
+
   <section id="transactionTable">
-           
+
     <div class="row-fluid homeBreadCumb">
       <span class="breadcrumbTitle">  Transaction Details</span>
       <ol class="breadcrumb">
 
         <!--<li class="active"><a href="#">Layouts</a></li>-->
       </ol>
-    </div>       
+    </div>
 
     <table class="table dataTables-example  table-striped table-bordered table-hover">
-    
+
     <thead>
       <tr>
         <th class="emailData" ng-click="sortBy('email')">Email
             <span class="arrowDown fs10px" ng-show="propertyName == 'email'  && reverse == false">&#9660;</span>
             <span class="arrowUp fs10px" ng-show="(propertyName == 'email'   && reverse == true) || propertyName !== 'email' ">&#9650;</span>
           </th>
-         <th ng-click="sortBy('insertStatus')">Insert Status
+         <!-- <th ng-click="sortBy('insertStatus')">Insert Status
             <span class="arrowDown fs10px" ng-show="propertyName == 'insertStatus' && reverse == false" >&#9660;</span>
             <span class="arrowUp fs10px" ng-show="(propertyName == 'insertStatus'  && reverse == true) || propertyName !== 'insertStatus' ">&#9650;</span>
-          </th>
+          </th> -->
           <th ng-click="sortBy('operationPerform')">Operation Perform
             <span class="arrowDown fs10px" ng-show="propertyName == 'operationPerform' && reverse == false" >&#9660;</span>
             <span class="arrowUp fs10px" ng-show="(propertyName == 'operationPerform'  && reverse == true) || propertyName !== 'operationPerform' ">&#9650;</span>
@@ -37,28 +37,28 @@
             <span class="arrowDown fs10px" ng-show="propertyName == 'compReason' && reverse == false" >&#9660;</span>
             <span class="arrowUp fs10px" ng-show="(propertyName == 'compReason'  && reverse == true) || propertyName !== 'compReason' ">&#9650;</span>
           </th>
-           
+
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="trd in transactionDetails |  orderBy:propertyName:reverse ">
-    
+
         <td>{{trd.email}}</td>
 
-        <td>{{trd.insertStatus}}</td>
+        <!-- <td>{{trd.insertStatus}}</td> -->
 
         <td>{{trd.operationPerform}}</td>
 
         <td>{{trd.reason}}</td>
-        
+
         <td >{{trd.compReason}}</td>
-        
+
       </tr>
 
-            
+
     </tbody>
   </table>
-                      
+
   </section>
 
 </div>
