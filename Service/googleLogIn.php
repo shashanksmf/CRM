@@ -65,13 +65,14 @@ if ($client->getAccessToken()) {
   // $responseArr['userData'] = $userData;
 
   $_SESSION['access_token'] = $client->getAccessToken();
+
   // $access_token = $_SESSION['access_token'];
   // $responseArr['accessToken'] = $access_token;
   // $responseArr['idToken'] = $access_token['id_token'];
 
   //redirect to home page
   // $responseArr["url"] = 'https://' . $_SERVER['HTTP_HOST'];
-  header('Location: https://upsailgroup.herokuapp.com/?login=true&accessToken='.$_SESSION['access_token']);
+  // header('Location: https://upsailgroup.herokuapp.com/?login=true&accessToken='.$_SESSION['access_token']);
 
 
   require_once("../Controller/Class_User_Login_Controller.php");
@@ -111,6 +112,8 @@ if ($client->getAccessToken()) {
     $token = $getNewtoken->getToken($addSocialUser['lastId']);
     $responseArr['token'] = $token['token'];
   }
+  print_r($_SESSION['access_token']);
+  header('Location: https://upsailgroup.herokuapp.com/?login=true&accessToken='.$_SESSION['access_token']);
 } else {
   $auth_url = $client->createAuthUrl();
   header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
