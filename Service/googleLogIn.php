@@ -113,7 +113,7 @@ if ($client->getAccessToken()) {
     $responseArr['token'] = $token['token'];
   }
   print_r($_SESSION['access_token']);
-  header('Location: https://upsailgroup.herokuapp.com/?login=true&accessToken='.$_SESSION['access_token']);
+  // header('Location: https://upsailgroup.herokuapp.com/?login=true&accessToken='.$_SESSION['access_token']);
 } else {
   $auth_url = $client->createAuthUrl();
   header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
