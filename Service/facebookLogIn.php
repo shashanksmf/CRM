@@ -25,8 +25,8 @@ use Facebook\Exceptions\FacebookSDKException;
 /*
  * Configuration and setup Facebook SDK
  */
-$appId         = '1827896904180275'; //Facebook App ID
-$appSecret     = 'e0407be9cc41abcb26207d8d46328118'; //Facebook App Secret
+$appId         = '997850777046924'; //Facebook App ID
+$appSecret     = '7ebc4f9b0b33d760b6fc54a98213ccca'; //Facebook App Secret
 $redirect_url   = 'https://' . $_SERVER['HTTP_HOST'] .'/Service/facebookLogIn.php'; //Callback URL
 $fbPermissions = array('email');  //Optional permissions
 
@@ -60,24 +60,26 @@ if(isset($accessToken)){
     }else{
         // Put short-lived access token in session
         $_SESSION['facebook_access_token'] = (string) $accessToken;
-        
+
           // OAuth 2.0 client handler helps to manage access tokens
         $oAuth2Client = $fb->getOAuth2Client();
-        
+
         // Exchanges a short-lived access token for a long-lived one
         $longLivedAccessToken = $oAuth2Client->getLongLivedAccessToken($_SESSION['facebook_access_token']);
         $_SESSION['facebook_access_token'] = (string) $longLivedAccessToken;
-        
+
         // Set default access token to be used in script
         $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
     }
-    
+
     // Redirect the user back to the same page if url has "code" parameter in query string
     if(isset($_GET['code'])){
         // header('Location: ./');
-        $responseArr["url"] = filter_var($redirect_url, FILTER_SANITIZE_URL);
+        // $responseArr["url"] = filter_var($redirect_url, FILTER_SANITIZE_URL);
+        header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+        exit();
     }
-    
+
     // Getting user facebook profile info
     try {
         $profileRequest = $fb->get('/me?fields=name,first_name,last_name,email,link,gender,locale,cover,picture', $accessToken);
@@ -92,7 +94,7 @@ if(isset($accessToken)){
         echo 'Facebook SDK returned an error: ' . $e->getMessage();
         exit;
     }
-    
+
     // Insert or update user data to the database
     // $responseArr['fbUserProfile'] = $fbUserProfile;
 
@@ -102,8 +104,8 @@ if(isset($accessToken)){
   $checkUserEmail = $controller->checkUserEmail($fbUserProfile['email']);
   $checkUserEmail = json_decode($checkUserEmail, true);
   // echo "result".$checkUserEmail['result'];
-  
-  //For get new token  
+
+  //For get new token
   $getNewtoken = new getNewtoken();
 
   if($checkUserEmail['result'] == true){
@@ -117,7 +119,7 @@ if(isset($accessToken)){
     $responseArr['profilePic'] = $userDetailsArr['profilePic'];
     $token = $getNewtoken->getToken($userDetailsArr['id']);
     $responseArr['token'] = $token['token'];
-  } 
+  }
   else {
     //Create User Store Data
     // $responseArr['userId'] = $userData['id'];
@@ -133,16 +135,14 @@ if(isset($accessToken)){
     $token = $getNewtoken->getToken($addSocialUser['lastId']);
     $responseArr['token'] = $token['token'];
   }
-    
+  header('Location: https://upsailgroup.herokuapp.com/#/login?login=true&token='.$responseArr['token'].'&email='.$responseArr['userEmail'].'&name='.$responseArr['userName'].'&id='.$responseArr['userId'].'&profilePic='.$responseArr['profilePic']);
 }else {
       // $loginUrl = $helper->getLoginUrl();
-  $loginUrl = $helper->getLoginUrl($redirect_url, $fbPermissions);
-      $responseArr['result'] = True;
-      $responseArr["url"] = $loginUrl;
-      // header("Location: ".$loginUrl);
-      // echo '<script type="text/javascript">top.location.href = "'.$loginUrl.'";</script>';
-      // echo '<meta http-equiv="refresh" content="0; url="'.$loginUrl.'">';
-      // echo '<script language="javascript">window.location ="'.$loginUrl.'"</script>';
+      $loginUrl = $helper->getLoginUrl($redirect_url, $fbPermissions);
+      // $responseArr['result'] = True;
+      // $responseArr["url"] = $loginUrl;
+      header('Location: ' . filter_var($loginUrl, FILTER_SANITIZE_URL));
+      exit();
     }
-      exit(json_encode($responseArr,true));
+      // exit(json_encode($responseArr,true));
 ?>
