@@ -6,14 +6,11 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	var baseHttpUrl = 'https://upsailgroup.herokuapp.com/Service';
 
 	callAPI.getAllEmpl = function(){
-		console.log("getAllEmpl");
 		return  $http({
 			method: 'GET',
 			headers: {'token': localStorage.getItem('token')},
 			url: baseHttpUrl+'/GetEmplData.php',
-
 		})
-
 	}
 
 	callAPI.registerUser = function(user) {
@@ -457,10 +454,10 @@ callAPI.insertBulkData = function(userId, bulkData) {
 		method: 'POST',
 		data: {'bulkData':bulkData, 'userId' :userId},
 		url: baseHttpUrl + '/insertBulkData.php',
-	// 	headers: {'content-type': 'application/json',
-	// 	'accept': 'application/json',
-	// 	'token': localStorage.getItem('token'),
-	// },
+		headers: {'content-type': 'application/json',
+		'accept': 'application/json',
+		'token': localStorage.getItem('token'),
+	},
 
 
 })
