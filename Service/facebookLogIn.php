@@ -76,7 +76,7 @@ if(isset($accessToken)){
     if(isset($_GET['code'])){
         // header('Location: ./');
         // $responseArr["url"] = filter_var($redirect_url, FILTER_SANITIZE_URL);
-        header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+        header('Location: ' . filter_var($redirect_url, FILTER_SANITIZE_URL));
         exit();
     }
 
