@@ -285,13 +285,13 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
     }
 
 
-    $scope.$on('initialiseChat', function (event, args) {
-         $scope.message = args.initChat;
-         if(args.initChat) {
-            initChat();
-         }
-        // console.log($scope.message);
-     });
+    // $scope.$on('initialiseChat', function (event, args) {
+    //      $scope.message = args.initChat;
+    //      if(args.initChat) {
+    //         initChat();
+    //      }
+    //     // console.log($scope.message);
+    //  });
 
     $scope.logout = function(){
         $rootScope.userId = undefined;

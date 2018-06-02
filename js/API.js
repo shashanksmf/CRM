@@ -6,9 +6,9 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	var baseHttpUrl = 'https://upsailgroup.herokuapp.com/Service';
 
 	callAPI.getAllEmpl = function(){
+		console.log("getAllEmpl");
 		return  $http({
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
 			url: baseHttpUrl+'/GetEmplData.php',
 
 		})
