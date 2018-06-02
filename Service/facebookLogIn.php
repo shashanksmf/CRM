@@ -130,10 +130,15 @@ if(isset($accessToken)){
     $socialType = 'Facebook';
     $addSocialUser = $controller->addSocialUser($fbUserProfile['name'], $fbUserProfile['gender'], $fbUserProfile['email'],$fbUserProfile['picture']['url'], $isSocial, $socialType);
     $addSocialUser = json_decode($addSocialUser, true);
+    if ($addSocialUser['result']) {
+      $responseArr['userId'] = $addSocialUser['lastId'];
+      $token = $getNewtoken->getToken($addSocialUser['lastId']);
+      $responseArr['token'] = $token['token'];
+    } else {
+      header('Location: https://upsailgroup.herokuapp.com/#/login?');
+      exit();
+    }
     // $responseArr['userDetails'] = $addSocialUser;
-    $responseArr['userId'] = $addSocialUser['lastId'];
-    $token = $getNewtoken->getToken($addSocialUser['lastId']);
-    $responseArr['token'] = $token['token'];
   }
   header('Location: https://upsailgroup.herokuapp.com/#/login?login=true&token='.$responseArr['token'].'&email='.$responseArr['userEmail'].'&name='.$responseArr['userName'].'&id='.$responseArr['userId'].'&profilePic='.$responseArr['profilePic']);
 }else {
