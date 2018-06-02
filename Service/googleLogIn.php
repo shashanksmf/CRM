@@ -107,10 +107,17 @@ if ($client->getAccessToken()) {
     $socialType = 'Google';
     $addSocialUser = $controller->addSocialUser($userData['givenName'], $userData['gender'], $userData['email'],$userData['picture'], $isSocial, $socialType);
     $addSocialUser = json_decode($addSocialUser, true);
+    print_r($addSocialUser);
+    if ($addSocialUser['result']) {
+      // code...
+      $responseArr['userId'] = $addSocialUser['lastId'];
+      $token = $getNewtoken->getToken($addSocialUser['lastId']);
+      $responseArr['token'] = $token['token'];
+    } else {
+      header('Location: https://upsailgroup.herokuapp.com/#/login?');
+      exit();
+    }
     // $responseArr['userDetails'] = $addSocialUser;
-    $responseArr['userId'] = $addSocialUser['lastId'];
-    $token = $getNewtoken->getToken($addSocialUser['lastId']);
-    $responseArr['token'] = $token['token'];
   }
   header('Location: https://upsailgroup.herokuapp.com/#/login?login=true&token='.$responseArr['token'].'&email='.$responseArr['userEmail'].'&name='.$responseArr['userName'].'&id='.$responseArr['userId'].'&profilePic='.$responseArr['profilePic']);
 } else {
