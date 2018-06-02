@@ -25,8 +25,8 @@ use Facebook\Exceptions\FacebookSDKException;
 /*
  * Configuration and setup Facebook SDK
  */
-$appId         = '997850777046924'; //Facebook App ID
-$appSecret     = '7ebc4f9b0b33d760b6fc54a98213ccca'; //Facebook App Secret
+$appId         = '1827896904180275'; //Facebook App ID
+$appSecret     = 'e0407be9cc41abcb26207d8d46328118'; //Facebook App Secret
 $redirect_url   = 'https://' . $_SERVER['HTTP_HOST'] .'/Service/facebookLogIn.php'; //Callback URL
 $fbPermissions = array('email');  //Optional permissions
 
