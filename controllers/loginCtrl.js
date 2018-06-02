@@ -1,5 +1,24 @@
 var inspinia = angular.module('inspinia');
-inspinia.controller('loginCtrl', ['$scope','$rootScope','$http','$q','API','$state','$timeout','crmconfig', function ($scope,$rootScope,$http,$q,API,$state,$timeout,crmconfig) {
+inspinia.controller('loginCtrl', ['$scope','$rootScope','$location','$http','$q','API','$state','$timeout','crmconfig', function ($scope,$rootScope,$location,$http,$q,API,$state,$timeout,crmconfig) {
+
+	//data from url
+	var userUrlData = $location.search();
+	console.log("userUrlData",userUrlData);
+	if (userUrlData.login) {
+		localStorage.clear();
+		$rootScope.userEmail = userUrlData.email;
+		$rootScope.userName = userUrlData.name;
+		$rootScope.userId = userUrlData.id;
+		$rootScope.token = userUrlData.token;
+		$rootScope.userProfilePic = crmconfig.serverDomainName +"/"+ userUrlData.profilePic;
+		localStorage.setItem("userEmail",userUrlData.email);
+		localStorage.setItem("userName",userUrlData.name);
+		localStorage.setItem("userId",userUrlData.id);
+		localStorage.setItem("token",userUrlData.token);
+		//localStorage.setItem("userUUID",userUrlData.responce);
+		$state.go("dashboards.home");
+	}
+
 
 	//console.log("crmConfig ",crmconfig);
 	$scope.loginUser = function(){

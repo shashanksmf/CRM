@@ -1,7 +1,8 @@
 var inspinia = angular.module('inspinia');
-inspinia.controller('homeCtrl', ['$scope','$rootScope','$location','$http','$q','$timeout','$state','$stateParams','crmconfig','API', function ($scope,$rootScope,$location,$http,$q,$timeout,$state,$stateParams,crmconfig,API) {
+inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','$state','$stateParams','crmconfig','API', function ($scope,$rootScope,$http,$q,$timeout,$state,$stateParams,crmconfig,API) {
 
     //console.log("state",$state);
+
 
     $scope.config={showUserPopUp:false,showCompanyDetailPopUp:false};
     $scope.tags =[];
@@ -17,23 +18,6 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$location','$http','$q',
     //var baseHttpUrl = '/angularphp/template/Angular_Full_Version/Service';
     //var baseHttpUrl = 'http://jaiswaldevelopers.com/CRMV1/Service';
     var baseHttpUrl = crmconfig.serverDomainName +'/Service';
-
-    //data from url
-    var userUrlData = $location.search();
-    console.log("userUrlData",userUrlData);
-    if (userUrlData.login) {
-      localStorage.clear();
-      $rootScope.userEmail = userUrlData.email;
-      $rootScope.userName = userUrlData.name;
-      $rootScope.userId = userUrlData.id;
-      $rootScope.token = userUrlData.token;
-      $rootScope.userProfilePic = crmconfig.serverDomainName +"/"+ userUrlData.profilePic;
-      localStorage.setItem("userEmail",userUrlData.email);
-      localStorage.setItem("userName",userUrlData.name);
-      localStorage.setItem("userId",userUrlData.id);
-      localStorage.setItem("token",userUrlData.token);
-      //localStorage.setItem("userUUID",userUrlData.responce);
-    }
 
 
     // code to load employee tabel
