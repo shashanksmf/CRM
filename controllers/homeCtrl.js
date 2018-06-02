@@ -1,9 +1,8 @@
 var inspinia = angular.module('inspinia');
-inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','$state','$stateParams','crmconfig','API', function ($scope,$rootScope,$http,$q,$timeout,$state,$stateParams,crmconfig,API) {
+inspinia.controller('homeCtrl', ['$scope','$rootScope','$location','$http','$q','$timeout','$state','$stateParams','crmconfig','API', function ($scope,$rootScope,$location,$http,$q,$timeout,$state,$stateParams,crmconfig,API) {
 
     //console.log("state",$state);
 
-    
     $scope.config={showUserPopUp:false,showCompanyDetailPopUp:false};
     $scope.tags =[];
     $rootScope.tagSearchedItems = [];
@@ -16,10 +15,27 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','
     $scope.tagSearchedDetails = [];
     $scope.crmconfig = { "serverDomainName" : crmconfig.serverDomainName };
     //var baseHttpUrl = '/angularphp/template/Angular_Full_Version/Service';
-    //var baseHttpUrl = 'http://jaiswaldevelopers.com/CRMV1/Service';    
+    //var baseHttpUrl = 'http://jaiswaldevelopers.com/CRMV1/Service';
     var baseHttpUrl = crmconfig.serverDomainName +'/Service';
 
-    
+    //data from url
+    var userUrlData = $location.search();
+    console.log("userUrlData",userUrlData);
+    if (userUrlData.login) {
+      localStorage.clear();
+      $rootScope.userEmail = userUrlData.email;
+      $rootScope.userName = userUrlData.name;
+      $rootScope.userId = userUrlData.id;
+      $rootScope.token = userUrlData.token;
+      $rootScope.userProfilePic = crmconfig.serverDomainName +"/"+ userUrlData.profilePic;
+      localStorage.setItem("userEmail",userUrlData.email);
+      localStorage.setItem("userName",userUrlData.name);
+      localStorage.setItem("userId",userUrlData.id);
+      localStorage.setItem("token",userUrlData.token);
+      //localStorage.setItem("userUUID",userUrlData.responce);
+    }
+
+
     // code to load employee tabel
     API.getAllEmpl()
     .then(function successCallback(response) {
@@ -67,32 +83,32 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','
     }
     , function errorCallback(response) {
     });
-    
-    
-    
+
+
+
 
     // code for sorting on columnNames
     $scope.sortBy = function(propertyName) {
         $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
         $scope.propertyName = propertyName;
     };
-    
+
     //code when user clicks on any User then modal comes up and show userDetail
     $scope.showUserDetail = function(emplId){
 
         $state.go('dashboards.profile', {id: emplId});
 
     }
-    
+
     //code when user clicks on any Company then modal comes up and show CompanyDetail
     $scope.showCompanyDetail = function(companyId){
 
         $state.go('dashboards.companyProfile', {id: companyId});
         return;
-        
+
         $scope.config.showUserPopUp = false;
         var companyId = companyId || 1;
-        
+
         $http({
             method: 'GET',
             dataType: "jsonp",
@@ -104,12 +120,12 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });
-        
+
         $scope.config.showCompanyDetailPopUp = true;
 
     }
-    
-    
+
+
     //code for searching employee details in database
     $rootScope.seachText = function(Text) {
 
@@ -120,29 +136,29 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','
 
         Text += tags;
         $rootScope.showAutoComplete = true;
-        
+
         $http({
             method: 'GET',
             dataType: "jsonp",
-            url: baseHttpUrl +'/GetEmplSearchAI.php?term='+Text    
+            url: baseHttpUrl +'/GetEmplSearchAI.php?term='+Text
         })
-        
+
         .then(function successCallback(response) {
             console.log("search response",response);
             $rootScope.listdata = [];
 
             $rootScope.listdata = response.data.Employees;
 
-            
+
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });
 
 
-        
+
     }
-    
+
     //autoCompleteList
     $rootScope.autoCompleteListItem = function(emplSearchItem,emplId,emplObj){
 
@@ -162,22 +178,22 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','
             $rootScope.tagSearchedItems.forEach(function(Item){
                 if(Item.searchItem == emplSearchItem){
                     isitemFound = true;
-                }  
+                }
             })
             if(!isitemFound){
                 pushItemToList();
             }
-        } else {   
+        } else {
             pushItemToList();
         }
-        
+
         $rootScope.showAutoComplete = false;
 
         function pushItemToList(){
 
            var tagSearchHistory = ''
            $rootScope.tagSearchedItems.forEach(function(Item){
-              tagSearchHistory += Item.searchItem +' ' ;   
+              tagSearchHistory += Item.searchItem +' ' ;
           })
            var originalSearchItem =  emplSearchItem;
            emplSearchItem = tagSearchHistory + emplSearchItem;
@@ -193,7 +209,7 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','
                 $rootScope.tagSearchedItems[$rootScope.tagSearchedItems.length-1].searchId.push(greet.id);
                 console.log("$scope.tagSearchedItems",$rootScope.tagSearchedItems)
             })
-        })  
+        })
 
        }
 
@@ -211,7 +227,7 @@ inspinia.controller('homeCtrl', ['$scope','$rootScope','$http','$q','$timeout','
      $http({
         method: 'GET',
         dataType: "jsonp",
-        url: baseHttpUrl + '/GetEmplSearchAI.php?term='+term    
+        url: baseHttpUrl + '/GetEmplSearchAI.php?term='+term
     })
 
      .then(function successCallback(response) {
@@ -292,7 +308,7 @@ $scope.deleteContact = function(emplId, emplName, emplEmail) {
                 $('#tokenErrorModalBtn').click(function(){
                     $('#tokenErrorModal').modal("hide");
                 })
-            }  
+            }
             else if(response.data.hasOwnProperty("details")) {
                 alert(response.data.details);
             }
