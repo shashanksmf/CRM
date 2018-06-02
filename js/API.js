@@ -1,15 +1,17 @@
 var inspinia = angular.module('inspinia');
-inspinia.factory('API', ['$http','$q',function($http,$q){
+inspinia.factory('API', ['$http', '$q', function($http, $q) {
 
 	var callAPI = {};
 	// var baseHttpUrl = "/CRM.git/trunk/Service";
 	var baseHttpUrl = 'https://upsailgroup.herokuapp.com/Service';
 
-	callAPI.getAllEmpl = function(){
-		return  $http({
+	callAPI.getAllEmpl = function() {
+		return $http({
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
-			url: baseHttpUrl+'/GetEmplData.php',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			url: baseHttpUrl + '/GetEmplData.php',
 		})
 	}
 
@@ -19,7 +21,8 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 
 			method: 'GET',
 			dataType: "jsonp",
-			url: baseHttpUrl+'/Signup.php?name='+ user.userName + '&password='+ user.userPassword + '&email='+user.userEmail
+			url: baseHttpUrl + '/Signup.php?name=' + user.userName + '&password=' +
+				user.userPassword + '&email=' + user.userEmail
 
 		})
 
@@ -32,7 +35,8 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 
 			method: 'GET',
 			dataType: "jsonp",
-			url: baseHttpUrl+'/Login.php?userName='+ user.userName + '&password='+ user.userPassword
+			url: baseHttpUrl + '/Login.php?userName=' + user.userName +
+				'&password=' + user.userPassword
 
 		})
 
@@ -44,7 +48,7 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 
 			method: 'GET',
 			dataType: "jsonp",
-			url: baseHttpUrl+'/googleLogIn.php'
+			url: baseHttpUrl + '/googleLogIn.php'
 
 		})
 	}
@@ -55,13 +59,13 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 
 			method: 'GET',
 			dataType: "jsonp",
-			url: baseHttpUrl+'/facebookLogIn.php'
+			url: baseHttpUrl + '/facebookLogIn.php'
 
 		})
 
 	}
 
-	callAPI.setAuth = function(user){
+	callAPI.setAuth = function(user) {
 		this.userEmail = user.email;
 		this.isUserAuth = true;
 	}
@@ -71,9 +75,11 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl+'/GetGroups.php'
+			url: baseHttpUrl + '/GetGroups.php'
 
 		})
 
@@ -84,9 +90,11 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl+'/GetCompanyData.php'
+			url: baseHttpUrl + '/GetCompanyData.php'
 
 		})
 
@@ -97,9 +105,11 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl+'/GetTransactionDetails.php?tId='+tId
+			url: baseHttpUrl + '/GetTransactionDetails.php?tId=' + tId
 
 		})
 
@@ -111,35 +121,41 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl+'/GetGroups.php?id'+id
+			url: baseHttpUrl + '/GetGroups.php?id' + id
 
 		})
 
 	}
 
-	callAPI.getEmployesNames = function(){
+	callAPI.getEmployesNames = function() {
 
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl+'/GetEmplNameData.php'
+			url: baseHttpUrl + '/GetEmplNameData.php'
 
 		})
 
 	}
 
-	callAPI.searchEmployesNames = function(term){
+	callAPI.searchEmployesNames = function(term) {
 
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl+'/GetENSearch.php?term='+term
+			url: baseHttpUrl + '/GetENSearch.php?term=' + term
 
 		})
 
@@ -150,9 +166,13 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/AddGroups.php?name='+group.name+'&details='+group.details+'&admin='+group.groupadmin+'&members='+group.members+'&membersCount='+group.membersCount+'&createdOn='+group.createdOn
+			url: baseHttpUrl + '/AddGroups.php?name=' + group.name + '&details=' +
+				group.details + '&admin=' + group.groupadmin + '&members=' + group.members +
+				'&membersCount=' + group.membersCount + '&createdOn=' + group.createdOn
 
 		})
 
@@ -163,9 +183,11 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/DeleteGroup.php?id='+group.id
+			url: baseHttpUrl + '/DeleteGroup.php?id=' + group.id
 
 		})
 
@@ -176,9 +198,12 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/DeleteContact.php?id='+emplData.id+'&name='+emplData.name+'&email='+emplData.email
+			url: baseHttpUrl + '/DeleteContact.php?id=' + emplData.id + '&name=' +
+				emplData.name + '&email=' + emplData.email
 
 		})
 
@@ -189,9 +214,11 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/DeleteCampaign.php?id='+campaignID.id
+			url: baseHttpUrl + '/DeleteCampaign.php?id=' + campaignID.id
 
 		})
 
@@ -202,49 +229,59 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/DeleteCompany.php?id='+companyId.id
+			url: baseHttpUrl + '/DeleteCompany.php?id=' + companyId.id
 
 		})
 
 	}
 
-	callAPI.updateMembersInGroup = function(group){
+	callAPI.updateMembersInGroup = function(group) {
 		//?id=1&members=2,3
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/UpdateGroup.php?id='+group.id+'&members='+group.members
+			url: baseHttpUrl + '/UpdateGroup.php?id=' + group.id + '&members=' +
+				group.members
 
 		})
 	}
 
 
-	callAPI.getAllNewChatDetails = function(userId){
+	callAPI.getAllNewChatDetails = function(userId) {
 
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/chat/newChatDetails.php?userId='+userId
+			url: baseHttpUrl + '/chat/newChatDetails.php?userId=' + userId
 
 		})
 
 	}
 
 
-	callAPI.getChatDetails = function(chat){
+	callAPI.getChatDetails = function(chat) {
 		//?id=1&members=2,3
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/GetChatMessages.php?from='+chat.from+'&to='+chat.to
+			url: baseHttpUrl + '/GetChatMessages.php?from=' + chat.from + '&to=' +
+				chat.to
 
 		})
 	}
@@ -254,47 +291,63 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/chat/allLatestMsg.php?userId='+userId
+			url: baseHttpUrl + '/chat/allLatestMsg.php?userId=' + userId
 
 		})
 
 	}
 
-	callAPI.getUserProfile = function(user){
+	callAPI.getUserProfile = function(user) {
 
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "text",
-			url: baseHttpUrl + '/GetProfiles.php?id='+user.userId
+			url: baseHttpUrl + '/GetProfiles.php?id=' + user.userId
 
 		})
 
 	}
 
-	callAPI.updateUserProfile = function(user){
+	callAPI.updateUserProfile = function(user) {
 
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
-			url: baseHttpUrl + '/UpdateEmployees.php?name='+user.name+'&title='+user.title+'&industry='+user.industry+'&location='+user.location+'&ratings='+user.ratings+'&skype='+user.skype+'&age='+user.age+'&gender='+user.gender+'&officePhone='+user.officePhone+'&jobRole='+user.jobRole+'&phone='+user.phone+'&email='+user.email+'&linkedin='+user.linkedin+'&twitter='+user.twitter+'&facebook='+user.facebook+'&notes='+user.notes+'&id='+user.id+'&companyId='+user.companyId+'&companyName='+user.Company.name+'&imgUrl='+user.imgUrl+'&extra='+user.extra
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			url: baseHttpUrl + '/UpdateEmployees.php?name=' + user.name +
+				'&title=' + user.title + '&industry=' + user.industry + '&location=' +
+				user.location + '&ratings=' + user.ratings + '&skype=' + user.skype +
+				'&age=' + user.age + '&gender=' + user.gender + '&officePhone=' +
+				user.officePhone + '&jobRole=' + user.jobRole + '&phone=' + user.phone +
+				'&email=' + user.email + '&linkedin=' + user.linkedin + '&twitter=' +
+				user.twitter + '&facebook=' + user.facebook + '&notes=' + user.notes +
+				'&id=' + user.id + '&companyId=' + user.companyId + '&companyName=' +
+				user.Company.name + '&imgUrl=' + user.imgUrl + '&extra=' + user.extra
 
 		})
 
 	}
 
-	callAPI.uploadUserProfilePic = function(file){
+	callAPI.uploadUserProfilePic = function(file) {
 
-		return $http.post(baseHttpUrl + '/uploadUserProfilePic.php', file,
-		{
+		return $http.post(baseHttpUrl + '/uploadUserProfilePic.php', file, {
 
 			withCredentials: false,
 			transformRequest: angular.identity,
-			headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')},
+			headers: {
+				'Content-Type': undefined,
+				'token': localStorage.getItem('token')
+			},
 
 		});
 
@@ -305,86 +358,97 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/getUserInfo.php?id='+userId
+			url: baseHttpUrl + '/getUserInfo.php?id=' + userId
 
 		})
 	}
 
 	callAPI.getUserMailChimpDetails = function(userId) {
-		console.log("id",userId);
+		console.log("id", userId);
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/getUserMailChimpDetails.php?id='+userId
+			url: baseHttpUrl + '/getUserMailChimpDetails.php?id=' + userId
 
 		})
 	}
 
 
-	callAPI.uploadFileAttach = function(file){
+	callAPI.uploadFileAttach = function(file) {
 
 
 
-    	// return $http.post(baseHttpUrl + '/ImageUploads.php', file,
-	    // {
+		// return $http.post(baseHttpUrl + '/ImageUploads.php', file,
+		// {
 
-	    // 	withCredentials: false,
-	    //     transformRequest: angular.identity,
-	    //     headers: {'Content-Type': undefined} ,
-	    //      uploadEventHandlers: {
-		   //      progress: function (e) {
-		   //                if (e.lengthComputable) {
-		   //                   $scope.progressBar = (e.loaded / e.total) * 100;
-		   //                   console.log($scope.progressBar);
-		   //                   $scope.progressCounter = $scope.progressBar;
-		   //                }
-		   //      }
-		   //  }
+		// 	withCredentials: false,
+		//     transformRequest: angular.identity,
+		//     headers: {'Content-Type': undefined} ,
+		//      uploadEventHandlers: {
+		//      progress: function (e) {
+		//                if (e.lengthComputable) {
+		//                   $scope.progressBar = (e.loaded / e.total) * 100;
+		//                   console.log($scope.progressBar);
+		//                   $scope.progressCounter = $scope.progressBar;
+		//                }
+		//      }
+		//  }
 
-	    // });
+		// });
 
 	}
 
 
-	callAPI.sendMessage = function(chat){
+	callAPI.sendMessage = function(chat) {
 		//?id=1&members=2,3
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/AddMessage.php?from='+chat.from+'&to='+chat.to+'&msg='+chat.msg
+			url: baseHttpUrl + '/AddMessage.php?from=' + chat.from + '&to=' + chat
+				.to + '&msg=' + chat.msg
 
 		})
 	}
 
-	callAPI.readMsg = function(chatId,fromId) {
+	callAPI.readMsg = function(chatId, fromId) {
 
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/chat/messageRead.php?chatId='+chatId+'&fromId='+fromId
+			url: baseHttpUrl + '/chat/messageRead.php?chatId=' + chatId +
+				'&fromId=' + fromId
 
 		})
 
 	}
 
 
-	callAPI.getAttachedFiles = function(user){
+	callAPI.getAttachedFiles = function(user) {
 
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/GetAtt.php?id='+user.userId,
-
+			url: baseHttpUrl + '/GetAtt.php?id=' + user.userId,
 
 		})
 
@@ -396,9 +460,12 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 		return $http({
 
 			method: 'GET',
-			headers: {'token': localStorage.getItem('token')},
+			headers: {
+				'token': localStorage.getItem('token')
+			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/deleteEmplFile.php?emplId='+empl.emplId+'&fileId='+empl.fileId
+			url: baseHttpUrl + '/deleteEmplFile.php?emplId=' + empl.emplId +
+				'&fileId=' + empl.fileId
 
 		})
 
@@ -408,327 +475,402 @@ inspinia.factory('API', ['$http','$q',function($http,$q){
 	callAPI.uploadEmplProfilePic = function(file) {
 
 
-		return $http.post(baseHttpUrl + '/uploadEmplProfilePic.php', file,  {
+		return $http.post(baseHttpUrl + '/uploadEmplProfilePic.php', file, {
 
 			withCredentials: false,
 			transformRequest: angular.identity,
-			headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')},
+			headers: {
+				'Content-Type': undefined,
+				'token': localStorage.getItem('token')
+			},
 
 		});
 
 	}
 
-	callAPI.sendSMS = function (data) {
+	callAPI.sendSMS = function(data) {
 		console.log("smsData", data);
 
-	// return $http({
+		// return $http({
 
-	//         method: 'GET',
-	//         headers: {'token': localStorage.getItem('token')},
-	//         dataType: "jsonp",
-	//         url: baseHttpUrl + '/TwilioSMS/sendSMSTwilio.php?to='+data.to+'&text='+data.text
+		//         method: 'GET',
+		//         headers: {'token': localStorage.getItem('token')},
+		//         dataType: "jsonp",
+		//         url: baseHttpUrl + '/TwilioSMS/sendSMSTwilio.php?to='+data.to+'&text='+data.text
 
-	//     })
+		//     })
 
-}
+	}
 
-callAPI.insertEmplBulkData = function(output) {
+	callAPI.insertEmplBulkData = function(output) {
 
-	//console.log("API file",output);
-	var output = output;
-	return $http({
+		//console.log("API file",output);
+		var output = output;
+		return $http({
 
-		method: 'POST',
-		data: {"data":output},
-		url: "http://jaiswaldevelopers.com/CRMV1/sampleService.php",
+			method: 'POST',
+			data: {
+				"data": output
+			},
+			url: "http://jaiswaldevelopers.com/CRMV1/sampleService.php",
 
-	})
+		})
 
-}
+	}
 
-callAPI.insertBulkData = function(userId, bulkData) {
-	var bulkData = bulkData;
-	var userId = userId;
-	return $http({
+	callAPI.insertBulkData = function(userId, bulkData) {
+		var bulkData = bulkData;
+		var userId = userId;
+		return $http({
 
-		method: 'POST',
-		data: {'bulkData':bulkData, 'userId' :userId},
-		url: baseHttpUrl + '/insertBulkData.php',
-		headers: {'content-type': 'application/json',
-		'accept': 'application/json',
-		'token': localStorage.getItem('token'),
-	},
+			method: 'POST',
+			data: {
+				'bulkData': bulkData,
+				'userId': userId
+			},
+			url: baseHttpUrl + '/insertBulkData.php',
+			headers: {
+				'content-type': 'application/json',
+				'accept': 'application/json',
+				'token': localStorage.getItem('token'),
+			},
 
 
-})
+		})
 
-}
+	}
 
 
-callAPI.sendMail = function(users){
+	callAPI.sendMail = function(users) {
 
-	return $http({
+		return $http({
 
-		method: 'GET',
-		headers: {'token': localStorage.getItem('token')},
-		dataType: "jsonp",
-		url: baseHttpUrl + '/TestMail.php?to='+users.to+'&toName='+users.toName+'&subject='+users.subject
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/TestMail.php?to=' + users.to + '&toName=' + users
+				.toName + '&subject=' + users.subject
 
-	})
+		})
 
-}
+	}
 
 
-callAPI.getTemplate = function(){
+	callAPI.getTemplate = function() {
 
-	return $http({
+		return $http({
 
-		method: 'GET',
-		headers: {'token': localStorage.getItem('token')},
-		dataType: "jsonp",
-		url: baseHttpUrl + '/GetTemplates.php'
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/GetTemplates.php'
 
-	})
+		})
 
-}
+	}
 
 
-callAPI.addCampaign = function(formData){
+	callAPI.addCampaign = function(formData) {
 
-	return $http.post(baseHttpUrl + '/AddCampaign.php', formData,
-	{
+		return $http.post(baseHttpUrl + '/AddCampaign.php', formData, {
 
-		withCredentials: false,
-		transformRequest: angular.identity,
-		headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')},
+			withCredentials: false,
+			transformRequest: angular.identity,
+			headers: {
+				'Content-Type': undefined,
+				'token': localStorage.getItem('token')
+			},
 
-	});
+		});
 
-}
+	}
 
 
-callAPI.runCampaign = function(campaignId){
+	callAPI.runCampaign = function(campaignId) {
 
-	return $http({
+		return $http({
 
-		method: 'GET',
-		headers: {'token': localStorage.getItem('token')},
-		dataType: "jsonp",
-		url: baseHttpUrl + '/RunCampaign.php?id='+campaignId
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/RunCampaign.php?id=' + campaignId
 
-	})
+		})
 
-}
+	}
 
-callAPI.getAllCampaigns = function(formData){
+	callAPI.getAllCampaigns = function(formData) {
 
-	return $http({
+		return $http({
 
-		method: 'GET',
-		headers: {'token': localStorage.getItem('token')},
-		dataType: "jsonp",
-		url: baseHttpUrl + '/GetCampiagn.php'
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/GetCampiagn.php'
 
-	})
+		})
 
-}
+	}
 
-callAPI.getUsersList = function(id) {
-	//	http://jaiswaldevelopers.com/CRMV1/Service/getUsersList.php?id=1
-	return $http({
+	callAPI.getUsersList = function(id) {
+		//	http://jaiswaldevelopers.com/CRMV1/Service/getUsersList.php?id=1
+		return $http({
 
-		method: 'GET',
-		headers: {'token': localStorage.getItem('token')},
-		dataType: "jsonp",
-		url: baseHttpUrl + '/getUsersList.php?id='+id
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/getUsersList.php?id=' + id
 
-	})
+		})
 
-}
+	}
 
 
-callAPI.updateCompanyDetails = function(company){
-	console.log("company",company);
+	callAPI.updateCompanyDetails = function(company) {
+		console.log("company", company);
 
-	return $http({
+		return $http({
 
-		method: 'GET',
-		headers: {'token': localStorage.getItem('token')},
-		dataType: "jsonp",
-		url: baseHttpUrl + '/UpdateCompany.php?id='+company.id+'&name='+company.name+'&areaOfWork='+company.areaOfWork+'&establised='+company.establised+'&employees='+company.employees+'&revenue='+company.revenue+'&ofcAddress='+company.ofcAddress+'&email='+company.email+'&google='+company.google+'&phone='+company.phone+'&fb='+company.fb+'&twitter='+company.twitter+'&ln='+company.linkedin+'&extra='+company.extra
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/UpdateCompany.php?id=' + company.id + '&name=' +
+				company.name + '&areaOfWork=' + company.areaOfWork + '&establised=' +
+				company.establised + '&employees=' + company.employees + '&revenue=' +
+				company.revenue + '&ofcAddress=' + company.ofcAddress + '&email=' +
+				company.email + '&google=' + company.google + '&phone=' + company.phone +
+				'&fb=' + company.fb + '&twitter=' + company.twitter + '&ln=' +
+				company.linkedin + '&extra=' + company.extra
 
-	})
+		})
 
-}
+	}
 
-callAPI.getCompanyDetails = function(comapnyId){
+	callAPI.getCompanyDetails = function(comapnyId) {
 
 
-	return $http({
+		return $http({
 
-		method: 'GET',
-		headers: {'token': localStorage.getItem('token')},
-		dataType: "jsonp",
-		url: baseHttpUrl +'/GetCompanyData.php?id='+comapnyId
-	})
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/GetCompanyData.php?id=' + comapnyId
+		})
 
-}
+	}
 
 
-callAPI.companyProfilePic = function(file){
+	callAPI.companyProfilePic = function(file) {
 
-	return $http.post(baseHttpUrl + '/CompanyProfilePic.php', file,  {
+		return $http.post(baseHttpUrl + '/CompanyProfilePic.php', file, {
 
-		withCredentials: false,
-		transformRequest: angular.identity,
-		headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')},
+			withCredentials: false,
+			transformRequest: angular.identity,
+			headers: {
+				'Content-Type': undefined,
+				'token': localStorage.getItem('token')
+			},
 
-	});
+		});
 
-}
+	}
 
-callAPI.updateMainUserProfile = function(userObj){
+	callAPI.updateMainUserProfile = function(userObj) {
 
-	return $http({
+		return $http({
 
-		method: 'GET',
-		headers: {'token': localStorage.getItem('token')},
-		dataType: "jsonp",
-		url: baseHttpUrl +'/updateUser.php?id='+userObj.id+'&department='+userObj.department+'&dob='+userObj.dob+'&email='+userObj.email+'&gender='+userObj.gender+'&hireDate='+userObj.hireDate+'&homeAddress='+userObj.homeAddress+'&name='+userObj.name+'&phone='+userObj.phone
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/updateUser.php?id=' + userObj.id + '&department=' +
+				userObj.department + '&dob=' + userObj.dob + '&email=' + userObj.email +
+				'&gender=' + userObj.gender + '&hireDate=' + userObj.hireDate +
+				'&homeAddress=' + userObj.homeAddress + '&name=' + userObj.name +
+				'&phone=' + userObj.phone
 
-	})
+		})
 
-}
+	}
 
-callAPI.saveMailChimpDetails = function(mailchimpDetails){
-	console.log("list",mailchimpDetails.dt);
+	callAPI.saveMailChimpDetails = function(mailchimpDetails) {
+		console.log("list", mailchimpDetails.dt);
 
-	return $http({
+		return $http({
 
-		method: 'GET',
-		headers: {'token': localStorage.getItem('token')},
-		dataType: "jsonp",
-		url: baseHttpUrl +'/saveMailChimpDetails.php?id='+mailchimpDetails.dt.id+'&userId='+mailchimpDetails.dt.userId+'&apiKey='+mailchimpDetails.dt.apiKey+'&listId='+mailchimpDetails.dt.listId+'&listName='+mailchimpDetails.dt.listName
-	})
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/saveMailChimpDetails.php?id=' + mailchimpDetails.dt
+				.id + '&userId=' + mailchimpDetails.dt.userId + '&apiKey=' +
+				mailchimpDetails.dt.apiKey + '&listId=' + mailchimpDetails.dt.listId +
+				'&listName=' + mailchimpDetails.dt.listName
+		})
 
-}
+	}
 
-callAPI.deleteMailChimpDetails = function(mailchimpDetails){
-	console.log("list",mailchimpDetails.dt);
+	callAPI.deleteMailChimpDetails = function(mailchimpDetails) {
+		console.log("list", mailchimpDetails.dt);
 
-	return $http({
+		return $http({
 
-		method: 'GET',
-		headers: {'token': localStorage.getItem('token')},
-		dataType: "jsonp",
-		url: baseHttpUrl +'/deleteMailChimpDetails.php?id='+mailchimpDetails.dt.id+'&userId='+mailchimpDetails.dt.userId+'&apiKey='+mailchimpDetails.dt.apiKey+'&listId='+mailchimpDetails.dt.listId+'&listName='+mailchimpDetails.dt.listName
-	})
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/deleteMailChimpDetails.php?id=' +
+				mailchimpDetails.dt.id + '&userId=' + mailchimpDetails.dt.userId +
+				'&apiKey=' + mailchimpDetails.dt.apiKey + '&listId=' +
+				mailchimpDetails.dt.listId + '&listName=' + mailchimpDetails.dt.listName
+		})
 
-}
+	}
 
-callAPI.insertEmplProfile = function(file) {
+	callAPI.insertEmplProfile = function(file) {
 
-	return $http.post(baseHttpUrl + '/insertUserProfile.php', file,  {
+		return $http.post(baseHttpUrl + '/insertUserProfile.php', file, {
 
-		withCredentials: false,
-		transformRequest: angular.identity,
-		headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')},
+			withCredentials: false,
+			transformRequest: angular.identity,
+			headers: {
+				'Content-Type': undefined,
+				'token': localStorage.getItem('token')
+			},
 
-	});
+		});
 
-}
+	}
 
-callAPI.insertCompanyProfile = function(file) {
+	callAPI.insertCompanyProfile = function(file) {
 
-	return $http.post(baseHttpUrl + '/insertCompanyProfile.php', file,  {
+		return $http.post(baseHttpUrl + '/insertCompanyProfile.php', file, {
 
-		withCredentials: false,
-		transformRequest: angular.identity,
-		headers: {'Content-Type': undefined, 'token': localStorage.getItem('token')},
+			withCredentials: false,
+			transformRequest: angular.identity,
+			headers: {
+				'Content-Type': undefined,
+				'token': localStorage.getItem('token')
+			},
 
-	});
+		});
 
-}
+	}
 
-callAPI.addMailChimpId = function(apiKeyData){
+	callAPI.addMailChimpId = function(apiKeyData) {
 
-	return $http({
+		return $http({
 
-		method: 'GET',
-		headers: {'token': localStorage.getItem('token')},
-		dataType: "jsonp",
-		url: baseHttpUrl + '/addMailChimpId.php?userId='+apiKeyData.userId+'&apiKey='+apiKeyData.apiKey
-	})
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/addMailChimpId.php?userId=' + apiKeyData.userId +
+				'&apiKey=' + apiKeyData.apiKey
+		})
 
-}
+	}
 
-callAPI.addMailChimpList = function(listData){
+	callAPI.addMailChimpList = function(listData) {
 
-	return $http({
+		return $http({
 
-		method: 'GET',
-		headers: {'token': localStorage.getItem('token')},
-		dataType: "jsonp",
-		url: baseHttpUrl + '/addMailChimpList.php?userId='+listData.userId+'&apiKey='+listData.apiKey+'&listId='+listData.listId+'&listName='+listData.listName,
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/addMailChimpList.php?userId=' + listData.userId +
+				'&apiKey=' + listData.apiKey + '&listId=' + listData.listId +
+				'&listName=' + listData.listName,
 
-	})
+		})
 
-}
+	}
 
-callAPI.creatMailChimpList = function(listData){
+	callAPI.creatMailChimpList = function(listData) {
 
-	return $http({
+		return $http({
 
-		method: 'GET',
-		headers: {'token': localStorage.getItem('token')},
-		dataType: "jsonp",
-		url: baseHttpUrl + '/creatMailChimpList.php?userId='+listData.userId+'&apiKey='+listData.apiKey+'&listName='+listData.listName,
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/creatMailChimpList.php?userId=' + listData.userId +
+				'&apiKey=' + listData.apiKey + '&listName=' + listData.listName,
 
-	})
+		})
 
-}
+	}
 
-callAPI.getAllComapnies = function(){
+	callAPI.getAllComapnies = function() {
 
-	return $http({
+		return $http({
 
-		method: 'GET',
-		headers: {'token': localStorage.getItem('token')},
-		dataType: "jsonp",
-		url: baseHttpUrl + '/getAllComapnies.php'
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/getAllComapnies.php'
 
-	})
+		})
 
-}
+	}
 
-callAPI.getCompanyAttachedFiles = function (company) {
+	callAPI.getCompanyAttachedFiles = function(company) {
 
-	return $http({
+		return $http({
 
-		method: 'GET',
-		headers: {'token': localStorage.getItem('token')},
-		dataType: "jsonp",
-		url: baseHttpUrl + '/GetCmpyAttachedFiles.php?id='+company.companyId,
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/GetCmpyAttachedFiles.php?id=' + company.companyId,
 
-	})
+		})
 
-}
+	}
 
-callAPI.saveSmsCampaign = function (smsData) {
+	callAPI.saveSmsCampaign = function(smsData) {
 
-	return $http.post(baseHttpUrl + "/insertSmsCampaign.php", 	smsData, {headers: {'Content-Type': 'application/json'} } )
+		return $http.post(baseHttpUrl + "/insertSmsCampaign.php", smsData, {
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
 
-     //   return $http({
+		//   return $http({
 
-	    //     method: 'POST',
-	    //     data: smsData,
-	    //     url: baseHttpUrl + "/insertSmsCampaign.php",
-	    //     headers: {
-		   //      "content-type": "application/json",
-		   //      "accept": "application/json"
-	    //     }
+		//     method: 'POST',
+		//     data: smsData,
+		//     url: baseHttpUrl + "/insertSmsCampaign.php",
+		//     headers: {
+		//      "content-type": "application/json",
+		//      "accept": "application/json"
+		//     }
 
-	    // })
+		// })
 
 	}
 
