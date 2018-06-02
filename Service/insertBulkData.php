@@ -4,10 +4,10 @@ header('Access-Control-Allow-Headers: Origin, token, Host');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-require_once("./phpHeader/getHeader.php");
-
-$headers = apache_request_headers();
-require_once("./token/validateToken.php");
+// require_once("./phpHeader/getHeader.php");
+//
+// $headers = apache_request_headers();
+// require_once("./token/validateToken.php");
 
 $userId = $tokenUserId;
 // echo $userId;
@@ -85,13 +85,13 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 	$industry =  @mysqli_real_escape_string($conn,($properData["Industry"]));
 	$country  = @mysqli_real_escape_string($conn,($properData["Country"]));
 	//echo $name."-".$companyName."-".$jobRole."-".$ofcAddress."-".$website."-".$industry."-".$country;
-	//echo "<br/>";		
+	//echo "<br/>";
 	//check if company already exists into the database
-	
+
 	$responseArr["details"][$i] = array();
-	
+
 	if(isset($companyName) && !empty($companyName)) {
-		
+
 		$sql = 'SELECT id,name FROM company WHERE name="'.$companyName.'"';
 		//echo $sql."</br>";
 		$result = mysqli_query($conn, $sql);
@@ -101,11 +101,11 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 			//	echo "no of row";
 			$foundCompnayId = null;
 			$foundCompanyName = null;
-			while($row = mysqli_fetch_assoc($result)) { 
+			while($row = mysqli_fetch_assoc($result)) {
 				$foundCompnayId = $row["id"];
 				$foundCompanyName = $row["name"];
 			}
-			
+
 			//check if email Id already exists
 			$emailFound = $checkDupEmail->check($conn, $email);
 			if($emailFound["result"] == false) {
@@ -122,7 +122,7 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 				$reason = 'Email already exists';
 				$compReason = 'Company already exists';
 			}
-			
+
 			$responseArr["details"][$i]["loopNo"] = $i;
 			if (mysqli_query($conn, $comNameSql)) {
 				$c2->addMebmberToList($email,'d0a4dda674',$name,'','');
@@ -142,18 +142,18 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 			}
 
 			$insertStatus = $responseArr["details"][$i]["inserted"];
-			
+
 			$resultInTrDetails = $transactionDetails->insert($conn, $tId, $email, '', $companyName, $insertStatus, $operationPerform, $reason, $compReason);
 			// print_r($resultInTrDetails);
 
-			
+
 		} else {
-			
+
 			$insertNewCmpySql = "INSERT INTO company(name,ofcAddress) VALUES('".trim($companyName)."','".$ofcAddress."')";
 			$operationPerform = "Inserted";
 			if (mysqli_query($conn, $insertNewCmpySql)) {
 				$companyId = mysqli_insert_id($conn);
-				
+
 				//check if email Id already exists
 				$emailFound = $checkDupEmail->check($conn, $email);
 				if($emailFound["result"] == false) {
@@ -170,8 +170,8 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 					$reason = 'Email already exists';
 					$compReason = 'Company already exists';
 				}
-				
-				
+
+
 				$responseArr["details"][$i]["loopNo"] = $i;
 				if (mysqli_query($conn, $newCompSql)) {
 					$c2->addMebmberToList($email,'d0a4dda674',$name,'','');
@@ -191,11 +191,11 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 				}
 
 				$insertStatus = $responseArr["details"][$i]["inserted"];
-			
+
 				$resultInTrDetails = $transactionDetails->insert($conn, $tId, $email, $companyId, $companyName, $insertStatus, $operationPerform, $reason, $compReason);
 				// echo "insert_resultInTrDetails".$resultInTrDetails;
 
-				
+
 				//echo "New record created successfully".$i."</br>";
 			} else {
 				$responseArr["details"][$i]["inserted"] = false;
@@ -206,7 +206,7 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 				$totalfailed++;
 				$operationPerform = "Failed";
 				$insertStatus = $responseArr["details"][$i]["inserted"];
-				
+
 				$resultInTrDetails = $transactionDetails->insert($conn, $tId, '', '', $companyName, $insertStatus, $operationPerform, '',$compReason);
 			}
 
@@ -214,7 +214,7 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 
 	}
 	else {
-		
+
 		$insertEmplSql = "INSERT INTO employee (name,companyName,jobRole,industry,location,website,email) VALUES('".$name."','".$companyName."','".$jobRole."','".$industry."','".$country."','".$website."','".$email."')";
 		$operationPerform = "Inserted";
 		$emailFound = $checkDupEmail->check($conn, $email);
@@ -232,7 +232,7 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 			$reason = 'Email already exists';
 			$compReason = 'Company already exists';
 		}
-		
+
 		$responseArr["details"][$i]["loopNo"] = $i;
 		if (mysqli_query($conn, $insertEmplSql)) {
 			$c2->addMebmberToList($email,'d0a4dda674',$name,'','');
@@ -252,7 +252,7 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 		}
 
 		$insertStatus = $responseArr["details"][$i]["inserted"];
-			
+
 		$resultInTrDetails = $transactionDetails->insert($conn, $tId, $email, '', $companyName, $insertStatus, $operationPerform, $reason, $compReason);
 		// echo "insert_resultInTrDetails".$resultInTrDetails;
 
