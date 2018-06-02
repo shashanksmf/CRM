@@ -112,8 +112,7 @@ if ($client->getAccessToken()) {
     $token = $getNewtoken->getToken($addSocialUser['lastId']);
     $responseArr['token'] = $token['token'];
   }
-  print_r($responseArr['token']);
-  // header('Location: https://upsailgroup.herokuapp.com/?login=true&accessToken='.$_SESSION['access_token']);
+  header('Location: https://upsailgroup.herokuapp.com/?login=true&accessToken='.$responseArr['token']);
 } else {
   $auth_url = $client->createAuthUrl();
   header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
