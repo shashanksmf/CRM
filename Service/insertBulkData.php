@@ -5,21 +5,21 @@ header('Access-Control-Allow-Methods: POST, GET');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-require_once("./phpHeader/getHeader.php");
+require_once "./phpHeader/getHeader.php";
 
 $headers = apache_request_headers();
-require_once("./token/validateToken.php");
+require_once "./token/validateToken.php";
 
 $userId = $tokenUserId;
 // echo $userId;
 
-require_once("../Controller/EmailMgr.php");
+require_once "../Controller/EmailMgr.php";
 $c2 = new EmailMgr();
 
-require_once("./BulkImport/objectToArray.php");
-require_once("./BulkImport/checkDupEmail.php");
-require_once("./BulkImport/insertInTransactionTable.php");
-require_once("./BulkImport/insertInTransactionDetails.php");
+require_once "./BulkImport/objectToArray.php";
+require_once "./BulkImport/checkDupEmail.php";
+require_once "./BulkImport/insertInTransactionTable.php";
+require_once "./BulkImport/insertInTransactionDetails.php";
 
 $objectToArray = new objectToArray();
 $checkDupEmail = new checkDupEmail();
@@ -36,7 +36,7 @@ $userId = $postDataArr['userId'];
 // print_r($data);
 // exit();
 
-require_once("../Controller/StaticDBCon.php");
+require_once "../Controller/StaticDBCon.php";
 
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 
