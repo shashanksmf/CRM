@@ -112,7 +112,7 @@ if ($client->getAccessToken()) {
     $token = $getNewtoken->getToken($addSocialUser['lastId']);
     $responseArr['token'] = $token['token'];
   }
-  print_r($_SESSION['access_token']);
+  print_r($responseArr['token']);
   // header('Location: https://upsailgroup.herokuapp.com/?login=true&accessToken='.$_SESSION['access_token']);
 } else {
   $auth_url = $client->createAuthUrl();
