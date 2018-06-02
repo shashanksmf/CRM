@@ -9,7 +9,7 @@ require_once("./phpHeader/getHeader.php");
 // $headers = apache_request_headers();
 // require_once("./token/validateToken.php");
 
-$userId = $tokenUserId;
+// $userId = $tokenUserId;
 // echo $userId;
 
 require_once("../Controller/EmailMgr.php");
@@ -31,6 +31,7 @@ $postDataArr = json_decode($postData, true);
 // echo $postDataArr;
 
 $data = $postDataArr['bulkData'];
+$userId = $postDataArr['userId'];
 // print_r($data);
 // exit();
 
