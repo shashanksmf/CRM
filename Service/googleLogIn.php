@@ -112,7 +112,7 @@ if ($client->getAccessToken()) {
     $token = $getNewtoken->getToken($addSocialUser['lastId']);
     $responseArr['token'] = $token['token'];
   }
-  header('Location: https://upsailgroup.herokuapp.com/?login=true&token='.$responseArr['token'].'&email='.$responseArr['userEmail'].'&name='.$responseArr['userName'].'&id='.$responseArr['userId'].'&profilePic='.$responseArr['profilePic']);
+  header('Location: https://upsailgroup.herokuapp.com#?login=true&token='.$responseArr['token'].'&email='.$responseArr['userEmail'].'&name='.$responseArr['userName'].'&id='.$responseArr['userId'].'&profilePic='.$responseArr['profilePic']);
 } else {
   $auth_url = $client->createAuthUrl();
   header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
