@@ -205,66 +205,66 @@ function MainCtrl($scope,API,$rootScope,crmconfig,$timeout,$interval) {
        }
     }
 
-    function initChat() {
-        $rootScope.userId = $rootScope.userId || localStorage.getItem("userId");
-        userId = $rootScope.userId || localStorage.getItem("userId");
-        if(userId) {
-            API.getAllLatestMsg(userId).then(function(response){
-                if(response.data.result) {
-                    if(response.data.chatDetails.length > 0) {
-                        $scope.notificationBox = response.data.chatDetails;
-                        $scope.latestMsgCount = countUnreadMsg(response.data.chatDetails);
-
-                    }
-
-                }
-                else if(response.data.errorType && response.data.errorType == "token"){
-                    $('#tokenErrorModalLabel').html(response.data.details);
-                    $('#tokenErrorModal').modal("show");
-                    $('#tokenErrorModalBtn').click(function(){
-                        $('#tokenErrorModal').modal("hide");
-                    })
-                }
-
-            if(response.data.usersList && response.data.usersList.length > 0){
-                $timeout(function(){
-                    $rootScope.friendList = response.data.usersList;
-                },100)
-
-             }
-            })
-        }
-
-
-        $scope.interval = $interval(function(){
-
-            if(userId) {
-                API.getAllNewChatDetails(userId).then(function(response){
-                    if(response.data.result) {
-                        if(response.data.chatDetails.length > 0) {
-                               pushNewMsgInActiveChatBox(response.data.chatDetails);
-                        }
-                    }
-                    else if(response.data.errorType && response.data.errorType == "token"){
-                        $('#tokenErrorModalLabel').html(response.data.details);
-                        $('#tokenErrorModal').modal("show");
-                        $('#tokenErrorModalBtn').click(function(){
-                            $('#tokenErrorModal').modal("hide");
-                        })
-                    }
-
-                 if(response.data.usersList && response.data.usersList.length > 0){
-                     $rootScope.friendList = response.data.usersList;
-                 }
-
-                })
-            }
-        },5000);
-
-    }
+    // function initChat() {
+    //     $rootScope.userId = $rootScope.userId || localStorage.getItem("userId");
+    //     userId = $rootScope.userId || localStorage.getItem("userId");
+    //     if(userId) {
+    //         API.getAllLatestMsg(userId).then(function(response){
+    //             if(response.data.result) {
+    //                 if(response.data.chatDetails.length > 0) {
+    //                     $scope.notificationBox = response.data.chatDetails;
+    //                     $scope.latestMsgCount = countUnreadMsg(response.data.chatDetails);
+    //
+    //                 }
+    //
+    //             }
+    //             else if(response.data.errorType && response.data.errorType == "token"){
+    //                 $('#tokenErrorModalLabel').html(response.data.details);
+    //                 $('#tokenErrorModal').modal("show");
+    //                 $('#tokenErrorModalBtn').click(function(){
+    //                     $('#tokenErrorModal').modal("hide");
+    //                 })
+    //             }
+    //
+    //         if(response.data.usersList && response.data.usersList.length > 0){
+    //             $timeout(function(){
+    //                 $rootScope.friendList = response.data.usersList;
+    //             },100)
+    //
+    //          }
+    //         })
+    //     }
+    //
+    //
+    //     $scope.interval = $interval(function(){
+    //
+    //         if(userId) {
+    //             API.getAllNewChatDetails(userId).then(function(response){
+    //                 if(response.data.result) {
+    //                     if(response.data.chatDetails.length > 0) {
+    //                            pushNewMsgInActiveChatBox(response.data.chatDetails);
+    //                     }
+    //                 }
+    //                 else if(response.data.errorType && response.data.errorType == "token"){
+    //                     $('#tokenErrorModalLabel').html(response.data.details);
+    //                     $('#tokenErrorModal').modal("show");
+    //                     $('#tokenErrorModalBtn').click(function(){
+    //                         $('#tokenErrorModal').modal("hide");
+    //                     })
+    //                 }
+    //
+    //              if(response.data.usersList && response.data.usersList.length > 0){
+    //                  $rootScope.friendList = response.data.usersList;
+    //              }
+    //
+    //             })
+    //         }
+    //     },5000);
+    //
+    // }
 
     //console.log("before chat init")
-    initChat();
+    // initChat();
     $rootScope.userId = $rootScope.userId || localStorage.getItem("userId");
     var userId = $rootScope.userId || localStorage.getItem("userId");
     if(userId) {
