@@ -1,19 +1,19 @@
-<?php 
+<?php
 	//echo "top";
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Headers: Origin, token, Host');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-require_once("./phpHeader/getHeader.php");
+require_once "./phpHeader/getHeader.php";
 
 $headers = apache_request_headers();
-require_once("./token/validateToken.php");
+require_once "./token/validateToken.php";
 
-require_once("../Controller/Class_Company_Controller.php");
+require_once "../Controller/Class_Company_Controller.php";
 
-require_once("../Controller/Class_Employees_Controller.php");
-require_once("../Controller/StaticDBCon.php");
+require_once "../Controller/Class_Employees_Controller.php";
+require_once "../Controller/StaticDBCon.php";
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 $responseArr = array();
 
@@ -26,7 +26,7 @@ $path = @$_POST['fileName'];
 header("Access-Control-Allow-Origin: *");
 
 if(isset($_FILES['image'])){
-	
+
    	//echo "if isset files image ".$id.$path;
 	$extt = $_FILES['image']['name'];
 	$errors= array();
@@ -36,15 +36,15 @@ if(isset($_FILES['image'])){
 	$file_type=$_FILES['image']['type'];
       //$file_ext=strtolower(end(explode('.',$extt)));
 	$expensions= array("jpeg","jpg","png");
-	
+
 	if($file_size > 209715002){
      // echo "big file ".$id.$path;
 		$errors[]='File size must be excately 20 MB';
 	}
-	
+
 	if(empty($errors)==true){
-		
-		$file_name =  $_FILES['image']['name']; 
+
+		$file_name =  $_FILES['image']['name'];
 		$file_tmp = $_FILES['image']['tmp_name'];
 
 		$uploadDirPath = "../uploads/";
@@ -65,27 +65,27 @@ if(isset($_FILES['image'])){
 			mkdir($emplIdFolder, 0777, true);
 		}
 		$emplIdFolderPath = "uploads/profilepic/company/".$id."/";
-		$fileUrl = $emplIdFolderPath; 	
-		
+		$fileUrl = $emplIdFolderPath;
+
 		$updateEmplProfilePicSql = "UPDATE company SET logo = '".$fileUrl.$file_name."' WHERE id=".$id;
-		
-		if (mysqli_query($conn, $updateEmplProfilePicSql)) { 
-			
-			move_uploaded_file($file_tmp,$emplIdFolder."/".$file_name);  
+
+		if (mysqli_query($conn, $updateEmplProfilePicSql)) {
+
+			move_uploaded_file($file_tmp,$emplIdFolder."/".$file_name);
 			$responseArr["result"] = true;
 			$responseArr["details"] = "file Uploaded successfully";
 		}else{
 			$responseArr["result"] = true;
 			$responseArr["details"] = mysqli_error($conn);
 		}
-		
+
 		echo json_encode($responseArr);
-		
+
 	}else{
-		
+
 		$responseArr["result"] = false;
 		$responseArr["details"] = "Error Occured";
 		echo json_encode($responseArr);
-	}  
+	}
 }
 ?>

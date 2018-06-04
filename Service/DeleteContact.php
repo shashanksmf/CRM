@@ -5,13 +5,13 @@ header('Access-Control-Allow-Headers: Origin, token, Host');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-require_once("./phpHeader/getHeader.php");
+require_once "./phpHeader/getHeader.php";
 
 $headers = apache_request_headers();
-require_once("./token/validateToken.php");
+require_once "./token/validateToken.php";
 
-require_once("../Controller/StaticDBCon.php");
-require_once("./mailChimp/unSubEmpl/unSubUser.php");
+require_once "../Controller/StaticDBCon.php";
+require_once "./mailChimp/unSubEmpl/unSubUser.php";
 
 $emplId = @$_GET['id'];
 $emplName = @$_GET['name'];
@@ -39,10 +39,10 @@ if(isset($emplId) && !empty($emplId)) {
 			$responseArr["result"] = false;
 			$responseArr["details"] = $unSubResult['reason'];
 			exit(json_encode($responseArr));
-		}        	
+		}
 	}
 
-	
+
 	$deleteSql = "UPDATE `employee` set isactive = 0 WHERE id=".$emplId.";";
 	if(mysqli_query($conn, $deleteSql)){
 		$responseArr["result"] = true;
