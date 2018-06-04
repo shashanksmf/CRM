@@ -2,8 +2,8 @@
 header("Access-Control-Allow-Origin: *");
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-// require_once("./../../mailChimpConfig.php");
-// require_once("./../../mailChimpService.php");
+// require_once "./../../mailChimpConfig.php";
+// require_once "./../../mailChimpService.php";
 
 // $mailChimpServiceBlah = new MailChimpService();
 // $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;

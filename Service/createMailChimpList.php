@@ -4,10 +4,10 @@
 
 // error_reporting(E_ALL);
 // ini_set('display_errors', '1');
-// require_once("./phpHeader/getHeader.php");
+// require_once "./phpHeader/getHeader.php";
 
 // $headers = apache_request_headers();
-// require_once("./token/validateToken.php");
+// require_once "./token/validateToken.php";
 
 // $userId = @$_GET['userId'];
 // $apiKey = @$_GET['apiKey'];
@@ -39,7 +39,7 @@ echo "createList",$result;
 //     exit $responseArr;
 // }
 
-// require_once("../Controller/StaticDBCon.php");
+// require_once "../Controller/StaticDBCon.php";
 // $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 // // Create connection
 

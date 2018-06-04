@@ -5,10 +5,10 @@ header('Access-Control-Allow-Headers: Origin, token, Host');
 
 // error_reporting(E_ALL);
 // ini_set('display_errors', '1');
-// require_once("./phpHeader/getHeader.php");
+// require_once "./phpHeader/getHeader.php";
 
 // $headers = apache_request_headers();
-// require_once("./token/validateToken.php");
+// require_once "./token/validateToken.php";
 
 require_once "../../Controller/StaticDBCon.php";
 

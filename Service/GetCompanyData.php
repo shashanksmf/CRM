@@ -19,7 +19,7 @@ $dats = @$_GET['id'];
 
 $headers = apache_request_headers();
 // $headers = $headers['token'];
-// require_once("./token/validateToken.php");
+// require_once "./token/validateToken.php";
 
 require_once "../Controller/Class_Company_Controller.php";
 $controller = new CompanyController();
