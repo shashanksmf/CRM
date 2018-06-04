@@ -10,7 +10,7 @@ header('Access-Control-Allow-Headers: Origin, token, Host');
 // $headers = apache_request_headers();
 // require_once("./token/validateToken.php");
 
-require_once("../../Controller/StaticDBCon.php");
+require_once "../../Controller/StaticDBCon.php";
 
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 if (!$conn) {
@@ -18,7 +18,7 @@ if (!$conn) {
 }
 
 $userId = $_GET['userId'];
-$getLatestChatSql = 
+$getLatestChatSql =
 'SELECT id, fromId, message,toId,readed
 FROM chat2
 WHERE id IN (
@@ -50,39 +50,39 @@ mysqli_set_charset($conn,"utf8");
 if (mysqli_num_rows($chatResult) > 0) {
 //echo "asdsad";
     // output data of each row
-	
+
 	while($row = mysqli_fetch_assoc($chatResult)) {
     	//print_r($row);
 		$userSql = "SELECT name,profilePic from user WHERE id=".$row["fromId"];
 		$userResult =  mysqli_query($conn,$userSql);
-		
+
 		if (mysqli_num_rows($userResult) > 0) {
-			while($userRow = mysqli_fetch_assoc($userResult)) { 
+			while($userRow = mysqli_fetch_assoc($userResult)) {
 			//print_r($userRow);
 				$row["from_userName"] = $userRow["name"];
 				$row["from_profilePic"] = $userRow["profilePic"];
 			}
 		}
-		
-		
+
+
 		array_push($responseArr["chatDetails"],$row);
-		
+
 	}
   //  echo "asdsad";
    // print_r($responseArr);
     //echo json_encode($responseArr);
-	
+
 } else {
-	$responseArr["result"] = false; 
-	$responseArr["reason"] = "No New Messages";   
+	$responseArr["result"] = false;
+	$responseArr["reason"] = "No New Messages";
 	//echo json_encode($responseArr);
 }
 
 $usersList = "SELECT id,name,profilePic,lastactive FROM user WHERE id <>".$userId;
 $userListResult = mysqli_query($conn,$usersList);
 $nowTime = date("Y-m-d H:i:s");
-if (mysqli_num_rows($userListResult) > 0) { 
-	while($userRow = mysqli_fetch_assoc($userListResult)) { 
+if (mysqli_num_rows($userListResult) > 0) {
+	while($userRow = mysqli_fetch_assoc($userListResult)) {
 		if(!empty($userRow["lastactive"])) {
 			$userLastActiveTime = new DateTime($userRow["lastactive"]);
 			$nowDateTime = new DateTime($nowTime);
@@ -93,17 +93,17 @@ if (mysqli_num_rows($userListResult) > 0) {
 			else {
 				$userRow["status"] = false;
 			}
-			
+
 		}
 		else{
 			$userRow["status"] = false;
 		}
-		
+
 		array_push($responseArr["usersList"],$userRow);
 	}
 	echo json_encode($responseArr);
-	
-}	
+
+}
 
 else{
 	echo json_encode($responseArr);

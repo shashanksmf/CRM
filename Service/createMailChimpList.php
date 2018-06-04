@@ -13,9 +13,9 @@
 // $apiKey = @$_GET['apiKey'];
 // $listName = @$_GET['listName'];
 
-require_once("./mailChimp/list/createList.php");
-require_once(".../../../Controller/mailChimpConfig.php");
-require_once(".../../../Controller/mailChimpService.php");
+require_once "./mailChimp/list/createList.php";
+require_once ".../../../Controller/mailChimpConfig.php";
+require_once ".../../../Controller/mailChimpService.php";
 
 $mailChimpService = new MailChimpService();
 $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
@@ -33,7 +33,7 @@ echo "createList",$result;
 // if ($responseArr['account_id'] != "") {
 //     $responseArr['result'] = true;
 //     // echo $responseArr;
-// } 
+// }
 // else {
 //     $responseArr['result'] = false;
 //     exit $responseArr;

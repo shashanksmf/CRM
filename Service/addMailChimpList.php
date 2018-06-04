@@ -5,19 +5,19 @@ header('Access-Control-Allow-Headers: Origin, token, Host');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-require_once("./phpHeader/getHeader.php");
+require_once "./phpHeader/getHeader.php";
 
 $headers = apache_request_headers();
-require_once("./token/validateToken.php");
+require_once "./token/validateToken.php";
 
 $userId = $tokenUserId;
 $apiKey = @$_GET['apiKey'];
 $listId = @$_GET['listId'];
 $listName = @$_GET['listName'];
 
-require_once("./mailChimp/list/checkListId.php");
-require_once(".../../../Controller/mailChimpConfig.php");
-require_once(".../../../Controller/mailChimpService.php");
+require_once "./mailChimp/list/checkListId.php";
+require_once ".../../../Controller/mailChimpConfig.php";
+require_once ".../../../Controller/mailChimpService.php";
 
 $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
 
@@ -32,14 +32,14 @@ $resultArr = $result;
 if (array_key_exists('id', $resultArr)) {
     // $resultArr['result'] = true;
     // echo $resultArr;
-} 
+}
 else {
     $resultArr['result'] = false;
     $resultArr['errorType'] = "listId";
     exit(json_encode($resultArr,true));
 }
 
-require_once("../Controller/StaticDBCon.php");
+require_once "../Controller/StaticDBCon.php";
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 // Create connection
 
