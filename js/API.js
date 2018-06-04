@@ -521,6 +521,7 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 	callAPI.insertBulkData = function(userId, bulkData) {
 		return $http({
 			method: 'POST',
+			dataType: 'jsonp',
 			headers: {
 				'Content-Type': 'application/json; charset=utf-8',
 				'token': localStorage.getItem('token'),
