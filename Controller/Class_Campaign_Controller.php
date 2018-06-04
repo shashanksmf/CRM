@@ -1,12 +1,12 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-require_once("../Models/Class_Campaign.php");
-require_once("../Controller/StaticDBCon.php");
+require_once "../Models/Class_Campaign.php";
+require_once "../Controller/StaticDBCon.php";
 
-require_once("../Controller/EmailMgr.php");
-require_once("mailChimpService.php");
-require_once("mailChimpConfig.php");
+require_once "../Controller/EmailMgr.php";
+require_once "mailChimpService.php";
+require_once "mailChimpConfig.php";
 header("Access-Control-Allow-Origin: *");
 
 class CampaignController{
@@ -17,7 +17,7 @@ class CampaignController{
                 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
                 if ($conn->connect_error) {
                         die("Connection failed: " . $conn->connect_error);
-                } 
+                }
                 if($id==''){
                         $sql = "SELECT * FROM campaign WHERE isactive = 1;";
                 }else{
@@ -41,7 +41,7 @@ class CampaignController{
                 $conn->close();
                 //$resp = json_encode($mailList);
                 return $mailList;
-        }	
+        }
 
 
 
@@ -106,13 +106,13 @@ class CampaignController{
                     //exit();
                     ob_start();
                     $runCampReq = $mailChimpService->runCampaign($mailChimpSubDomainInit,$mailChimpApiKey,$mcCampId);
-                  
+
                     $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
                     $msg = new Campaign("", "", "", "", "", "", "", "", "", "", "");
                     if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                     }
-                   
+
                     $read = 0;
                     $sql = "INSERT INTO ".StaticDBCon::$dbname.".campaign(name,createdBy,emails,subject,body,recievedBy,dates,replacingContent,templateId,groupId,campaignId,segId)
                     VALUES ('".$name."','".$createdBy."','".$emails."','".$subject."','".$body."','".$recievedBy."','".$dates."','','".$templateId."','".$groupId."','".$mcCampId."','".$segId."')";
@@ -129,7 +129,7 @@ class CampaignController{
 
                     $conn->close();
                     return $msg;
-            }	
+            }
 
             public function addNewCampaignJson($name,$createdBy,$emails,$subject,$body,$recievedBy,$dates,$templateId,$groupId,$segId){
                 $msg  = $this->addNewCampaign($name,$createdBy,$emails,$subject,$body,$recievedBy,$dates,$templateId,$groupId,$segId);
@@ -141,7 +141,7 @@ class CampaignController{
                     $jsonStr = '{"responce":false,';
                     $jsonStr.='"message":"'.$msg->msg.'"}';
                 }
-                return $jsonStr;	
+                return $jsonStr;
             }
 
 
