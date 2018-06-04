@@ -4,19 +4,19 @@ header('Access-Control-Allow-Headers: Origin, token, Host');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-require_once("./phpHeader/getHeader.php");
+require_once "./phpHeader/getHeader.php";
 
 $headers = apache_request_headers();
-require_once("./token/validateToken.php");
+require_once "./token/validateToken.php";
 
-require_once("../Controller/EmailMgr.php");
+require_once "../Controller/EmailMgr.php";
 $c2 = new EmailMgr();
 $jsondata = $_POST["data"];
 
 $data = $jsondata;
 $new_array = objectToArray($param);
 
-function objectToArray($d) 
+function objectToArray($d)
 {
 	if (is_object($d)) {
         // Gets the properties of the given object
@@ -74,15 +74,15 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 	$website =  mysqli_real_escape_string($conn,($properData["Company Website"]));
 	$industry =  mysqli_real_escape_string($conn,($properData["Industry"]));
 	$country  = mysqli_real_escape_string($conn,($properData["Country"]));
-	
+
 	//echo $name."-".$companyName."-".$jobRole."-".$ofcAddress."-".$website."-".$industry."-".$country;
-	//echo "<br/>";		
+	//echo "<br/>";
 	//check if company already exists into the database
-	
+
 	$responseArr["details"][$i] = array();
-	
+
 	if(isset($companyName) && !empty($companyName)) {
-		
+
 		$sql = 'SELECT id,name FROM company WHERE name="'.$companyName.'"';
 		//echo $sql."</br>";
 		$result = mysqli_query($conn, $sql);
@@ -92,27 +92,27 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 		//	echo "no of row";
 			$foundCompnayId = null;
 			$foundCompanyName = null;
-			while($row = mysqli_fetch_assoc($result)) { 
+			while($row = mysqli_fetch_assoc($result)) {
 				$foundCompnayId = $row["id"];
 				$foundCompanyName = $row["name"];
 			}
-			
+
 			//check if email Id already exists
 			$emailFound = checkDupEmail($email);
 			if($emailFound["result"] == false) {
 				//insert query
 				$insertSql = "INSERT INTO employee (name,companyName,jobRole,industry,location,website,companyId,email) VALUES('".$name."','".$companyName."','".$jobRole."','".$industry."','".$country."','".$website."','".$foundCompnayId."','".$email."')";
-				
+
 			}
 			else {
 				// update query
 				$updateSql = 'UPDATE employee SET name = "'.$name.'" , companyName = "'.$companyName.'" , jobRole = "'.$jobRole.'" ,industry = "'.$industry.'" , location = "'.$country.'" , website = "'.$website.'" , companyId = "'.$foundCompnayId.'" WHERE email = "'.$email.'" ';
 			}
-			
+
 			$responseArr["details"][$i]["loopNo"] = $i;
 			if (mysqli_query($conn, $insertSql)) {
-				
-				
+
+
 				$c2->addMebmberToList($email,'d0a4dda674',$name,'','');
 				$responseArr["details"][$i]["listResponse"] = json_encode($c2);
 				$responseArr["details"][$i]["inserted"] = true;
@@ -122,29 +122,29 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 				$responseArr["details"][$i]["inserted"] = false;
 				$responseArr["details"][$i]["name"] = $name;
 				$responseArr["details"][$i]["reason"] = mysqli_error($conn);
-				
+
 				//echo "</br>Error: ".$sql."<br>" . mysqli_error($conn);
 			}
-			
+
 		} else {
-			
+
 			$insertNewCmpySql = "INSERT INTO company(name,ofcAddress) VALUES('".trim($companyName)."','".$ofcAddress."')";
 			if (mysqli_query($conn, $insertNewCmpySql)) {
 				$companyId = mysqli_insert_id($conn);
-				
+
 				//check if email Id already exists
 				$emailFound = checkDupEmail($email);
 				if($emailFound["result"] == false) {
 					//insert query
 					$insertEmplSql = "INSERT INTO employee (name,companyName,jobRole,industry,location,website,companyId,email) VALUES('".$name."','".$companyName."','".$jobRole."','".$industry."','".$country."','".$website."','".$companyId."','".$email."')";
-					
+
 				}
 				else {
 					// update query
 					$updateSql = 'UPDATE employee SET name = "'.$name.'" , companyName = "'.$companyName.'" , jobRole = "'.$jobRole.'" ,industry = "'.$industry.'" , location = "'.$country.'" , website = "'.$website.'" , companyId = "'.$foundCompnayId.'" WHERE email = "'.$email.'" ';
 				}
-				
-				
+
+
 				$responseArr["details"][$i]["loopNo"] = $i;
 				if (mysqli_query($conn, $insertEmplSql)) {
 					$c2->addMebmberToList($email,'d0a4dda674',$name,'','');
@@ -158,7 +158,7 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 					$responseArr["details"][$i]["name"] = $name;
 					$responseArr["details"][$i]["reason"] = mysqli_error($conn);
 				}
-				
+
 				//echo "New record created successfully".$i."</br>";
 			} else {
 				$responseArr["details"][$i]["inserted"] = false;
@@ -170,20 +170,20 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 
 	}
 	else {
-		
+
 		$insertEmplSql = "INSERT INTO employee (name,companyName,jobRole,industry,location,website,email) VALUES('".$name."','".$companyName."','".$jobRole."','".$industry."','".$country."','".$website."','".$email."')";
-		
+
 		$emailFound = checkDupEmail($email);
 		if($emailFound["result"] == false) {
 			//insert query
 			$insertSql = "INSERT INTO employee (name,companyName,jobRole,industry,location,website,email) VALUES('".$name."','".$companyName."','".$jobRole."','".$industry."','".$country."','".$website."','".$email."')";
-			
+
 		}
 		else {
 			// update query
 			$updateSql = 'UPDATE employee SET name = "'.$name.'" , companyName = "'.$companyName.'" , jobRole = "'.$jobRole.'" ,industry = "'.$industry.'" , location = "'.$country.'" , website = "'.$website.'" WHERE email = "'.$email.'" ';
 		}
-		
+
 		$responseArr["details"][$i]["loopNo"] = $i;
 		if (mysqli_query($conn, $insertEmplSql)) {
 			$c2->addMebmberToList($email,'d0a4dda674',$name,'','');
@@ -207,12 +207,12 @@ function checkDupEmail($email) {
 	$searchDuplicateEmail = "SELECT * FROM employee WHERE email='".$email."'";
 	$searchDuplicateEmailResult = mysqli_query($conn, $searchDuplicateEmail);
 	if (mysqli_num_rows($searchDuplicateEmailResult) > 0) {
-		while($emailResultRow = mysqli_fetch_assoc($searchDuplicateEmailResult)) { 
-			
+		while($emailResultRow = mysqli_fetch_assoc($searchDuplicateEmailResult)) {
+
 			$DupEmailRes["result"] = true;
 			$DupEmailRes["userId"] = $row["id"];
 			return $DupEmailRes;
-			
+
 		}
 	}
 	else {

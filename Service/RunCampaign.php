@@ -5,10 +5,10 @@ header('Access-Control-Allow-Headers: Origin, token, Host');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-require_once("./phpHeader/getHeader.php");
+require_once "./phpHeader/getHeader.php";
 
 $headers = apache_request_headers();
-require_once("./token/validateToken.php");
+require_once "./token/validateToken.php";
 
 require('../libs/mandril/Mandrill.php');
 require('../Controller/Class_Group_Controller.php');
@@ -26,7 +26,7 @@ $tempId = $camps->getCampaignList($campaignId)[0]->tempId;
 $subject = $camps->getCampaignList($campaignId)[0]->subject;
 
 $template = "";
-$templateC = new TemplateController(); 
+$templateC = new TemplateController();
 $template = $templateC->getTemplateList($tempId)[0]->html;
 $to = "";
 $toName = "";
@@ -39,12 +39,12 @@ $list = $grp->getGroupList($groupId);
 $empls = $grp->getUserList($list[0]->getMembers());
 $ii = 0;
 foreach($empls as $empl) {
- 
+
    $template = str_replace("CHANGETHISNAME", $empl->getName(), $template);
    $template = str_replace("ADDBODYHERE", $camps->getCampaignList($campaignId)[0]->body, $template);
-   
-   
-   
+
+
+
    try {
     $mandrill = new Mandrill('zXgKhQkDREZr-GmCdkorpw');
     $message = array(
@@ -94,10 +94,10 @@ foreach($empls as $empl) {
     $resAr[$ii] = $result;
     $ii++;
     //header('Content-Type: application/json');
-    
+
     //echo json_encode($result);
-    
-    
+
+
     //print_r($result);
     /*
     Array
@@ -109,7 +109,7 @@ foreach($empls as $empl) {
                 [reject_reason] => hard-bounce
                 [_id] => abc123abc123abc123abc123abc123
             )
-    
+
     )
     */
 } catch(Mandrill_Error $e) {
