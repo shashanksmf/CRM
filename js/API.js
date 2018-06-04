@@ -522,7 +522,6 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 		var bulkData = bulkData;
 		var userId = userId;
 		return $http({
-
 			method: 'POST',
 			data: {
 				'bulkData': bulkData,
@@ -530,10 +529,10 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 			},
 			url: baseHttpUrl + '/insertBulkData.php',
 			headers: {
+				'content-type': 'application/json',
+				'accept': 'application/json',
 				'token': localStorage.getItem('token'),
 			},
-
-
 		})
 
 	}
