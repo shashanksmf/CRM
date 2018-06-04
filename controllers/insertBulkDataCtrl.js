@@ -1,3 +1,4 @@
+const XLSX = require('xslx');
 const $ = require('$');
 const $err = require('$err');
 const $tId = require('$tId');
