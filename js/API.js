@@ -519,22 +519,18 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 	}
 
 	callAPI.insertBulkData = function(userId, bulkData) {
-		var bulkData = bulkData;
-		var userId = userId;
 		return $http({
 			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json; charset=utf-8',
+				'token': localStorage.getItem('token'),
+			},
 			data: {
 				'bulkData': bulkData,
 				'userId': userId
 			},
 			url: baseHttpUrl + '/insertBulkData.php',
-			headers: {
-				'Content-Type': 'application/json',
-				'accept': 'application/json',
-				'token': localStorage.getItem('token'),
-			},
 		})
-
 	}
 
 
