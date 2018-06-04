@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 ob_start();
 
@@ -8,19 +8,19 @@ header('Access-Control-Allow-Headers: Origin, token, Host');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-require_once("./phpHeader/getHeader.php");
+require_once "./phpHeader/getHeader.php";
 
 $headers = apache_request_headers();
-require_once("./token/validateToken.php");
+require_once "./token/validateToken.php";
 
 
 $dats = 'na';
 $dats = @$_GET['name'];
 
-require_once("../Controller/Class_Company_Controller.php");
+require_once "../Controller/Class_Company_Controller.php";
 $controller = new CompanyController();
 header('Content-Type: application/json');
-ob_clean(); 
+ob_clean();
 echo $controller->getCompanyJson($dats);
 
 ?>

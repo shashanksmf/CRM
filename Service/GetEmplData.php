@@ -4,10 +4,10 @@ header('Access-Control-Allow-Headers: Origin, token, Host');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-require_once("./phpHeader/getHeader.php");
+require_once "./phpHeader/getHeader.php";
 
 $headers = apache_request_headers();
-require_once("./token/validateToken.php");
+require_once "./token/validateToken.php";
 // $userId = $tokenUserId;
 // echo $userId;
 // print_r($headers);
@@ -20,7 +20,7 @@ $dats = '';
 $dats = @$_GET['id'];
 
 
-require_once("../Controller/Class_Employees_Controller.php");
+require_once "../Controller/Class_Employees_Controller.php";
 $controller = new EmployeesController();
 header('Content-Type: application/json');
 	// ob_clean();

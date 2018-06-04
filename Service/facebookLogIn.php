@@ -98,7 +98,7 @@ if(isset($accessToken)){
     // Insert or update user data to the database
     // $responseArr['fbUserProfile'] = $fbUserProfile;
 
-  require_once("../Controller/Class_User_Login_Controller.php");
+  require_once "../Controller/Class_User_Login_Controller.php";
   $controller = new UserLoginController();
   header('Content-Type: application/json');
   $checkUserEmail = $controller->checkUserEmail($fbUserProfile['email']);

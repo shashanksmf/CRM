@@ -75,7 +75,7 @@ if ($client->getAccessToken()) {
   // header('Location: https://upsailgroup.herokuapp.com/?login=true&accessToken='.$_SESSION['access_token']);
 
 
-  require_once("../Controller/Class_User_Login_Controller.php");
+  require_once "../Controller/Class_User_Login_Controller.php";
   $controller = new UserLoginController();
   header('Content-Type: application/json');
   $checkUserEmail = $controller->checkUserEmail($userData['email']);

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	//http://localhost/wehnc/Service/GetUserData.php?id=1
 
@@ -8,10 +8,10 @@ header('Access-Control-Allow-Headers: Origin, token, Host');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-require_once("./phpHeader/getHeader.php");
+require_once "./phpHeader/getHeader.php";
 
 $headers = apache_request_headers();
-require_once("./token/validateToken.php");
+require_once "./token/validateToken.php";
 
 $dats = '';
 $id = @$_POST['id'];
@@ -19,7 +19,7 @@ $path = @$_POST['fileName'];
 header("Access-Control-Allow-Origin: *");
 
 
-require_once("../Controller/Class_Employees_Controller.php");
+require_once "../Controller/Class_Employees_Controller.php";
 
 $controller = new EmployeesController();
 $resp = "";
@@ -37,23 +37,23 @@ if(isset($_FILES['image'])){
 	$file_type=$_FILES['image']['type'];
       //$file_ext=strtolower(end(explode('.',$extt)));
 	$expensions= array("jpeg","jpg","png");
-	
+
 	if($file_size > 209715002){
 		$errors[]='File size must be excately 20 MB';
 	}
-	
+
 	if(empty($errors)==true){
 		$dir = "../files/Files2/".$id."/";
-		
-		$names = $dir. $file_name ; 
+
+		$names = $dir. $file_name ;
 		if (is_dir($dir)){
 			move_uploaded_file($file_tmp,$names);
 		}  else {
-			
+
 			mkdir($dir);
-			
+
 			move_uploaded_file($file_tmp,$names);
-			
+
 		}
 		$resp = $controller->updateEmployeeImageProJson($id);
 	}else{
@@ -61,17 +61,17 @@ if(isset($_FILES['image'])){
 		$jsonStr.='"message":"'.$msg->outMessage.'"}';
 		$resp = $jsonStr;
 	}
-	
-	
+
+
      // echo 'namees : '.$names;
-	
-	
+
+
 	header('Content-Type: application/json');
-	echo $resp;  
-	
-	
-	
-	
+	echo $resp;
+
+
+
+
 }
 
 

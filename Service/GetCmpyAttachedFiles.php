@@ -1,14 +1,14 @@
-<?php 
+<?php
 	//http://localhost/wehnc/Service/GetUserData.php?id=1
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Headers: Origin, token, Host');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-require_once("./phpHeader/getHeader.php");
+require_once "./phpHeader/getHeader.php";
 
 $headers = apache_request_headers();
-require_once("./token/validateToken.php");
+require_once"./token/validateToken.php";
 
 $dats = '';
 $emplId = @$_GET['id'];
@@ -24,26 +24,26 @@ if($conn->connect_error) {
 
 
 if(isset($emplId) && !empty($emplId)){
-	
+
 	$getAllFileSql = "SELECT * from cmpyFiles WHERE companyId=".$emplId." AND isactive=1";
 	$result = mysqli_query($conn, $getAllFileSql);
-	
+
 	if (@mysqli_num_rows($result) > 0) {
-		$responseArr["details"] = array();	
-		$responseArr["result"] = true;	
-		
+		$responseArr["details"] = array();
+		$responseArr["result"] = true;
+
 		while($row = mysqli_fetch_assoc($result)) {
 			array_push($responseArr["details"],$row);
 		}
-		
+
 		echo json_encode($responseArr);
-		
+
 	} else {
 		$responseArr["result"] = false;
 		$responseArr["details"] = "No records Found";
 		echo json_encode($responseArr);
 	}
-	
+
 }
 
 else{
@@ -53,4 +53,3 @@ else{
 }
 
 ?>
-
