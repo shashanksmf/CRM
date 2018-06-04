@@ -1,8 +1,3 @@
-const XLSX = require('jsxls');
-const $ = require('$');
-const $err = require('$err');
-const $tId = require('$tId');
-const angular = require('angular');
 
 var inspinia = angular.module('inspinia');
 
