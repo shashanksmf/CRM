@@ -1,7 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-header('Access-Control-Allow-Headers: Origin, token, Host,content-type,Content-Type');
-// header('Access-Control-Allow-Methods: POST, GET');
+header('Access-Control-Allow-Headers: Origin, token, Host, content-type, Content-Type');
+header('Access-Control-Allow-Methods: POST, GET');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
