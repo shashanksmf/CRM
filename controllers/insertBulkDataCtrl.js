@@ -1,4 +1,4 @@
-const XLSX1 = require('jsxls');
+const XLSX = require('jsxls');
 const $ = require('$');
 const $err = require('$err');
 const $tId = require('$tId');
@@ -18,11 +18,11 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 		$scope.read = function(workbook) {
 			$scope.LinkVisible = false;
 
-			var headerNames = XLSX1.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[
+			var headerNames = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[
 				0]], {
 				header: 1
 			})[0];
-			var data = XLSX1.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
+			var data = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
 
 			console.log(headerNames);
 			var tempArr = ["E-mail address"];
