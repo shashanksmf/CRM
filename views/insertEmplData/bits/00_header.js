@@ -4,5 +4,3 @@
 /*jshint funcscope:true, eqnull:true, loopfunc:true */
 /*exported XLSX */
 /*global global, exports, module, require:false, process:false, Buffer:false */
-var XLSX = {};
-(function make_xlsx(XLSX){
