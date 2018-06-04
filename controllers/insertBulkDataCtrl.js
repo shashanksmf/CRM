@@ -1,5 +1,5 @@
 
-
+const XLSX = require('XLSX');
 const $ = require('$');
 const $err = require('$err');
 const $tId = require('$tId');
