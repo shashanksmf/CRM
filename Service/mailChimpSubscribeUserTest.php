@@ -4,14 +4,14 @@ header('Access-Control-Allow-Headers: Origin, token, Host');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-require_once("./phpHeader/getHeader.php");
+require_once "./phpHeader/getHeader.php";
 
 $headers = apache_request_headers();
-require_once("./token/validateToken.php");
+require_once "./token/validateToken.php";
 
-require_once("../Controller/tests/mailchimptest/mailChimpUserTest.php");
-require_once("mailChimpConfig.php");
-require_once("mailChimpService.php");
+require_once "../Controller/tests/mailchimptest/mailChimpUserTest.php";
+require_once "mailChimpConfig.php";
+require_once "mailChimpService.php";
 
 
 $emplName = @$_POST['emplName'];

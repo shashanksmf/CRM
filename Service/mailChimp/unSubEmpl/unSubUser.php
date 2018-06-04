@@ -3,9 +3,9 @@
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
-    require_once("unSubAPI.php");
-    require_once(".../../../Controller/mailChimpConfig.php");
-    require_once(".../../../Controller/mailChimpService.php");
+    require_once "unSubAPI.php";
+    require_once ".../../../Controller/mailChimpConfig.php";
+    require_once ".../../../Controller/mailChimpService.php";
 
 	class unSubUser {
 
@@ -19,18 +19,18 @@
             $unSubAPI = new unSubAPI();
             $result = $unSubAPI->unSubscribeUser($emplEmail,$emplName,$mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
             // echo $result;
-            
+
             $result = json_decode($result, true);
             $responseArr = array();
             $responseArr = $result;
             // echo $result['status'];
             // echo $responseArr['status'];
             // echo $responseArr['unsubscribe_reason'];
-            
+
             if ($responseArr['status'] == "unsubscribed") {
                 $responseArr['status'] = true;
                 return $responseArr;
-            } 
+            }
             else {
                 $responseArr['status'] = false;
                 $responseArr['reason'] = $result['unsubscribe_reason'];
@@ -41,7 +41,7 @@
 
     }
 
-    
+
 
 // {
 //   "id": "3b2c6602895ae53a5f677fe4835ca92f",
@@ -132,5 +132,3 @@
 
 
 ?>
-
-

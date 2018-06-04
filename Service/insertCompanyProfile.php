@@ -5,12 +5,12 @@ header('Access-Control-Allow-Headers: Origin, token, Host');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-require_once("./phpHeader/getHeader.php");
+require_once "./phpHeader/getHeader.php";
 
 $headers = apache_request_headers();
-require_once("./token/validateToken.php");
+require_once "./token/validateToken.php";
 
-require_once("../Controller/StaticDBCon.php");
+require_once "../Controller/StaticDBCon.php";
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 $responseArr = array();
 if($conn->connect_error) {
@@ -20,7 +20,7 @@ if($conn->connect_error) {
 }
 //echo "Hi";
 $emplData = json_decode($_POST['data'],true);
-//print_r($emplData);	
+//print_r($emplData);
 $name = $emplData["name"];
 //echo "this is name".$name." - ".$email;
 $areaOfWork = $emplData["areaOfWork"];
@@ -59,15 +59,15 @@ if (mysqli_num_rows($emailResult) > 0) {
 $insertEmplProfile = "INSERT INTO company ( name, areaOfWork, establised, employees, ofcAddress, email, phone, logo, fb,  tw,revenue) VALUES('".$name."','".$areaOfWork."','".$established."','".$employees."','".$ofcAddress."','".$email."','".$phone."','".$logo."','".$facebook."','".$twitter."','".$revenue."')";
 //echo $insertEmplProfile;
 if (mysqli_query($conn, $insertEmplProfile)) {
-	
+
 	$companyId = mysqli_insert_id($conn);
 	$responseArr["result"] = true;
 	$responseArr["companyId"] = $companyId;
 	echo json_encode($responseArr);
-	
+
 	if(isset($_FILES['image'])){
-		
-		$file_name =  $_FILES['image']['name']; 
+
+		$file_name =  $_FILES['image']['name'];
 		$file_tmp = $_FILES['image']['tmp_name'];
 
 		$uploadDirPath = "../uploads/";
@@ -88,18 +88,18 @@ if (mysqli_query($conn, $insertEmplProfile)) {
 			mkdir($emplIdFolder, 0777, true);
 		}
 		$emplIdFolderPath = "uploads/profilepic/company/".$companyId."/";
-		$fileUrl = $emplIdFolderPath; 	
-		
+		$fileUrl = $emplIdFolderPath;
+
 		$updateEmplProfilePicSql = "UPDATE company SET logo = '".$fileUrl.$file_name."' WHERE id=".$companyId;
-		
-		if (mysqli_query($conn, $updateEmplProfilePicSql)) { 
-			
-			move_uploaded_file($file_tmp,$emplIdFolder."/".$file_name);  
-			
+
+		if (mysqli_query($conn, $updateEmplProfilePicSql)) {
+
+			move_uploaded_file($file_tmp,$emplIdFolder."/".$file_name);
+
 		}
-		
+
 	}
-	
+
 } else {
 	$responseArr["result"] = false;
 	echo json_encode($responseArr);
