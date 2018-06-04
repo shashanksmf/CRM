@@ -1,7 +1,7 @@
 <?php
 	header("Access-Control-Allow-Origin: *");
-	require_once("./../StaticDBCon.php");
-	
+	require_once "./../StaticDBCon.php";
+
 	$conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 	if($conn->connect_error) {
 		$responseArr["result"] = false;
@@ -26,7 +26,7 @@
 			$responseArr["result"] = false;
 			$responseArr["details"] = mysqli_error($conn);
 		}
-		
+
 		echo json_encode($responseArr);
 
 	}
@@ -35,5 +35,5 @@
 		$responseArr["details"] = "Empty data";
 		echo json_encode($responseArr);
 	}
-	
+
 ?>

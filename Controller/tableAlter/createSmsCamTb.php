@@ -1,11 +1,11 @@
 <?php
-require_once("./../StaticDBCon.php");
+require_once "./../StaticDBCon.php";
 // Create connection
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-} 
+}
 
 $sql = "CREATE TABLE `smscampaign` (
   `id` int(100) NOT NULL,

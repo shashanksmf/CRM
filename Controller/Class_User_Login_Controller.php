@@ -1,9 +1,9 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-require_once("../Models/Class_User.php");
-require_once("StaticDBCon.php");
-require_once("../Service/token/getNewtoken.php");
+require_once "../Models/Class_User.php";
+require_once "StaticDBCon.php";
+require_once "../Service/token/getNewtoken.php";
 
 header("Access-Control-Allow-Origin: *");
 
@@ -134,7 +134,7 @@ class UserLoginController{
             // output data of each row
                // print_r($result);
             $responseArr["result"] = true;
-            $responseArr["details"] = array(); 
+            $responseArr["details"] = array();
             while($row = mysqli_fetch_assoc($result)) {
         //  print_r($row);
                 $responseArr["details"] = $row;

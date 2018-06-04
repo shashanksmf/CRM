@@ -1,15 +1,15 @@
-<?php 
+<?php
 
-ob_start();	
+ob_start();
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Headers: Origin, token, Host');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-require_once("./phpHeader/getHeader.php");
+require_once "./phpHeader/getHeader.php";
 
 $headers = apache_request_headers();
-require_once("./token/validateToken.php");
+require_once "./token/validateToken.php";
 
 	//$id = @$_POST['id'];
 $name = $_POST['name'];
@@ -23,7 +23,7 @@ $templateId = $_POST['templateId'];
 $groupId = $_POST['groupId'];
 $segId = $_POST['segId'];
 
-require_once("../Controller/Class_Campaign_Controller.php");
+require_once "../Controller/Class_Campaign_Controller.php";
 $controller = new CampaignController();
 header('Content-Type: application/json');
 ob_clean();

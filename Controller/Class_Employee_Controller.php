@@ -1,10 +1,10 @@
 <?php
 
-require_once("../Models/Class_Employee.php");
-require_once("Class_Company_Controller.php");
-require_once("../Controller/StaticDBCon.php");
+require_once "../Models/Class_Employee.php";
+require_once "Class_Company_Controller.php";
+require_once "../Controller/StaticDBCon.php";
 class EmployeeController{
-	
+
 	public function getEmployeeList($id){
             $emplList = array();
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
@@ -34,8 +34,8 @@ class EmployeeController{
             }
             $conn->close();
             return $emplList;
-	}	
-	
+	}
+
 	public function getEmployeeJson($id){
             $EmployeeList = $this->getEmployeeList($id);
             $comps = new CompanyController();
@@ -59,15 +59,15 @@ class EmployeeController{
             $jsonStr.=']}';
             return $jsonStr;
 	}
-	
-	
-	
+
+
+
 	public function getSearchEmployeeList($name){
             $emplList = array();
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
             if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
-            } 
+            }
             $sql = "SELECT * FROM employee where name LIKE '%".$name."%';";
             $result = $conn->query($sql);
             if (@mysqli_num_rows($result) > 0) {
@@ -83,9 +83,9 @@ class EmployeeController{
             }
             $conn->close();
             return $emplList;
-	}	
-	
-	
+	}
+
+
 	public function getSearchEmployeeJson($name){
             $EmployeeList = $this->getSearchEmployeeList($name);
             $comps = new CompanyController();
@@ -109,17 +109,17 @@ class EmployeeController{
             $jsonStr.=']}';
 
             return $jsonStr;
-		
+
 	}
-	
-	
-	
+
+
+
 	public function getEmployeeSmartSearch($term){
             $emplList = array();
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
-            } 
+            }
             $sql = "select * from employee where employee.id like '".$term."%' or employee.name like '".$term."%' or employee.title like '".$term."%' or employee.location like '".$term."%' or employee.industry like '".$term."%'";
             $result = $conn->query($sql);
             if (@mysqli_num_rows($result) > 0) {
@@ -136,9 +136,9 @@ class EmployeeController{
             }
             $conn->close();
             return $emplList;
-	}	
-	
-	
+	}
+
+
 	public function getEmployeeSmartSearchJson($name){
             $EmployeeList = $this->getEmployeeSmartSearch($name);
             $comps = new CompanyController();
@@ -164,10 +164,10 @@ class EmployeeController{
             $jsonStr.=']}';
             return $jsonStr;
 	}
-	
-        
-        
-	
+
+
+
+
 	public function getEmployeeSmart($terms){
             $emplList = array();
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
@@ -202,10 +202,10 @@ class EmployeeController{
             }
             $conn->close();
             return $emplList;
-	}	
-	
-        
-        
+	}
+
+
+
         public function getSmartResult($terms){
             $dataAr = array();
             $dataAr = explode(" ", $terms);
@@ -221,7 +221,7 @@ class EmployeeController{
                 $ds2.= " employee.id like '%".$dataAr[$i]."%' or employee.name like '%".$dataAr[$i]."%' or employee.title like '%".$dataAr[$i]."%' or employee.location like '%".$dataAr[$i]."%' or employee.industry like '%".$dataAr[$i]."%'";
                 if($i!=($j-1)){
                      $ds2.= " or ";
-                } 
+                }
             }
             $sql = $sql." ".$ds2;
             //echo 'Sql : '.$sql;
@@ -242,12 +242,12 @@ class EmployeeController{
             return $emplList;
         }
 
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
 
         public function getSmartResultJson($terms){
             $EmployeeList = $this->getEmployeeSmart($terms);
@@ -275,9 +275,9 @@ class EmployeeController{
             $jsonStr.=']}';
             return $jsonStr;
         }
-        
-        
-        
+
+
+
 	public function getKeysArray($array,$compStr){
             $data = array();
             $i=0;
@@ -289,12 +289,12 @@ class EmployeeController{
                 }
                 next($array);
                 $i++;
-            }       
+            }
             return $data;
         }
-        
-        
-        
+
+
+
 	public function getKeysArrays($array,$compStr){
             $data = array();
             $data2 = array();
@@ -316,10 +316,10 @@ class EmployeeController{
                     next($array);
                     $i++;
                 }
-            }            
+            }
             return $data;
         }
-        
+
         function getKeysAr($key,$arrays){
             $keys = array_keys($arrays);
             $count = count($keys);
@@ -331,7 +331,7 @@ class EmployeeController{
                 }
             }
         }
-        
+
         function getSorteddArray($data_ar,$string){
             $final_ar = array();
             $str_ar = explode(" ", $string);
@@ -346,7 +346,7 @@ class EmployeeController{
                 if($aa==0){
                     $final_ar[$f_it] = $value;
                     $f_it++;
-                }  
+                }
             }
             return $final_ar;
         }

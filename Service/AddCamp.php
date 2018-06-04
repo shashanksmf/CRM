@@ -5,10 +5,10 @@ header('Access-Control-Allow-Headers: Origin, token, Host');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-require_once("./phpHeader/getHeader.php");
+require_once "./phpHeader/getHeader.php";
 
 $headers = apache_request_headers();
-require_once("./token/validateToken.php");
+require_once "./token/validateToken.php";
 
 require('../libs/mandril/Mandrill.php');
 require('../Controller/Class_Group_Controller.php');
@@ -39,7 +39,7 @@ $resAr = array();
 $camps = new CampaignController();
 
 $template = "";
-$templateC = new TemplateController(); 
+$templateC = new TemplateController();
 $template = $templateC->getTemplateList($templateId)[0]->html;
 
 
@@ -67,7 +67,7 @@ $listId = 'd0a4dda674';
 $coutEmp = count($empls);
 foreach($empls as $empl) {
           // echo 'Email '.$empl->getEmail();
- 
+
   $emlMgr->addMebmberToList($empl->getEmail(), $listId, $empl->getName(),$empl->getName());
        //$emlMgr->addMebmberToList($empl->getEmail(), $listId, $empl->getName(),$empl->getName());
   $coutEmp --;

@@ -2,15 +2,15 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-require_once("../Models/Class_Group.php");
-require_once("../Controller/StaticDBCon.php");
+require_once "../Models/Class_Group.php";
+require_once "../Controller/StaticDBCon.php";
 
-require_once("../Models/Class_User.php");
+require_once "../Models/Class_User.php";
 
-require_once("../Models/Class_Employees.php");
+require_once "../Models/Class_Employees.php";
 //require_once("../Controller/EmailMgr.php");
-require_once("mailChimpService.php");
-require_once("mailChimpConfig.php");
+require_once "mailChimpService.php";
+require_once "mailChimpConfig.php";
 
 
 class GroupController{

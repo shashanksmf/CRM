@@ -1,17 +1,17 @@
 <?php
 
-require_once("../Models/Class_Template.php");
-require_once("../Controller/StaticDBCon.php");
+require_once "../Models/Class_Template.php";
+require_once "../Controller/StaticDBCon.php";
  header("Access-Control-Allow-Origin: *");
 class TemplateController{
-	
+
 	public function getTemplateList($id){
             $resp = "";
             $emailList = array();
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
             if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
-            } 
+            }
             if($id==''){
                     $sql = "SELECT * FROM templates;";
             }else{
@@ -35,15 +35,15 @@ class TemplateController{
             $conn->close();
             $resp = json_encode($mailList);
             return $mailList;
-	}	
-	
-	
-	
+	}
+
+
+
 	public function getTemplateJson($id){
 		//echo "id : ".$id;
             $List = $this->getTemplateList($id);
-		
-                
+
+
             $List = $this->getTemplateList($id);
             $jsonStr = '{"result": true,"templ":[';
             $i=count($List);
@@ -61,10 +61,10 @@ class TemplateController{
             $jsonStr.=']}';
 
             return $jsonStr;
-		
+
 	}
-	
-	
+
+
 
 
             public function addNewTemplate($name,$html,$addedBy){
@@ -92,7 +92,7 @@ class TemplateController{
 
                     $conn->close();
                     return $msg;
-            }	
+            }
 
             public function addNewTemplateJson($name,$html,$addedBy){
                 $msg  = $this->addNewTemplate($name,$html,$addedBy);
@@ -104,7 +104,7 @@ class TemplateController{
                     $jsonStr = '{"responce":false,';
                     $jsonStr.='"message":"'.$msg->outMessage.'"}';
                 }
-                return $jsonStr;	
+                return $jsonStr;
             }
 
 

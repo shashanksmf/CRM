@@ -1,8 +1,8 @@
 <?php
 
-    require_once("../Models/Class_Employees.php");
-    require_once("Class_Company_Controller.php");
-    require_once("../Controller/StaticDBCon.php");
+    require_once "../Models/Class_Employees.php";
+    require_once "Class_Company_Controller.php";
+    require_once "../Controller/StaticDBCon.php";
     class EmployeesController{
 
             public function getEmployeeList($id){
@@ -35,7 +35,7 @@
                 }
                 $conn->close();
                 return $emplList;
-            }	
+            }
 
             public function getEmployeeJson($id){
                     $EmployeeList = $this->getEmployeeList($id);
@@ -116,7 +116,7 @@
 
                     $conn->close();
                     return $msg;
-            }	
+            }
 
             public function addNewEmployeeJson($name,$title,$industry,$location,$ratings,$companyId,$skype,$age,$gender,$officePhone,$jobRole,$phone,$email,$linkedin,$twitter,$facebook,$notes,$imgUrl){
                 $msg  = $this->addNewEmployee($name,$title,$industry,$location,$ratings,$companyId,$skype,$age,$gender,$officePhone,$jobRole,$phone,$email,$linkedin,$twitter,$facebook,$notes,$imgUrl);
@@ -126,7 +126,7 @@
                     $jsonStr = '{"responce":false,';
                     $jsonStr.='"message":"'.$msg->outMessage.'"}';
                 }
-                return $jsonStr;	
+                return $jsonStr;
             }
 
 
@@ -156,7 +156,7 @@
 
                     $conn->close();
                     return $msg;
-            }	
+            }
 
             public function updateEmployeeJson($id,$name,$title,$industry,$location,$ratings,$companyId,$skype,$age,$gender,$officePhone,$jobRole,$phone,$email,$linkedin,$twitter,$facebook,$notes,$imgUrl,$companyName,$extra){
                     $msg  = $this->updateEmployee($id,$name,$title,$industry,$location,$ratings,$companyId,$skype,$age,$gender,$officePhone,$jobRole,$phone,$email,$linkedin,$twitter,$facebook,$notes,$imgUrl,$companyName,$extra);
@@ -166,7 +166,7 @@
                             $jsonStr = '{"responce":false,';
                             $jsonStr.='"message":"'.$msg->outMessage.'"}';
                     }
-                    return $jsonStr;	
+                    return $jsonStr;
             }
 
 
@@ -192,7 +192,7 @@
 
                     $conn->close();
                     return $msg;
-            }	
+            }
 
             public function updateEmployeeImageJson($id,$imgUrl){
                     $msg  = $this->updateEmployeeImage($id,$imgUrl);
@@ -202,7 +202,7 @@
                             $jsonStr = '{"responce":false,';
                             $jsonStr.='"message":"'.$msg->outMessage.'"}';
                     }
-                    return $jsonStr;	
+                    return $jsonStr;
             }
 
 
@@ -210,7 +210,7 @@
 
 
 
-            
+
 
 
 
@@ -226,9 +226,9 @@
 
                     //$conn->close();
                     return $msg;
-            }	
+            }
 
-            
+
             public function updateEmployeeImageProJson($id){
 
                     $msg  = $this->updateEmployeeProImage($id,TRUE);
@@ -239,11 +239,11 @@
                             $jsonStr = '{"responce":false,';
                             $jsonStr.='"message":"'.$msg->outMessage.'"}';
                     }
-                    return $jsonStr;	
+                    return $jsonStr;
             }
 
 
-            
+
             public function updateEmployeeAttImage($id,$imgUrl){
                     $msg = new Employees(0,"","","","","","","","","","","","","","","","","","","");
                             $read = 0;
@@ -256,7 +256,7 @@
 
                     //$conn->close();
                     return $msg;
-            }	
+            }
 
             public function updateEmployeeImageAttJson($id){
 
@@ -268,7 +268,7 @@
                             $jsonStr = '{"responce":false,';
                             $jsonStr.='"message":"'.$msg->outMessage.'"}';
                     }
-                    return $jsonStr;	
+                    return $jsonStr;
             }
 
 
@@ -276,35 +276,35 @@
 
             public function getAtt($id){
                     $dir = "../files/Files/".$id."/";
-                  
-                    
-                    
-                    
-                    
+
+
+
+
+
                     $exclude = array(".", ".."); // you don't want these entries in your files array
                     $files = scandir($dir);
                     $files = array_diff($files, $exclude);
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
                     $attach = [];
                     $i=0;
-                   
+
                     // Open a directory, and read its contents
                     if (is_dir($dir)){
-                        
+
                      foreach ($files as $file) {
                          $attach[$i] = $file;
                          $i++;
                      }
-                         
-                         
-                         
+
+
+
                     }
                     return $attach;
-                            }	
+                            }
 
             public function getAttJson($id){
                     $roots = 'http://jaiswaldevelopers.com/CRMV1/files/Files/'.$id.'/';
@@ -331,7 +331,7 @@
                             $jsonStr = '{"responce":false,';
                             $jsonStr.='"message":"no file"}';
                     }
-                    return $jsonStr;	
+                    return $jsonStr;
             }
 
 
@@ -371,7 +371,7 @@
                 }
                 $conn->close();
                 return $emplList;
-            }	
+            }
 
             public function getEmployeeNameJson($id){
                 $EmployeeList = $this->getEmployeeNameList($id);
@@ -408,10 +408,10 @@
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
                 }
-              
+
                 //	$sql = "SELECT * FROM erp_crm.employee inner join company on company.id = employee.companyId where company.id='".$id."';";
                 $sql = "SELECT * FROM employee where name LIKE '%".$term."%' LIMIT 10;";
-                
+
 
                 $result = $conn->query($sql);
                 if (@mysqli_num_rows($result) > 0) {
@@ -428,7 +428,7 @@
                 }
                 $conn->close();
                 return $emplList;
-            }	
+            }
 
             public function getEmployeeNameSearchJson($term){
                 $EmployeeList = $this->getEmployeeNameSearchList($term);
@@ -469,7 +469,7 @@
                 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
                 if ($conn->connect_error) {
                         die("Connection failed: " . $conn->connect_error);
-                } 
+                }
                 $sql = "SELECT * FROM employee where name LIKE '%".$name."%';";
                 $result = $conn->query($sql);
                 if (@mysqli_num_rows($result) > 0) {
@@ -485,7 +485,7 @@
                 }
                 $conn->close();
                 return $emplList;
-            }	
+            }
 
 
             public function getSearchEmployeeJson($name){
@@ -521,7 +521,7 @@
                 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
-                } 
+                }
                 $sql = "select * from employee where employee.id like '".$term."%' employee.companyName like '".$term."%' or employee.name like '".$term."%' or employee.title like '".$term."%' or employee.location like '".$term."%' or employee.industry like '".$term."%' LIMIT 10";
                 $result = $conn->query($sql);
                 if (@mysqli_num_rows($result) > 0) {
@@ -538,7 +538,7 @@
                 }
                 $conn->close();
                 return $emplList;
-            }	
+            }
 
 
             public function getEmployeeSmartSearchJson($name){
@@ -604,7 +604,7 @@
                 }
                 $conn->close();
                 return $emplList;
-            }	
+            }
 
 
 
@@ -623,7 +623,7 @@
                     $ds2.= " employee.id like '%".$dataAr[$i]."%' or employee.name like '%".$dataAr[$i]."%' or employee.title like '%".$dataAr[$i]."%' or employee.location like '%".$dataAr[$i]."%' or employee.industry like '%".$dataAr[$i]."%'";
                     if($i!=($j-1)){
                          $ds2.= " or ";
-                    } 
+                    }
                 }
                 $sql = $sql." ".$ds2;
                 //echo 'Sql : '.$sql;
@@ -692,7 +692,7 @@
                     }
                     next($array);
                     $i++;
-                }       
+                }
                 return $data;
             }
 
@@ -719,7 +719,7 @@
                         next($array);
                         $i++;
                     }
-                }            
+                }
                 return $data;
             }
 
@@ -749,7 +749,7 @@
                     if($aa==0){
                         $final_ar[$f_it] = $value;
                         $f_it++;
-                    }  
+                    }
                 }
                 return $final_ar;
             }

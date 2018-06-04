@@ -1,25 +1,25 @@
 <?php
 
-require_once("../Models/Class_User.php");
+require_once "../Models/Class_User.php";
 
-require_once("../Controller/StaticDBCon.php");
+require_once "../Controller/StaticDBCon.php";
 
 class UserController{
-	
+
 	public function getUserList($id){
-		
+
 		$usrlList = array();
 		$conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 		if ($conn->connect_error) {
 			die("Connection failed: " . $conn->connect_error);
-		} 
-		
+		}
+
 		if($id==''){
 			$sql = "SELECT * FROM user;";
 		}else{
 			$sql = "SELECT * FROM user where id='".$id."';";
 		}
-		
+
 		$result = $conn->query($sql);
 		if (@mysqli_num_rows($result) > 0) {
 			$i = 0;
@@ -34,8 +34,8 @@ class UserController{
 		}
 		$conn->close();
 		return $usrlList;
-	}	
-	
+	}
+
 	public function getUserJson($id){
 		$UserList = $this->getUserList($id);
 		$jsonStr = '{"Users":[';
@@ -57,27 +57,27 @@ class UserController{
 			}
 		}
 		$jsonStr.=']}';
-		
+
 		return $jsonStr;
-		
+
 	}
-	
-	
-	
+
+
+
 	public function getUserNameList($id){
-		
+
 		$usrlList = array();
 		$conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 		if ($conn->connect_error) {
 			die("Connection failed: " . $conn->connect_error);
-		} 
-		
+		}
+
 		if($id==''){
 			$sql = "SELECT * FROM user;";
 		}else{
 			$sql = "SELECT * FROM user where id='".$id."';";
 		}
-		
+
 		$result = $conn->query($sql);
 		if (@mysqli_num_rows($result) > 0) {
 			$i = 0;
@@ -92,8 +92,8 @@ class UserController{
 		}
 		$conn->close();
 		return $usrlList;
-	}	
-	
+	}
+
 	public function getUserNameJson($id){
 		$UserList = $this->getUserNameList($id);
 		$jsonStr = '{"Users":[';
@@ -108,13 +108,13 @@ class UserController{
 			}
 		}
 		$jsonStr.=']}';
-		
+
 		return $jsonStr;
-		
+
 	}
-	
-	
-	
+
+
+
 }
 
 

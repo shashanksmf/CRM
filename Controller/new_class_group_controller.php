@@ -1,22 +1,22 @@
 <?php
-require_once("../Models/Class_Group.php");
-require_once("../Controller/StaticDBCon.php");
+require_once "../Models/Class_Group.php";
+require_once "../Controller/StaticDBCon.php";
 
-require_once("../Models/Class_User.php");
+require_once "../Models/Class_User.php";
 
-require_once("../Models/Class_Employees.php");
-require_once("../Controller/EmailMgr.php");
-require_once("mailChimpService.php");
+require_once "../Models/Class_Employees.php";
+require_once "../Controller/EmailMgr.php";
+require_once "mailChimpService.php";
 
 class GroupController{
-	
+
 	public function getGroupList($id){
-		
+
             $groupList = array();
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
             if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
-            } 
+            }
             if($id==''){
                 $sql = "SELECT * FROM ".StaticDBCon::$dbname.".group;";
             }else{
@@ -32,14 +32,14 @@ class GroupController{
                     $i++;
                 }
             } else {
-                    
+
             }
             $conn->close();
             return $groupList;
-	}	
-	
-	
-	
+	}
+
+
+
 	public function getGroupJson($id){
             //echo "id : ".$id;
             $GroupList = $this->getGroupList($id);
@@ -62,17 +62,17 @@ class GroupController{
             $jsonStr.=']}';
 
             return $jsonStr;
-		
+
 	}
-	
-	        
+
+
 	public function getUserList($ids){
-		
+
             $usrlList = array();
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
             if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
-            } 
+            }
 
             $sql = "SELECT * FROM employee where id in(".$ids.");";
             //echo 'Query: '.$sql;
@@ -85,7 +85,7 @@ class GroupController{
                 while($row = $result->fetch_assoc()) {
                     //$usr = new User($row["id"],$row["name"],$row["department"],$row["hireDate"],$row["dob"],$row["gender"],$row["homeAddress"],$row["email"],$row["phone"],$row["profilePic"]);
                     $empl = new Employees($row["id"],$row["name"],$row["title"],$row["industry"],$row["location"],$row["ratings"],"",$row["companyId"],$row["skype"],$row["age"],$row["gender"],$row["officePhone"],$row["jobRole"],$row["phone"],$row["email"],$row["linkedin"],$row["twitter"],$row["facebook"],$row["notes"],$row["imgUrl"]);
-                     
+
                     $usrlList[$i]=$empl;
                     //echo $usrlList[$i]->getName();
                     $i++;
@@ -96,8 +96,8 @@ class GroupController{
             }
             $conn->close();
             return $usrlList;
-	}	
-	
+	}
+
 	public function getUserJson($id){
             $UserList = $this->getUserList($id);
             $jsonStr = '"Members":[';
@@ -121,11 +121,11 @@ class GroupController{
             $jsonStr.=']';
 
             return $jsonStr;
-		
+
 	}
-        
-        
-        
+
+
+
         public function addNewGroup($name,$details,$admin,$members,$createdOn){
             $membersCount="";
             $emailMgr = new EmailMgr();
@@ -162,8 +162,8 @@ class GroupController{
             }
             $conn->close();
             return $grp;
-	}	
-	
+	}
+
 	public function addGroupJson($name,$details,$admin,$members,$createdOn){
             $grp  = $this->addNewGroup($name,$details,$admin,$members,$createdOn);
             if ($grp->isGroupAdded) {
@@ -172,16 +172,16 @@ class GroupController{
                 $jsonStr = '{"responce":false,';
                 $jsonStr.='"message":"'.$grp->message.'"}';
             }
-            return $jsonStr;	
+            return $jsonStr;
 	}
-        
-        
+
+
         public function updateGroup($id,$members){
             $membersCount="";
             $segId = "";
             $emailMgr = new EmailMgr();
             $emailMgr->apiKey = getenv("mailChimpApiKey");
-                    
+
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
             $grp = new Group("","","","","","","");
             if ($conn->connect_error) {
@@ -196,29 +196,29 @@ class GroupController{
 
             //we are findind old members to remove from segment
             $oldMembers = array_diff(explode(",",$groupRow['members']),$membersArr);
-            
+
             // get all new employees and subscribe them
             $memberSql = "SELECT * from employee WHERE id IN (".trim($members).");";
             $selctResult = $conn->query($memberSql);
             $membersEmailArr = array();
-            
+
             /* subscribe the user */
             $log = array( 'datetime' => date('Y-m-d H:i:s') , 'operation' => 'updategroup');
-            $log['userSubscribed'] = array();   
+            $log['userSubscribed'] = array();
 
             if ($selctResult->num_rows > 0) {
                 while($emplRow = $selctResult->fetch_assoc()) {
-                    $emplEmail = $emplRow["email"]; 
+                    $emplEmail = $emplRow["email"];
                     $emplName = $emplRow["name"];
                     array_push($membersEmailArr,$emplEmail);
                     $subEmplRes = subscribeUser($emplEmail,$emplName,$mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
-                    array_push($log['userSubscribed'],$subEmplRes);         
+                    array_push($log['userSubscribed'],$subEmplRes);
                 }
             }
 
              //check if segId Exists, If yes then subscribe members & removeBulk members and then addbulkMembers
             if(isset($groupRow['segId']) && strlen($groupRow['segId']) > 0) {
-               
+
                 $segId = $groupRow['segId'];
                 if(sizeof($oldMembers) > 0) {
                     $oldMemberSql = "SELECT * from employee WHERE id IN (".implode(",",$oldMembers).");";
@@ -240,7 +240,7 @@ class GroupController{
                 }
 
 
-                
+
             }
             else {
                 //generate SegmentId and subscribe members
@@ -262,15 +262,15 @@ class GroupController{
             $logFile = fopen('./../logs/log-'.date('Y-m-d-H-i-s').json, "w");
             fwrite($logFile, json_encode($logs));
             fclose($logFile);
-            
+
             $conn->close();
             return $grp;
-	}	
-	
-        
-        
-        
-        
+	}
+
+
+
+
+
 	public function updateGroupJson($id,$members){
             $grp  = $this->updateGroup($id,$members);
             if ($grp->isGroupAdded) {
@@ -279,10 +279,10 @@ class GroupController{
                 $jsonStr = '{"responce":false,';
                 $jsonStr.='"message":"'.$grp->message.'"}';
             }
-            return $jsonStr;	
+            return $jsonStr;
 	}
 
-        
+
         public function updateGroup2($id,$segId){
             $membersCount="";
             $emailMgr = new EmailMgr();
@@ -292,8 +292,8 @@ class GroupController{
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-           
-            
+
+
                 $sql = "UPDATE `group` SET `segId` = '".$segId."' WHERE `group`.`id` = ".$id.";";
                 //echo 'Query : '.$sql;
                 if ($conn->query($sql) === TRUE) {
@@ -303,24 +303,24 @@ class GroupController{
                     $grp->isGroupAdded = FALSE;
                     $grp->message ="Something went wrong";
                 }
-            
+
             $conn->close();
             return $grp;
-	}	
-	
-        
-        
-        
+	}
+
+
+
+
 	public function getGroup($id){
-		
+
             $grp = "";
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
             if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
-            } 
-           
+            }
+
             $sql = "SELECT * FROM ".StaticDBCon::$dbname.".group where id='".$id."';";
-          
+
             $result = $conn->query($sql);
             //echo $sql.' id : '.$id;
             if (@mysqli_num_rows($result) > 0) {
@@ -330,12 +330,12 @@ class GroupController{
                     $grp = $row["segId"];
                 }
             } else {
-                    
+
             }
             $conn->close();
             return $grp;
-	}	
-	
+	}
+
 }
 
 

@@ -1,10 +1,10 @@
 <?php
  header("Access-Control-Allow-Origin: *");
 
-require_once("Class_Company.php");
+require_once "Class_Company.php";
 
 class Employees{
-	
+
 	public $id;
 	private $name;
 	private $title;
@@ -28,8 +28,8 @@ class Employees{
 	public $foundIn;
 	public $imgurl;
 	public $extra;
-	
-	
+
+
 	public function __construct ( $Id, $Name, $Title, $Industry, $Location, $Ratings, $FoundIn, $companyId, $skype, $age, $gender, $officePhone, $jobRole, $phone, $email, $linkedin, $twitter, $facebook,$notes,$Imgurl) {
 		$this->id = $Id;
 		$this->name = $Name;
@@ -38,8 +38,8 @@ class Employees{
 		$this->location = $Location;
 		$this->ratings = $Ratings;
 		$this->foundIn = $FoundIn;
-		
-		
+
+
 		$this->companyId = $companyId;
 		$this->skype = $skype;
 		$this->age = $age;
@@ -54,7 +54,7 @@ class Employees{
 		$this->notes = $notes;
 		$this->imgurl = $Imgurl;
   }
-	
+
 	public function getId(){
 		return $this->id;
 	}
@@ -73,15 +73,15 @@ class Employees{
 	public function getRatings(){
 		return $this->ratings;
 	}
-	
+
 	public function getFoundIn(){
 		return $this->foundIn;
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 	public function getCompanyId(){
 		return $this->companyId;
 	}
