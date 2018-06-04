@@ -530,8 +530,6 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 			},
 			url: baseHttpUrl + '/insertBulkData.php',
 			headers: {
-				'content-type': 'application/json',
-				'accept': 'application/json',
 				'token': localStorage.getItem('token'),
 			},
 
