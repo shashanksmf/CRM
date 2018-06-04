@@ -1,9 +1,9 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-header('Access-Control-Allow-Headers: Origin, token, Host, Content-Type');
-header('Access-Control-Allow-Methods: POST, GET');
-header('Content-Type: application/json');
-header('content-type: application/json');
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, token, Host, Content-Type');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Content-Type: application/json; charset=utf-8');
+header('content-type: application/json; charset=utf-8');
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
