@@ -37,7 +37,7 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 			} else {
 				$scope.IsVisible = true;
 				$ajax({
-					url: 'C:\xampp\htdocs\CRM\CRM.git\trunk\Service\insertBulkData.php',
+					url: 'CRM/CRM.git/trunk/Service/insertBulkData.php',
         data: { field1: "userId", field2 : "data"} ,
          headers:'token'
 				,Success:(function(response) {
