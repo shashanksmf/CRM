@@ -28,13 +28,8 @@ $checkDupEmail = new checkDupEmail();
 $transactionTable = new transactionTable();
 $transactionDetails = new transactionDetails();
 
-$postData = file_get_contents('php://input');
-$postDataArr = array();
-$postDataArr = json_decode($postData, true);
-// echo $postDataArr;
-
-$data = $postDataArr['bulkData'];
-$userId = $postDataArr['userId'];
+$data = $_POST['data'];
+$userId =$_POST['userId'];
 // print_r($data);
 // exit();
 
@@ -76,7 +71,7 @@ $insertResArr = array();
 
 for($i=0;$i<sizeof($encodedData);$i++) {
 //echo"heloo";
-	$properData = $objectToArray->convert($encodedData[$i]);
+	$properData = $encodedData[$i];
 	//print_r($properData[$i]);
 	//exit("exit");
 	//echo "</br>";

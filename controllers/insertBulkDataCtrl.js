@@ -37,33 +37,32 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 			} else {
 				$scope.IsVisible = true;
 				$.ajax({
-					type:'POST',
-					url: 'http://localhost/CRM/CRM.git/trunk/Service/insertBulkData.php',
-				data: { userId, data},
-				 headers:{
-					 token:localStorage.getItem("token"),
-					 'Content-Type':"application/json"
-				 }
-				,
-				success:(function(response) {
-					console.log("insertBulkData", response);
-					$tId = response.data.tId;
-					if (response.data.result) {
-						alert("Records inserted successfully!");
-						$scope.IsVisible = false;
-						$scope.LinkVisible = true;
-					}
-					else if (response.data.errorType && response.data.errorType ==
-						"token") {
-						$('#tokenErrorModalLabel').html(response.data.details);
-						$('#tokenErrorModal').modal("show");
-						$('#tokenErrorModalBtn').click(function() {
-							$('#tokenErrorModal').modal("hide");
-						})
-					}
+		type:"POST",
+							url: 'http://localhost/CRM/CRM.git/trunk/Service/insertBulkData.php',
+		        data: { userId, data} ,
+		         headers:{
+							 token:localStorage.getItem("token")
+						 }
+						,
+						success:(function(response) {
+							console.log("insertBulkData", response);
+							$tId = response.data.tId;
+							if (response.data.result) {
+								alert("Records inserted successfully!");
+								$scope.IsVisible = false;
+								$scope.LinkVisible = true;
+							}
+							else if (response.data.errorType && response.data.errorType ==
+								"token") {
+								$('#tokenErrorModalLabel').html(response.data.details);
+								$('#tokenErrorModal').modal("show");
+								$('#tokenErrorModalBtn').click(function() {
+									$('#tokenErrorModal').modal("hide");
+								})
+							}
 
-				})
-			});
+						})
+					});
 			return;
 				API.insertBulkData(userId, data).then(function(response) {
 					console.log("insertBulkData", response);
