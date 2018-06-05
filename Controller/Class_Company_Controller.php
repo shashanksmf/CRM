@@ -143,8 +143,6 @@ class CompanyController{
 
     public function updateCompany($id, $name, $areaOfWork, $establised, $employees, $revenue, $ofcAddress, $email, $phone,$fb, $tw, $ln,$extra){
         $date = new DateTime();
-        $time = $date->getTimestamp();
-        $membersCount="";
         $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
         $msg = new Company("", "", "", "", "", "", "", "", "", "", "", "");
         if ($conn->connect_error) {
