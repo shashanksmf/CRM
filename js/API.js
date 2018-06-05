@@ -2,8 +2,8 @@ var inspinia = angular.module('inspinia');
 inspinia.factory('API', ['$http', '$q', function($http, $q) {
 
 	var callAPI = {};
-	var baseHttpUrl = "C:\xampp\htdocs\CRM\CRM.git\trunk\Service";
-//	var baseHttpUrl = 'https://upsailgroup.herokuapp.com/Service';
+  var baseHttpUrl = "././CRM.git/trunk/Service";
+	var baseHttpUrl = 'https://upsailgroup.herokuapp.com/Service';
 
 	callAPI.getAllEmpl = function() {
 		return $http({
