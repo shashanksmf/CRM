@@ -207,7 +207,7 @@ function checkDupEmail($email) {
 	$searchDuplicateEmail = "SELECT * FROM employee WHERE email='".$email."'";
 	$searchDuplicateEmailResult = mysqli_query($conn, $searchDuplicateEmail);
 	if (mysqli_num_rows($searchDuplicateEmailResult) > 0) {
-		while($emailResultRow = mysqli_fetch_assoc($searchDuplicateEmailResult)) {
+		while(mysqli_fetch_assoc($searchDuplicateEmailResult)) {
 
 			$DupEmailRes["result"] = true;
 			$DupEmailRes["userId"] = $row["id"];
