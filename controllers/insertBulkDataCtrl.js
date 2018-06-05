@@ -1,4 +1,3 @@
-
 var inspinia = angular.module('inspinia');
 
 inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
