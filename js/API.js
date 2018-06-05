@@ -11,7 +11,7 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 			headers: {
 				'token': localStorage.getItem('token')
 			},
-			url: baseHttpUrl + '/GetEmplData.php',
+			url: baseHttpUrl + 'C:\xampp\htdocs\CRM\CRM.git\trunk\Service\GetEmplData.php',
 		})
 	}
 
