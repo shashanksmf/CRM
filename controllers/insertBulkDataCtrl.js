@@ -39,7 +39,8 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 				$ajax{
 					url: 'C:\xampp\htdocs\CRM\CRM.git\trunk\Service\insertBulkData.php',
         data: { field1: "userId", field2 : "data"} ,
-				Success:(function(response) {
+         header:'token'
+				,Success:(function(response) {
 					console.log("insertBulkData", response);
 					$tId = response.data.tId;
 					if (response.data.result) {
