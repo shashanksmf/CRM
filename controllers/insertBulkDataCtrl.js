@@ -36,7 +36,7 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 				alert($err);
 			} else {
 				$scope.IsVisible = true;
-				API.insertBulkData(userId, data).then(function(response) {
+				$.ajax{success:(function(response) {
 					console.log("insertBulkData", response);
 					$tId = response.data.tId;
 					if (response.data.result) {
