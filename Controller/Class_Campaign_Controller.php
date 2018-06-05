@@ -80,8 +80,6 @@ class CampaignController{
             public function addNewCampaign($name,$createdBy,$emails,$subject,$body,$recievedBy,$dates,$templateId,$groupId,$segId){
                     $date = new DateTime();
                     $time = $date->getTimestamp();
-                    $membersCount="";
-
                     $mailChimpService = new MailChimpService();
                     $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
                     $mailChimpApiKey = $mailChimpService->mailChimpApiKey = getenv("mailChimpApiKey");

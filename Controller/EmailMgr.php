@@ -24,8 +24,8 @@ class EmailMgr {
             $randomString .= $characters[rand(0, charactersLength - 1)];
         }
         return $randomString;
-    }    
-   
+    }
+
     public function addList($name){
         $apiKey = $this->apiKey;
         $dataCenter = substr($apiKey,strpos($apiKey,'-')+1);
@@ -46,7 +46,7 @@ class EmailMgr {
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);                                                                                                                 
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
 
         $result = curl_exec($ch);
         $httpCode = curl_getinfo($ch);
@@ -55,13 +55,12 @@ class EmailMgr {
         return $result;
     }
 
-        
-        
-    
+
+
+
 function addMebmberToList($emails,$listId,$fName,$lName,$interest) {
     $apiKey = $this->apiKey;
-    
-    $memberId = md5(strtolower($emails));
+
     $dataCenter = substr($apiKey,strpos($apiKey,'-')+1);
     $url = 'https://' . $dataCenter . '.api.mailchimp.com/3.0/lists/' . $listId . '/members';
     $json = '{"email_address":"'
@@ -80,7 +79,7 @@ function addMebmberToList($emails,$listId,$fName,$lName,$interest) {
     curl_setopt($ch, CURLOPT_TIMEOUT, 10);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $json);                                                                                                                 
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
 
     $result = curl_exec($ch);
     $httpCode = curl_getinfo($ch);
@@ -97,8 +96,8 @@ function addMebmberToList($emails,$listId,$fName,$lName,$interest) {
 
 
 
-   
-    
+
+
 function addCampaign($replyTo,$listId,$fromName,$subject) {
     $apiKey = $this->apiKey;
     //$listId = '94df52744b';
@@ -122,7 +121,7 @@ function addCampaign($replyTo,$listId,$fromName,$subject) {
     curl_setopt($ch, CURLOPT_TIMEOUT, 10);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $json);                                                                                                                 
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
 
     $result = curl_exec($ch);
     $httpCode = curl_getinfo($ch);
@@ -132,14 +131,14 @@ function addCampaign($replyTo,$listId,$fromName,$subject) {
 }
 
 
- 
-    
 
 
 
 
-   
-    
+
+
+
+
 function addCampaign2($replyTo,$listId,$fromName,$subject,$segId) {
     $apiKey = $this->apiKey;
     //$listId = '94df52744b';
@@ -165,7 +164,7 @@ function addCampaign2($replyTo,$listId,$fromName,$subject,$segId) {
     curl_setopt($ch, CURLOPT_TIMEOUT, 10);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $json);                                                                                                                 
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
 
     $result = curl_exec($ch);
     $httpCode = curl_getinfo($ch);
@@ -175,14 +174,14 @@ function addCampaign2($replyTo,$listId,$fromName,$subject,$segId) {
 }
 
 
- 
-    
+
+
 function updateHtmlToCampaign($campaignId,$html) {
     $apiKey = $this->apiKey;
     $html = addslashes($html);
     $dataCenter = substr($apiKey,strpos($apiKey,'-')+1);
     $url = 'https://' . $dataCenter . '.api.mailchimp.com/3.0/campaigns/'.$campaignId.'/content';
-            
+
     $json = '{"html": "'
             . $html
             . '"}';
@@ -194,7 +193,7 @@ function updateHtmlToCampaign($campaignId,$html) {
     curl_setopt($ch, CURLOPT_TIMEOUT, 10);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $json);                                                                                                                 
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
 
     $result = curl_exec($ch);
     $httpCode = curl_getinfo($ch);
@@ -206,13 +205,13 @@ function updateHtmlToCampaign($campaignId,$html) {
 
 
 
-    
+
 function runCampaign($campaignId) {
     $apiKey = $this->apiKey;
     $dataCenter = substr($apiKey,strpos($apiKey,'-')+1);
     $url = 'https://' . $dataCenter . '.api.mailchimp.com/3.0/campaigns/'.$campaignId.'/actions/send';
-             
-   
+
+
     $ch = curl_init($url);
 
     curl_setopt($ch, CURLOPT_USERPWD, 'user:' . $apiKey);
@@ -220,7 +219,7 @@ function runCampaign($campaignId) {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_TIMEOUT, 10);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);                                                                                                            
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
     $result = curl_exec($ch);
     $httpCode = curl_getinfo($ch);
@@ -235,7 +234,7 @@ public function getTemplates(){
         $dataCenter = substr($apiKey,strpos($apiKey,'-')+1);
         $url = 'https://' . $dataCenter . '.api.mailchimp.com/3.0/templates';
 
-        
+
         $ch = curl_init($url);
 
         curl_setopt($ch, CURLOPT_USERPWD, 'user:' . $apiKey);
@@ -243,7 +242,7 @@ public function getTemplates(){
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);                                                                                                        
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
         $result = curl_exec($ch);
         $httpCode = curl_getinfo($ch);
@@ -252,14 +251,14 @@ public function getTemplates(){
         return $result;
     }
 
-    
 
-public function getHtml($id){
+
+public function getHtml(){
         $apiKey = $this->apiKey;
         $dataCenter = substr($apiKey,strpos($apiKey,'-')+1);
        // $url = 'https://' . $dataCenter . '.api.mailchimp.com/3.0/templates/'.$id;
         $url = 'https://cdn-images.mailchimp.com/template_screenshots/educate.png';
-        
+
         $ch = curl_init($url);
 
         curl_setopt($ch, CURLOPT_USERPWD, 'user:' . $apiKey);
@@ -267,7 +266,7 @@ public function getHtml($id){
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);                                                                                                        
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
         $result = curl_exec($ch);
         $httpCode = curl_getinfo($ch);
@@ -276,7 +275,7 @@ public function getHtml($id){
         return $result;
     }
 
-    
+
 
 
 public function getList(){
@@ -284,7 +283,7 @@ public function getList(){
         $dataCenter = substr($apiKey,strpos($apiKey,'-')+1);
         $url = 'https://' . $dataCenter . '.api.mailchimp.com/3.0/lists/';
        // $url = 'https://cdn-images.mailchimp.com/template_screenshots/educate.png';
-        
+
         $ch = curl_init($url);
 
         curl_setopt($ch, CURLOPT_USERPWD, 'user:' . $apiKey);
@@ -292,27 +291,26 @@ public function getList(){
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);                                                                                                        
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
         $result = curl_exec($ch);
         $httpCode = curl_getinfo($ch);
         curl_close($ch);
 
         $js = json_decode($result);
-        
-        $returns = $result->lists[0]->id;
+
         return $result;
     }
 
-    
 
 
-public function getActivityList($campaignId){
+
+public function getActivityList(){
         $apiKey = $this->apiKey;
         $dataCenter = substr($apiKey,strpos($apiKey,'-')+1);
         //$url = 'https://' . $dataCenter . '.api.mailchimp.com/3.0/reports/'.$campaignId.'/email-activity';
         $url = 'https://us15.api.mailchimp.com/3.0/reports/c45257dbfe';
-        
+
         $ch = curl_init($url);
 
         curl_setopt($ch, CURLOPT_USERPWD, 'user:' . $apiKey);
@@ -320,24 +318,24 @@ public function getActivityList($campaignId){
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);                                                                                                        
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
         $result = curl_exec($ch);
         $httpCode = curl_getinfo($ch);
         curl_close($ch);
 
         $js = json_decode($result);
-        
+
         //$returns = $result->lists[0]->id;
         return $result;
     }
 
-    
 
 
 
 
-    
+
+
 
     public function addSegment($name) {
         //echo 'name :' .$name;
@@ -359,7 +357,7 @@ public function getActivityList($campaignId){
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);                                                                                                                 
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
 
         $result = curl_exec($ch);
         $httpCode = curl_getinfo($ch);
@@ -389,7 +387,7 @@ public function getActivityList($campaignId){
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);                                                                                                                 
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
 
         $result = curl_exec($ch);
         $httpCode = curl_getinfo($ch);
@@ -418,7 +416,7 @@ public function getActivityList($campaignId){
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);                                                                                                                 
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
 
         $result = curl_exec($ch);
         $httpCode = curl_getinfo($ch);
@@ -426,8 +424,8 @@ public function getActivityList($campaignId){
 
         return $result;
     }
-    
-    
-    
-    
+
+
+
+
 }

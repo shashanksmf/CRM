@@ -324,7 +324,6 @@ class GroupController{
             $result = $conn->query($sql);
             //echo $sql.' id : '.$id;
             if (@mysqli_num_rows($result) > 0) {
-                $i = 0;
                 while($row = $result->fetch_assoc()) {
                     //$group = new Group($row["id"], $row["name"], $row["details"], $row["admin"], $row["members"], $row["membersCount"], $row["createdOn"]);
                     $grp = $row["segId"];

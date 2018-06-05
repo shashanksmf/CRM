@@ -171,7 +171,6 @@ class EmployeeController{
 	public function getEmployeeSmart($terms){
             $emplList = array();
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
-            $rows2=array();
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }

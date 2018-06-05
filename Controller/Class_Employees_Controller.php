@@ -95,13 +95,11 @@
             public function addNewEmployee($name,$title,$industry,$location,$ratings,$companyId,$skype,$age,$gender,$officePhone,$jobRole,$phone,$email,$linkedin,$twitter,$facebook,$notes,$imgUrl){
                     $date = new DateTime();
                     $time = $date->getTimestamp();
-                    $membersCount="";
                     $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
                     $msg = new Employees(0,"","","","","","","","","","","","","","","","","","","");
                     if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                     }
-                            $read = 0;
                             $sql = "INSERT INTO ".StaticDBCon::$dbname.".employee (name,title,industry,location,ratings,companyId,skype,age,gender,officePhone,jobRole,phone,email,linkedin,twitter,facebook,notes,imgUrl)
                             VALUES ('".$name."','".$title."','".$industry."','".$location."','".$ratings."','".$companyId."','".$skype."','".$age."','".$gender."','".$officePhone."','".$jobRole."','".$phone."','".$email."','".$linkedin."','".$twitter."','".$facebook."','".$notes."','".$imgUrl."')";
                             //echo 'Query : '.$sql;
@@ -249,7 +247,7 @@
                             $read = 0;
                             //$sql = "UPDATE ".StaticDBCon::$dbname.".employee SET (name,title,industry,location,ratings,companyId,skype,age,gender,o....................fficePhone,jobRole,phone,email,linkedin,twitter,facebook,notes,imgUrl)
                             //VALUES ('".$name."','".$title."','".$industry."','".$location."','".$ratings."','".$companyId."','".$skype."','".$age."','".$gender."','".$officePhone."','".$jobRole."','".$phone."','".$email."','".$linkedin."','".$twitter."','".$facebook."','".$notes."','".$imgUrl."') WHERE id=".$id."";
-                            $sql = "UPDATE `employee` SET `attachments` = '".$imgUrl."' WHERE id = ".$id."";
+                            // $sql = "UPDATE `employee` SET `attachments` = '".$imgUrl."' WHERE id = ".$id."";
                             //echo 'Query : '.$sql;
                                     $msg->isUpdateSuccess = TRUE;
                                     $msg->id = $id;
@@ -375,7 +373,6 @@
 
             public function getEmployeeNameJson($id){
                 $EmployeeList = $this->getEmployeeNameList($id);
-                $comps = new CompanyController();
                 $jsonStr = '{"result": true,"Employees":[';
                 $i=count($EmployeeList);
                 foreach($EmployeeList as $empl){

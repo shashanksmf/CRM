@@ -69,14 +69,11 @@ class TemplateController{
 
             public function addNewTemplate($name,$html,$addedBy){
                     $date = new DateTime();
-                    $time = $date->getTimestamp();
-                    $membersCount="";
                     $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
                     $msg = new Template("", "", "", "");
                     if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                     }
-                            $read = 0;
                             $sql = "INSERT INTO ".StaticDBCon::$dbname.".templates(name,html,addedBy)
                             VALUES ('".$name."','".$html."','".$addedBy."')";
                             echo 'Query : '.$sql;

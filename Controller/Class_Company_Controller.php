@@ -148,7 +148,6 @@ class CompanyController{
         if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
         }
-                $read = 0;
                 $sql = "UPDATE `company` SET `name` = '".$name."',`areaOfWork` = '".$areaOfWork."',`establised` = '".$establised."',`employees` = '".$employees."',`revenue` = '".$revenue."',`ofcAddress` = '".$ofcAddress."',`email` = '".$email."',`fb` = '".$fb."',`tw` = '".$tw."',`ln` = '".$ln."',`phone` = '".$phone."',`extra` = '".$extra."' WHERE id = ".$id."";
                // echo 'Query : '.$sql;
                 if ($conn->query($sql) === TRUE) {

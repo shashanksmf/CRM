@@ -40,7 +40,6 @@ class EmailController{
 
 	public function getEmailJson($id){
 		//echo "id : ".$id;
-		$CompList = $this->getEmailList($id);
 		$jsonStr = '{"Users":'
                         . $this->getEmailList($id)
                         . '}';
