@@ -56,7 +56,7 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 						})
 					}
 
-				});
+				}
 			});
 
 			// console.log(data);
