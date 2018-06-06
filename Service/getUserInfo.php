@@ -11,7 +11,7 @@ require_once "./token/validateToken.php";
 
 $responseArr = array();
 $dats = '';
-$userId = @$_GET['id'];
+$userId = @$_POST['id'];
 require_once "../Controller/StaticDBCon.php";
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 

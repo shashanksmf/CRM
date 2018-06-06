@@ -8,7 +8,6 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 		var userId = $rootScope.userId || localStorage.getItem("userId");
 		$scope.IsVisible = false;
 		$scope.LinkVisible = false;
-
 		$scope.read = function(workbook) {
 			$scope.LinkVisible = false;
 
@@ -38,7 +37,7 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 				$scope.IsVisible = true;
 				$.ajax({
 		type:"POST",
-							url: 'http://localhost/CRM/CRM.git/trunk/Service/insertBulkData.php',
+							url:'http://localhost/CRM/CRM.git/trunk/Service/insertBulkData.php',
 		        data: { userId, data} ,
 		         headers:{
 							 token:localStorage.getItem("token")
