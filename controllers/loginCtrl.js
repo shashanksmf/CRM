@@ -4,7 +4,7 @@ inspinia.controller('loginCtrl', ['$scope', '$rootScope', '$location', '$http',
 	function($scope, $rootScope, $location,$locationProvider, $http, $q, API, $state, $timeout,
 		crmconfig) {
 		//data from url
-		$locationProvider.html5Mode(true);
+		$locationProvider.html5Mode(true);//add then successfully get url 
 		var userUrlData = $location.search();
 		console.log("userUrlData", userUrlData);
 		if (userUrlData.login) {
