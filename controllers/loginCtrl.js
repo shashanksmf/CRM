@@ -1,9 +1,10 @@
 var inspinia = angular.module('inspinia');
 inspinia.controller('loginCtrl', ['$scope', '$rootScope', '$location', '$http',
 	'$q', 'API', '$state', '$timeout', 'crmconfig',
-	function($scope, $rootScope, $location, $http, $q, API, $state, $timeout,
+	function($scope, $rootScope, $location,$locationProvider, $http, $q, API, $state, $timeout,
 		crmconfig) {
 		//data from url
+		$locationProvider.html5Mode(true);
 		var userUrlData = $location.search();
 		console.log("userUrlData", userUrlData);
 		if (userUrlData.login) {
