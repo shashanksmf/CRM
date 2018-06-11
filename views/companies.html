@@ -1,20 +1,20 @@
 
 <div class="container-fluid" >
-    
+
   <div class="row">
-        
+
   <section id="companyTable">
-           
+
     <div class="row-fluid homeBreadCumb">
       <span class="breadcrumbTitle">  Companies</span>
       <ol class="breadcrumb">
 
         <!--<li class="active"><a href="#">Layouts</a></li>-->
       </ol>
-    </div>       
+    </div>
 
     <table class="table dataTables-example  table-striped table-bordered table-hover">
-    
+
     <thead>
       <tr>
         <th ng-click="sortBy('name')">Name
@@ -33,14 +33,14 @@
             <span class="arrowDown fs10px" ng-show="propertyName == 'phone' && reverse == false" >&#9660;</span>
             <span class="arrowUp fs10px" ng-show="(propertyName == 'phone'  && reverse == true) || propertyName !== 'phone' ">&#9650;</span>
           </th>
-           
+
           <th>Delete</th>
         <!-- <th>ratings</th>   -->
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="comp in companies |  orderBy:propertyName:reverse ">
-    
+
         <td class="companyImg">
             <div class="companyAvatar"><img alt="" ng-src={{crmconfig.serverDomainName+"/"+comp.logo}}>
             </div>
@@ -48,24 +48,40 @@
         </td>
 
         <td>{{comp.ofcAddress}}</td>
-        
+
         <td>{{comp.email}}</td>
-        
+
         <td >{{comp.phone}}</td>
-        
+
         <td><button type="button" class="btn btn-danger" ng-click="deleteCompany(comp.id)">Delete</button></td>
-          
+
       </tr>
 
-            
+
     </tbody>
   </table>
-                      
+
   </section>
 
 </div>
 </div>
-
+<div class="modal fade" id="upsailErrorModal" tabindex="-1" role="dialog" aria-labelledby="upsailErrorModalLabel" aria-hidden="true" style="z-index: 99999999 !important">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title text-center" id="upsailErrorModalHead"></h4>
+          </div>
+          <div class="modal-footer">
+            <div style="float: left;">
+                <h4 class="modal-title" id="upsailErrorModalBody"></h4>
+            </div>
+            <div>
+              <a align="right" id="upsailErrorModalBtn" type="button" class="btn btn-danger" role="button" aria-pressed="true">  OK</a>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
 
 <style>
 #companyTable {
