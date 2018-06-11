@@ -312,9 +312,14 @@ inspinia.controller('homeCtrl', ['$scope', '$rootScope', '$http', '$q',
     }
 
     $scope.deleteContact = function(emplId, emplName, emplEmail) {
-
+           console.log($emplEmail);
       if (!emplId || emplId.length == 0) {
-        alert("Contact has not been assigned any Id");
+        $('#upsailErrorModal').modal("show");
+        $('#upsailErrorModalHead').html("Process Deails");
+        $('#upsailErrorModalBody').html("Contact has not been assigned any Id");
+        $('#upsailErrorModalBtn').click(function() {
+          $('#upsailErrorModal').modal("hide");
+        })
         return;
       }
 
@@ -328,7 +333,12 @@ inspinia.controller('homeCtrl', ['$scope', '$rootScope', '$http', '$q',
           for (var i = 0; i < $scope.employees.length; i++) {
             if (emplId == $scope.employees[i].id) {
               $scope.employees.splice(i, 1);
-              alert("Contact Deleted Successfully");
+              $('#upsailErrorModal').modal("show");
+              $('#upsailErrorModalHead').html("Process Deails");
+              $('#upsailErrorModalBody').html("contacts deleted successfully");
+              $('#upsailErrorModalBtn').click(function() {
+                $('#upsailErrorModal').modal("hide");
+              })
             }
           }
         } else if (response.data.errorType && response.data.errorType ==
