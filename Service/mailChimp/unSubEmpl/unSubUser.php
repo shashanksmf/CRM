@@ -1,4 +1,4 @@
-<?php
+e<?php
     header("Access-Control-Allow-Origin: *");
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
@@ -23,9 +23,9 @@
             $result = json_decode($result, true);
             $responseArr = array();
             $responseArr = $result;
-            // echo $result['status'];
+            print_r($result);
             // echo $responseArr['status'];
-            // echo $responseArr['unsubscribe_reason'];
+            echo $responseArr['unsubscribe_reason'];
 
             if ($responseArr['status'] == "unsubscribed") {
                 $responseArr['status'] = true;
