@@ -23,9 +23,9 @@ e<?php
             $result = json_decode($result, true);
             $responseArr = array();
             $responseArr = $result;
-            print_r($result);
+            // print_r($result);
             // echo $responseArr['status'];
-            echo $responseArr['unsubscribe_reason'];
+            // echo $result['detail'];
 
             if ($responseArr['status'] == "unsubscribed") {
                 $responseArr['status'] = true;
@@ -33,7 +33,7 @@ e<?php
             }
             else {
                 $responseArr['status'] = false;
-                $responseArr['reason'] = $result['unsubscribe_reason'];
+                $responseArr['reason'] = $result['detail'];
                 return $responseArr;
             }
 
