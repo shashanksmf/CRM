@@ -39,11 +39,11 @@ inspinia.controller("companiesCtrl", ['$scope', '$rootScope', '$http', '$q',
 		$scope.deleteCompany = function(companyId) {
 			if (!companyId || companyId.length == 0) {
 				$('#upsailErrorModal').modal("show");
-        $('#upsailErrorModalHead').html("Process Deails");
-        $('#upsailErrorModalBody').html("Company has not been assigned any Id");
-        $('#upsailErrorModalBtn').click(function() {
-          $('#upsailErrorModal').modal("hide");
-        })
+				$('#upsailErrorModalHead').html("Process Deails");
+				$('#upsailErrorModalBody').html("company has not been assigned any Id");
+				$('#upsailErrorModalBtn').click(function() {
+					$('#upsailErrorModal').modal("hide");
+				})
 				return;
 			}
 
@@ -56,7 +56,7 @@ inspinia.controller("companiesCtrl", ['$scope', '$rootScope', '$http', '$q',
 							$scope.companies.splice(i, 1);
 							$('#upsailErrorModal').modal("show");
 			        $('#upsailErrorModalHead').html("Process Deails");
-			        $('#upsailErrorModalBody').html("Company deleted successfully!");
+			        $('#upsailErrorModalBody').html("Contact is deleted successfully");
 			        $('#upsailErrorModalBtn').click(function() {
 			          $('#upsailErrorModal').modal("hide");
 			        })
@@ -70,16 +70,11 @@ inspinia.controller("companiesCtrl", ['$scope', '$rootScope', '$http', '$q',
 						$('#tokenErrorModal').modal("hide");
 					})
 				} else if (response.data.hasOwnProperty("details")) {
-					$('#upsailErrorModal').modal("show");
-	        $('#upsailErrorModalHead').html("Process Deails");
-	        $('#upsailErrorModalBody').html(response.data.details);
-	        $('#upsailErrorModalBtn').click(function() {
-	          $('#upsailErrorModal').modal("hide");
-	        })
+					alert(response.data.details);
 				} else {
 					$('#upsailErrorModal').modal("show");
 	        $('#upsailErrorModalHead').html("Process Deails");
-	        $('#upsailErrorModalBody').html("Something Wrong with the server");
+	        $('#upsailErrorModalBody').html(response.data.details);
 	        $('#upsailErrorModalBtn').click(function() {
 	          $('#upsailErrorModal').modal("hide");
 	        })
