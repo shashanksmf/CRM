@@ -37,7 +37,7 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 				$scope.IsVisible = true;
 				$.ajax({
 		type:"POST",
-							url:'http://localhost/CRM/CRM.git/trunk/Service/insertBulkData.php',
+							url:'http://localhost/CRM_11/trunk/Service/insertBulkData.php',
 		        data: { userId, data} ,
 		         headers:{
 							 token:localStorage.getItem("token")
