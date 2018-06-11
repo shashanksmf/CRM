@@ -25,7 +25,7 @@ e<?php
             $responseArr = $result;
             // print_r($result);
             // echo $responseArr['status'];
-            // echo $result['detail'];
+            // echo $responseArr['detail'];
 
             if ($responseArr['status'] == "unsubscribed") {
                 $responseArr['status'] = true;
@@ -33,7 +33,7 @@ e<?php
             }
             else {
                 $responseArr['status'] = false;
-                $responseArr['reason'] = $result['detail'];
+                $responseArr['reason'] = $responseArr['detail'];
                 return $responseArr;
             }
 
