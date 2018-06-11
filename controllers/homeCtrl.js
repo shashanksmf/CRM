@@ -312,7 +312,6 @@ inspinia.controller('homeCtrl', ['$scope', '$rootScope', '$http', '$q',
     }
 
     $scope.deleteContact = function(emplId, emplName, emplEmail) {
-           console.log($emplEmail);
       if (!emplId || emplId.length == 0) {
         $('#upsailErrorModal').modal("show");
         $('#upsailErrorModalHead').html("Process Deails");
