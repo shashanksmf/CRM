@@ -38,7 +38,12 @@ inspinia.controller("companiesCtrl", ['$scope', '$rootScope', '$http', '$q',
 
 		$scope.deleteCompany = function(companyId) {
 			if (!companyId || companyId.length == 0) {
-				alert("Company has not been assigned any Id");
+				$('#upsailErrorModal').modal("show");
+        $('#upsailErrorModalHead').html("Process Deails");
+        $('#upsailErrorModalBody').html("Company has not been assigned any Id");
+        $('#upsailErrorModalBtn').click(function() {
+          $('#upsailErrorModal').modal("hide");
+        })
 				return;
 			}
 
@@ -49,7 +54,12 @@ inspinia.controller("companiesCtrl", ['$scope', '$rootScope', '$http', '$q',
 					for (var i = 0; i < $scope.companies.length; i++) {
 						if (companyId == $scope.companies[i].id) {
 							$scope.companies.splice(i, 1);
-							alert("Company Deleted Successfully");
+							$('#upsailErrorModal').modal("show");
+			        $('#upsailErrorModalHead').html("Process Deails");
+			        $('#upsailErrorModalBody').html("Company deleted successfully!");
+			        $('#upsailErrorModalBtn').click(function() {
+			          $('#upsailErrorModal').modal("hide");
+			        })
 						}
 					}
 				} else if ("errorType" in response.data && response.data.errorType ==
@@ -60,9 +70,19 @@ inspinia.controller("companiesCtrl", ['$scope', '$rootScope', '$http', '$q',
 						$('#tokenErrorModal').modal("hide");
 					})
 				} else if (response.data.hasOwnProperty("details")) {
-					alert(response.data.details);
+					$('#upsailErrorModal').modal("show");
+	        $('#upsailErrorModalHead').html("Process Deails");
+	        $('#upsailErrorModalBody').html(response.data.details);
+	        $('#upsailErrorModalBtn').click(function() {
+	          $('#upsailErrorModal').modal("hide");
+	        })
 				} else {
-					alert("Something Wrong with the server");
+					$('#upsailErrorModal').modal("show");
+	        $('#upsailErrorModalHead').html("Process Deails");
+	        $('#upsailErrorModalBody').html("Something Wrong with the server");
+	        $('#upsailErrorModalBtn').click(function() {
+	          $('#upsailErrorModal').modal("hide");
+	        })
 				}
 			})
 		}
