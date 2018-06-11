@@ -38,12 +38,7 @@ inspinia.controller("companiesCtrl", ['$scope', '$rootScope', '$http', '$q',
 
 		$scope.deleteCompany = function(companyId) {
 			if (!companyId || companyId.length == 0) {
-				$('#upsailErrorModal').modal("show");
-				$('#upsailErrorModalHead').html("Process Deails");
-				$('#upsailErrorModalBody').html("company has not been assigned any Id");
-				$('#upsailErrorModalBtn').click(function() {
-					$('#upsailErrorModal').modal("hide");
-				})
+				alert("Company has not been assigned any Id");
 				return;
 			}
 
@@ -54,12 +49,7 @@ inspinia.controller("companiesCtrl", ['$scope', '$rootScope', '$http', '$q',
 					for (var i = 0; i < $scope.companies.length; i++) {
 						if (companyId == $scope.companies[i].id) {
 							$scope.companies.splice(i, 1);
-							$('#upsailErrorModal').modal("show");
-			        $('#upsailErrorModalHead').html("Process Deails");
-			        $('#upsailErrorModalBody').html("Contact is deleted successfully");
-			        $('#upsailErrorModalBtn').click(function() {
-			          $('#upsailErrorModal').modal("hide");
-			        })
+							alert("Company Deleted Successfully");
 						}
 					}
 				} else if ("errorType" in response.data && response.data.errorType ==
@@ -72,12 +62,7 @@ inspinia.controller("companiesCtrl", ['$scope', '$rootScope', '$http', '$q',
 				} else if (response.data.hasOwnProperty("details")) {
 					alert(response.data.details);
 				} else {
-					$('#upsailErrorModal').modal("show");
-	        $('#upsailErrorModalHead').html("Process Deails");
-	        $('#upsailErrorModalBody').html(response.data.details);
-	        $('#upsailErrorModalBtn').click(function() {
-	          $('#upsailErrorModal').modal("hide");
-	        })
+					alert("Something Wrong with the server");
 				}
 			})
 		}
