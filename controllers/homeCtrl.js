@@ -339,9 +339,20 @@ inspinia.controller('homeCtrl', ['$scope', '$rootScope', '$http', '$q',
             $('#tokenErrorModal').modal("hide");
           })
         } else if (response.data.hasOwnProperty("details")) {
-          alert(response.data.details);
+          $('#upsailErrorModal').modal("show");
+          $('#upsailErrorModalHead').html("Process Deails");
+          $('#upsailErrorModalBody').html(response.data.details);
+          $('#upsailErrorModalBtn').click(function() {
+            $('#upsailErrorModal').modal("hide");
+          })
         } else {
-          alert("Something Wrong with the server");
+          $('#upsailErrorModal').modal("show");
+          $('#upsailErrorModalHead').html("Process Deails");
+          $('#upsailErrorModalBody').html("Something Wrong with the server");
+          $('#upsailErrorModalBtn').click(function() {
+            $('#upsailErrorModal').modal("hide");
+          })
+          // alert("Something Wrong with the server");
         }
       })
     }
