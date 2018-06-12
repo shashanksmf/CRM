@@ -7,15 +7,16 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 
 		var userId = $rootScope.userId || localStorage.getItem("userId");
 		$scope.IsVisible = false;
-		$scope.LinkVisible = true;
+		$scope.LinkVisible = false;
 		$scope.read = function(workbook) {
-			// $scope.LinkVisible = false;
+			$scope.LinkVisible = false;
 
 			var headerNames = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[
 				0]], {
 				header: 1
 			})[0];
 			var data = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
+
 			console.log(headerNames);
 			var tempArr = ["E-mail address"];
 
@@ -33,7 +34,7 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 					" this column are missing in your excel file";
 				alert($err);
 			} else {
-				// $scope.IsVisible = true;
+				$scope.IsVisible = true;
 				$.ajax({
 		type:"POST",
 							url:'http://localhost/CRM_11/trunk/Service/insertBulkData.php',
@@ -44,11 +45,11 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 						,
 						success:(function(response) {
 							console.log("insertBulkData", response);
-							$tId = response.tId;
-							if (response.result) {
-								// $scope.IsVisible = false;
-								// $scope.LinkVisible = true;
+							$tId = response.data.tId;
+							if (response.data.result) {
 								alert("Records inserted successfully!");
+								$scope.IsVisible = false;
+								$scope.LinkVisible = true;
 							}
 							else if (response.data.errorType && response.data.errorType ==
 								"token") {
