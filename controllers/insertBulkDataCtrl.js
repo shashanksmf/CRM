@@ -17,7 +17,6 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 			})[0];
 			var data = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
 			console.log(headerNames);
-			console.log(data);
 			var tempArr = ["E-mail address"];
 
 			for (var i = headerNames.length - 1; i >= 0; i--) {
@@ -47,9 +46,9 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 							console.log("insertBulkData", response);
 							$tId = response.tId;
 							if (response.result) {
-								alert("Records inserted successfully!");
 								$scope.IsVisible = false;
 								$scope.LinkVisible = true;
+								alert("Records inserted successfully!");
 							}
 							else if (response.data.errorType && response.data.errorType ==
 								"token") {
