@@ -31,8 +31,8 @@ $transactionDetails = new transactionDetails();
 $data = $_POST['data'];
 $userId =$_POST['userId'];
 // print_r($data);
-// exit();
-
+print_r($_POST['data']);
+exit();
 require_once "../Controller/StaticDBCon.php";
 
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);

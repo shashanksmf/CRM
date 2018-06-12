@@ -30,7 +30,7 @@ class transactionDetails {
 			// $last_id = mysqli_insert_id($conn);
 			$responseArr["result"] = false;
 			$responseArr["details"] = mysqli_error($conn);
-         print_r("Response in Tr",$responseArr);
+         // print_r("Response in Tr",$responseArr);
 			return $responseArr;
 
 		}
