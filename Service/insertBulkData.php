@@ -46,10 +46,12 @@ if (!$conn) {
 $resultInTrTable = $transactionTable->insert($conn, $userId);
 // print_r($resultInTrTable);
 if (array_key_exists('last_id', $resultInTrTable)) {
+  echo "Array key exists";
 	$tId = $resultInTrTable['last_id'];
 	// echo $tId;
 }
 else{
+  echo "Inside else";
 	exit(json_encode($resultInTrTable));
 }
 
