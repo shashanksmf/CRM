@@ -46,7 +46,7 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 						success:(function(response) {
 							console.log("insertBulkData", response);
 							$tId = response.tId;
-							if (response.data.result) {
+							if (response.result) {
 								alert("Records inserted successfully!");
 								$scope.IsVisible = false;
 								$scope.LinkVisible = true;
