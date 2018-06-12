@@ -32,7 +32,7 @@ $data = $_POST['data'];
 $userId =$_POST['userId'];
 // print_r($data);
 // print_r($_POST['data']);
-exit();
+// exit();
 require_once "../Controller/StaticDBCon.php";
 
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
@@ -55,14 +55,15 @@ else{
 
 
 $encodedData =  $data;
-echo "Encodoed data";
-print_r($encodedData[0]);
+// echo "Encodoed data";
+// print_r($encodedData[0]);
 // $properData = $objectToArray->convert($encodedData[0]);
 // print_r($properData);
 // exit("exit");
 
 $responseArr["result"] = true;
 $responseArr["details"] = array();
+exit($responseArr);
 $totalrecords = count($responseArr['bulkData']);
 
 echo $totalrecords;
