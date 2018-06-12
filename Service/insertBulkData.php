@@ -55,7 +55,8 @@ else{
 
 
 $encodedData =  $data;
-print_r("encoded data at 0",$encodedData[0]);
+echo "Encodoed data";
+print_r($encodedData[0]);
 // $properData = $objectToArray->convert($encodedData[0]);
 // print_r($properData);
 // exit("exit");
