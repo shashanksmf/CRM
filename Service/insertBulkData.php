@@ -241,7 +241,6 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 			$responseArr["details"][$i]["inserted"] = true;
 			$responseArr["details"][$i]["name"] = $name;
 			$totalinserted++;
-			//echo "outer New Empl with new inserted company name Inserted successfully".$i."</br>";
 		} else {
 			$responseArr["details"][$i]["inserted"] = false;
 			$responseArr["details"][$i]["name"] = $name;
@@ -249,27 +248,18 @@ for($i=0;$i<sizeof($encodedData);$i++) {
 			$reason = mysqli_error($conn);
 			$totalfailed++;
 			$operationPerform = "Failed";
-			//echo "</br>Error: " . $sql . "<br>" . mysqli_error($conn);
 		}
 
 		$insertStatus = $responseArr["details"][$i]["inserted"];
 
 		$resultInTrDetails = $transactionDetails->insert($conn, $tId, $email, '', $companyName, $insertStatus, $operationPerform, $reason, $compReason);
-		// echo "insert_resultInTrDetails".$resultInTrDetails;
-
 	}
 
 }
-
-// echo json_encode($responseArr, true);
-
 $resultInTrTable = $transactionTable->update($conn, $tId, $userId, $status, $totalrecords, $totalinserted, $totalfailed);
 // echo "resultInTrTable2=".$resultInTrTable;
 $insertResArr['result'] = $resultInTrTable['result'];
 $insertResArr['tId'] = $tId;
-// echo json_encode($insertResArr);
-
-
 
 echo json_encode($insertResArr);
 ?>
