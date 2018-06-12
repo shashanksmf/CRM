@@ -100,6 +100,7 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 		}
 
 		$scope.trDetails = function() {
+			console.log($tId);
 			$state.go('dashboards.transactionDetails', {
 				tId: $tId
 			});
