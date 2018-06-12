@@ -10,7 +10,7 @@ class checkDupEmail {
 		$DupEmailRes = array();
 		$searchDuplicateEmail = "SELECT * FROM employee WHERE email='".$email."'";
 		$searchDuplicateEmailResult = mysqli_query($conn, $searchDuplicateEmail);
-    print_r($searchDuplicateEmailResult);
+    // print_r($searchDuplicateEmailResult);
 		if (mysqli_num_rows($searchDuplicateEmailResult) > 0) {
 			while($emailResultRow = mysqli_fetch_assoc($searchDuplicateEmailResult)) {
 
