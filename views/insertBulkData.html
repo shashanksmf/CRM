@@ -1,4 +1,4 @@
-<div class="dropbox">
+<div class="dropbox">{{IsVisible}}
 	<!-- <div>
 		<jsxls onread="read" onerror="error"></jsxls>
 	/div> -->
@@ -6,8 +6,7 @@
 	<button class="buttonload" ng-show="IsVisible">
 		L<i class="fa fa-spinner fa-spin loadingIcon"></i>ading
 	</button>
-	<span class="trDetails" ng-show="LinkVisible" ng-click="trDetails()">Click here to see transaction details..</span>
-</div>
+<span class="trDetails" ng-show="LinkVisible" ng-click="trDetails()">Click here to see transaction details..</span></div>
 
 <style>
 .buttonload {

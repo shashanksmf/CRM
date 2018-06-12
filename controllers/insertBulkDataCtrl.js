@@ -30,11 +30,15 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 			};
 			if (tempArr.length > 0) {
 				console.log(tempArr.join(', '));
-				$err = tempArr.join(', ') +
+				var err = tempArr.join(', ') +
 					" this column are missing in your excel file";
-				alert($err);
+				alert(err);
 			} else {
-				$scope.IsVisible = true;
+
+				$timeout(function() {
+					$scope.IsVisible = true;
+				},100)
+
 				$.ajax({
 		type:"POST",
 							url:'http://localhost/CRM_11/trunk/Service/insertBulkData.php',
@@ -45,11 +49,13 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 						,
 						success:(function(response) {
 							console.log("insertBulkData", response);
-							$tId = response.data.tId;
-							if (response.data.result) {
+							$scope.tId = response.tId;
+							if (response.result) {
 								alert("Records inserted successfully!");
-								$scope.IsVisible = false;
-								$scope.LinkVisible = true;
+								$timeout(function() {
+									$scope.IsVisible = false;
+									$scope.LinkVisible = true;
+								},100)
 							}
 							else if (response.data.errorType && response.data.errorType ==
 								"token") {
@@ -65,7 +71,7 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 			return;
 				API.insertBulkData(userId, data).then(function(response) {
 					console.log("insertBulkData", response);
-					$tId = response.data.tId;
+					$scope.tId = response.data.tId;
 					if (response.data.result) {
 						alert("Records inserted successfully!");
 						$scope.IsVisible = false;
@@ -101,7 +107,7 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 
 		$scope.trDetails = function() {
 			$state.go('dashboards.transactionDetails', {
-				tId: $tId
+				tId: $scope.tId
 			});
 		}
 
