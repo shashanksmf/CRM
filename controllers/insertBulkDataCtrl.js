@@ -6,7 +6,7 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 		crmconfig) {
 
 		var userId = $rootScope.userId || localStorage.getItem("userId");
-		$scope.IsVisible = true;
+		$scope.IsVisible = false;
 		$scope.LinkVisible = false;
 		$scope.read = function(workbook) {
 			$scope.LinkVisible = false;
