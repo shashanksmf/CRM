@@ -30,7 +30,7 @@ $transactionDetails = new transactionDetails();
 
 $data = $_POST['data'];
 $userId =$_POST['userId'];
-print_r($data);
+// print_r($data);
 // exit();
 
 require_once "../Controller/StaticDBCon.php";
@@ -55,15 +55,16 @@ else{
 
 
 $encodedData =  $data;
-// print_r($encodedData[0]);
+print_r($encodedData[0]);
 // $properData = $objectToArray->convert($encodedData[0]);
 // print_r($properData);
 // exit("exit");
 
 $responseArr["result"] = true;
 $responseArr["details"] = array();
-$totalrecords = count($data['bulkData']);
-// echo $totalrecords;
+$totalrecords = count($responseArr['bulkData']);
+
+echo $totalrecords;
 $totalinserted = 0;
 $totalfailed = 0;
 $status = "";

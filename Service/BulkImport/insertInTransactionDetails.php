@@ -8,7 +8,7 @@ ini_set('display_errors', '1');
 
 class transactionDetails {
 
-	public function insert($conn, $tId, $email, $companyId, $companyName, $insertStatus, $operationPerform, $reason, $compReason) 
+	public function insert($conn, $tId, $email, $companyId, $companyName, $insertStatus, $operationPerform, $reason, $compReason)
 	{
 		$reason = str_replace("'", "", $reason);
 		$responseArr = array();
@@ -30,7 +30,9 @@ class transactionDetails {
 			// $last_id = mysqli_insert_id($conn);
 			$responseArr["result"] = false;
 			$responseArr["details"] = mysqli_error($conn);
+         print_r($responseArr)
 			return $responseArr;
+
 		}
 
 	}
