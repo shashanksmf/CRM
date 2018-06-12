@@ -30,8 +30,7 @@ $transactionDetails = new transactionDetails();
 
 $data = $_POST['data'];
 $userId =$_POST['userId'];
-echo "data-->"
-print_r($data);
+// print_r($data);
 // print_r($_POST['data']);
 exit();
 require_once "../Controller/StaticDBCon.php";
