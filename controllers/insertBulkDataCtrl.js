@@ -16,8 +16,8 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 				header: 1
 			})[0];
 			var data = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
-
 			console.log(headerNames);
+			console.log(data);
 			var tempArr = ["E-mail address"];
 
 			for (var i = headerNames.length - 1; i >= 0; i--) {
