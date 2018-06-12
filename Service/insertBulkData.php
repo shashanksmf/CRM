@@ -63,7 +63,7 @@ $encodedData =  $data;
 
 $responseArr["result"] = true;
 $responseArr["details"] = array();
-$totalrecords = count($data['bulkData']);
+$totalrecords = count($encodedData['bulkData']);
 
 echo $totalrecords;
 $totalinserted = 0;
