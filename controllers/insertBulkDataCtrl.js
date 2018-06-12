@@ -7,9 +7,9 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 
 		var userId = $rootScope.userId || localStorage.getItem("userId");
 		$scope.IsVisible = false;
-		$scope.LinkVisible = false;
+		$scope.LinkVisible = true;
 		$scope.read = function(workbook) {
-			$scope.LinkVisible = false;
+			// $scope.LinkVisible = false;
 
 			var headerNames = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[
 				0]], {
@@ -33,7 +33,7 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 					" this column are missing in your excel file";
 				alert($err);
 			} else {
-				$scope.IsVisible = true;
+				// $scope.IsVisible = true;
 				$.ajax({
 		type:"POST",
 							url:'http://localhost/CRM_11/trunk/Service/insertBulkData.php',
@@ -46,8 +46,8 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 							console.log("insertBulkData", response);
 							$tId = response.tId;
 							if (response.result) {
-								$scope.IsVisible = false;
-								$scope.LinkVisible = true;
+								// $scope.IsVisible = false;
+								// $scope.LinkVisible = true;
 								alert("Records inserted successfully!");
 							}
 							else if (response.data.errorType && response.data.errorType ==
