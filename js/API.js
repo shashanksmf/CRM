@@ -2,7 +2,7 @@ var inspinia = angular.module('inspinia');
 inspinia.factory('API', ['$http', '$q', function($http, $q) {
 
 	var callAPI = {};
-  // var baseHttpUrl = "/CRM_11/trunk/Service";
+	// var baseHttpUrl = "Service";
 	var baseHttpUrl = 'https://upsailgroup.herokuapp.com/Service';
 
 	callAPI.getAllEmpl = function() {
@@ -519,6 +519,9 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 	}
 
 	callAPI.insertBulkData = function(userId, bulkData) {
+		// console.log("bulkData", bulkData);
+		var bulkData = bulkData;
+		var userId = userId;
 		return $http({
 			method: 'POST',
 			headers: {
