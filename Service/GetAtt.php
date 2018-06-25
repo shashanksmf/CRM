@@ -20,7 +20,7 @@ $responseArr = array();
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 if($conn->connect_error) {
 	$responseArr["result"] = false;
-	$responseArr["details"] = $conn->connect_error;
+	$responseArr["reason"] = $conn->connect_error;
 	exit(json_encode($responseArr));
 }
 
@@ -42,7 +42,7 @@ if(isset($emplId) && !empty($emplId)){
 
 	} else {
 		$responseArr["result"] = false;
-		$responseArr["details"] = "No records Found";
+		$responseArr["reason"] = "No records Found";
 		echo json_encode($responseArr);
 	}
 
@@ -50,7 +50,7 @@ if(isset($emplId) && !empty($emplId)){
 
 else{
 	$responseArr["result"] = false;
-	$responseArr["details"] = "Employee Id not found";
+	$responseArr["reason"] = "Employee Id not found";
 	echo json_encode($responseArr);
 }
 
