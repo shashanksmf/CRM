@@ -8,11 +8,8 @@
  */
 function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider,
   IdleProvider, KeepaliveProvider, $httpProvider) {
-  // $httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
-  // $httpProvider.defaults.headers.common['Access-Control-Request-Method'] = 'POST,GET';
-  $httpProvider.defaults.headers.common['token'] = localStorage.getItem('token') ||
-    null;
 
+  $httpProvider.interceptors.push('APIInterceptor');
   // Configure Idle settings
   IdleProvider.idle(5); // in seconds
   IdleProvider.timeout(120); // in seconds
@@ -97,13 +94,13 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider,
   })
 
   .state('dashboards.insertBulkData', {
-    url: "/insertBulkData", 
+    url: "/insertBulkData",
     templateUrl: "views/insertBulkData.html",
     controller: "insertBulkDataCtrl"
   })
 
   .state('dashboards.transactionDetails', {
-    url: "/transactionDetails/:tId", 
+    url: "/transactionDetails/:tId",
     templateUrl: "views/transactionDetails.html",
     controller: "transactionDetailsCtrl"
   })
@@ -309,8 +306,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider,
         pageTitle: 'Layouts'
       },
     })
-
-
 
   .state('charts', {
       abstract: true,
@@ -1767,4 +1762,28 @@ angular
     //   }
     //   return;
     // });
-  }]);
+  }])
+
+
+.service('APIInterceptor', function($rootScope, $q) {
+  var service = this;
+  service.request = function(config) {
+      config.headers = config.headers || {};
+      config.headers['token'] = localStorage.getItem('token') ||
+        null;
+      return config;
+    },
+
+    service.response = function(response) {
+      var myHeaderData = response.headers('token');
+      console.log("promise from interceptors", response, $q.when(
+        response));
+      if (response && response.data && typeof response.data ===
+        'object' && "result" in response.data && !
+        response.data.result && "errorType" in response.data &&
+        response.data.errorType == 'token' || response.data.reason) {
+        $rootScope.$broadcast("unauthorized")
+      }
+      return response || $q.when(response);
+    }
+});
