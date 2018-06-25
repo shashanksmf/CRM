@@ -122,7 +122,7 @@ class UserLoginController{
         $responseArr = array();
         if($conn->connect_error) {
             $responseArr["result"] = false;
-            $responseArr["details"] = $conn->connect_error;
+            $responseArr["reason"] = $conn->connect_error;
             return json_encode($responseArr);
         }
 
@@ -142,7 +142,7 @@ class UserLoginController{
             return json_encode($responseArr);
         } else {
             $responseArr["result"] = false;
-            $responseArr["details"] = "user email Not found";
+            $responseArr["reason"] = "user email Not found";
             return json_encode($responseArr);
         }
         $conn->close();
@@ -161,7 +161,7 @@ class UserLoginController{
         $result = mysqli_query($conn, $sql);
         if (@mysqli_num_rows($result) > 0) {
             $responseArr["result"] = false;
-            $responseArr["details"] = $email." is already used!";
+            $responseArr["reason"] = $email." is already used!";
             return json_encode($responseArr);
         } else {
 
@@ -176,7 +176,7 @@ class UserLoginController{
             } else {
             //echo "else".mysqli_error($conn);
                 $responseArr["result"] = false;
-                $responseArr["details"] = mysqli_error($conn);
+                $responseArr["reason"] = mysqli_error($conn);
                // echo "Error updating record: " . mysqli_error($conn);
                 return json_encode($responseArr);
             }
