@@ -16,8 +16,8 @@ $responseArr = array();
 
 if($conn->connect_error) {
 	$responseArr["result"] = false;
-	$responseArr["details"] = $conn->connect_error;
-	exit(json_encode($responseArr["details"]));
+	$responseArr["reason"] = $conn->connect_error;
+	exit(json_encode($responseArr["reason"]));
 }
 mysqli_set_charset($conn,"utf8");
 $getAllCompaniesSql = "SELECT * FROM company WHERE isactive = 1;";
@@ -34,7 +34,7 @@ if (@mysqli_num_rows($result) > 0) {
 
 } else {
 	$responseArr["result"] = false;
-	$responseArr["details"] = "No Data Found";
+	$responseArr["reason"] = "No Data Found";
 	echo json_encode($responseArr);
 }
 
