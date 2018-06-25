@@ -19,7 +19,7 @@ $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon
 
 if($conn->connect_error) {
 	$responseArr["result"] = false;
-	$responseArr["details"] = $conn->connect_error;
+	$responseArr["reason"] = $conn->connect_error;
 	exit(json_encode($responseArr));
 }
 
@@ -33,14 +33,14 @@ if(isset($companyId) && !empty($companyId)){
 	}
 	else{
 		$responseArr["result"] = false;
-		$responseArr["details"] =  mysqli_error($conn);
+		$responseArr["reason"] =  mysqli_error($conn);
 		echo json_encode($responseArr);
 	}
 }
 
 else{
 	$responseArr["result"] = false;
-	$responseArr["details"] = "Company Id not found";
+	$responseArr["reason"] = "Company Id not found";
 	echo json_encode($responseArr);
 }
 

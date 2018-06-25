@@ -22,7 +22,7 @@ $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon
 
 if($conn->connect_error) {
 	$responseArr["result"] = false;
-	$responseArr["details"] = $conn->connect_error;
+	$responseArr["reason"] = $conn->connect_error;
 	exit(json_encode($responseArr));
 }
 
@@ -30,14 +30,16 @@ if($conn->connect_error) {
 if(isset($emplId) && !empty($emplId)) {
 
 	$unSubSql = "UPDATE `employee` set isSubscribed = 0 WHERE id=".$emplId.";";
+// exit($unSubSql);
 	if(isset($emplEmail) && !empty($emplEmail)){
 		$unSubUser = new unSubUser();
 		$unSubResult = $unSubUser->unSubUserFun($emplEmail,$emplName);
+print_r($unSubResult);
 		if ($unSubResult['status'] == true) {
 			mysqli_query($conn, $unSubSql);
 		} else{
 			$responseArr["result"] = false;
-			$responseArr["details"] = $unSubResult['reason'];
+			$responseArr["reason"] = $unSubResult['reason'];
 			exit(json_encode($responseArr));
 		}
 	}
@@ -50,14 +52,14 @@ if(isset($emplId) && !empty($emplId)) {
 	}
 	else{
 		$responseArr["result"] = false;
-		$responseArr["details"] =  mysqli_error($conn);
+		$responseArr["reason"] =  mysqli_error($conn);
 		echo json_encode($responseArr);
 	}
 }
 
 else{
 	$responseArr["result"] = false;
-	$responseArr["details"] = "Employee Id not found";
+	$responseArr["reason"] = "Employee Id not found";
 	echo json_encode($responseArr);
 }
 

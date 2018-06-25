@@ -73,10 +73,10 @@ if(isset($_FILES['image'])){
 
 			move_uploaded_file($file_tmp,$emplIdFolder."/".$file_name);
 			$responseArr["result"] = true;
-			$responseArr["details"] = "file Uploaded successfully";
+			$responseArr["reason"] = "file Uploaded successfully";
 		}else{
 			$responseArr["result"] = true;
-			$responseArr["details"] = mysqli_error($conn);
+			$responseArr["reason"] = mysqli_error($conn);
 		}
 
 		echo json_encode($responseArr);
@@ -84,7 +84,7 @@ if(isset($_FILES['image'])){
 	}else{
 
 		$responseArr["result"] = false;
-		$responseArr["details"] = "Error Occured";
+		$responseArr["reason"] = "Error Occured";
 		echo json_encode($responseArr);
 	}
 }
