@@ -10,7 +10,7 @@
 
     if($conn->connect_error) {
 		$responseArr["result"] = false;
-		$responseArr["details"] = $conn->connect_error;
+		$responseArr["reason"] = $conn->connect_error;
 		exit(json_encode($responseArr));
 	}
    if(! $conn ) {
