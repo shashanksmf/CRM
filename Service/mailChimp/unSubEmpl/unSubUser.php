@@ -10,7 +10,6 @@
 	class unSubUser {
 
         public function unSubUserFun($emplEmail,$emplName) {
-
             $mailChimpService = new MailChimpService();
             $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
             $mailChimpApiKey = $mailChimpService->mailChimpApiKey = getenv("mailChimpApiKey");
