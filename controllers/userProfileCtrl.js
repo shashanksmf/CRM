@@ -21,13 +21,7 @@ inspinia.controller('userProfileCtrl', ['$scope', '$rootScope', '$http', '$q',
 		//emplProPicSeleted
 		API.getAllComapnies().then(function(response) {
 			if (response.data.result) {
-				$scope.companies = response.data.details;
-			} else if (response.data.errorType && response.data.errorType == "token") {
-				$('#tokenErrorModalLabel').html(response.data.details);
-				$('#tokenErrorModal').modal("show");
-				$('#tokenErrorModalBtn').click(function() {
-					$('#tokenErrorModal').modal("hide");
-				})
+				$scope.companies = response.data.reason;
 			}
 		})
 
@@ -55,15 +49,15 @@ inspinia.controller('userProfileCtrl', ['$scope', '$rootScope', '$http', '$q',
 				if (response.data.result) {
 					//alert("profileUpdated");
 					$scope.profileEdit = !$scope.profileEdit;
-				} else if (response.data.errorType && response.data.errorType ==
-					"token") {
-					$('#tokenErrorModalLabel').html(response.data.details);
-					$('#tokenErrorModal').modal("show");
-					$('#tokenErrorModalBtn').click(function() {
-						$('#tokenErrorModal').modal("hide");
-					})
 				} else {
-					alert("Network Problem Please Try Again");
+					// alert("Network Problem Please Try Again");
+					$rootScope.config.rootModalShow = true;
+					$rootScope.config.rootModalHeader = "Failed";
+					$rootScope.config.responseText =
+						"Network Problem Please try Again";
+					$rootScope.config.rootModalAction = function() {
+						$rootScope.config.rootModalShow = false;
+					};
 				}
 
 			})
@@ -89,12 +83,6 @@ inspinia.controller('userProfileCtrl', ['$scope', '$rootScope', '$http', '$q',
 				} catch (ex) {
 					console.log(ex);
 				}
-			} else if (response.data.errorType && response.data.errorType == "token") {
-				$('#tokenErrorModalLabel').html(response.data.details);
-				$('#tokenErrorModal').modal("show");
-				$('#tokenErrorModalBtn').click(function() {
-					$('#tokenErrorModal').modal("hide");
-				})
 			}
 		})
 
@@ -130,7 +118,14 @@ inspinia.controller('userProfileCtrl', ['$scope', '$rootScope', '$http', '$q',
 		$scope.uploadNewFileAttach = function(fileName) {
 
 			if (!fileName || fileName.length < 0) {
-				alert("Please Enter FileName");
+				// alert("Please Enter FileName");
+				$rootScope.config.rootModalShow = true;
+				$rootScope.config.rootModalHeader = "Failed";
+				$rootScope.config.responseText =
+					"please Enter FileName";
+				$rootScope.config.rootModalAction = function() {
+					$rootScope.config.rootModalShow = false;
+				};
 				return false;
 			}
 
@@ -146,7 +141,14 @@ inspinia.controller('userProfileCtrl', ['$scope', '$rootScope', '$http', '$q',
 					$("#fileNameModal").modal("hide");
 					$scope.fileAttach = '';
 				} else {
-					alert("Network problem Please Try Again");
+					// alert("Network problem Please Try Again");
+					$rootScope.config.rootModalShow = true;
+					$rootScope.config.rootModalHeader = "Failed";
+					$rootScope.config.responseText =
+						"Network problem Please try Again";
+					$rootScope.config.rootModalAction = function() {
+						$rootScope.config.rootModalShow = false;
+					};
 				}
 
 
@@ -174,16 +176,10 @@ inspinia.controller('userProfileCtrl', ['$scope', '$rootScope', '$http', '$q',
 		}).then(function(response) {
 
 			if (response.data.result) {
-				if (response.data.details.length > 0) {
-					$scope.files = response.data.details;
+				if (response.data.reason.length > 0) {
+					$scope.files = response.data.reason;
 					console.log($scope.files)
 				}
-			} else if (response.data.errorType && response.data.errorType == "token") {
-				$('#tokenErrorModalLabel').html(response.data.details);
-				$('#tokenErrorModal').modal("show");
-				$('#tokenErrorModalBtn').click(function() {
-					$('#tokenErrorModal').modal("hide");
-				})
 			}
 
 		});
@@ -236,13 +232,6 @@ inspinia.controller('userProfileCtrl', ['$scope', '$rootScope', '$http', '$q',
 			API.deleteEmplFile(fileObj).then(function(response) {
 				if (response.data.result) {
 					$scope.files[index].isactive = 0;
-				} else if (response.data.errorType && response.data.errorType ==
-					"token") {
-					$('#tokenErrorModalLabel').html(response.data.details);
-					$('#tokenErrorModal').modal("show");
-					$('#tokenErrorModalBtn').click(function() {
-						$('#tokenErrorModal').modal("hide");
-					})
 				}
 			})
 		}
@@ -273,13 +262,6 @@ inspinia.controller('userProfileCtrl', ['$scope', '$rootScope', '$http', '$q',
 					//	console.log("upload emplyee pro pic response",response);
 					//alert("Picture successFully Uploaded");
 					$scope.profilePicUploadedResUrl = response.data.details.imageUrl;
-				} else if (response.data.errorType && response.data.errorType ==
-					"token") {
-					$('#tokenErrorModalLabel').html(response.data.details);
-					$('#tokenErrorModal').modal("show");
-					$('#tokenErrorModalBtn').click(function() {
-						$('#tokenErrorModal').modal("hide");
-					})
 				}
 			})
 

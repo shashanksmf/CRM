@@ -10,13 +10,7 @@ inspinia.controller('emplInsertProfileCtrl', ['$scope', '$rootScope', '$http',
 		//$("#emplLoadingModal").modal('show');
 		API.getAllComapnies().then(function(response) {
 			if (response.data.result) {
-				$scope.companies = response.data.details;
-			} else if (response.data.errorType && response.data.errorType == "token") {
-				$('#tokenErrorModalLabel').html(response.data.details);
-				$('#tokenErrorModal').modal("show");
-				$('#tokenErrorModalBtn').click(function() {
-					$('#tokenErrorModal').modal("hide");
-				})
+				$scope.companies = response.data.reason;
 			}
 		})
 		$scope.emplProfileInfo = {};
@@ -61,17 +55,10 @@ inspinia.controller('emplInsertProfileCtrl', ['$scope', '$rootScope', '$http',
 						$scope.errorMsg = "data uploaded";
 						$scope.hasError = false;
 						$scope.emplProfileInfo = {};
-					} else if ("errorType" in response.data && response.data.errorType ==
-						"token") {
-						$('#tokenErrorModalLabel').html(response.data.details);
-						$('#tokenErrorModal').modal("show");
-						$('#tokenErrorModalBtn').click(function() {
-							$('#tokenErrorModal').modal("hide");
-						})
 					} else {
 						$scope.hasError = true;
 						$timeout(function() {
-								$scope.errorMsg = response.data.details;
+								$scope.errorMsg = response.data.reason;
 							}, 100)
 							//alert(response.data.details);
 					}
@@ -92,13 +79,34 @@ inspinia.controller('emplInsertProfileCtrl', ['$scope', '$rootScope', '$http',
 
 			if (!info.name || !info.email || !info.gender) {
 				if (!info.name) {
-					alert("please enter Your Name ");
+					// alert("please enter Your Name ");
+					$rootScope.config.rootModalShow = true;
+					$rootScope.config.rootModalHeader = "Failed";
+					$rootScope.config.responseText =
+						"please enter Your Name ";
+					$rootScope.config.rootModalAction = function() {
+						$rootScope.config.rootModalShow = false;
+					};
 					return false;
 				} else if (!info.email) {
-					alert("please enter email address");
+					// alert("please enter email address");
+					$rootScope.config.rootModalShow = true;
+					$rootScope.config.rootModalHeader = "Failed";
+					$rootScope.config.responseText =
+						"please enter email address ";
+					$rootScope.config.rootModalAction = function() {
+						$rootScope.config.rootModalShow = false;
+					};
 					return false;
 				} else if (!info.gender) {
-					alert('please select gender');
+					// alert('please select gender');
+					$rootScope.config.rootModalShow = true;
+					$rootScope.config.rootModalHeader = "Failed";
+					$rootScope.config.responseText =
+						"please select gender ";
+					$rootScope.config.rootModalAction = function() {
+						$rootScope.config.rootModalShow = false;
+					};
 					return false;
 				}
 				// else if(!info.company) {
@@ -106,7 +114,14 @@ inspinia.controller('emplInsertProfileCtrl', ['$scope', '$rootScope', '$http',
 				// 	return false
 				// }
 			} else if (!validateEmail(info.email)) {
-				alert('Please enter valid email Id');
+				// alert('Please enter valid email Id');
+				$rootScope.config.rootModalShow = true;
+				$rootScope.config.rootModalHeader = "Failed";
+				$rootScope.config.responseText =
+					"please enter valid email address ";
+				$rootScope.config.rootModalAction = function() {
+					$rootScope.config.rootModalShow = false;
+				};
 			} else {
 				return true;
 			}

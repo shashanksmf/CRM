@@ -6,12 +6,6 @@ inspinia.controller("groupCtrl", ['$scope', '$rootScope', '$http', '$q', 'API',
 		API.getAllGroups().then(function(response) {
 			if (response.data.result) {
 				$scope.groups = response.data;
-			} else if (response.data.errorType && response.data.errorType == "token") {
-				$('#tokenErrorModalLabel').html(response.data.details);
-				$('#tokenErrorModal').modal("show");
-				$('#tokenErrorModalBtn').click(function() {
-					$('#tokenErrorModal').modal("hide");
-				})
 			}
 		})
 
@@ -20,13 +14,6 @@ inspinia.controller("groupCtrl", ['$scope', '$rootScope', '$http', '$q', 'API',
 			API.searchEmployesNames(term).then(function(response) {
 				if (response.data.result) {
 					$scope.emplNames = response.data.Employees;
-				} else if (response.data.errorType && response.data.errorType ==
-					"token") {
-					$('#tokenErrorModalLabel').html(response.data.details);
-					$('#tokenErrorModal').modal("show");
-					$('#tokenErrorModalBtn').click(function() {
-						$('#tokenErrorModal').modal("hide");
-					})
 				}
 			})
 
@@ -56,25 +43,38 @@ inspinia.controller("groupCtrl", ['$scope', '$rootScope', '$http', '$q', 'API',
 						if (responce.data.responce.hasOwnProperty("groupid") && responce.data
 							.responce.length > 0) {
 							createGroupObj.id = responce.data.responce.groupid;
-							alert("Group Added Successfully!");
+							// alert("Group Added Successfully!");
+							$rootScope.config.rootModalShow = true;
+							$rootScope.config.rootModalHeader = "Success";
+							$rootScope.config.responseText =
+								"Group Added Successfully";
+							$rootScope.config.rootModalAction = function() {
+								$rootScope.config.rootModalShow = false;
+							};
 						}
 						$scope.groups.Groups.push(createGroupObj)
-					} else if (response.data.errorType && response.data.errorType ==
-						"token") {
-						$('#tokenErrorModalLabel').html(response.data.details);
-						$('#tokenErrorModal').modal("show");
-						$('#tokenErrorModalBtn').click(function() {
-							$('#tokenErrorModal').modal("hide");
-						})
 					} else if (!response.data.responce) {
-						alert(response.data.message)
+						// alert(response.data.message)
+						$rootScope.config.rootModalShow = true;
+						$rootScope.config.rootModalHeader = "Failed";
+						$rootScope.config.responseText = response.data.message;
+						$rootScope.config.rootModalAction = function() {
+							$rootScope.config.rootModalShow = false;
+						};
 					}
 
 				});
 
 
 			} else {
-				alert("please enter group Name");
+				// alert("please enter group Name");
+				$rootScope.config.rootModalShow = true;
+				$rootScope.config.rootModalHeader = "Failed";
+				$rootScope.config.responseText =
+					"please enter group Name ";
+				$rootScope.config.rootModalAction = function() {
+					$rootScope.config.rootModalShow = false;
+				};
 			}
 
 		}
@@ -99,10 +99,16 @@ inspinia.controller("groupCtrl", ['$scope', '$rootScope', '$http', '$q', 'API',
 			}
 
 			if (isMemberFound) {
-				alert("Member Already Added");
+				// alert("Member Already Added");
 				//$scope.groups.Groups[$scope.groupIndex].Members.splice(memberIndex, 1);
 				//$scope.groups.Groups[$scope.groupIndex].membersCount = $scope.groups.Groups[$scope.groupIndex].Members.length;
-
+				$rootScope.config.rootModalShow = true;
+				$rootScope.config.rootModalHeader = "Failed";
+				$rootScope.config.responseText =
+					"Member Already added ";
+				$rootScope.config.rootModalAction = function() {
+					$rootScope.config.rootModalShow = false;
+				};
 			} else {
 
 				if (!$scope.groups.Groups[$scope.groupIndex].hasOwnProperty("Members")) {
@@ -164,16 +170,23 @@ inspinia.controller("groupCtrl", ['$scope', '$rootScope', '$http', '$q', 'API',
 					members: memberIds
 				}).then(function(response) {
 					if (response.data.responce) {
-						alert("Group Successfully Saved");
-					} else if (response.data.errorType && response.data.errorType ==
-						"token") {
-						$('#tokenErrorModalLabel').html(response.data.details);
-						$('#tokenErrorModal').modal("show");
-						$('#tokenErrorModalBtn').click(function() {
-							$('#tokenErrorModal').modal("hide");
-						})
+						// alert("Group Successfully Saved");
+						$rootScope.config.rootModalShow = true;
+						$rootScope.config.rootModalHeader = "Success";
+						$rootScope.config.responseText =
+							"Group Successfully Saved";
+						$rootScope.config.rootModalAction = function() {
+							$rootScope.config.rootModalShow = false;
+						};
 					} else {
-						alert("Something Went Wrong !");
+						// alert("Something Went Wrong !");
+						$rootScope.config.rootModalShow = true;
+						$rootScope.config.rootModalHeader = "Failed";
+						$rootScope.config.responseText =
+							"Something Went Wrong";
+						$rootScope.config.rootModalAction = function() {
+							$rootScope.config.rootModalShow = false;
+						};
 					}
 
 					$("#addEmplmModal").modal("hide");
@@ -199,20 +212,33 @@ inspinia.controller("groupCtrl", ['$scope', '$rootScope', '$http', '$q', 'API',
 					for (var i = 0; i < $scope.groups.Groups.length; i++) {
 						if (groupId == $scope.groups.Groups[i].id) {
 							$scope.groups.Groups.splice(i, 1);
-							alert("group Deleted Successfully");
+							// alert("group Deleted Successfully");
+							$rootScope.config.rootModalShow = true;
+							$rootScope.config.rootModalHeader = "Success";
+							$rootScope.config.responseText =
+								"group Deleted Successfully";
+							$rootScope.config.rootModalAction = function() {
+								$rootScope.config.rootModalShow = false;
+							};
 						}
 					}
-				} else if (response.data.errorType && response.data.errorType ==
-					"token") {
-					$('#tokenErrorModalLabel').html(response.data.details);
-					$('#tokenErrorModal').modal("show");
-					$('#tokenErrorModalBtn').click(function() {
-						$('#tokenErrorModal').modal("hide");
-					})
-				} else if (response.data.hasOwnProperty("details")) {
-					alert(response.data.details);
+				} else if (response.data.hasOwnProperty("reason")) {
+					// alert(response.data.details);
+					$rootScope.config.rootModalShow = true;
+					$rootScope.config.rootModalHeader = "Failed";
+					$rootScope.config.responseText = response.data.reason;
+					$rootScope.config.rootModalAction = function() {
+						$rootScope.config.rootModalShow = false;
+					};
 				} else {
-					alert("Something Wrong with the server");
+					// alert("Something Wrong with the server");
+					$rootScope.config.rootModalShow = true;
+					$rootScope.config.rootModalHeader = "Failed";
+					$rootScope.config.responseText =
+						"Something Wrong with the server";
+					$rootScope.config.rootModalAction = function() {
+						$rootScope.config.rootModalShow = false;
+					};
 				}
 			})
 		}

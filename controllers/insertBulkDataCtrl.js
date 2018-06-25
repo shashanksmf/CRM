@@ -32,57 +32,59 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 				console.log(tempArr.join(', '));
 				var err = tempArr.join(', ') +
 					" this column are missing in your excel file";
-				alert(err);
+				// alert(err);
+				$rootScope.config.rootModalShow = true;
+				$rootScope.config.rootModalHeader = "Failed";
+				$rootScope.config.responseText = err;
+				$rootScope.config.rootModalAction = function() {
+					$rootScope.config.rootModalShow = false;
+				};
 			} else {
 
 				$timeout(function() {
 					$scope.IsVisible = true;
-				},100)
+				}, 100)
 
-				$.ajax({
-		type:"POST",
-							url:'http://localhost/CRM_11/trunk/Service/insertBulkData.php',
-		        data: { userId, data} ,
-		         headers:{
-							 token:localStorage.getItem("token")
-						 }
-						,
-						success:(function(response) {
-							console.log("insertBulkData", response);
-							$scope.tId = response.tId;
-							if (response.result) {
-								alert("Records inserted successfully!");
-								$timeout(function() {
-									$scope.IsVisible = false;
-									$scope.LinkVisible = true;
-								},100)
-							}
-							else if (response.data.errorType && response.data.errorType ==
-								"token") {
-								$('#tokenErrorModalLabel').html(response.data.details);
-								$('#tokenErrorModal').modal("show");
-								$('#tokenErrorModalBtn').click(function() {
-									$('#tokenErrorModal').modal("hide");
-								})
-							}
-
-						})
-					});
-			return;
+				// $.ajax({
+				// 	type: "POST",
+				// 	url: 'http://localhost/CRM_19/trunk/Service/insertBulkData.php',
+				// 	data: {
+				// 		userId, data
+				// 	},
+				// 	headers: {
+				// 		token: localStorage.getItem("token")
+				// 	},
+				// 	success: (function(response) {
+				// 		console.log("insertBulkData", response);
+				// 		$scope.tId = response.tId;
+				// 		if (response.result) {
+				// 			// alert("Records inserted successfully!");
+				// 			$rootScope.config.rootModalShow = true;
+				// 			$rootScope.config.rootModalHeader = "Success";
+				// 			$rootScope.config.responseText =
+				// 				"Records inserted successfully";
+				// 			$timeout(function() {
+				// 				$scope.IsVisible = false;
+				// 				$scope.LinkVisible = true;
+				// 			}, 100)
+				// 		}
+				// 	})
+				// });
+				// return;
 				API.insertBulkData(userId, data).then(function(response) {
 					console.log("insertBulkData", response);
+					console.log("userId", userId);
 					$scope.tId = response.data.tId;
 					if (response.data.result) {
-						alert("Records inserted successfully!");
+						$rootScope.config.rootModalShow = true;
+						$rootScope.config.rootModalHeader = "Success";
+						$rootScope.config.responseText =
+							"Records inserted successfully!";
+						$rootScope.config.rootModalAction = function() {
+							$rootScope.config.rootModalShow = false;
+						};
 						$scope.IsVisible = false;
 						$scope.LinkVisible = true;
-					} else if (response.data.errorType && response.data.errorType ==
-						"token") {
-						$('#tokenErrorModalLabel').html(response.data.details);
-						$('#tokenErrorModal').modal("show");
-						$('#tokenErrorModalBtn').click(function() {
-							$('#tokenErrorModal').modal("hide");
-						})
 					}
 
 				});
@@ -101,8 +103,15 @@ inspinia.controller("insertBulkDataCtrl", ['$scope', '$rootScope', '$http',
 		}
 
 		$scope.error = function(e) {
-			console.log(e);
-			alert("Unsupported file please choose excel file");
+			// console.log(e);
+			// alert("Unsupported file please choose excel file");
+			$rootScope.config.rootModalShow = true;
+			$rootScope.config.rootModalHeader = "Failed";
+			$rootScope.config.responseText =
+				"Unsupported file, please choose excel file";
+			$rootScope.config.rootModalAction = function() {
+				$rootScope.config.rootModalShow = false;
+			};
 		}
 
 		$scope.trDetails = function() {

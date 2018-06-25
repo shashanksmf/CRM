@@ -88,13 +88,6 @@ inspinia.controller('homeCtrl', ['$scope', '$rootScope', '$http', '$q',
 
           };
 
-        } else if (response.data.errorType && response.data.errorType ==
-          "token") {
-          $('#tokenErrorModalLabel').html(response.data.details);
-          $('#tokenErrorModal').modal("show");
-          $('#tokenErrorModalBtn').click(function() {
-            $('#tokenErrorModal').modal("hide");
-          })
         }
       }, function errorCallback(response) {});
 
@@ -312,13 +305,16 @@ inspinia.controller('homeCtrl', ['$scope', '$rootScope', '$http', '$q',
     }
 
     $scope.deleteContact = function(emplId, emplName, emplEmail) {
+
       if (!emplId || emplId.length == 0) {
-        $('#upsailErrorModal').modal("show");
-        $('#upsailErrorModalHead').html("Process Deails");
-        $('#upsailErrorModalBody').html("Contact has not been assigned any Id");
-        $('#upsailErrorModalBtn').click(function() {
-          $('#upsailErrorModal').modal("hide");
-        })
+        // alert("Contact has not been assigned any Id");
+        $rootScope.config.rootModalShow = true;
+        $rootScope.config.rootModalHeader = "Failed";
+        $rootScope.config.responseText =
+          "Contact has noot been assigned any Id";
+        $rootScope.config.rootModalAction = function() {
+          $rootScope.config.rootModalShow = false;
+        };
         return;
       }
 
@@ -332,36 +328,33 @@ inspinia.controller('homeCtrl', ['$scope', '$rootScope', '$http', '$q',
           for (var i = 0; i < $scope.employees.length; i++) {
             if (emplId == $scope.employees[i].id) {
               $scope.employees.splice(i, 1);
-              $('#upsailErrorModal').modal("show");
-              $('#upsailErrorModalHead').html("Process Deails");
-              $('#upsailErrorModalBody').html("contacts deleted successfully");
-              $('#upsailErrorModalBtn').click(function() {
-                $('#upsailErrorModal').modal("hide");
-              })
+              // alert("Contact Deleted Successfully");
+              $rootScope.config.rootModalShow = true;
+              $rootScope.config.rootModalHeader = "Success";
+              $rootScope.config.responseText =
+                "Contact deleted Successfully";
+              $rootScope.config.rootModalAction = function() {
+                $rootScope.config.rootModalShow = false;
+              };
             }
           }
-        } else if (response.data.errorType && response.data.errorType ==
-          "token") {
-          $('#tokenErrorModalLabel').html(response.data.details);
-          $('#tokenErrorModal').modal("show");
-          $('#tokenErrorModalBtn').click(function() {
-            $('#tokenErrorModal').modal("hide");
-          })
-        } else if (response.data.hasOwnProperty("details")) {
-          $('#upsailErrorModal').modal("show");
-          $('#upsailErrorModalHead').html("Process Deails");
-          $('#upsailErrorModalBody').html(response.data.details);
-          $('#upsailErrorModalBtn').click(function() {
-            $('#upsailErrorModal').modal("hide");
-          })
+        } else if (response.data.hasOwnProperty("reason")) {
+          // alert(response.data.details);
+          $rootScope.config.rootModalShow = true;
+          $rootScope.config.rootModalHeader = "Failed";
+          $rootScope.config.responseText = response.data.reason;
+          $rootScope.config.rootModalAction = function() {
+            $rootScope.config.rootModalShow = false;
+          };
         } else {
-          $('#upsailErrorModal').modal("show");
-          $('#upsailErrorModalHead').html("Process Deails");
-          $('#upsailErrorModalBody').html("Something Wrong with the server");
-          $('#upsailErrorModalBtn').click(function() {
-            $('#upsailErrorModal').modal("hide");
-          })
           // alert("Something Wrong with the server");
+          $rootScope.config.rootModalShow = true;
+          $rootScope.config.rootModalHeader = "Failed";
+          $rootScope.config.responseText =
+            "Something Wrong with the Server";
+          $rootScope.config.rootModalAction = function() {
+            $rootScope.config.rootModalShow = false;
+          };
         }
       })
     }

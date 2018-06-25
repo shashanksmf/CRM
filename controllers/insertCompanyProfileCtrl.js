@@ -43,17 +43,10 @@ inspinia.controller('companyInsertProfileCtrl', ['$scope', '$rootScope',
 						$scope.cmpyProfileInfo = {};
 						$scope.hasError = false;
 
-					} else if (response.data.errorType && response.data.errorType ==
-						"token") {
-						$('#tokenErrorModalLabel').html(response.data.details);
-						$('#tokenErrorModal').modal("show");
-						$('#tokenErrorModalBtn').click(function() {
-							$('#tokenErrorModal').modal("hide");
-						})
 					} else {
 						$scope.hasError = true;
 						$timeout(function() {
-								$scope.errorMsg = response.data.details;
+								$scope.errorMsg = response.data.reason;
 							}, 100)
 							//alert(response.data.details);
 					}
@@ -78,17 +71,45 @@ inspinia.controller('companyInsertProfileCtrl', ['$scope', '$rootScope',
 
 			if (!info.name || !info.email) {
 				if (!info.name) {
-					alert("please enter Your Name ");
+					// alert("please enter Your Name ");
+					$rootScope.config.rootModalShow = true;
+					$rootScope.config.rootModalHeader = "Failed";
+					$rootScope.config.responseText =
+						"please enter your name ";
+					$rootScope.config.rootModalAction = function() {
+						$rootScope.config.rootModalShow = false;
+					};
 					return false;
 				} else if (!info.email) {
-					alert("please enter email address");
+					// alert("please enter email address");
+					$rootScope.config.rootModalShow = true;
+					$rootScope.config.rootModalHeader = "Failed";
+					$rootScope.config.responseText =
+						"please enter email address ";
+					$rootScope.config.rootModalAction = function() {
+						$rootScope.config.rootModalShow = false;
+					};
 					return false;
 				}
 			} else if (!info.phone) {
-				alert("please enter phone");
+				// alert("please enter phone");
+				$rootScope.config.rootModalShow = true;
+				$rootScope.config.rootModalHeader = "Failed";
+				$rootScope.config.responseText =
+					"please enter phone ";
+				$rootScope.config.rootModalAction = function() {
+					$rootScope.config.rootModalShow = false;
+				};
 				return false;
 			} else if (!validateEmail(info.email)) {
-				alert('Please enter valid email Id');
+				// alert('Please enter valid email Id');
+				$rootScope.config.rootModalShow = true;
+				$rootScope.config.rootModalHeader = "Failed";
+				$rootScope.config.responseText =
+					"please enter valid email address ";
+				$rootScope.config.rootModalAction = function() {
+					$rootScope.config.rootModalShow = false;
+				};
 			} else {
 				return true;
 			}

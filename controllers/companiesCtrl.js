@@ -13,13 +13,6 @@ inspinia.controller("companiesCtrl", ['$scope', '$rootScope', '$http', '$q',
 		API.getAllCompanies().then(function(response) {
 			if (response.data.result) {
 				$scope.companies = response.data.Users;
-			} else if ("errorType" in response.data && response.data.errorType ==
-				"token") {
-				$('#tokenErrorModalLabel').html(response.data.details);
-				$('#tokenErrorModal').modal("show");
-				$('#tokenErrorModalBtn').click(function() {
-					$('#tokenErrorModal').modal("hide");
-				})
 			}
 		})
 
@@ -38,7 +31,13 @@ inspinia.controller("companiesCtrl", ['$scope', '$rootScope', '$http', '$q',
 
 		$scope.deleteCompany = function(companyId) {
 			if (!companyId || companyId.length == 0) {
-				alert("Company has not been assigned any Id");
+				// alert("Company has not been assigned any Id");
+				$rootScope.config.rootModalShow = true;
+				$rootScope.config.rootModalHeader = "Failed";
+				$rootScope.config.responseText = "Company has not been assigned any Id";
+				$rootScope.config.rootModalAction = function() {
+					$rootScope.config.rootModalShow = false;
+				};
 				return;
 			}
 
@@ -49,20 +48,35 @@ inspinia.controller("companiesCtrl", ['$scope', '$rootScope', '$http', '$q',
 					for (var i = 0; i < $scope.companies.length; i++) {
 						if (companyId == $scope.companies[i].id) {
 							$scope.companies.splice(i, 1);
-							alert("Company Deleted Successfully");
+							// alert("Company Deleted Successfully");
+							$rootScope.config.rootModalShow = true;
+							$rootScope.config.rootModalHeader = "Success";
+							$rootScope.config.responseText =
+								"Company Deleted Successfully";
+							$rootScope.config.rootModalAction = function() {
+								$rootScope.config.rootModalShow = false;
+							};
+
 						}
 					}
-				} else if ("errorType" in response.data && response.data.errorType ==
-					"token") {
-					$('#tokenErrorModalLabel').html(response.data.details);
-					$('#tokenErrorModal').modal("show");
-					$('#tokenErrorModalBtn').click(function() {
-						$('#tokenErrorModal').modal("hide");
-					})
-				} else if (response.data.hasOwnProperty("details")) {
-					alert(response.data.details);
+				} else if (response.data.hasOwnProperty("reason")) {
+					// alert(response.data.details);
+					$rootScope.config.rootModalShow = true;
+					$rootScope.config.rootModalHeader = "Failed";
+					$rootScope.config.responseText = response.data.reason;
+					$rootScope.config.rootModalAction = function() {
+						$rootScope.config.rootModalShow = false;
+					};
+
 				} else {
-					alert("Something Wrong with the server");
+					// alert("Something Wrong with the server");
+					$rootScope.config.rootModalShow = true;
+					$rootScope.config.rootModalHeader = "Failed";
+					$rootScope.config.responseText =
+						"Something Wrong with the server";
+					$rootScope.config.rootModalAction = function() {
+						$rootScope.config.rootModalShow = false;
+					};
 				}
 			})
 		}

@@ -10,30 +10,16 @@ inspinia.controller('mainUserProfileCtrl', ['$scope', '$rootScope', '$http',
     var userId = $rootScope.userId || localStorage.getItem("userId");
     API.getUserInfo(userId).then(function(response) {
       if (response.data.result) {
-        $scope.mainUserInfo = response.data.details;
+        $scope.mainUserInfo = response.data.reason;
         $scope.getUserMailChimpDetails();
-      } else if (response.data.errorType && response.data.errorType ==
-        "token") {
-        $('#tokenErrorModalLabel').html(response.data.details);
-        $('#tokenErrorModal').modal("show");
-        $('#tokenErrorModalBtn').click(function() {
-          $('#tokenErrorModal').modal("hide");
-        })
       }
     });
 
     $scope.getUserMailChimpDetails = function() {
       API.getUserMailChimpDetails(userId).then(function(response) {
-        console.log("DATA", response.data.details);
+        console.log("DATA", response.data.reason);
         if (response.data.result) {
-          $scope.mailChimpDetails = response.data.details;
-        } else if (response.data.errorType && response.data.errorType ==
-          "token") {
-          $('#tokenErrorModalLabel').html(response.data.details);
-          $('#tokenErrorModal').modal("show");
-          $('#tokenErrorModalBtn').click(function() {
-            $('#tokenErrorModal').modal("hide");
-          })
+          $scope.mailChimpDetails = response.data.reason;
         }
       });
     }
@@ -45,20 +31,34 @@ inspinia.controller('mainUserProfileCtrl', ['$scope', '$rootScope', '$http',
       }).then(function(response) {
         console.log("saveMailChimpDetails", response);
         if (response.data.result) {
-          alert("MailChimp Details Saved Successfully");
+          // alert("MailChimp Details Saved Successfully");
+          $rootScope.config.rootModalShow = true;
+          $rootScope.config.rootModalHeader = "Success";
+          $rootScope.config.responseText =
+            "MailChimp Details Saved Successfully";
+          $rootScope.config.rootModalAction = function() {
+            $rootScope.config.rootModalShow = false;
+          };
           $scope.getUserMailChimpDetails();
         } else if (response.data.errorType && response.data.errorType ==
-          "token") {
-          $('#tokenErrorModalLabel').html(response.data.details);
-          $('#tokenErrorModal').modal("show");
-          $('#tokenErrorModalBtn').click(function() {
-            $('#tokenErrorModal').modal("hide");
-          })
-        } else if (response.data.errorType && response.data.errorType ==
           "listId") {
-          alert("List Id is invalid");
+          // alert("List Id is invalid");
+          $rootScope.config.rootModalShow = true;
+          $rootScope.config.rootModalHeader = "Failed";
+          $rootScope.config.responseText =
+            "List Id is invalid";
+          $rootScope.config.rootModalAction = function() {
+            $rootScope.config.rootModalShow = false;
+          };
         } else {
-          alert("Something Wrong with the server");
+          // alert("Something Wrong with the server");
+          $rootScope.config.rootModalShow = true;
+          $rootScope.config.rootModalHeader = "Failed";
+          $rootScope.config.responseText =
+            "Something Wrong with the server";
+          $rootScope.config.rootModalAction = function() {
+            $rootScope.config.rootModalShow = false;
+          };
         }
       });
     }
@@ -69,17 +69,24 @@ inspinia.controller('mainUserProfileCtrl', ['$scope', '$rootScope', '$http',
       }).then(function(response) {
         console.log("deleteMailChimpDetails", response);
         if (response.data.result) {
-          alert("Record Deleted Successfully");
+          // alert("Record Deleted Successfully");
+          $rootScope.config.rootModalShow = true;
+          $rootScope.config.rootModalHeader = "Success";
+          $rootScope.config.responseText =
+            "Record deleted Successfully";
+          $rootScope.config.rootModalAction = function() {
+            $rootScope.config.rootModalShow = false;
+          };
           $scope.getUserMailChimpDetails();
-        } else if (response.data.errorType && response.data.errorType ==
-          "token") {
-          $('#tokenErrorModalLabel').html(response.data.details);
-          $('#tokenErrorModal').modal("show");
-          $('#tokenErrorModalBtn').click(function() {
-            $('#tokenErrorModal').modal("hide");
-          })
         } else {
-          alert("Something Wrong with the server");
+          // alert("Something Wrong with the server");
+          $rootScope.config.rootModalShow = true;
+          $rootScope.config.rootModalHeader = "Failed";
+          $rootScope.config.responseText =
+            "Something Wrong with the Server";
+          $rootScope.config.rootModalAction = function() {
+            $rootScope.config.rootModalShow = false;
+          };
         }
       });
     }
@@ -91,13 +98,6 @@ inspinia.controller('mainUserProfileCtrl', ['$scope', '$rootScope', '$http',
         console.log("update main user profile response", response);
         if (response.data.result) {
 
-        } else if (response.data.errorType && response.data.errorType ==
-          "token") {
-          $('#tokenErrorModalLabel').html(response.data.details);
-          $('#tokenErrorModal').modal("show");
-          $('#tokenErrorModalBtn').click(function() {
-            $('#tokenErrorModal').modal("hide");
-          })
         }
       });
     }
@@ -118,20 +118,34 @@ inspinia.controller('mainUserProfileCtrl', ['$scope', '$rootScope', '$http',
       }).then(function(response) {
         console.log(response);
         if (response.data.result) {
-          alert("API Key Addedd Successfully");
+          // alert("API Key Addedd Successfully");
+          $rootScope.config.rootModalShow = true;
+          $rootScope.config.rootModalHeader = "Success";
+          $rootScope.config.responseText =
+            "API key Added Successfully";
+          $rootScope.config.rootModalAction = function() {
+            $rootScope.config.rootModalShow = false;
+          };
           $scope.getUserMailChimpDetails();
         } else if (response.data.errorType && response.data.errorType ==
-          "token") {
-          $('#tokenErrorModalLabel').html(response.data.details);
-          $('#tokenErrorModal').modal("show");
-          $('#tokenErrorModalBtn').click(function() {
-            $('#tokenErrorModal').modal("hide");
-          })
-        } else if (response.data.errorType && response.data.errorType ==
           "apiKey") {
-          alert("API Key is invalid");
+          // alert("API Key is invalid");
+          $rootScope.config.rootModalShow = true;
+          $rootScope.config.rootModalHeader = "Failed";
+          $rootScope.config.responseText =
+            "API key is invalid";
+          $rootScope.config.rootModalAction = function() {
+            $rootScope.config.rootModalShow = false;
+          };
         } else {
-          alert("Something Wrong with the server");
+          // alert("Something Wrong with the server");
+          $rootScope.config.rootModalShow = true;
+          $rootScope.config.rootModalHeader = "Failed";
+          $rootScope.config.responseText =
+            "Something Wrong with the server";
+          $rootScope.config.rootModalAction = function() {
+            $rootScope.config.rootModalShow = false;
+          };
         }
       });
 
@@ -149,20 +163,33 @@ inspinia.controller('mainUserProfileCtrl', ['$scope', '$rootScope', '$http',
       }).then(function(response) {
         console.log(response);
         if (response.data.result) {
-          alert("List Addedd Successfully");
+          // alert("List Addedd Successfully");
+          $rootScope.config.rootModalShow = true;
+          $rootScope.config.rootModalHeader = "Success";
+          $rootScope.config.responseText =
+            "List added Successfully";
+          $rootScope.config.rootModalAction = function() {
+            $rootScope.config.rootModalShow = false;
+          };
           $scope.getUserMailChimpDetails();
         } else if (response.data.errorType && response.data.errorType ==
-          "token") {
-          $('#tokenErrorModalLabel').html(response.data.details);
-          $('#tokenErrorModal').modal("show");
-          $('#tokenErrorModalBtn').click(function() {
-            $('#tokenErrorModal').modal("hide");
-          })
-        } else if (response.data.errorType && response.data.errorType ==
           "listId") {
-          alert("Invalid List Details");
+          // alert("Invalid List Details");
+          $rootScope.config.rootModalShow = true;
+          $rootScope.config.rootModalHeader = "Failed";
+          $rootScope.config.responseText = "Invalid List Details";
+          $rootScope.config.rootModalAction = function() {
+            $rootScope.config.rootModalShow = false;
+          };
         } else {
-          alert("Something Wrong with the server");
+          // alert("Something Wrong with the server");
+          $rootScope.config.rootModalShow = true;
+          $rootScope.config.rootModalHeader = "Failed";
+          $rootScope.config.responseText =
+            "Something Wrong with the Server";
+          $rootScope.config.rootModalAction = function() {
+            $rootScope.config.rootModalShow = false;
+          };
         }
       });
 
@@ -178,17 +205,24 @@ inspinia.controller('mainUserProfileCtrl', ['$scope', '$rootScope', '$http',
       }).then(function(response) {
         console.log(response);
         if (response.data.result) {
-          alert("List Created Successfully");
+          // alert("List Created Successfully");
+          $rootScope.config.rootModalShow = true;
+          $rootScope.config.rootModalHeader = "Success";
+          $rootScope.config.responseText =
+            "List Created Successfully";
+          $rootScope.config.rootModalAction = function() {
+            $rootScope.config.rootModalShow = false;
+          };
           $scope.getUserMailChimpDetails();
-        } else if (response.data.errorType && response.data.errorType ==
-          "token") {
-          $('#tokenErrorModalLabel').html(response.data.details);
-          $('#tokenErrorModal').modal("show");
-          $('#tokenErrorModalBtn').click(function() {
-            $('#tokenErrorModal').modal("hide");
-          })
         } else {
-          alert("Something Wrong with the server");
+          // alert("Something Wrong with the server");
+          $rootScope.config.rootModalShow = true;
+          $rootScope.config.rootModalHeader = "Failed";
+          $rootScope.config.responseText =
+            "Something went Wrong with the Server";
+          $rootScope.config.rootModalAction = function() {
+            $rootScope.config.rootModalShow = false;
+          };
         }
       });
 

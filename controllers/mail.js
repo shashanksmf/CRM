@@ -10,31 +10,26 @@ inspinia.controller('mailCtrl', ['$scope', '$rootScope', '$http', '$q', 'API',
 		API.getAllCampaigns().then(function(response) {
 			if (response.data.result) {
 				$scope.campaigns = response.data.camp;
-			} else if (response.data.errorType && response.data.errorType == "token") {
-				$('#tokenErrorModalLabel').html(response.data.details);
-				$('#tokenErrorModal').modal("show");
-				$('#tokenErrorModalBtn').click(function() {
-					$('#tokenErrorModal').modal("hide");
-				})
 			}
 		})
 
 		API.getAllGroups().then(function(response) {
 			if (response.data.result) {
 				$scope.groups = response.data;
-			} else if (response.data.errorType && response.data.errorType == "token") {
-				$('#tokenErrorModalLabel').html(response.data.details);
-				$('#tokenErrorModal').modal("show");
-				$('#tokenErrorModalBtn').click(function() {
-					$('#tokenErrorModal').modal("hide");
-				})
 			}
 		})
 
 		$scope.deleteCampaign = function(campaignId) {
 
 			if (!campaignId || campaignId.length == 0) {
-				alert("Campaign has not been assigned any Id");
+				// alert("Campaign has not been assigned any Id");
+				$rootScope.config.rootModalShow = true;
+				$rootScope.config.rootModalHeader = "Failed";
+				$rootScope.config.responseText =
+					"Campaign has not been assigned any Id";
+				$rootScope.config.rootModalAction = function() {
+					$rootScope.config.rootModalShow = false;
+				};
 				return;
 			}
 
@@ -45,20 +40,32 @@ inspinia.controller('mailCtrl', ['$scope', '$rootScope', '$http', '$q', 'API',
 					for (var i = 0; i < $scope.campaigns.length; i++) {
 						if (campaignId == $scope.campaigns[i].id) {
 							$scope.campaigns.splice(i, 1);
-							alert("Campaign Deleted Successfully");
+							// alert("Campaign Deleted Successfully");
+							$rootScope.config.rootModalShow = true;
+							$rootScope.config.rootModalHeader = "Success";
+							$rootScope.config.responseText = "Campaign Deleted Successfully ";
+							$rootScope.config.rootModalAction = function() {
+								$rootScope.config.rootModalShow = false;
+							};
 						}
 					}
-				} else if (response.data.hasOwnProperty("details")) {
-					alert(response.data.details);
-				} else if (response.data.errorType && response.data.errorType ==
-					"token") {
-					$('#tokenErrorModalLabel').html(response.data.details);
-					$('#tokenErrorModal').modal("show");
-					$('#tokenErrorModalBtn').click(function() {
-						$('#tokenErrorModal').modal("hide");
-					})
+				} else if (response.data.hasOwnProperty("reason")) {
+					// alert(response.data.details);
+					$rootScope.config.rootModalShow = true;
+					$rootScope.config.rootModalHeader = "Failed";
+					$rootScope.config.responseText = response.data.reason;
+					$rootScope.config.rootModalAction = function() {
+						$rootScope.config.rootModalShow = false;
+					};
 				} else {
-					alert("Something Wrong with the server");
+					// alert("Something Wrong with the server");
+					$rootScope.config.rootModalShow = true;
+					$rootScope.config.rootModalHeader = "Failed";
+					$rootScope.config.responseText =
+						"Something Wrong with the server ";
+					$rootScope.config.rootModalAction = function() {
+						$rootScope.config.rootModalShow = false;
+					};
 				}
 			})
 		}
@@ -94,10 +101,24 @@ inspinia.controller('mailCtrl', ['$scope', '$rootScope', '$http', '$q', 'API',
 			//console.log(groupObj);
 
 			if (!groupObj || !groupObj.id) {
-				alert("Please select group");
+				// alert("Please select group");
+				$rootScope.config.rootModalShow = true;
+				$rootScope.config.rootModalHeader = "Failed";
+				$rootScope.config.responseText =
+					"Please select group";
+				$rootScope.config.rootModalAction = function() {
+					$rootScope.config.rootModalShow = false;
+				};
 				return;
 			} else if (groupObj.Members.length <= 0) {
-				alert("No Members in group");
+				// alert("No Members in group");
+				$rootScope.config.rootModalShow = true;
+				$rootScope.config.rootModalHeader = "Failed";
+				$rootScope.config.responseText =
+					"No members in group ";
+				$rootScope.config.rootModalAction = function() {
+					$rootScope.config.rootModalShow = false;
+				};
 			} else {
 
 				var msgObj = {
@@ -114,7 +135,14 @@ inspinia.controller('mailCtrl', ['$scope', '$rootScope', '$http', '$q', 'API',
 					}
 				});
 				if (msgObj.messages.length <= 0) {
-					alert("No Phone Numbers attached to Members");
+					// alert("No Phone Numbers attached to Members");
+					$rootScope.config.rootModalShow = true;
+					$rootScope.config.rootModalHeader = "Failed";
+					$rootScope.config.responseText =
+						"No Phone number attached to members";
+					$rootScope.config.rootModalAction = function() {
+						$rootScope.config.rootModalShow = false;
+					};
 					return;
 				}
 				console.log(msgObj);
@@ -181,7 +209,14 @@ inspinia.controller('mailCtrl', ['$scope', '$rootScope', '$http', '$q', 'API',
 			xhr.setRequestHeader("accept", "application/json");
 
 			xhr.send(data);
-			alert("Please wait until we provide you API key");
+			// alert("Please wait until we provide you API key");
+			$rootScope.config.rootModalShow = true;
+			$rootScope.config.rootModalHeader = "Failed";
+			$rootScope.config.responseText =
+				"please wait until we provide your API key";
+			$rootScope.config.rootModalAction = function() {
+				$rootScope.config.rootModalShow = false;
+			};
 		}
 
 		var mailData = {
@@ -203,15 +238,10 @@ inspinia.controller('mailCtrl', ['$scope', '$rootScope', '$http', '$q', 'API',
 		API.getTemplate().then(function(response) {
 
 			if (response.data.result) {
-				var templateStr = JSON.stringify(response.data).replace(/\r?\n|\r/g, '');
+				var templateStr = JSON.stringify(response.data).replace(/\r?\n|\r/g,
+					'');
 				var str = ((JSON.parse(templateStr)).replace(/\r?\n|\r/g, ''));
 				$scope.templateObj = JSON.parse(str);
-			} else if (response.data.errorType && response.data.errorType == "token") {
-				$('#tokenErrorModalLabel').html(response.data.details);
-				$('#tokenErrorModal').modal("show");
-				$('#tokenErrorModalBtn').click(function() {
-					$('#tokenErrorModal').modal("hide");
-				})
 			}
 			//var html = decodeHtml(htmlObj.templ[0].html);
 			//$(html).children().find("#changeContent table > tbody > tr > td > p ").eq(1).html($scope.campaignMessage);
@@ -228,15 +258,19 @@ inspinia.controller('mailCtrl', ['$scope', '$rootScope', '$http', '$q', 'API',
 			$scope.htmlTemplate = $sce.trustAsHtml(html);
 			$timeout(function() {
 				//  document.querySelectorAll("#changeContent table tr td")[0].children[2].innerHTML = '';
-				document.querySelectorAll("#changeContent table tr td")[0].children[2]
+				document.querySelectorAll("#changeContent table tr td")[0].children[
+						2]
 					.remove();
 				//   document.querySelectorAll("#changeContent table tr td")[0].children[3].innerHTML = '';
-				document.querySelectorAll("#changeContent table tr td")[0].children[2]
+				document.querySelectorAll("#changeContent table tr td")[0].children[
+						2]
 					.remove();
-				document.querySelectorAll("#changeContent table tr td")[0].children[2]
+				document.querySelectorAll("#changeContent table tr td")[0].children[
+						2]
 					.remove();
 
-				document.querySelectorAll("#changeContent table tr td")[0].children[1]
+				document.querySelectorAll("#changeContent table tr td")[0].children[
+						1]
 					.innerHTML = $scope.campaignMessage || '';
 
 				//	console.log(document.querySelectorAll("#changeContent table tr td")[0].children[1].innerHTML)
@@ -259,24 +293,46 @@ inspinia.controller('mailCtrl', ['$scope', '$rootScope', '$http', '$q', 'API',
 		$scope.addCampaignSubmit = function() {
 
 			if (!$scope.campaignName) {
-				alert("Please Enter Campaign Name");
+				// alert("Please Enter Campaign Name");
+				$rootScope.config.rootModalShow = true;
+				$rootScope.config.rootModalHeader = "Failed";
+				$rootScope.config.responseText =
+					"please enter Campaign Name";
+				$rootScope.config.rootModalAction = function() {
+					$rootScope.config.rootModalShow = false;
+				};
 				return;
 			} else if (!$scope.groupSelected.id) {
-				alert("Please Select Group");
+				// alert("Please Select Group");
+				$rootScope.config.rootModalShow = true;
+				$rootScope.config.rootModalHeader = "Failed";
+				$rootScope.config.responseText =
+					"please select Group";
+				$rootScope.config.rootModalAction = function() {
+					$rootScope.config.rootModalShow = false;
+				};
 				return;
 			} else if (!$scope.groupSelected.segId || $scope.groupSelected.segId.length ==
 				0) {
-				alert(
-					"Mailchimp Segment Id not created, Please create segment for this group by updating the group"
-				);
+				// alert(
+				// "Mailchimp Segment Id not created, Please create segment for this group by updating the group"
+				// );
+				$rootScope.config.rootModalShow = true;
+				$rootScope.config.rootModalHeader = "Failed";
+				$rootScope.config.responseText =
+					"Mailchimp Segment Id not created, Please create segment for this group by updating the group";
+				$rootScope.config.rootModalAction = function() {
+					$rootScope.config.rootModalShow = false;
+				};
 				return;
 			}
 
 			$scope.formData = new FormData();
 			$scope.formData.append("groupId", $scope.groupSelected.id);
 			$scope.formData.append("name", $scope.campaignName);
-			$scope.formData.append("createdBy", $rootScope.userName || localStorage.getItem(
-				"userName") || "Admin");
+			$scope.formData.append("createdBy", $rootScope.userName || localStorage
+				.getItem(
+					"userName") || "Admin");
 			$scope.formData.append("emails", $rootScope.userEmail || localStorage.getItem(
 				"userName") || "shashanksmf@outlook.com");
 			$scope.formData.append("subject", $scope.campaignEmailSubject);
@@ -294,29 +350,29 @@ inspinia.controller('mailCtrl', ['$scope', '$rootScope', '$http', '$q', 'API',
 					API.runCampaign($scope.campaignId).then(function(response) {
 							console.log(response);
 							if (response.data.responce) {
-								alert("campaign Successfully started");
+								// alert("campaign Successfully started");
 								// location.reload();
-							} else if (response.data.errorType && response.data.errorType ==
-								"token") {
-								$('#tokenErrorModalLabel').html(response.data.details);
-								$('#tokenErrorModal').modal("show");
-								$('#tokenErrorModalBtn').click(function() {
-									$('#tokenErrorModal').modal("hide");
-								})
+								$rootScope.config.rootModalShow = true;
+								$rootScope.config.rootModalHeader = "Success";
+								$rootScope.config.responseText =
+									"Campaign Successfully started";
+								$rootScope.config.rootModalAction = function() {
+									$rootScope.config.rootModalShow = false;
+								};
 							}
 						},
 						function(data) {
-							alert("campaign Successfully started");
+							// alert("campaign Successfully started");
+							$rootScope.config.rootModalShow = true;
+							$rootScope.config.rootModalHeader = "Success";
+							$rootScope.config.responseText =
+								"Campaign Successfully started";
+							$rootScope.config.rootModalAction = function() {
+								$rootScope.config.rootModalShow = false;
+							};
 							// Handle error here
 							// location.reload();
 						})
-				} else if (response.data.errorType && response.data.errorType ==
-					"token") {
-					$('#tokenErrorModalLabel').html(response.data.details);
-					$('#tokenErrorModal').modal("show");
-					$('#tokenErrorModalBtn').click(function() {
-						$('#tokenErrorModal').modal("hide");
-					})
 				}
 
 			})

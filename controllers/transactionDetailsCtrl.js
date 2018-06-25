@@ -8,12 +8,6 @@ inspinia.controller("transactionDetailsCtrl", ['$scope', '$rootScope', '$http',
 			console.log(response);
 			if (response.data.result) {
 				$scope.transactionDetails = response.data.details;
-			} else if (response.data.errorType && response.data.errorType == "token") {
-				$('#tokenErrorModalLabel').html(response.data.details);
-				$('#tokenErrorModal').modal("show");
-				$('#tokenErrorModalBtn').click(function() {
-					$('#tokenErrorModal').modal("hide");
-				})
 			}
 		})
 

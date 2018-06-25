@@ -22,13 +22,9 @@ inspinia.controller('companyProfileCtrl', ['$scope', '$rootScope', '$http',
       if (response.data.result) {
         $scope.companyData = response.data.Users[0];
         $scope.companyData.id = companyId;
-      } else if (response.data.errorType && response.data.errorType ==
-        "token") {
-        $('#tokenErrorModalLabel').html(response.data.details);
-        $('#tokenErrorModal').modal("show");
-        $('#tokenErrorModalBtn').click(function() {
-          $('#tokenErrorModal').modal("hide");
-        })
+        $rootScope.config.rootModalAction = function() {
+          $rootScope.config.rootModalShow = false;
+        };
       }
     })
 
@@ -40,17 +36,10 @@ inspinia.controller('companyProfileCtrl', ['$scope', '$rootScope', '$http',
     }).then(function(response) {
 
       if (response.data.result) {
-        if (response.data.details.length > 0) {
-          $scope.files = response.data.details;
+        if (response.data.reason.length > 0) {
+          $scope.files = response.data.reason;
           console.log($scope.files)
         }
-      } else if (response.data.errorType && response.data.errorType ==
-        "token") {
-        $('#tokenErrorModalLabel').html(response.data.details);
-        $('#tokenErrorModal').modal("show");
-        $('#tokenErrorModalBtn').click(function() {
-          $('#tokenErrorModal').modal("hide");
-        })
       }
 
     });
@@ -72,17 +61,16 @@ inspinia.controller('companyProfileCtrl', ['$scope', '$rootScope', '$http',
         if (response.data.result) {
           // alert("Picture successFully Uploaded")
           return;
-        } else if (response.data.errorType && response.data.errorType ==
-          "token") {
-          $('#tokenErrorModalLabel').html(response.data.details);
-          $('#tokenErrorModal').modal("show");
-          $('#tokenErrorModalBtn').click(function() {
-            $('#tokenErrorModal').modal("hide");
-          })
         }
 
-        alert("server is down please try again");
-
+        // alert("server is down please try again");
+        $rootScope.config.rootModalShow = true;
+        $rootScope.config.rootModalHeader = "Failed";
+        $rootScope.config.responseText =
+          "Server is down please try again";
+        $rootScope.config.rootModalAction = function() {
+          $rootScope.config.rootModalShow = false;
+        };
       })
     };
 
@@ -109,15 +97,14 @@ inspinia.controller('companyProfileCtrl', ['$scope', '$rootScope', '$http',
           if (response.data.responce) {
             //  alert("company data saved successfully");
             $scope.profileEdit = false;
-          } else if (response.data.errorType && response.data.errorType ==
-            "token") {
-            $('#tokenErrorModalLabel').html(response.data.details);
-            $('#tokenErrorModal').modal("show");
-            $('#tokenErrorModalBtn').click(function() {
-              $('#tokenErrorModal').modal("hide");
-            })
           } else {
-            alert("server is down please try again");
+            $rootScope.config.rootModalShow = true;
+            $rootScope.config.rootModalHeader = "Failed";
+            $rootScope.config.responseText =
+              "Server is down please try again";
+            $rootScope.config.rootModalAction = function() {
+              $rootScope.config.rootModalShow = false;
+            };
           }
         })
       }
@@ -141,7 +128,14 @@ inspinia.controller('companyProfileCtrl', ['$scope', '$rootScope', '$http',
     $scope.uploadNewFileAttach = function(fileName) {
 
       if (!fileName || fileName.length < 0) {
-        alert("Please Enter FileName");
+        // alert("Please Enter FileName");
+        $rootScope.config.rootModalShow = true;
+        $rootScope.config.rootModalHeader = "Failed";
+        $rootScope.config.responseText =
+          "Please Enter file name";
+        $rootScope.config.rootModalAction = function() {
+          $rootScope.config.rootModalShow = false;
+        };
         return false;
       }
 
@@ -157,7 +151,14 @@ inspinia.controller('companyProfileCtrl', ['$scope', '$rootScope', '$http',
           $("#fileNameModal").modal("hide");
           $scope.fileAttach = '';
         } else {
-          alert("Network problem Please Try Again");
+          // alert("Network problem Please Try Again");
+          $rootScope.config.rootModalShow = true;
+          $rootScope.config.rootModalHeader = "Failed";
+          $rootScope.config.responseText =
+            "Network problem Please Try Again";
+          $rootScope.config.rootModalAction = function() {
+            $rootScope.config.rootModalShow = false;
+          };
         }
 
 
