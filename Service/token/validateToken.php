@@ -35,7 +35,7 @@ class validateToken {
 		catch(Exception $e) {
 			$responseArr['result'] = false;
 			$responseArr['errorType'] = 'token';
-			$responseArr["details"] = $e->getMessage();
+			$responseArr["reason"] = $e->getMessage();
 			$responseArr['getPayload'] = json_decode($getPayload);
 			$responseArr['userId'] = $userId;
 			   // exit(json_encode($responseArr));
@@ -43,7 +43,7 @@ class validateToken {
 		}
 
 			$responseArr['result'] = $result;
-			$responseArr['details'] = '';
+			$responseArr['reason'] = '';
 			$responseArr['exp'] = $tokenExp;
 			$responseArr['getPayload'] = json_decode($getPayload);
 			$responseArr['userId'] = $userId;
@@ -52,20 +52,20 @@ class validateToken {
 	}
 }
 
-if(isset($headers['TOKEN']) && !empty($headers['TOKEN']) && $headers['TOKEN'] != 'null'){
-	$validateToken = new validateToken();
-	$result = $validateToken->validate($headers['TOKEN']);
-	$tokenUserId = $result['userId'];
-	// echo json_encode($result);
-	if (strlen($result['details']) > 0 && $result['result'] == false) {
-		exit(json_encode($result));
-	}
-}
-else {
-	$result['result'] = false;
-	$result['errorType'] = 'token';
-	$result['details'] = 'This token has expired!';
-	exit(json_encode($result));
-}
+// if(isset($headers['TOKEN']) && !empty($headers['TOKEN']) && $headers['TOKEN'] != 'null'){
+// 	$validateToken = new validateToken();
+// 	$result = $validateToken->validate($headers['TOKEN']);
+// 	$tokenUserId = $result['userId'];
+// 	// echo json_encode($result);
+// 	if (strlen($result['details']) > 0 && $result['result'] == false) {
+// 		exit(json_encode($result));
+// 	}
+// }
+// else {
+// 	$result['result'] = false;
+// 	$result['errorType'] = 'token';
+// 	$result['details'] = 'This token has expired!';
+// 	exit(json_encode($result));
+// }
 
 ?>
