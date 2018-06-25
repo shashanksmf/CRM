@@ -40,23 +40,6 @@
 <!-- Main controller with serveral data used in Inspinia theme on diferent view -->
 <body ng-controller="MainCtrl as main" class="{{$state.current.data.specialClass}}" landing-scrollspy id="page-top">
 
-<div class="modal fade" id="tokenErrorModal" tabindex="-1" role="dialog" aria-labelledby="tokenErrorModalLabel" aria-hidden="true" style="z-index: 99999999 !important">
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title text-center" id="tokenErrorModalLabel"></h4>
-          </div>
-          <div class="modal-footer">
-            <div style="float: left;">
-                <h4 class="modal-title">Please Login.</h4>
-            </div>
-            <a href="/#/login" id="tokenErrorModalBtn" class="btn btn-danger" role="button" aria-pressed="true">OK</a>
-          </div>
-        </div>
-      </div>
-</div>
-
-
 <!-- Main view  -->
 <div ui-view></div>
 
@@ -67,7 +50,34 @@
   <chatbox chat="chat" parentindex="{{$index}}" closechatwindow="closechatwindow($index)"></chatbox>
 </div>
 <div>
+<!-- deleteModal -->
+<custommodal
+  action="config.rootModalAction()"
+  isshow="config.rootModalShow"
+  header="config.rootModalHeader"
+  responsetext="config.responseText">
+</custommodal>
+<!-- deleteModal -->
 <!--chatbox directive-->
+
+<!--
+<div class="modal fade" id="tokenErrorModal" tabindex="-1" role="dialog" aria-labelledby="tokenErrorModalLabel" aria-hidden="true" style="z-index: 99999999 !important">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center" id="tokenErrorModalLabel"></h4>
+      </div>
+      <div class="modal-footer">
+        <div style="float: left;">
+            <h4 class="modal-title">Please Login.</h4>
+        </div>
+        <a href="/#/login" id="tokenErrorModalBtn" class="btn btn-danger" role="button" aria-pressed="true">OK</a>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
 
 <!-- jQuery and Bootstrap -->
 <script src="js/jquery/jquery-2.1.1.min.js"></script>
@@ -135,7 +145,7 @@
 <script src="controllers/companyProfileCtrl.js"></script>
 <script src="Directives/searchbar.js"></script>
 <script src="Directives/friendList.js"></script>
-
+<script src="Directives/customModal.js"></script>
 
 <script src="controllers/insertBulkDataCtrl.js"></script>
 <script src="controllers/transactionDetailsCtrl.js"></script>
