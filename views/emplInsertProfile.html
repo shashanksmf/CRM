@@ -70,7 +70,7 @@
 
                     <div class="form-group"><label class="col-lg-2 control-label">Phone No<i class="fa fa-asterisk fs8px"></i></label>
                         <div class="col-lg-10">
-                            <input type="text" placeholder="Phone No" class="form-control" ng-model="emplProfileInfo.phone">
+                            <input type="number" placeholder="Phone No" class="form-control" ng-model="emplProfileInfo.phone">
                         </div>
                     </div>
 
@@ -80,6 +80,9 @@
                         </div>
                     </div>
                 </form>
+                <div class="row-fluid" style="padding-left: 90px;margin-left: 370px;margin-top: 50px;padding-bottom: 50px;background-color: white">
+                    <button type="button" class="btn btn-primary" ng-click="saveEmpl()">Save Employee</button>
+                </div>
             </div>
 
              <div class="ibox-content col-lg-6" style="clear: none;">
@@ -95,7 +98,7 @@
 
                     <div class="form-group"><label class="col-lg-2 control-label">Age</label>
                         <div class="col-lg-10">
-                            <input type="text" placeholder="Age" class="form-control">
+                            <input type="number" placeholder="Age" class="form-control">
                         </div>
                     </div>
 
@@ -156,10 +159,10 @@
 
 
 </style>
-
+<!--
     <div class="row-fluid" style="padding-left: 90px;padding-bottom: 50px;background-color: white">
         <button type="button" class="btn btn-primary" ng-click="saveEmpl()">Save Employee</button>
-    </div>
+    </div> -->
 </div>
 
 
