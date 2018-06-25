@@ -15,16 +15,17 @@ $tId = @$_GET['tId'];
 $responseArr = array();
 require_once "../Controller/StaticDBCon.php";
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
-
+// print_r($conn);
 if($conn->connect_error) {
 	$responseArr["result"] = false;
-	$responseArr["details"] = $conn->connect_error;
+	$responseArr["reason"] = $conn->connect_error;
 	exit(json_encode($responseArr));
 }
-
+// $tId=1;
 $sql = "SELECT * FROM transactiondetails WHERE tId=".$tId;
 @mysqli_set_charset($conn,"utf8");
 $result = mysqli_query($conn, $sql);
+// print_r($result);
 if (@mysqli_num_rows($result) > 0) {
     // output data of each row
        // print_r($result);
@@ -37,7 +38,7 @@ if (@mysqli_num_rows($result) > 0) {
 	echo json_encode($responseArr);
 } else {
 	$responseArr["result"] = false;
-	$responseArr["details"] = "Transaction Details Not Found";
+	$responseArr["reason"] = "Transaction Details Not Found";
 	echo (json_encode($responseArr));
 }
 mysqli_close($conn);

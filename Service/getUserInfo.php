@@ -17,7 +17,7 @@ $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon
 
 if($conn->connect_error) {
 	$responseArr["result"] = false;
-	$responseArr["details"] = $conn->connect_error;
+	$responseArr["reason"] = $conn->connect_error;
 	exit(json_encode($responseArr));
 }
 
@@ -37,7 +37,7 @@ if (@mysqli_num_rows($result) > 0) {
 	echo json_encode($responseArr);
 } else {
 	$responseArr["result"] = false;
-	$responseArr["details"] = "user Not found";
+	$responseArr["reason"] = "user Not found";
 	echo (json_encode($responseArr));
 }
 mysqli_close($conn);

@@ -14,7 +14,7 @@ require_once "./../Controller/StaticDBCon.php";
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 if($conn->connect_error) {
 	$responseArr["result"] = false;
-	$responseArr["details"] = $conn->connect_error;
+	$responseArr["reason"] = $conn->connect_error;
 	exit(json_encode($responseArr));
 }
 
@@ -33,7 +33,7 @@ if(sizeof($smsArr > 0)  && array_key_exists("data", $smsArr))	 {
 		$responseArr["result"] = true;
 	} else {
 		$responseArr["result"] = false;
-		$responseArr["details"] = mysqli_error($conn);
+		$responseArr["reason"] = mysqli_error($conn);
 	}
 
 	echo json_encode($responseArr);
@@ -41,7 +41,7 @@ if(sizeof($smsArr > 0)  && array_key_exists("data", $smsArr))	 {
 }
 else {
 	$responseArr["result"] = false;
-	$responseArr["details"] = "Empty data";
+	$responseArr["reason"] = "Empty data";
 	echo json_encode($responseArr);
 }
 

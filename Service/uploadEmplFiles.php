@@ -17,7 +17,7 @@ require_once "../Controller/StaticDBCon.php";
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 if($conn->connect_error) {
 	$responseArr["result"] = false;
-	$responseArr["details"] = $conn->connect_error;
+	$responseArr["reason"] = $conn->connect_error;
 	exit(json_encode($responseArr));
 }
 
@@ -72,7 +72,7 @@ if(isset($_FILES['image'])) {
 	}
 	else{
 		$responseArr["result"] = false;
-		$responseArr["details"] = "error occured";
+		$responseArr["reason"] = "error occured";
 		echo json_encode($responseArr);
 
 	}
@@ -80,7 +80,7 @@ if(isset($_FILES['image'])) {
 }
 else{
 	$responseArr["result"] = false;
-	$responseArr["details"] = "server is down";
+	$responseArr["reason"] = "server is down";
 	echo json_encode($responseArr);
 }
 

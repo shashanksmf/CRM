@@ -48,7 +48,7 @@ $responseArr = array();
 if (!$conn) {
 //echo "not conn";
     $responseArr["result"] = false;
-    $responseArr["details"] =  mysqli_connect_error();
+    $responseArr["reason"] =  mysqli_connect_error();
     die($responseArr);
 }
 mysqli_set_charset($conn,"utf8");
@@ -60,7 +60,7 @@ if (mysqli_query($conn, $sql)) {
 } else {
 //echo "else".mysqli_error($conn);
     $responseArr["result"] = false;
-    $responseArr["details"] = mysqli_error($conn);
+    $responseArr["reason"] = mysqli_error($conn);
     echo json_encode($responseArr);
    // echo "Error updating record: " . mysqli_error($conn);
 }
@@ -93,7 +93,7 @@ if (mysqli_query($conn, $sql)) {
 } else {
 //echo "else".mysqli_error($conn);
     $responseArr["result"] = false;
-    $responseArr["details"] = mysqli_error($conn);
+    $responseArr["reason"] = mysqli_error($conn);
     echo json_encode($responseArr);
    // echo "Error updating record: " . mysqli_error($conn);
 }
@@ -121,7 +121,7 @@ if (mysqli_query($conn, $sql)) {
 } else {
 //echo "else".mysqli_error($conn);
     $responseArr["result"] = false;
-    $responseArr["details"] = mysqli_error($conn);
+    $responseArr["reason"] = mysqli_error($conn);
     echo json_encode($responseArr);
    // echo "Error updating record: " . mysqli_error($conn);
 }

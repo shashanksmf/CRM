@@ -15,7 +15,7 @@ $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon
 $responseArr = array();
 if($conn->connect_error) {
 	$responseArr["result"] = false;
-	$responseArr["details"] = $conn->connect_error;
+	$responseArr["reason"] = $conn->connect_error;
 	exit(json_encode($responseArr));
 }
 //echo "Hi";
@@ -45,7 +45,7 @@ $imageUrl = "";
 //echo "Hello";
 if(!isset($name) || empty($name) || !isset($email) || empty($email)) {
 	$responseArr["result"] = false;
-	$responseArr["details"] = "please enter name and emailId";
+	$responseArr["reason"] = "please enter name and emailId";
 	exit(json_encode($responseArr));
 }
 //check duplicate email address
@@ -57,7 +57,7 @@ $emailResult = mysqli_query($conn, $checkEmailSql);
 if (mysqli_num_rows($emailResult) > 0) {
 	//echo "email address exits";
 	$responseArr["result"] = false;
-	$responseArr["details"] = "Email address Already Exists";
+	$responseArr["reason"] = "Email address Already Exists";
 	exit(json_encode($responseArr));
 }
 

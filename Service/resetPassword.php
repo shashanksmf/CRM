@@ -19,14 +19,14 @@ $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon
 $responseArr = array();
 if (!$conn) {
 	$responseArr["result"] = false;
-	$responseArr["details"] =  mysqli_connect_error();
-	die($responseArr["details"]);
+	$responseArr["reason"] =  mysqli_connect_error();
+	die($responseArr["reason"]);
 }
 
 if(!isset($email) || empty($email)) {
 	$responseArr["result"] = false;
-	$responseArr["details"] =  "Please enter Email Id";
-	die($responseArr["details"]);
+	$responseArr["reason"] =  "Please enter Email Id";
+	die($responseArr["reason"]);
 }
 
 // code for random alpha numeric string generator
@@ -57,11 +57,11 @@ if (mysqli_query($conn, $sql)) {
 
 	if( $retval == true ) {
 		$responseArr["result"] = true;
-		$responseArr["details"] = "Please check your Inbox or Spam to reset your Password";
+		$responseArr["reason"] = "Please check your Inbox or Spam to reset your Password";
 		echo json_encode($responseArr);
 	}else {
 		$responseArr["result"] = false;
-		$responseArr["details"] = "mail Function failed";
+		$responseArr["reason"] = "mail Function failed";
 		echo json_encode($responseArr);
 	}
 
@@ -69,7 +69,7 @@ if (mysqli_query($conn, $sql)) {
 
 } else {
 	$responseArr["result"] = false;
-	$responseArr["details"] = mysqli_error($conn);
+	$responseArr["reason"] = mysqli_error($conn);
 	echo json_encode($responseArr);
   //  echo "Error updating record: " . mysqli_error($conn);
 }

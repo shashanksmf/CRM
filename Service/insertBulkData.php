@@ -8,11 +8,11 @@ header('content-type: application/json; charset=utf-8');
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 // require_once "./phpHeader/getHeader.php";
-// $headers = apache_request_headers();
-// require_once "./token/validateToken.php";
+$headers = apache_request_headers();
+require_once "./token/validateToken.php";
 
-//$userId = $tokenUserId;
-$userId = 4;
+// $userId = $tokenUserId;
+// $userId = 4;
 // echo $userId;
 
 require_once "../Controller/EmailMgr.php";
@@ -22,24 +22,37 @@ require_once "./BulkImport/objectToArray.php";
 require_once "./BulkImport/checkDupEmail.php";
 require_once "./BulkImport/insertInTransactionTable.php";
 require_once "./BulkImport/insertInTransactionDetails.php";
+require_once "../Controller/StaticDBCon.php";
 
 $objectToArray = new objectToArray();
 $checkDupEmail = new checkDupEmail();
 $transactionTable = new transactionTable();
 $transactionDetails = new transactionDetails();
 
-$data = $_POST['data'];
-$userId =$_POST['userId'];
+// print_r($_POST['bulkData']);
+// print_r($_POST['userId']);
+$postData=file_get_contents('php://input');
+$postDataArr=array();
+$postDataArr=json_decode($postData,true);
+// print_r($postDataArr);
+
+$data = $postDataArr["bulkData"];
+// if(isset($_POST["bulkData"])){
+//   $data=$_POST["bulkData"];
+// }
+$userId= $postDataArr["userId"];
+// if(isset($_POST["userId"])){
+  // $userId=$_POST["userId"];
+// }
+// $userId =$_POST['userId'];
 // print_r($data);
-// print_r($_POST['data']);
 // exit();
-require_once "../Controller/StaticDBCon.php";
 
 $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 
 if (!$conn) {
     $responseArr["result"] = false;
-    $responseArr["details"] =  mysqli_connect_error();
+    $responseArr["reason"] =  mysqli_connect_error();
     die($responseArr);
 }
 
@@ -63,7 +76,7 @@ $encodedData =  $data;
 
 $responseArr["result"] = true;
 $responseArr["details"] = array();
-$totalrecords = count($data);
+$totalrecords = count($postDataArr['bulkData']);
 $totalinserted = 0;
 $totalfailed = 0;
 $status = "";
