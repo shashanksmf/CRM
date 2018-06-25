@@ -5,7 +5,7 @@
 	$conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
 	if($conn->connect_error) {
 		$responseArr["result"] = false;
-		$responseArr["details"] = $conn->connect_error;
+		$responseArr["reason"] = $conn->connect_error;
 		exit(json_encode($responseArr));
 	}
 
@@ -24,7 +24,7 @@
 		    $responseArr["result"] = true;
 		} else {
 			$responseArr["result"] = false;
-			$responseArr["details"] = mysqli_error($conn);
+			$responseArr["reason"] = mysqli_error($conn);
 		}
 
 		echo json_encode($responseArr);
@@ -32,7 +32,7 @@
 	}
 	else {
 		$responseArr["result"] = false;
-		$responseArr["details"] = "Empty data";
+		$responseArr["reason"] = "Empty data";
 		echo json_encode($responseArr);
 	}
 
