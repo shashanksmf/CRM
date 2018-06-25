@@ -14,8 +14,8 @@ class transactionDetails {
 		$responseArr = array();
 		if($conn->connect_error) {
 			$responseArr["result"] = false;
-			$responseArr["details"] = $conn->connect_error;
-			exit(json_encode($responseArr["details"]));
+			$responseArr["reason"] = $conn->connect_error;
+			exit(json_encode($responseArr["reason"]));
 		}
 
 		mysqli_set_charset($conn,"utf8");
@@ -29,7 +29,7 @@ class transactionDetails {
 		} else {
 			// $last_id = mysqli_insert_id($conn);
 			$responseArr["result"] = false;
-			$responseArr["details"] = mysqli_error($conn);
+			$responseArr["reason"] = mysqli_error($conn);
          // print_r("Response in Tr",$responseArr);
 			return $responseArr;
 
