@@ -1,0 +1,47 @@
+<div class="deleteModal">
+  <div class="overlay" ng-class="{'block':isshow}"></div>
+ <div ng-class="{'block':isshow}" class="modal fade-in"  id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true" style="z-index: 99999999 !important">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title text-center" id="deleteModalHead">{{header}}</h4>
+          </div>
+          <div class="modal-footer">
+            <div style="float: left;">
+                <h4 class="modal-title" id="deleteModalBody">{{responsetext}}</h4>
+            </div>
+            <br/>
+            <div>
+              <a align="right" id="deleteModalBtn" type="button" class="btn btn-info"
+              ng-click="action()" role="button" aria-pressed="true">OK</a>
+            </div>
+          </div>
+        </div>
+      </div>
+ </div>
+ <style>
+ .modal-content{
+   top: 50px;
+  width: 302px;
+  display: table;
+ }
+ .modal.block {
+   display:block;
+ }
+ .overlay {
+    display: :none;
+ }
+
+ .overlay.block{
+   display: block;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: grey;
+    opacity: 0.5;
+    z-index: 9999;
+  }
+ </style
+</div>
