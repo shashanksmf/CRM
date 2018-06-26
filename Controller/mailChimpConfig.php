@@ -9,11 +9,11 @@
 /**
  * Description of StaticDBCon
  *
- 
+
  * @author SEARCH
  */
 class MailChimpConfig {
-    
+
     //public $mailChimpApiKey = getenv("mailChimpApiKey");
     public $mailChimpApiKey;
     public static $mailChimpSubDomainInit = 'us14.';
