@@ -48,7 +48,6 @@ class CompanyController{
 		}
 
 			$sql = "SELECT * FROM company where id='".$id."' AND isactive = 1 LIMIT 1;";
-
 		$result = $conn->query($sql);
 		//echo $sql.' id : '.$id;
 		if (@mysqli_num_rows($result) > 0) {
