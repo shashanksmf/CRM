@@ -33,7 +33,7 @@ class MailChimpService {
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
     curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
-
+    $result = curl_exec($ch);
     return $result;
   }
 
