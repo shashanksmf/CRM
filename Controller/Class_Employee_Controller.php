@@ -13,7 +13,7 @@ class EmployeeController{
             }
             if($id==''){
             //	$sql = "SELECT * FROM employee inner join company on company.id = employee.companyId;";
-                $sql = "SELECT * FROM employee";
+                $sql = "SELECT * FROM employee Limit=10";
             }else{
             //	$sql = "SELECT * FROM erp_crm.employee inner join company on company.id = employee.companyId where company.id='".$id."';";
                 $sql = "SELECT * FROM erp_crm.employee where id='".$id."';";
@@ -37,6 +37,7 @@ class EmployeeController{
 	}
 
 	public function getEmployeeJson($id){
+		// exit("Unable to connect to" );
             $EmployeeList = $this->getEmployeeList($id);
             $comps = new CompanyController();
             $jsonStr = '{"Employees":[';
