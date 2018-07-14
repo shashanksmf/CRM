@@ -1,0 +1,33 @@
+<html>
+<body>
+  <div>
+      <table class="table table-striped">
+          <thead>
+              <tr>
+                <th>List Name</th>
+                <th>Type</th>
+                  <th>API KEY</th>
+                  <th>date_created</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="dt in mailChimpDetails">
+                <td><span>{{dt.listname}}</span></td>
+                <td><span>{{dt.type}}</span></td>
+                <td><span>{{dt.APIKEY}}</span></td>
+                <td><span>{{dt.date_created}}</span></td>
+                <td>
+                  <!-- <span class="fa fa-check" style="cursor: pointer;" ng-if="editRow == $index+1" ng-click="saveMailChimpDetails($index+1, dt)"></span> -->
+                  <span class="fa fa-pencil" style="cursor: pointer;" ng-click="select($index)" ng-if="editRow != $index+1"></span>
+                </td>
+                <td>
+                  <span class="glyphicon glyphicon-trash" style="cursor: pointer;" ng-click="deleteMailChimpDetails(dt)"></span>
+                </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</body>
+</html>

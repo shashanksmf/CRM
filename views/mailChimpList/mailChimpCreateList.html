@@ -1,0 +1,140 @@
+<div>
+   <div class="ibox-content" >
+      <ul class="nav nav-pills">
+         <li ng-class="{'active':activeTab == 1}"><a  id='tab1'>Account Information</a></li>
+         <li ng-class="{'active':activeTab == 2}"><a  target="_self" id='tab2'>Contact Information</a></li>
+         <li ng-class="{'active':activeTab == 3}"><a  target="_self" id='tab3'>Campaign_defaults</a></li>
+         <!-- <li><a data-toggle="pill" href="#menu3">Menu 3</a></li> -->
+      </ul>
+      <div class="tab-content">
+         <div  id="accountinfo" class="tab-pane fade" ng-class="{' in active':activeTab == 1}">
+            <h2>Account Information</h2>
+            <form class="form-horizontal" >
+               <div class="form-group">
+                  <label for="createListApiKey" class="col-lg-2 control-label">API Key: </label>
+                  <div class="col-lg-10">
+                     <input  type="text" ng-trim="true" ng-model="createListApiKey" ng-readonly="isEdit?true:false" id="createListApiKey"  placeholder="API Key" class="form-control" required>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="createListName" class="col-lg-2 control-label">List Name: </label>
+                  <div class="col-lg-10">
+                     <input type="text" ng-trim="true" ng-model="createListName" ng-readonly="isEdit?true:false" id="createListName" placeholder="list name" class="form-control" required>
+                  </div>
+               </div>
+            </form>
+            <!-- <a id="prev" class="btn btn-info btnPrevious" >Previous</a> -->
+            </div>
+         <div  id="contactinfo" class="tab-pane fade" ng-class="{' in active':activeTab == 2}">
+            <h2>Contact Information</h2>
+            <form class="form-horizontal" >
+               <div class="form-group">
+                  <label class="col-lg-2 control-label" for="createListCompany">Company:</label>
+                  <div class="col-lg-10">
+                     <input type="text" ng-trim="true" ng-model="createListCompany" id="createListCompany" placeholder="Company Name" class="form-control" required>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-lg-2 control-label" for="createListAddress1">Address1:</label>
+                  <div class="col-lg-10">  <input type="text" ng-trim="true" ng-model="createListAddress1" id="createListAddress1" placeholder="Address1" class="form-control" required>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="createListAddress2" class="col-lg-2 control-label">Address2</label>
+                  <div class="col-lg-10">
+                     <input type="text" ng-trim="true" ng-model="createListAddress2" id="createListAddress2" placeholder="Address2" class="form-control">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-lg-2 control-label" for="createListCity">City:</label>
+                  <div class="col-lg-10">
+                     <input type="text" ng-trim="true" ng-model="createListCity" id="createListCity" placeholder="City" class="form-control" required>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-lg-2 control-label" for="createListState">State:</label>
+                  <div class="col-lg-10">
+                     <input type="text" ng-trim="true" ng-model="createListState" id="createListState" placeholder="State" class="form-control" required>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-lg-2 control-label"for="createListZip">Zip:<i class="fa fa-asterisk fs8px"></i></label>
+                  <div class="col-lg-10">
+                     <input type="number" ng-trim="true" ng-model="createListZip" id="createListZip" placeholder="Zip" class="form-control">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="createListCountry"class="col-lg-2 control-label">Country:</label>
+                  <div class="col-lg-10">
+                     <input type="text" ng-trim="true" ng-model="createListCountry" id="createListCountry" placeholder="Country" class="form-control" required>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="createListPhone" class="col-lg-2 control-label">Phone:</label>
+                  <div class="col-lg-10">
+                     <input type="number" ng-trim="true" ng-model="createListPhone" id="createListPhone" placeholder="Phone" class="form-control">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="createListPermissionReminder" class="col-lg-2 control-label">permission reminder:</label>
+                  <div class="col-lg-10">
+                     <input type="text" ng-trim="true" ng-model="createListPermissionReminder" id="createListPermissionReminder" placeholder="permission_reminder" class="form-control">
+                  </div>
+               </div>
+            </form>
+         </div>
+         <div  id="campaigndefaults" class="tab-pane fade" ng-class="{' in active':activeTab == 3}">
+            <h2>Campaign Defaults</h2>
+            <form class="form-horizontal" >
+               <div class="form-group">
+                  <label for="createListfrom_name" class="col-lg-2 control-label">From Name:</label>
+                  <div class="col-lg-10">
+                     <input type="text" ng-trim="true" ng-model="createListfrom_name" id="createListfrom_name" placeholder="from" class="form-control" required>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="createListfrom_email" class="col-lg-2 control-label">From Email:</label>
+                  <div class="col-lg-10">
+                     <input type="email" ng-trim="true" ng-model="createListfrom_email" id="createListfrom_email" placeholder="email" class="form-control" required>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="createListSubject"class="col-lg-2 control-label">Subject:</label>
+                  <div class="col-lg-10">
+                     <input type="text" ng-trim="true" ng-model="createListSubject" id="createListSubject" placeholder="subject" class="form-control">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="createListLanguage" class="col-lg-2 control-label">Language:</label>
+                  <div class="col-lg-10">
+                     <input type="text" ng-trim="true" ng-model="createListLanguage" id="createListLanguage" placeholder="language" class="form-control" required>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="createListemail_type_option" class="col-lg-2 control-label">Email type option:</label>
+                  <div class="col-lg-10">
+                     <input type="checkbox"  ng-model="createListemail_type_option" id="createListemail_type_option" required><br>
+                  </div>
+               </div>
+               <div>
+                  <div  style="text-align:center;margin-top:21px;margin-bottom:21px;">
+                     <button type="submit" class="btn btn-primary" ng-click="isEdit?updateListBtn():createListBtn('MailChimpList')">Save List</button>
+                  </div>
+               </div>
+            </form>
+            <!-- <a class="btn btn-primary btnNext" >Next</a> -->
+         </div>
+      </div>
+   </div>
+   <div id="prevnext">
+   <a id="prev" ng-click="prevclick()" class="btn btn-info btnPrevious" >Previous</a>
+   <a id="next" ng-click="nextclick()" class="btn btn-info btnNext" >Next</a>
+</div>
+</div>
+<style>
+#prevnext{
+position: absolute;
+margin-top:-35px;
+z-index: 999999999;
+}
+</style>
