@@ -18,14 +18,14 @@
         <div class="span12" id="content"><div><div id="details" class="span7"><div><p>
         <!-- <img src="pics/James_King.jpg" width="160" height="160"> -->
         </p>
-        <h3 style="display: inline-block;">  <span ng-if="!isUserProfileEdit">{{mainUserInfo.name}}</span>   
+        <h3 style="display: inline-block;">  <span ng-if="!isUserProfileEdit">{{mainUserInfo.name}}</span>
         <input ng-if="isUserProfileEdit" ng-model="mainUserInfo.name"/></h3>
       <!--   <h4>President and CEO</h4> -->
        <span class="fa fa-pencil" style="cursor: pointer;" ng-click="allowEditProfile()" ng-if="!isUserProfileEdit"></span>
         <span class="fa fa-check" style="cursor: pointer;" ng-if="isUserProfileEdit" ng-click="saveMainUserProfile()"></span>
-        <br>    
+        <br>
         <table class="table table-striped">
-            
+
             <tbody><tr>
                 <td>Home Address:</td>
                 <td>
@@ -45,7 +45,7 @@
                 <td>Cell Phone:</td>
                 <td>
                     <i class="fa fa-phone mr5"></i><a ng-if="!isUserProfileEdit" href="http://www.jquery2dotnet.com"><span> {{mainUserInfo.phone}} </span></a>
-                    <input ng-if="isUserProfileEdit"  ng-model="mainUserInfo.phone"/> 
+                    <input ng-if="isUserProfileEdit"  ng-model="mainUserInfo.phone"/>
                 </td>
             </tr>
             <tr>
@@ -74,143 +74,15 @@
             </tr>
             <tr>
                 <td>Hire Date:</td>
-                <td> 
+                <td>
                     <i class="fa fa-user mr5"></i><span ng-if="!isUserProfileEdit">{{mainUserInfo.hireDate}}</span>
-                    <input ng-if="isUserProfileEdit"  ng-model="mainUserInfo.hireDate"/> 
+                    <input ng-if="isUserProfileEdit"  ng-model="mainUserInfo.hireDate"/>
                 </td>
             </tr>
 
 
         </tbody></table>
-        <div class="mailChimpDetails">
-            <span id="mailChimpDetailsTitle">MailChimp Details</span>
-            <div>
-                <button class="btn btn-primary btn-sm addMailChimpIdIdModalBtn" id="addMailChimpIdIdModalBtn" type="button"  data-toggle="modal" data-target="#addMailChimpIdModal">Add MailChimp Id</button>
-                <button class="btn btn-primary btn-sm addListIdModalBtn" id="addListIdModalBtn" type="button"  data-toggle="modal" data-target="#addListModal">Add List Id</button>
-                <button class="btn btn-primary btn-sm createListModalBtn" id="createListModalBtn" type="button"  data-toggle="modal" data-target="#createListModal">Create List</button>
-            </div>
-            <div>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>API Key</th>
-                            <th>List Id</th>
-                            <th>List Name</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="dt in mailChimpDetails">
-                            <td><span>{{dt.apiKey}}</span></td>
-                            <td><span ng-if="editRow !=$index+1">{{dt.listId}}</span>
-                              <input ng-if="editRow == $index+1"  ng-model="dt.listId"/>
-                            </td>
-                            <td><span ng-if="editRow !=$index+1">{{dt.listName}}</span>
-                              <input ng-if="editRow == $index+1"  ng-model="dt.listName"/>
-                            </td>
-                            <td>
-                              <span class="fa fa-pencil" style="cursor: pointer;" ng-click="allowEditMailChimpDetails($index+1)" ng-if="editRow != $index+1"></span>
-                              <span class="fa fa-check" style="cursor: pointer;" ng-if="editRow == $index+1" ng-click="saveMailChimpDetails($index+1, dt)"></span>
-                            </td>
-                            <td>
-                              <span class="glyphicon glyphicon-trash" style="cursor: pointer;" ng-click="deleteMailChimpDetails(dt)"></span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-   </div>
-        <div id="addMailChimpIdModal" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">MailChimp Details</h4>
-              </div>
-              <div class="modal-body">
-               <div class="row"> 
-                <div class="col-sm-10 addMailChimpIdForm">
-                      <form role="form" class="ng-pristine ng-valid">
-                          <div class="form-mailChimp">
-                              <label for="addMailChimpIdApiKey">API Key:</label>
-                              <input type="text" ng-trim="true" ng-model="addMailChimpIdApiKey" id="addMailChimpIdApiKey" placeholder="API Key" class="form-control">
-                          </div>
-                      </form>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                 <button class="btn btn-primary addMailChimpIdBtn" ng-click="addMailChimpIdBtn()" id="addMailChimpIdBtn" type="button"  data-dismiss="modal"><i class="fa fa-check"></i>&nbsp;Save</button>
-              </div>
-            </div>
 
-          </div>
-        </div>
-
-
-        <div id="addListModal" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">List Details</h4>
-              </div>
-              <div class="modal-body">
-               <div class="row"> 
-                <div class="col-sm-10 addMailChimpListForm">
-                      <form role="form" class="ng-pristine ng-valid">
-                          <div class="form-mailChimp">
-                              <label for="addListApiKey">API Key:</label>
-                              <input type="text" ng-trim="true" ng-model="addListApiKey" id="addListApiKey" placeholder="API Key" class="form-control">
-                              <label for="addListId">List Id:</label>
-                              <input type="text" ng-trim="true" ng-model="addListId" id="addListId" placeholder="List Id" class="form-control">
-                              <label for="addListName">List Name:</label>
-                              <input type="text" ng-trim="true" ng-model="addListName" id="addListName" placeholder="List Name" class="form-control">
-                          </div>
-                      </form>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                 <button class="btn btn-primary addListBtn" ng-click="addListBtn()" id="addListBtn" type="button"  data-dismiss="modal"><i class="fa fa-check"></i>&nbsp;Add List</button>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-
-        <div id="createListModal" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">List Details</h4>
-              </div>
-              <div class="modal-body">
-               <div class="row"> 
-                <div class="col-sm-10 createmailChimpForm">
-                      <form role="form" class="ng-pristine ng-valid">
-                          <div class="form-mailChimp">
-                              <label for="createListApiKey">API Key:</label>
-                              <input type="text" ng-trim="true" ng-model="createListApiKey" id="createListApiKey" placeholder="API Key" class="form-control">
-                              <label for="createListName">List Name:</label>
-                              <input type="text" ng-trim="true" ng-model="createListName" id="createListName" placeholder="List Name" class="form-control">
-                          </div>
-                      </form>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                 <button class="btn btn-primary createListBtn" ng-click="createListBtn()" id="createListBtn" type="button"  data-dismiss="modal"><i class="fa fa-check"></i>&nbsp;Create List</button>
-              </div>
-            </div>
-
-          </div>
-        </div>
             <!--
 <div class="span5" style="display:none;">
     <div id="reports" class="well">
