@@ -1,5 +1,4 @@
 <?php
-ob_start();
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Headers: Origin, token, Host');
 
@@ -10,7 +9,7 @@ require_once "./phpHeader/getHeader.php";
 $headers = apache_request_headers();
 require_once "./token/validateToken.php";
 
-$userId = $tokenUserId;
+$userId = @$_GET['id'];
 $name = @$_GET['name'];
 $department = @$_GET['department'];
 $dob = @$_GET['dob'];
@@ -34,7 +33,6 @@ if (!$conn) {
 mysqli_set_charset($conn,"utf8");
 $sql = "UPDATE user SET name= '".$name."' ,department='".$department."' ,dob='".$dob."',gender = '".$gender."', email='".$email."',phone='".$phone."',homeAddress='".$homeAddress."' ,hireDate ='".$hireDate."'  WHERE id=".$userId ;
 //echo $sql;
-ob_clean();
 if (mysqli_query($conn, $sql)) {
 //echo "if";
 	$responseArr["result"] = true;
