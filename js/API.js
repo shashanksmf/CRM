@@ -823,79 +823,96 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 
 	}
 
-	// callAPI.creatMailChimpList = function(listData) {
-	// 	// console.log(listData);
-	// 	return $http({
-	//
-	// 		method: 'GET',
-	// 		headers: {
-	// 			'token': localStorage.getItem('token')
-	// 		},
-	// 		dataType: "jsonp",
-	// 		url: baseHttpUrl + '/createMailChimpList.php?&userId=' + listData.userId +
-	// 			'&apiKey=' + listData.apiKey +
-	// 			'&name=' + listData.name +
-	// 			'&company=' + listData.company + '&address1=' + listData.address1 +
-	// 			'&address2=' + listData.address2 + '&city=' + listData.city +
-	// 			'&state=' +
-	// 			listData.state + '&zip=' + listData.zip + '&country=' + listData.country +
-	// 			'&phone=' +
-	// 			listData.phone +
-	// 			'&permission_reminder=' + listData.permission_reminder +
-	// 			'&from_name=' +
-	// 			listData.from_name + '&from_email=' + listData.from_email +
-	// 			'&subject=' +
-	// 			listData.subject + '&language=' + listData.language +
-	// 			'&email_type_option=' + listData.email_type_option,
-	//
-	// 	})
-	//
-	// }
-	//
-	// callAPI.updateMailChimpList = function(listId, listData) {
-	// 	// console.log(listId);
-	// 	return $http({
-	//
-	// 		method: 'GET',
-	// 		headers: {
-	// 			'token': localStorage.getItem('token')
-	// 		},
-	// 		dataType: "jsonp",
-	// 		url: baseHttpUrl + '/updateMailChimpList.php?listId=' + listId +
-	// 			'&userId=' +
-	// 			listData.userId +
-	// 			'&apiKey=' + listData.apiKey +
-	// 			'&name=' + listData.name + '&company=' + listData.company +
-	// 			'&address1=' + listData.address1 +
-	// 			'&address2=' + listData.address2 + '&city=' + listData.city +
-	// 			'&state=' +
-	// 			listData.state + '&zip=' + listData.zip + '&country=' + listData.country +
-	// 			'&phone=' +
-	// 			listData.phone +
-	// 			'&permission_reminder=' + listData.permission_reminder +
-	// 			'&from_name=' +
-	// 			listData.from_name + '&from_email=' + listData.from_email +
-	// 			'&subject=' +
-	// 			listData.subject + '&language=' + listData.language +
-	// 			'&email_type_option=' + listData.email_type_option,
-	//
-	// 	})
-	//
-	// }
-	//
-	// callAPI.viewMailChimpList = function(userId) {
-	//
-	// 	return $http({
-	//
-	// 		method: 'GET',
-	// 		headers: {
-	// 			'token': localStorage.getItem('token')
-	// 		},
-	// 		dataType: "jsonp",
-	// 		url: baseHttpUrl + '/viewMailChimpList.php?userId=' + userId
-	// 	})
-	//
-	// }
+
+	callAPI.createCustomList = function(listData) {
+		// console.log(listData);
+		return $http({
+
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/createCustomList.php?&userId=' + listData.userId +
+				'&name=' + listData.name + '&type=' + listData.type
+		})
+
+	}
+
+
+	callAPI.creatMailChimpList = function(listData) {
+		// console.log(listData);
+		return $http({
+
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/createMailChimpList.php?&userId=' + listData.userId +
+				'&apiKey=' + listData.apiKey +
+				'&name=' + listData.name + '&type=' + listData.type +
+				'&company=' + listData.company + '&address1=' + listData.address1 +
+				'&address2=' + listData.address2 + '&city=' + listData.city +
+				'&state=' +
+				listData.state + '&zip=' + listData.zip + '&country=' + listData.country +
+				'&phone=' +
+				listData.phone +
+				'&permission_reminder=' + listData.permission_reminder +
+				'&from_name=' +
+				listData.from_name + '&from_email=' + listData.from_email +
+				'&subject=' +
+				listData.subject + '&language=' + listData.language +
+				'&email_type_option=' + listData.email_type_option,
+
+		})
+
+	}
+
+	callAPI.updateMailChimpList = function(listId, listData) {
+		// console.log(listId);
+		return $http({
+
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/updateMailChimpList.php?listId=' + listId +
+				'&userId=' +
+				listData.userId +
+				'&apiKey=' + listData.apiKey +
+				'&name=' + listData.name + '&company=' + listData.company +
+				'&address1=' + listData.address1 +
+				'&address2=' + listData.address2 + '&city=' + listData.city +
+				'&state=' +
+				listData.state + '&zip=' + listData.zip + '&country=' + listData.country +
+				'&phone=' +
+				listData.phone +
+				'&permission_reminder=' + listData.permission_reminder +
+				'&from_name=' +
+				listData.from_name + '&from_email=' + listData.from_email +
+				'&subject=' +
+				listData.subject + '&language=' + listData.language +
+				'&email_type_option=' + listData.email_type_option,
+
+		})
+
+	}
+
+	callAPI.viewMailChimpList = function(userId) {
+
+		return $http({
+
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/viewMailChimpList.php?userId=' + userId
+		})
+
+	}
 
 	callAPI.transactionList = function(userId) {
 
@@ -925,19 +942,19 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 
 	}
 
-	// callAPI.editMailChimpList = function(listId) {
-	// 	console.log(listId);
-	// 	return $http({
-	//
-	// 		method: 'GET',
-	// 		headers: {
-	// 			'token': localStorage.getItem('token')
-	// 		},
-	// 		dataType: "jsonp",
-	// 		url: baseHttpUrl + '/editMailChimpList.php?listId=' + listId
-	// 	})
-	//
-	// }
+	callAPI.editMailChimpList = function(listId) {
+		console.log(listId);
+		return $http({
+
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/editMailChimpList.php?listId=' + listId
+		})
+
+	}
 
 
 	callAPI.getAllComapnies = function() {
