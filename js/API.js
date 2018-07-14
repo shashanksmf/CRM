@@ -193,6 +193,18 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 
 	}
 
+	callAPI.changeSub = function() {
+		return $http({
+
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/changeSub.php'
+		})
+	}
+
 	callAPI.deleteContact = function(emplData) {
 		console.log(emplData);
 		return $http({
@@ -202,7 +214,8 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 				'token': localStorage.getItem('token')
 			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/DeleteContact.php?id=' + emplData.id + '&name=' +
+			url: baseHttpUrl + '/DeleteContact.php?id=' + emplData.id +
+				'&name=' +
 				emplData.name + '&email=' + emplData.email
 
 		})
@@ -280,7 +293,8 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 				'token': localStorage.getItem('token')
 			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/GetChatMessages.php?from=' + chat.from + '&to=' +
+			url: baseHttpUrl + '/GetChatMessages.php?from=' + chat.from +
+				'&to=' +
 				chat.to
 
 		})
@@ -325,13 +339,16 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 				'token': localStorage.getItem('token')
 			},
 			url: baseHttpUrl + '/UpdateEmployees.php?name=' + user.name +
-				'&title=' + user.title + '&industry=' + user.industry + '&location=' +
+				'&title=' + user.title + '&industry=' + user.industry +
+				'&location=' +
 				user.location + '&ratings=' + user.ratings + '&skype=' + user.skype +
 				'&age=' + user.age + '&gender=' + user.gender + '&officePhone=' +
 				user.officePhone + '&jobRole=' + user.jobRole + '&phone=' + user.phone +
-				'&email=' + user.email + '&linkedin=' + user.linkedin + '&twitter=' +
+				'&email=' + user.email + '&linkedin=' + user.linkedin +
+				'&twitter=' +
 				user.twitter + '&facebook=' + user.facebook + '&notes=' + user.notes +
-				'&id=' + user.id + '&companyId=' + user.companyId + '&companyName=' +
+				'&id=' + user.id + '&companyId=' + user.companyId +
+				'&companyName=' +
 				user.Company.name + '&imgUrl=' + user.imgUrl + '&extra=' + user.extra
 
 		})
@@ -416,7 +433,8 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 				'token': localStorage.getItem('token')
 			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/AddMessage.php?from=' + chat.from + '&to=' + chat
+			url: baseHttpUrl + '/AddMessage.php?from=' + chat.from + '&to=' +
+				chat
 				.to + '&msg=' + chat.msg
 
 		})
@@ -546,7 +564,8 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 				'token': localStorage.getItem('token')
 			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/TestMail.php?to=' + users.to + '&toName=' + users
+			url: baseHttpUrl + '/TestMail.php?to=' + users.to + '&toName=' +
+				users
 				.toName + '&subject=' + users.subject
 
 		})
@@ -643,8 +662,10 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 			},
 			dataType: "jsonp",
 			url: baseHttpUrl + '/UpdateCompany.php?id=' + company.id + '&name=' +
-				company.name + '&areaOfWork=' + company.areaOfWork + '&establised=' +
-				company.establised + '&employees=' + company.employees + '&revenue=' +
+				company.name + '&areaOfWork=' + company.areaOfWork +
+				'&establised=' +
+				company.establised + '&employees=' + company.employees +
+				'&revenue=' +
 				company.revenue + '&ofcAddress=' + company.ofcAddress + '&email=' +
 				company.email + '&google=' + company.google + '&phone=' + company.phone +
 				'&fb=' + company.fb + '&twitter=' + company.twitter + '&ln=' +
@@ -694,7 +715,8 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 				'token': localStorage.getItem('token')
 			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/updateUser.php?id=' + userObj.id + '&department=' +
+			url: baseHttpUrl + '/updateUser.php?id=' + userObj.id +
+				'&department=' +
 				userObj.department + '&dob=' + userObj.dob + '&email=' + userObj.email +
 				'&gender=' + userObj.gender + '&hireDate=' + userObj.hireDate +
 				'&homeAddress=' + userObj.homeAddress + '&name=' + userObj.name +
@@ -714,7 +736,8 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 				'token': localStorage.getItem('token')
 			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/saveMailChimpDetails.php?id=' + mailchimpDetails.dt
+			url: baseHttpUrl + '/saveMailChimpDetails.php?id=' +
+				mailchimpDetails.dt
 				.id + '&userId=' + mailchimpDetails.dt.userId + '&apiKey=' +
 				mailchimpDetails.dt.apiKey + '&listId=' + mailchimpDetails.dt.listId +
 				'&listName=' + mailchimpDetails.dt.listName
@@ -722,8 +745,8 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 
 	}
 
-	callAPI.deleteMailChimpDetails = function(mailchimpDetails) {
-		console.log("list", mailchimpDetails.dt);
+	callAPI.deleteMailChimpDetails = function(mailChimpDetails) {
+		console.log("list", mailChimpDetails.dt.listid);
 
 		return $http({
 
@@ -732,10 +755,8 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 				'token': localStorage.getItem('token')
 			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/deleteMailChimpDetails.php?id=' +
-				mailchimpDetails.dt.id + '&userId=' + mailchimpDetails.dt.userId +
-				'&apiKey=' + mailchimpDetails.dt.apiKey + '&listId=' +
-				mailchimpDetails.dt.listId + '&listName=' + mailchimpDetails.dt.listName
+			url: baseHttpUrl + '/deleteMailChimpDetails.php?&listId=' +
+				mailChimpDetails.dt.listid
 		})
 
 	}
@@ -802,7 +823,81 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 
 	}
 
-	callAPI.creatMailChimpList = function(listData) {
+	// callAPI.creatMailChimpList = function(listData) {
+	// 	// console.log(listData);
+	// 	return $http({
+	//
+	// 		method: 'GET',
+	// 		headers: {
+	// 			'token': localStorage.getItem('token')
+	// 		},
+	// 		dataType: "jsonp",
+	// 		url: baseHttpUrl + '/createMailChimpList.php?&userId=' + listData.userId +
+	// 			'&apiKey=' + listData.apiKey +
+	// 			'&name=' + listData.name +
+	// 			'&company=' + listData.company + '&address1=' + listData.address1 +
+	// 			'&address2=' + listData.address2 + '&city=' + listData.city +
+	// 			'&state=' +
+	// 			listData.state + '&zip=' + listData.zip + '&country=' + listData.country +
+	// 			'&phone=' +
+	// 			listData.phone +
+	// 			'&permission_reminder=' + listData.permission_reminder +
+	// 			'&from_name=' +
+	// 			listData.from_name + '&from_email=' + listData.from_email +
+	// 			'&subject=' +
+	// 			listData.subject + '&language=' + listData.language +
+	// 			'&email_type_option=' + listData.email_type_option,
+	//
+	// 	})
+	//
+	// }
+	//
+	// callAPI.updateMailChimpList = function(listId, listData) {
+	// 	// console.log(listId);
+	// 	return $http({
+	//
+	// 		method: 'GET',
+	// 		headers: {
+	// 			'token': localStorage.getItem('token')
+	// 		},
+	// 		dataType: "jsonp",
+	// 		url: baseHttpUrl + '/updateMailChimpList.php?listId=' + listId +
+	// 			'&userId=' +
+	// 			listData.userId +
+	// 			'&apiKey=' + listData.apiKey +
+	// 			'&name=' + listData.name + '&company=' + listData.company +
+	// 			'&address1=' + listData.address1 +
+	// 			'&address2=' + listData.address2 + '&city=' + listData.city +
+	// 			'&state=' +
+	// 			listData.state + '&zip=' + listData.zip + '&country=' + listData.country +
+	// 			'&phone=' +
+	// 			listData.phone +
+	// 			'&permission_reminder=' + listData.permission_reminder +
+	// 			'&from_name=' +
+	// 			listData.from_name + '&from_email=' + listData.from_email +
+	// 			'&subject=' +
+	// 			listData.subject + '&language=' + listData.language +
+	// 			'&email_type_option=' + listData.email_type_option,
+	//
+	// 	})
+	//
+	// }
+	//
+	// callAPI.viewMailChimpList = function(userId) {
+	//
+	// 	return $http({
+	//
+	// 		method: 'GET',
+	// 		headers: {
+	// 			'token': localStorage.getItem('token')
+	// 		},
+	// 		dataType: "jsonp",
+	// 		url: baseHttpUrl + '/viewMailChimpList.php?userId=' + userId
+	// 	})
+	//
+	// }
+
+	callAPI.transactionList = function(userId) {
 
 		return $http({
 
@@ -811,12 +906,39 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 				'token': localStorage.getItem('token')
 			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/creatMailChimpList.php?userId=' + listData.userId +
-				'&apiKey=' + listData.apiKey + '&listName=' + listData.listName,
-
+			url: baseHttpUrl + '/transactionList.php?userId=' + userId
 		})
 
 	}
+	callAPI.viewTransactionDetails = function(tId, userId) {
+
+		return $http({
+
+			method: 'GET',
+			headers: {
+				'token': localStorage.getItem('token')
+			},
+			dataType: "jsonp",
+			url: baseHttpUrl + '/viewTransactionDetails.php?userId=' + userId +
+				'&tId=' + tId
+		})
+
+	}
+
+	// callAPI.editMailChimpList = function(listId) {
+	// 	console.log(listId);
+	// 	return $http({
+	//
+	// 		method: 'GET',
+	// 		headers: {
+	// 			'token': localStorage.getItem('token')
+	// 		},
+	// 		dataType: "jsonp",
+	// 		url: baseHttpUrl + '/editMailChimpList.php?listId=' + listId
+	// 	})
+	//
+	// }
+
 
 	callAPI.getAllComapnies = function() {
 
