@@ -8,13 +8,6 @@ require_once "./phpHeader/getHeader.php";
 
 $headers = apache_request_headers();
 require_once "./token/validateToken.php";
-// $userId = $tokenUserId;
-// echo $userId;
-// print_r($headers);
-// $headers = $headers['token'];
-// echo $headers['TOKEN'];
-//Link -> localhost/wehnc/Service/GetEmplData.php
-
 
 $dats = '';
 // $dats = @$_GET['id'];
