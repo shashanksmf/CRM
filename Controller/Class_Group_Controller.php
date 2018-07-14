@@ -350,7 +350,7 @@ class GroupController{
         public function updateGroup2($id,$segId){
             $membersCount="";
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
-            $grp = new Group("","","","","","","");
+            $grp = new Group("","","","","","","","");
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
