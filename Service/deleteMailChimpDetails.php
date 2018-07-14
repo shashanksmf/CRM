@@ -10,10 +10,11 @@ require_once "./phpHeader/getHeader.php";
 $headers = apache_request_headers();
 require_once "./token/validateToken.php";
 
-$id = @$_GET['id'];
+// $id = @$_GET['id'];
 // $userId = @$_GET['userId'];
 // $apiKey = @$_GET['apiKey'];
-// $listId = @$_GET['listId'];
+$listId = @$_GET['listId'];
+// exit($listId);
 // $listName = @$_GET['listName'];
 
 
@@ -30,8 +31,7 @@ if (!$conn) {
 }
 
 mysqli_set_charset($conn,"utf8");
-$sql = "UPDATE mailchimpdetails SET isactive = 0 WHERE id=".$id.";";
-
+$sql = "UPDATE mailchimp_createlist_details SET isactive = 0 WHERE listid='".$listId."';";
 if (mysqli_query($conn, $sql)) {
 //echo "if";
 	$responseArr["result"] = true;
