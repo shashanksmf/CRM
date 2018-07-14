@@ -65,7 +65,37 @@
 
 
 
-            
+            <li ng-class="{active: ($state.includes('dashboards') && isExpand == true) }" ng-click="isExpand=!isExpand">
+                <a href="index.html"><i class="fa fa-list"></i> <span class="nav-label">{{ 'Lists' | translate }}</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" ng-class="{in: ($state.includes('dashboards') && isExpand == true) }">
+
+                    <li ui-sref-active="active" >
+                        <a><i class="fa fa-pencil"></i> <span class="nav-label">{{ 'Create List' | translate }}</span></a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: ($state.includes('dashboards') && isExpand == true) }">
+
+                            <li ui-sref-active="active" >
+                                <a ui-sref="dashboards.customCreateList"><i class="fa fa-pencil-square-o"></i> <span class="nav-label">{{ 'Custom List' | translate }}</span></a>
+                            </li>
+
+                            <li ui-sref-active="active">
+                                <a  ui-sref="dashboards.mailChimpCreateList"><i class="fa fa-server"></i> <span class="nav-label">{{ 'MailChimp List' | translate }}</span></a>
+                            </li>
+
+                            <!--<li ui-sref-active="active"><a ui-sref="dashboards.mailChimpEditList">{{ 'DASHBOARD' | translate }} v.3</a></li>-->
+                            <!--<li ui-sref-active="active"><a ui-sref="dashboards.dashboard_4_1">{{ 'DASHBOARD' | translate }} v.4</a></li>-->
+                            <!--<li ui-sref-active="active"><a ui-sref="dashboards.dashboard_5">{{ 'DASHBOARD' | translate }} v.5 <span class="label label-primary pull-right">NEW</span></a></li> &ndash;&gt;-->
+                        </ul>
+                    </li>
+
+                    <li ui-sref-active="active">
+                        <a  ui-sref="dashboards.mailChimpViewList"><i class="fa fa-eye"></i> <span class="nav-label">{{ 'View List' | translate }}</span></a>
+                    </li>
+
+                    <!--<li ui-sref-active="active"><a ui-sref="dashboards.mailChimpEditList">{{ 'DASHBOARD' | translate }} v.3</a></li>-->
+                    <!--<li ui-sref-active="active"><a ui-sref="dashboards.dashboard_4_1">{{ 'DASHBOARD' | translate }} v.4</a></li>-->
+                    <!--<li ui-sref-active="active"><a ui-sref="dashboards.dashboard_5">{{ 'DASHBOARD' | translate }} v.5 <span class="label label-primary pull-right">NEW</span></a></li> &ndash;&gt;-->
+                </ul>
+            </li>
             <li ui-sref-active="active">
                <a ui-sref="dashboards.transactions"><i class="fa fa-exchange"></i> <span class="nav-label">{{ 'Transaction Details' | translate }}</span> </a>
             </li>
