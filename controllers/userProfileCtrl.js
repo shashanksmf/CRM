@@ -6,6 +6,7 @@ inspinia.controller('userProfileCtrl', ['$scope', '$rootScope', '$http', '$q',
 
 		var baseHttpUrl = crmconfig.servicePath,
 			domainName = crmconfig.serverDomainName + '/';
+		console.log(baseHttpUrl);
 		$scope.tabs = {
 			summary: "summary",
 			attachment: "attachment"
@@ -176,10 +177,18 @@ inspinia.controller('userProfileCtrl', ['$scope', '$rootScope', '$http', '$q',
 		}).then(function(response) {
 
 			if (response.data.result) {
-				if (response.data.reason.length > 0) {
-					$scope.files = response.data.reason;
+				// console.log(result.data.result);
+				if (response.data.details.length > 0) {
+					$scope.files = response.data.details;
 					console.log($scope.files)
 				}
+			} else {
+				$rootScope.config.rootModalShow = true;
+				$rootScope.config.rootModalHeader = "Failed";
+				$rootScope.config.responseText = response.data.reason;
+				$rootScope.config.rootModalAction = function() {
+					$rootScope.config.rootModalShow = false;
+				};
 			}
 
 		});
