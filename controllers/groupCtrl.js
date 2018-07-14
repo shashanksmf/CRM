@@ -2,7 +2,7 @@ var inspinia = angular.module('inspinia');
 inspinia.controller("groupCtrl", ['$scope', '$rootScope', '$http', '$q', 'API',
 	'$state', '$timeout',
 	function($scope, $rootScope, $http, $q, API, $state, $timeout) {
-
+		$scope.myNumber = 0;
 		API.getAllGroups().then(function(response) {
 			if (response.data.result) {
 				$scope.groups = response.data;
@@ -79,10 +79,10 @@ inspinia.controller("groupCtrl", ['$scope', '$rootScope', '$http', '$q', 'API',
 
 		}
 
-
 		$scope.editGroup = function(groupIndex) {
 			$scope.groupIndex = groupIndex;
-			$("#addEmplmModal").modal("show");
+			// $("#addEmplmModal").modal("show");
+			$scope.myNumber = 1;
 		}
 
 		$scope.addEmpl = function(emplName, emplId) {
@@ -102,6 +102,7 @@ inspinia.controller("groupCtrl", ['$scope', '$rootScope', '$http', '$q', 'API',
 				// alert("Member Already Added");
 				//$scope.groups.Groups[$scope.groupIndex].Members.splice(memberIndex, 1);
 				//$scope.groups.Groups[$scope.groupIndex].membersCount = $scope.groups.Groups[$scope.groupIndex].Members.length;
+				$scope.myNumber = 0;
 				$rootScope.config.rootModalShow = true;
 				$rootScope.config.rootModalHeader = "Failed";
 				$rootScope.config.responseText =
@@ -149,54 +150,55 @@ inspinia.controller("groupCtrl", ['$scope', '$rootScope', '$http', '$q', 'API',
 
 		}
 
+		setTimeout(function() {
+			$scope.saveGroupEmpl = function() {
 
-		$scope.saveGroupEmpl = function() {
+				var groupId = $scope.groups.Groups[$scope.groupIndex].id;
+				var memberIds = '';
 
-			var groupId = $scope.groups.Groups[$scope.groupIndex].id;
-			var memberIds = '';
-
-			$scope.groups.Groups[$scope.groupIndex].Members.forEach(function(items) {
-				memberIds += items.id + ','
-			})
-
-			if (memberIds.substr(memberIds.length - 1, 1) == ",") {
-				memberIds = memberIds.substr(0, memberIds.length - 1);
-			}
-
-			if (memberIds.length > 0) {
-
-				API.updateMembersInGroup({
-					id: groupId,
-					members: memberIds
-				}).then(function(response) {
-					if (response.data.responce) {
-						// alert("Group Successfully Saved");
-						$rootScope.config.rootModalShow = true;
-						$rootScope.config.rootModalHeader = "Success";
-						$rootScope.config.responseText =
-							"Group Successfully Saved";
-						$rootScope.config.rootModalAction = function() {
-							$rootScope.config.rootModalShow = false;
-						};
-					} else {
-						// alert("Something Went Wrong !");
-						$rootScope.config.rootModalShow = true;
-						$rootScope.config.rootModalHeader = "Failed";
-						$rootScope.config.responseText =
-							"Something Went Wrong";
-						$rootScope.config.rootModalAction = function() {
-							$rootScope.config.rootModalShow = false;
-						};
-					}
-
-					$("#addEmplmModal").modal("hide");
-
+				$scope.groups.Groups[$scope.groupIndex].Members.forEach(function(items) {
+					memberIds += items.id + ','
 				})
 
+				if (memberIds.substr(memberIds.length - 1, 1) == ",") {
+					memberIds = memberIds.substr(0, memberIds.length - 1);
+				}
+
+				if (memberIds.length > 0) {
+
+					API.updateMembersInGroup({
+						id: groupId,
+						members: memberIds
+					}).then(function(response) {
+						if (response.data.responce) {
+							// alert("Group Successfully Saved");
+							$rootScope.config.rootModalShow = true;
+							$rootScope.config.rootModalHeader = "Success";
+							$rootScope.config.responseText =
+								"Group Successfully Saved";
+							$rootScope.config.rootModalAction = function() {
+								$rootScope.config.rootModalShow = false;
+							};
+						} else {
+							// alert("Something Went Wrong !");
+							$rootScope.config.rootModalShow = true;
+							$rootScope.config.rootModalHeader = "Failed";
+							$rootScope.config.responseText =
+								"Something Went Wrong";
+							$rootScope.config.rootModalAction = function() {
+								$rootScope.config.rootModalShow = false;
+							};
+						}
+
+						// $("#addEmplmModal").modal("hide");
+						$scope.myNumber = 0;
+					})
+
+				}
+
+
 			}
-
-
-		}
+		}, 1000);
 
 
 		$scope.deleteGroup = function(groupId) {
