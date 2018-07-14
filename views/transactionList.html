@@ -1,0 +1,72 @@
+<html>
+<body>
+  <div ng-show='viewTransaction==false'>
+      <table class="table table-striped">
+          <thead>
+              <tr>
+                <th>Id</th>
+                <th>User Id</th>
+                <th>Insert DateTime</th>
+                <th>Status</th>
+                <th>Total Records</th>
+                <th>Inserted</th>
+                <th>Total Failed</th>
+                <th>View</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="dt in transactionDetails">
+                <td><span>{{dt.id}}</span></td>
+                <td><span>{{dt.userId}}</span></td>
+                <td><span>{{dt.insertDateTime}}</span></td>
+                  <td><span>{{dt.status}}</span></td>
+                <td><span>{{dt.totalrecords}}</span></td>
+                <td><span>{{dt.totalinserted}}</span></td>
+              <td><span>{{dt.totalfailed}}</span></td>
+                 <td>
+                  <span class="fa fa-eye" style="cursor: pointer;"  ng-click="viewTransactionDetails(dt)"></span>
+                </td>
+
+              </tr>
+          </tbody>
+      </table>
+  </div>
+
+  <div ng-show='viewTransaction==true'>
+      <table class="table table-striped">
+          <thead>
+              <tr>
+                <th>Id</th>
+                <th>transaction Id</th>
+                <th>Email</th>
+                <th>Company Id</th>
+                <th>Company Name</th>
+                <th>Insert Status</th>
+                <th>Operation Performed</th>
+                <th>Reason</th>
+                <th>Comp Reason</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="dt in transactionDetails">
+                <td><span>{{dt.id}}</span></td>
+                <td><span>{{dt.tId}}</span></td>
+                <td><span>{{dt.email}}</span></td>
+                  <td><span>{{dt.companyId}}</span></td>
+                <td><span>{{dt.companyName}}</span></td>
+                <td><span>{{dt.insertStatus}}</span></td>
+              <td><span>{{dt.operationPerform}}</span></td>
+              <td><span>{{dt.reason}}</span></td>
+              <td><span>{{dt.compReason}}</span></td>
+
+              </tr>
+          </tbody>
+      </table>
+      <div>
+        <button type="button" class="btn btn-default navbar-btn pull-left" ng-click="goBack()">
+          Back
+        </button>
+      </div>
+  </div>
+</body>
+</html>
