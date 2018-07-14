@@ -33,11 +33,11 @@ if (@mysqli_num_rows($result) > 0) {
 //	print_r($row);
 		array_push($responseArr["details"] , $row);
 	}
-	echo json_encode($responseArr);
+	exit(json_encode($responseArr));
 } else {
 	$responseArr["result"] = false;
-	$responseArr["reason"] = "MailChimpDetails Not found";
-	echo (json_encode($responseArr));
+	$responseArr["reason"] = "No Records found";
+	exit(json_encode($responseArr));
 }
 mysqli_close($conn);
 ?>
