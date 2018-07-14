@@ -38,21 +38,26 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider,
       templateUrl: "views/userProfile.html",
       controller: "userProfileCtrl"
     })
-    // .state('dashboards.mailChimpEditList', {
-    //   url: "/mailChimp/mailChimpEditList?listid",
-    //   templateUrl: "views/mailChimpList/mailChimpCreateList.html",
-    //   controller: "mailChimpEditListCtrl"
-    // })
-    // .state('dashboards.mailChimpCreateList', {
-    //   url: "/mailChimp/createList",
-    //   templateUrl: "views/mailChimpList/mailChimpCreateList.html",
-    //   controller: "mailChimpCreateListCtrl"
-    // })
-    // .state('dashboards.mailChimpViewList', {
-    //   url: "/mailChimp/mailChimpViewList",
-    //   templateUrl: "views/mailChimpList/mailChimpViewList.html",
-    //   controller: "mailChimpViewListCtrl"
-    // })
+    .state('dashboards.mailChimpEditList', {
+      url: "/mailChimp/mailChimpEditList?listid",
+      templateUrl: "views/mailChimpList/mailChimpCreateList.html",
+      controller: "mailChimpEditListCtrl"
+    })
+    .state('dashboards.mailChimpCreateList', {
+      url: "/mailChimp/createmailChimpList",
+      templateUrl: "views/mailChimpList/mailChimpCreateList.html",
+      controller: "mailChimpCreateListCtrl"
+    })
+    .state('dashboards.customCreateList', {
+      url: "/mailChimp/createCustomList",
+      templateUrl: "views/customCreateList.html",
+      controller: "mailChimpCreateListCtrl"
+    })
+    .state('dashboards.mailChimpViewList', {
+      url: "/mailChimp/mailChimpViewList",
+      templateUrl: "views/mailChimpList/mailChimpViewList.html",
+      controller: "mailChimpViewListCtrl"
+    })
     .state('dashboards.transactions', {
       url: "/mailChimp/transactions/:userid",
       templateUrl: "views/transactionList.html",
