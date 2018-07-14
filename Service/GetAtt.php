@@ -42,7 +42,7 @@ if(isset($emplId) && !empty($emplId)){
 
 	} else {
 		$responseArr["result"] = false;
-		$responseArr["reason"] = "No records Found";
+		$responseArr["reason"] = "Details not Found";
 		echo json_encode($responseArr);
 	}
 
