@@ -7,7 +7,7 @@ class TemplateController{
 
 	public function getTemplateList($id){
             $resp = "";
-            $emailList = array();
+            $mailList = array();
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
             if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
@@ -34,6 +34,7 @@ class TemplateController{
             }
             $conn->close();
             $resp = json_encode($mailList);
+              exit($resp);
             return $mailList;
 	}
 
