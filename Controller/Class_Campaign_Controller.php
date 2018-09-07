@@ -28,7 +28,7 @@ class CampaignController{
                 if (@mysqli_num_rows($result) > 0) {
                         $i = 0;
                         while($row = $result->fetch_assoc()) {
-                            //echo $row['name'];
+
                                 $mail = new Campaign($row['id'], $row['name'], $row['createdBy'], $row['emails'], $row['subject'], $row['body'], $row['recievedBy'], $row['dates'], $row['replacingContent'],$row['templateId'],$row['groupId']);
                                 $mailList[$i]=$mail;
                                 //echo $compList[$i]->getName();
