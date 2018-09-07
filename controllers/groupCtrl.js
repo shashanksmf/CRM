@@ -40,9 +40,10 @@ inspinia.controller("groupCtrl", ['$scope', '$rootScope', '$http', '$q', 'API',
 				API.createGroup(createGroupObj).then(function(response) {
 					//check if group already exists
 					if (response.data.responce) {
-						if (responce.data.responce.hasOwnProperty("groupid") && responce.data
+						console.log();
+						if (response.data.responce.hasOwnProperty("groupid") && response.data
 							.responce.length > 0) {
-							createGroupObj.id = responce.data.responce.groupid;
+							createGroupObj.id = response.data.responce.groupid;
 							// alert("Group Added Successfully!");
 							$rootScope.config.rootModalShow = true;
 							$rootScope.config.rootModalHeader = "Success";
