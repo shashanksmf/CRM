@@ -291,7 +291,8 @@ inspinia.controller('mailCtrl', ['$scope', '$rootScope', '$http', '$q', 'API',
 
 		//	$scope.addCampaignSubmit();
 		$scope.addCampaignSubmit = function() {
-
+	alert("You have exceeded the limits of sending");
+	return;
 			if (!$scope.campaignName) {
 				// alert("Please Enter Campaign Name");
 				$rootScope.config.rootModalShow = true;
@@ -346,7 +347,8 @@ inspinia.controller('mailCtrl', ['$scope', '$rootScope', '$http', '$q', 'API',
 				if (response.data.responce) {
 					$scope.campaignId = response.data.id;
 
-					console.log("run campaign")
+					console.log("run campaign");
+
 					API.runCampaign($scope.campaignId).then(function(response) {
 							console.log(response);
 							if (response.data.responce) {
