@@ -9,11 +9,11 @@
 
 	class unSubUser {
 
-        public function unSubUserFun($emplEmail,$emplName) {
+        public function unSubUserFun($emplEmail,$emplName,$mailChimpApiKey) {
             $mailChimpService = new MailChimpService();
             $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
-            $mailChimpApiKey = $mailChimpService->mailChimpApiKey = getenv("mailChimpApiKey");
-            $list_id = $mailChimpService->list_id = getenv('mailChimpListId');
+            $mailChimpApiKey = $mailChimpApiKey;
+            $list_id = "90f16d312b";
 
             $unSubAPI = new unSubAPI();
             $result = $unSubAPI->unSubscribeUser($emplEmail,$emplName,$mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
