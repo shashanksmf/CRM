@@ -27,7 +27,6 @@ class validateToken {
 		$getPayload = Token::getPayload($token);
 		$getPayloadArr = json_decode($getPayload, TRUE);
 		$userId = $getPayloadArr['userId'];
-
 		try {
 			$result = Token::validate($token, $secret);
 			$tokenExp = $validator->splitToken($token)->validateExpiration()->validateSignature($secret);
@@ -52,9 +51,9 @@ class validateToken {
 	}
 }
 
-if(isset($headers['TOKEN']) && !empty($headers['TOKEN']) && $headers['TOKEN'] != 'null'){
+if(isset($headers['token']) && !empty($headers['token']) && $headers['token'] != 'null'){
 	$validateToken = new validateToken();
-	$result = $validateToken->validate($headers['TOKEN']);
+	$result = $validateToken->validate($headers['token']);
 	$tokenUserId = $result['userId'];
 	// echo json_encode($result);
 	if (strlen($result['reason']) > 0 && $result['result'] == false) {
