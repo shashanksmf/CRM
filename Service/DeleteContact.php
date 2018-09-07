@@ -30,20 +30,20 @@ if($conn->connect_error) {
 $mailChimpApiKey="29d5edbfcd350d88255fbd6c3b961a8e-us14";
 if(isset($emplId) && !empty($emplId)) {
 
-	$unSubSql = "UPDATE `employee` set isSubscribed = 0 WHERE id=4";
-// exit($unSubSql);
-	if(isset($emplEmail) && !empty($emplEmail)){
-		$unSubUser = new unSubUser();
-		$unSubResult = $unSubUser->unSubUserFun($emplEmail,$emplName,$mailChimpApiKey);
-// print_r($unSubResult);
-		if ($unSubResult['status'] == true) {
-			mysqli_query($conn, $unSubSql);
-		} else{
-			$responseArr["result"] = false;
-			$responseArr["reason"] = $unSubResult['reason'];
-			exit(json_encode($responseArr));
-		}
-	}
+// 	$unSubSql = "UPDATE `employee` set isSubscribed = 0 WHERE id=4";
+// 	if(isset($emplEmail) && !empty($emplEmail)){
+// 		$unSubUser = new unSubUser();
+// 		$unSubResult = $unSubUser->unSubUserFun($emplEmail,$emplName,$mailChimpApiKey);
+// 		// exit($unSubResult);
+// // print_r($mailChimpApiKey);
+// 		if ($unSubResult['status'] == true) {
+// 			mysqli_query($conn, $unSubSql);
+// 		} else{
+// 			$responseArr["result"] = false;
+// 			$responseArr["reason"] = $unSubResult['reason'];
+// 			exit(json_encode($responseArr));
+// 		}
+// 	}
 
 
 	$deleteSql = "UPDATE `employee` set isactive = 0 WHERE id=".$emplId.";";
