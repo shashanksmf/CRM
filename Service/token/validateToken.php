@@ -50,9 +50,19 @@ class validateToken {
 			return $responseArr;
 	}
 }
-if((isset($headers['token']) && !empty($headers['token']) && $headers['token'] != 'null')||(isset($headers['TOKEN']) && !empty($headers['TOKEN']) && $headers['TOKEN'] != 'null')){
+if((isset($headers['token']) && !empty($headers['token']) && $headers['token'] != 'null')){
 	$validateToken = new validateToken();
 	$result = $validateToken->validate($headers['token']);
+	$tokenUserId = $result['userId'];
+	// echo json_encode($result);
+	if (strlen($result['reason']) > 0 && $result['result'] == false) {
+		exit(json_encode($result));
+	}
+}
+elseif (isset($headers['TOKEN']) && !empty($headers['TOKEN']) && $headers['TOKEN'] != 'null') {
+	// code...
+	$validateToken = new validateToken();
+	$result = $validateToken->validate($headers['TOKEN']);
 	$tokenUserId = $result['userId'];
 	// echo json_encode($result);
 	if (strlen($result['reason']) > 0 && $result['result'] == false) {
