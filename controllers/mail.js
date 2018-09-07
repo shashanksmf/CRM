@@ -360,6 +360,16 @@ inspinia.controller('mailCtrl', ['$scope', '$rootScope', '$http', '$q', 'API',
 									$rootScope.config.rootModalShow = false;
 								};
 							}
+							else {
+								alert("You have exceeded the limits of sending");
+								// $rootScope.config.rootModalShow = false;
+								// $rootScope.config.rootModalHeader = "Failed";
+								// $rootScope.config.responseText =
+								// 	"You have exceeded the limits of sending";
+								// $rootScope.config.rootModalAction = function() {
+								// 	$rootScope.config.rootModalShow = false;
+								// };
+							}
 						},
 						function(data) {
 							// alert("campaign Successfully started");
