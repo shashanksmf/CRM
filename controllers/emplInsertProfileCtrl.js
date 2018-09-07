@@ -10,7 +10,7 @@ inspinia.controller('emplInsertProfileCtrl', ['$scope', '$rootScope', '$http',
 		//$("#emplLoadingModal").modal('show');
 		API.getAllComapnies().then(function(response) {
 			if (response.data.result) {
-				$scope.companies = response.data.reason;
+				$scope.companies = response.data.details;
 			}
 		})
 		$scope.emplProfileInfo = {};
@@ -40,7 +40,7 @@ inspinia.controller('emplInsertProfileCtrl', ['$scope', '$rootScope', '$http',
 				try {
 					$scope.companies.forEach(function(company) {
 						if (company.id == $scope.emplProfileInfo.companyId) {
-							$scope.userProfileInfo.companyName = company.name;
+							$scope.emplProfileInfo.companyName = company.name;
 						}
 					})
 				} catch (ex) {
@@ -109,10 +109,9 @@ inspinia.controller('emplInsertProfileCtrl', ['$scope', '$rootScope', '$http',
 					};
 					return false;
 				}
-				// else if(!info.company) {
-				// 	alert('please select company');
-				// 	return false
-				// }
+				else{
+
+				}
 			} else if (!validateEmail(info.email)) {
 				// alert('Please enter valid email Id');
 				$rootScope.config.rootModalShow = true;
