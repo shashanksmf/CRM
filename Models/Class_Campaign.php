@@ -22,10 +22,11 @@ class Campaign {
     public $dates;
     public $replacingContent;
     public $tempId;
+    public $groupId;
     public $isAdded;
     public $msg;
-    
-    function __construct($id, $name, $createdBy, $emails, $subject, $body, $recievedBy, $dates, $replacingContent,$tempId) {
+
+    function __construct($id, $name, $createdBy, $emails, $subject, $body, $recievedBy, $dates, $replacingContent,$tempId,$groupId) {
         $this->id = $id;
         $this->name = $name;
         $this->createdBy = $createdBy;
@@ -36,9 +37,7 @@ class Campaign {
         $this->dates = $dates;
         $this->replacingContent = $replacingContent;
         $this->tempId = $tempId;
+        $this->groupId=$groupId;
     }
 
-    
-    
-    
 }
