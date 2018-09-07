@@ -50,8 +50,7 @@ class validateToken {
 			return $responseArr;
 	}
 }
-
-if(isset($headers['token']) && !empty($headers['token']) && $headers['token'] != 'null'){
+if((isset($headers['token']) && !empty($headers['token']) && $headers['token'] != 'null')||(isset($headers['TOKEN']) && !empty($headers['TOKEN']) && $headers['TOKEN'] != 'null')){
 	$validateToken = new validateToken();
 	$result = $validateToken->validate($headers['token']);
 	$tokenUserId = $result['userId'];
