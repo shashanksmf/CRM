@@ -1,10 +1,10 @@
 <div class="mailContainer">
-	
+
 	<div class="addCampaignBtnBlock">
 		<button class="btn btn-default"  data-toggle="modal" data-target="#addCampaignModal">Add Campaign</button>
 		<button class="btn btn-default"  data-toggle="modal" data-target="#sendSMSModal">Send SMS</button>
-		
-		
+
+
 	</div>
 
 	<div class="viewCampaignTable">
@@ -34,9 +34,9 @@
           <td>
             <button type="button" class="btn btn-danger" ng-click="deleteCampaign(campaign.id)">Delete</button></td>
 				</tr>
-				
+
 			</tbody>
-			
+
 		</table>
 	</div>
 
@@ -46,7 +46,7 @@
 <!-- Modal to add a campaign -->
   <div class="modal " id="addCampaignModal" role="dialog" >
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -54,7 +54,7 @@
           <h4 class="modal-title">Start Campaign</h4>
         </div>
         <div class="modal-body addCampaignModalBody">
-         	
+
          	<input type="text" class="form-control" placeholder="Campaign Name" ng-model="campaignName">
 
          <!--	<select id="groupDropDown">
@@ -70,15 +70,15 @@
          	<textarea class="form-control" placeholder="Message or body" ng-model="campaignMessage">{{campaignMessage}}</textarea>
 
          	<button class="btn btn-default" data-toggle="modal" data-target="#templateModal" ng-click="previewTemplate()">preview Template</button>
-    
-         	<button class="btn btn-primary" ng-click="addCampaignSubmit()">Start Campaign</button>
+
+         	<button class="btn btn-primary" ng-click="addCampaignSubmit()" data-dismiss="modal">Start Campaign</button>
 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
-      
+
     </div>
   </div>
 
@@ -87,7 +87,7 @@
 <!-- Modal to add a campaign -->
   <div class="modal fade" id="sendSMSModal" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -95,7 +95,7 @@
           <h4 class="modal-title">Start Campaign</h4>
         </div>
         <div class="modal-body addCampaignModalBody">
-         	
+
          	<input type="text" class="form-control" placeholder="Sender Name" ng-model="smsSenderName" >
 
          	<select id="groupDropDown" ng-model="group.id" ng-options="group.name for group in groups.Groups">
@@ -112,7 +112,7 @@
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
-      
+
     </div>
   </div>
 
@@ -132,7 +132,7 @@
           <h4 class="modal-title">Preview Template</h4>
         </div>
         <div class="modal-body ">
-         	
+
          	<div ng-bind-html="htmlTemplate" ng-if="isShowTemplate">
   			</div>
 
@@ -141,7 +141,7 @@
           <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="hideTemplatePreview()">Close</button>
         </div>
       </div>
-      
+
     </div>
   </div>
 
