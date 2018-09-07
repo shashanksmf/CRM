@@ -966,7 +966,7 @@ inspinia.factory('API', ['$http', '$q', function($http, $q) {
 				'token': localStorage.getItem('token')
 			},
 			dataType: "jsonp",
-			url: baseHttpUrl + '/getAllComapnies.php'
+			url: baseHttpUrl + '/getAllCompanies.php'
 
 		})
 
