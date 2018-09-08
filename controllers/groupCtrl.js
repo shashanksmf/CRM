@@ -15,6 +15,9 @@ inspinia.controller("groupCtrl", ['$scope', '$rootScope', '$http', '$q', 'API',
 				if (response.data.result) {
 					$scope.emplNames = response.data.Employees;
 				}
+				else {
+					$scope.emplNames=response.data.Employees;
+				}
 			})
 
 		}
