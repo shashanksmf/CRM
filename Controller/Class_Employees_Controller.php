@@ -430,19 +430,26 @@
             public function getEmployeeNameSearchJson($term){
                 $EmployeeList = $this->getEmployeeNameSearchList($term);
                 $comps = new CompanyController();
-                $jsonStr = '{"result": true,"Employees":[';
-                $i=count($EmployeeList);
-                foreach($EmployeeList as $empl){
-                    $jsonStr.='{';
-                    $jsonStr.='"id":"'.$empl->getId().'",';
-                    $jsonStr.='"imgUrl":"'.$empl->imgurl.'",';
-                    $jsonStr.='"name":"'.$empl->getName().'"}';
-                    $i--;
-                    if($i!=0){
-                            $jsonStr.=',';
-                    }
+                if ($EmployeeList) {
+                  // code...
+                  $jsonStr = '{"result": true,"Employees":[';
+                    $i=count($EmployeeList);
+                    foreach($EmployeeList as $empl){
+                      $jsonStr.='{';
+                        $jsonStr.='"id":"'.$empl->getId().'",';
+                        $jsonStr.='"imgUrl":"'.$empl->imgurl.'",';
+                        $jsonStr.='"name":"'.$empl->getName().'"}';
+                        $i--;
+                        if($i!=0){
+                          $jsonStr.=',';
+                        }
+                      }
+                      $jsonStr.=']}';
                 }
-                $jsonStr.=']}';
+                else {
+                  $jsonStr = '{"result": false,"Employees":[No data found';
+                    $jsonStr.=']}';
+                }
                 return $jsonStr;
             }
 
