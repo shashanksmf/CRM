@@ -33,6 +33,11 @@
   </div>
 
   <div ng-show='viewTransaction==true'>
+    <div>
+      <button type="button" class="btn btn-default navbar-btn pull-left" ng-click="goBack()">
+        Back
+      </button>
+    </div>
       <table class="table table-striped">
           <thead>
               <tr>
@@ -62,11 +67,7 @@
               </tr>
           </tbody>
       </table>
-      <div>
-        <button type="button" class="btn btn-default navbar-btn pull-left" ng-click="goBack()">
-          Back
-        </button>
-      </div>
+
   </div>
 </body>
 </html>
