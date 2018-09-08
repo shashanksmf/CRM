@@ -22,7 +22,7 @@ if($conn->connect_error) {
 	exit(json_encode($responseArr));
 }
 
-$transactionDetails="SELECT * FROM transactiondetails WHERE id='".$userId."'AND tId='".$tId."';";
+$transactionDetails="SELECT * FROM transactiondetails WHERE  tId='".$tId."'";
 // exit($transactionDetails);
 @mysqli_set_charset($conn,"utf8");
 $result = mysqli_query($conn, $transactionDetails);
