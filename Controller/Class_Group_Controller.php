@@ -145,17 +145,17 @@ class GroupController{
                 $grp->isGroupAdded = FALSE;
                 $grp->message=$name." is already present with the same admin!";
             } else {
-
                 // create SegmentId using MailchimpApi
                 $mailChimpService = new MailChimpService();
                 $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
-                $mailChimpApiKey = $mailChimpService->mailChimpApiKey = getenv("mailChimpApiKey");
-                $list_id = $mailChimpService->list_id = getenv('mailChimpListId');
+                $mailChimpApiKey = $mailChimpService->mailChimpApiKey = "29d5edbfcd350d88255fbd6c3b961a8e-us14";
+                $list_id = $mailChimpService->list_id = "91a2bc4140";
                 $membersEmailArr = array();
                 $log = array();
               //  $log["createSegment"] = array();
                 ob_start();
                 $createSegReq = $mailChimpService->createSegment($name,$mailChimpSubDomainInit,$membersEmailArr,$list_id,$mailChimpApiKey);
+
                 $createSegReq = ob_get_clean();
                 ob_flush();
                 $createSegReqArr = $createSegReq === NULL ? array() : json_decode($createSegReq,true);
@@ -166,7 +166,6 @@ class GroupController{
                 //echo $segId;
 
                 //exit();
-
                 $sql = "INSERT INTO ".StaticDBCon::$dbname.".group (name, details, admin, members, membersCount, createdOn,segId)
                 VALUES ('".$name."','".$details."','".$admin."','".$members."','".$membersCount."','".$createdOn."','".$segId."')";
                 //echo 'Query : '.$sql;
