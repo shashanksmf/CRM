@@ -11,7 +11,6 @@ require_once "./phpHeader/getHeader.php";
 $headers = apache_request_headers();
 require_once "./token/validateToken.php";
 
-
 $userId = $tokenUserId;
 $apiKey = @$_GET['apiKey'];
 
@@ -19,7 +18,7 @@ require_once "./mailChimp/list/checkAPIKey.php";
 require_once ".../../../Controller/mailChimpConfig.php";
 require_once ".../../../Controller/mailChimpService.php";
 
-$mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
+$mailChimpSubDomainInit = 'us19.';
 
 $checkAPIKey = new checkAPIKey();
 $result = $checkAPIKey->key($apiKey,$mailChimpSubDomainInit);
