@@ -10,10 +10,11 @@
 	class unSubUser {
 
         public function unSubUserFun($emplEmail,$emplName,$mailChimpApiKey) {
+
             $mailChimpService = new MailChimpService();
             $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
-            $mailChimpApiKey = $mailChimpApiKey;
-            $list_id = "90f16d312b";
+            // $mailChimpApiKey = $mailChimpApiKey;
+            $list_id = "d5669354b9";
 
             $unSubAPI = new unSubAPI();
             $result = $unSubAPI->unSubscribeUser($emplEmail,$emplName,$mailChimpApiKey,$mailChimpSubDomainInit,$list_id);
@@ -22,7 +23,6 @@
             $result = json_decode($result, true);
             $responseArr = array();
             $responseArr = $result;
-            // print_r($result);
             // echo $responseArr['status'];
             // echo $responseArr['detail'];
 
@@ -32,7 +32,7 @@
             }
             else {
                 $responseArr['status'] = false;
-                $responseArr['reason'] = $responseArr['detail'];
+                $responseArr['reason'] = $result['detail'];
                 return $responseArr;
             }
 
