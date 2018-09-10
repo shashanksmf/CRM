@@ -148,7 +148,15 @@ class GroupController{
                 // create SegmentId using MailchimpApi
                 $mailChimpService = new MailChimpService();
                 $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
-                $mailChimpApiKey = $mailChimpService->mailChimpApiKey = "4491400840fa4bf0236f5712be1959f9-us19";
+                $sql="SELECT DISTINCT APIKEY FROM mailchimp_createlist_details WHERE type='MailChimpList'";
+                $result = $conn->query($sql);
+                if (@mysqli_num_rows($result) > 0) {
+                		$i = 0;
+                		while($row = $result->fetch_assoc()) {
+
+                				$mailChimpApiKey=$row['APIKEY'];
+                		}
+                	}
                 $list_id = $mailChimpService->list_id = "d5669354b9";
                 $membersEmailArr = array();
                 $log = array();
@@ -162,7 +170,7 @@ class GroupController{
                 $segId = array_key_exists("id", $createSegReqArr) ? $createSegReqArr['id'] : NULL;
                 $log['createSegment'] = is_null($createSegReq) ? "" : json_decode($createSegReq);
 
-                
+
                 $sql = "INSERT INTO ".StaticDBCon::$dbname.".group (name, details, admin, members, membersCount, createdOn,segId)
                 VALUES ('".$name."','".$details."','".$admin."','".$members."','".$membersCount."','".$createdOn."','".$segId."')";
                 //echo 'Query : '.$sql;
@@ -207,7 +215,15 @@ class GroupController{
             $membersCount = "";
             $mailChimpService = new MailChimpService();
             $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
-            $mailChimpApiKey = $mailChimpService->mailChimpApiKey ="4491400840fa4bf0236f5712be1959f9-us19";
+            $sql="SELECT DISTINCT APIKEY FROM mailchimp_createlist_details WHERE type='MailChimpList'";
+            $result = $conn->query($sql);
+            if (@mysqli_num_rows($result) > 0) {
+            		$i = 0;
+            		while($row = $result->fetch_assoc()) {
+
+            				$mailChimpApiKey=$row['APIKEY'];
+            		}
+            	}
             $list_id = $mailChimpService->list_id = "d5669354b9";
 
             $conn = new mysqli(StaticDBCon::$servername, StaticDBCon::$username, StaticDBCon::$password, StaticDBCon::$dbname);
