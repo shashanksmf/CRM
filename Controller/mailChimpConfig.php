@@ -16,7 +16,7 @@ class MailChimpConfig {
 
     //public $mailChimpApiKey = getenv("mailChimpApiKey");
     public $mailChimpApiKey;
-    public static $mailChimpSubDomainInit = 'us14.';
+    public static $mailChimpSubDomainInit = 'us19.';
     //public $list_id = getenv('mailChimpListId');
     public $list_id ;
     public static $emailFromName = "Admin Raffia";
