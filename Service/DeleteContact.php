@@ -26,8 +26,15 @@ if($conn->connect_error) {
 	exit(json_encode($responseArr));
 }
 
+$sql="SELECT DISTINCT APIKEY FROM mailchimp_createlist_details WHERE type='MailChimpList'";
+$result = $conn->query($sql);
+if (@mysqli_num_rows($result) > 0) {
+		$i = 0;
+		while($row = $result->fetch_assoc()) {
 
-$mailChimpApiKey="4491400840fa4bf0236f5712be1959f9-us19";
+				$mailChimpApiKey=$row['APIKEY'];
+		}
+	}
 if(isset($emplId) && !empty($emplId)) {
 
 // 	$unSubSql = "UPDATE `employee` set isSubscribed = 0 WHERE id=4";
