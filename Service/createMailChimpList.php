@@ -40,8 +40,8 @@ $email_type_option=@$_GET['email_type_option'];
 $date=date("Y-m-d");
 
   $mailChimpService = new MailChimpService();
-  $mailChimpSubDomainInit = MailChimpConfig::$mailChimpSubDomainInit;
-  $mailChimpApiKey = $mailChimpService->mailChimpApiKey = $apiKey;
+  $mailChimpSubDomainInit = 'us19.';
+  $mailChimpApiKey = $mailChimpService->mailChimpApiKey =$apiKey;
   $contactDetails=array('company'=>$company,'address1'=>$address1,'address2'=>$address2,'city'=>$city,
   'state'=>$state,'zip'=>$zip,'country'=>$country,'phone'=>$phone);
   $campaign_defaults=array('from_name'=>$from_name,
